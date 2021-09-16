@@ -3,28 +3,17 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>java-cloud</artifactId>
+        <artifactId>java-code</artifactId>
         <groupId>com.zukxu</groupId>
         <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>java-code</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>algorithm</module>
-    </modules>
+    <artifactId>algorithm</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
-    <dependencies>
-        <dependency>
-            <groupId>com.zukxu</groupId>
-            <artifactId>common-code</artifactId>
-        </dependency>
-
-    </dependencies>
 
 </project>
