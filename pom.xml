@@ -12,6 +12,7 @@
         <module>spring-code</module>
         <module>view-code</module>
         <module>other-code</module>
+        <module>common-code</module>
     </modules>
     <packaging>pom</packaging>
     <description>项目收集汇总</description>
