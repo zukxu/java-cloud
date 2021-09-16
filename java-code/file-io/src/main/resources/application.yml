@@ -1,0 +1,6 @@
+server:
+  port: 30001
+
+file:
+  virtualPath: /file
+  uploadPath: E:/temp/file-io
