@@ -79,6 +79,11 @@
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.zukxu</groupId>
+                <artifactId>common-code</artifactId>
+                <version>${cloud.version}</version>
+            </dependency>
 
         </dependencies>
     </dependencyManagement>
