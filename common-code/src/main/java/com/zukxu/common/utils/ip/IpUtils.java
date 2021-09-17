@@ -1,4 +1,4 @@
-package com.zukxu.common.utils;
+package com.zukxu.common.utils.ip;
 
 import javax.servlet.http.HttpServletRequest;
 

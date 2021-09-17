@@ -1,6 +1,6 @@
 package com.zukxu.common.utils.file;
 
-import com.zukxu.common.utils.ArrayUtils;
+import com.zukxu.common.utils.array.ArrayUtils;
 
 /**
  * @author xupu

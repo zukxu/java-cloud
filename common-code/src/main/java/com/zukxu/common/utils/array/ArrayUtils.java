@@ -1,4 +1,4 @@
-package com.zukxu.common.utils;
+package com.zukxu.common.utils.array;
 
 import cn.hutool.core.util.ArrayUtil;
 
