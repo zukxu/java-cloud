@@ -1,0 +1,9 @@
+jasypt:
+  encryptor:
+    password: $#zukxu1514396$#
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/db1?useSSL=false&useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&ze oDateTimeBehavior=convertToNull&serverTimezone=Asia/Shanghai
+    username: root
+    password: ENC(mVTvp4IddqdaYGqPl9lCQbzM3H/b0B6l)
