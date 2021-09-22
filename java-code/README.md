@@ -4,7 +4,7 @@
   - [ ] 排序算法
   - [x] 树
   - [ ] 图
-  - [ ] 栈
+  - [x] 栈
   - [ ] 队列
   - [ ] 链表
 - design-pattern: 设计模式
@@ -16,11 +16,14 @@
     - [ ] 原型模式
   - 结构型
   - 行为型
-    - [x] 策略模式
-    
+    - [x] 策略模式    
 - file-io: 文件相关
   - file: io和文件上传
   - image: java bufferedImage
-  - java8: 学习java8的特性 
-    - [x] lambda
-    - [x] stream
+- java8: 学习java8的特性 
+  - [x] lambda
+  - [x] stream
+  - [x] optional
+  - [x] thread
+- jsoup: Java爬虫
+  - [x] java爬虫

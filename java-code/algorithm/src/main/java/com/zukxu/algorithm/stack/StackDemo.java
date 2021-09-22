@@ -1,4 +1,4 @@
-package com.zukxu.java8.stack;
+package com.zukxu.algorithm.stack;
 
 import java.util.Arrays;
 import java.util.Stack;
