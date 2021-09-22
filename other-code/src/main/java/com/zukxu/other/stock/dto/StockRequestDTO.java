@@ -1,11 +1,11 @@
-package com.zukxu.java8.thread.dto;
+package com.zukxu.other.stock.dto;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
 
 /**
  * <p>
- *
+ * 库存防超卖
  * </p>
  *
  * @author zukxu
@@ -14,6 +14,6 @@ import lombok.experimental.Accessors;
 @Data
 @Accessors(chain = true)
 public class StockRequestDTO {
-	String goodsId;
-	int num;
+    String goodsId;
+    int num;
 }
