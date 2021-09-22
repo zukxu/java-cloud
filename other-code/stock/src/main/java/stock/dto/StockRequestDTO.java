@@ -1,4 +1,4 @@
-package com.zukxu.other.stock.dto;
+package stock.dto;
 
 import lombok.Data;
 import lombok.experimental.Accessors;

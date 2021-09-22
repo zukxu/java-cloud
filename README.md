@@ -6,7 +6,7 @@
 
 - common-code: 通用代码，将一些常用的工具类等放在该模块中
 - java-code: java模块,主要是汇总一些Java学习笔记
-- other-code：其余代码
+- other-code：其余收集学习的代码
 - spring-code：spring相关
 - view-code：前端相关
 - ……

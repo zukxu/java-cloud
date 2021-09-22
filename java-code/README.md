@@ -26,4 +26,5 @@
   - [x] optional
   - [x] thread
 - jsoup: Java爬虫
-  - [x] java爬虫
+  - [x] 图片爬取
+  - [ ] 文本爬取
