@@ -33,3 +33,5 @@
   - [x] spring context关闭
   - [x] shell脚本关闭
   - [x] 调用SpringApplication.exit()方法
+- thread: 多线程学习
+- 
