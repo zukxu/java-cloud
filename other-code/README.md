@@ -11,3 +11,5 @@
 - interface-idempotence: 接口幂等性测试
 - luo-pan-time: 罗盘时钟
 - echarts-map: echarts整合
+- dataway: hasor 框架,一站式生成代码
+  - 官网：https://www.hasor.net/doc/

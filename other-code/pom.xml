@@ -18,6 +18,7 @@
         <module>face-recognition</module>
         <module>interface-idempotence</module>
         <module>echarts-map</module>
+        <module>dataWay</module>
     </modules>
 
     <properties>
