@@ -57,7 +57,7 @@ ConfigurableApplicationContext ctx=SpringApplication.run(ElegantDowntimeApplicat
 
 ## 第四种
 
-通过调用一个SpringApplication.exit(）方法进行退出程序
+通过调用一个SpringApplication.exit()方法进行退出程序
 
 核心代码
 

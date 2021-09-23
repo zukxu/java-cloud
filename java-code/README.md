@@ -30,4 +30,6 @@
   - [ ] 文本爬取
 - java-shutdown: 优雅停机的实现
   - [x] spring-actuator实现
-  - [x] spring
+  - [x] spring context关闭
+  - [x] shell脚本关闭
+  - [x] 调用SpringApplication.exit()方法
