@@ -28,3 +28,6 @@
 - jsoup: Java爬虫
   - [x] 图片爬取
   - [ ] 文本爬取
+- java-shutdown: 优雅停机的实现
+  - [x] spring-actuator实现
+  - [x] spring
