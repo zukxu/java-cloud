@@ -1,2 +1,19 @@
 server:
   port: 9999
+
+#qrcode configs
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/little-tools?characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123456
+
+# mybatis-plus配置
+mybatis-plus:
+  # 扫描mapper.xml文件
+  mapper-locations: classpath:/mapper/*Mapper.xml
+  # 扫描实体类
+  typeAliasesPackage: com.socket.bean
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

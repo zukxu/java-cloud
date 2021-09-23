@@ -13,4 +13,6 @@
   - 生成订单，30分钟未支付就进行取消订单
 - alipay: 整合支付宝支付
   - 整合整个支付宝的请求到项目中，本次所使用的为沙箱环境
-- websocket: 整合websocket，建立长连接
+- websocket: 整合websocket
+  - websocket: 建立长连接，可用于推送消息
+  - qrcode: 二维码扫描登录
