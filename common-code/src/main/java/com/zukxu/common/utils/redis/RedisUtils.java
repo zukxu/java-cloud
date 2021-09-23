@@ -1,6 +1,5 @@
 package com.zukxu.common.utils.redis;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.DataType;
 import org.springframework.data.redis.core.Cursor;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -19,8 +18,6 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class RedisUtils {
 	private final RedisTemplate<String, String> redisTemplate;
-
-	@Autowired
 	public RedisUtils(RedisTemplate<String, String> redisTemplate) {this.redisTemplate = redisTemplate;}
 
 	/*-------------------字符串操作--------opsForValue-----------------*/
