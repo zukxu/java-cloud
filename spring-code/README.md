@@ -10,3 +10,6 @@
 - classloader：实现代码防止反编译
   - https://mp.weixin.qq.com/s/2NboThd7TyaSPkHfEihENQ
 - redis-order-timeout: 使用redis实现订单超时处理
+  - 生成订单，30分钟未支付就进行取消订单
+- alipay: 整合支付宝支付
+  - 整合整个支付宝的请求到项目中，本次所使用的为沙箱环境
