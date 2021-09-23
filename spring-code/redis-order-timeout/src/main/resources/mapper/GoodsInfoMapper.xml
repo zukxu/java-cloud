@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zukxu.orderdemo.mapper.GoodsInfoMapper">
+    <resultMap id="BaseResultMap" type="com.zukxu.orderdemo.entity.GoodsInfo">
+        <!--@mbg.generated-->
+        <!--@Table dsppm_goods_info-->
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="create_by" jdbcType="VARCHAR" property="createBy"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_by" jdbcType="VARCHAR" property="updateBy"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="enable" jdbcType="BOOLEAN" property="enable"/>
+        <result column="seller_id" jdbcType="VARCHAR" property="sellerId"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="preview_img" jdbcType="LONGVARCHAR" property="previewImg"/>
+        <result column="images" jdbcType="LONGVARCHAR" property="images"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="status" jdbcType="SMALLINT" property="status"/>
+        <result column="type_id" jdbcType="VARCHAR" property="typeId"/>
+        <result column="brand_id" jdbcType="VARCHAR" property="brandId"/>
+        <result column="is_shelf" jdbcType="SMALLINT" property="isShelf"/>
+        <result column="detail" jdbcType="LONGVARCHAR" property="detail"/>
+        <result column="page_views" jdbcType="BIGINT" property="pageViews"/>
+        <result column="sale" jdbcType="BIGINT" property="sale"/>
+        <result column="original_price" jdbcType="DECIMAL" property="originalPrice"/>
+        <result column="active_price" jdbcType="DECIMAL" property="activePrice"/>
+        <result column="produce_date" jdbcType="DATE" property="produceDate"/>
+        <result column="quality_date" jdbcType="VARCHAR" property="qualityDate"/>
+        <result column="expiration_time" jdbcType="DATE" property="expirationTime"/>
+        <result column="stock" jdbcType="BIGINT" property="stock"/>
+        <result column="unit" jdbcType="VARCHAR" property="unit"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, remark, create_by, create_time, update_by, update_time, `enable`, seller_id,
+        `name`, title, preview_img, images, url, `status`, type_id, brand_id, is_shelf, detail,
+        page_views, sale, original_price, active_price, produce_date, quality_date, expiration_time,
+        stock, unit
+    </sql>
+    <update id="updateStock">
+        update dsppm_goods_info
+        set stock=stock + (#{count})
+        where id = #{id};
+    </update>
+</mapper>

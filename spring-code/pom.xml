@@ -15,6 +15,7 @@
         <module>email</module>
         <module>excel</module>
         <module>jasypt</module>
+        <module>redis-order-timeout</module>
     </modules>
 
     <properties>

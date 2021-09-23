@@ -15,13 +15,13 @@ import java.util.List;
  * @since 2020-09-15
  */
 public interface IBlogCommentService extends IService<BlogComment> {
-	/**
-	 * 分页接口
-	 *
-	 * @param current 当前页
-	 * @param size    数量
-	 * @param blogId 视频id
-	 * @return list
-	 */
-	List<BlogCommentDTO> pageInfo(Integer current, Integer size, String blogId);
+    /**
+     * 分页接口
+     *
+     * @param current 当前页
+     * @param size    数量
+     * @param blogId  视频id
+     * @return list
+     */
+    List<BlogCommentDTO> pageInfo(Integer current, Integer size, String blogId);
 }

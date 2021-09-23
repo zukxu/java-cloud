@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zukxu.orderdemo.mapper.TypeInfoMapper">
+  <resultMap id="BaseResultMap" type="com.zukxu.orderdemo.entity.TypeInfo">
+    <!--@mbg.generated-->
+    <!--@Table dsppm_type_info-->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="enable" jdbcType="BOOLEAN" property="enable" />
+    <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
+    <result column="path" jdbcType="LONGVARCHAR" property="path" />
+    <result column="label" jdbcType="VARCHAR" property="label" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="value" jdbcType="VARCHAR" property="value" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, remark, create_by, create_time, update_by, update_time, `enable`, parent_id, 
+    `path`, `label`, code, icon, sort, `value`
+  </sql>
+</mapper>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zukxu.orderdemo.mapper.OrderInfoMapper">
+    <resultMap id="BaseResultMap" type="com.zukxu.orderdemo.entity.OrderInfo">
+        <!--@mbg.generated-->
+        <!--@Table dsppm_order_info-->
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="create_by" jdbcType="VARCHAR" property="createBy"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_by" jdbcType="VARCHAR" property="updateBy"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="enable" jdbcType="BOOLEAN" property="enable"/>
+        <result column="order_status" jdbcType="SMALLINT" property="orderStatus"/>
+        <result column="commodity_id" jdbcType="VARCHAR" property="commodityId"/>
+        <result column="spec_id" jdbcType="VARCHAR" property="specId"/>
+        <result column="commodity_name" jdbcType="VARCHAR" property="commodityName"/>
+        <result column="commodity_price" jdbcType="DECIMAL" property="commodityPrice"/>
+        <result column="commodity_unit" jdbcType="VARCHAR" property="commodityUnit"/>
+        <result column="count" jdbcType="INTEGER" property="count"/>
+        <result column="order_amount" jdbcType="DECIMAL" property="orderAmount"/>
+        <result column="discount_amount" jdbcType="DECIMAL" property="discountAmount"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="receiver" jdbcType="VARCHAR" property="receiver"/>
+        <result column="receiver_phone" jdbcType="VARCHAR" property="receiverPhone"/>
+        <result column="transaction_id" jdbcType="VARCHAR" property="transactionId"/>
+        <result column="is_revise" jdbcType="SMALLINT" property="isRevise"/>
+        <result column="price_revision" jdbcType="DECIMAL" property="priceRevision"/>
+        <result column="revise_by" jdbcType="VARCHAR" property="reviseBy"/>
+        <result column="revise_time" jdbcType="TIMESTAMP" property="reviseTime"/>
+        <result column="finish_time" jdbcType="TIMESTAMP" property="finishTime"/>
+        <result column="user_id" jdbcType="VARCHAR" property="userId"/>
+        <result column="business_id" jdbcType="VARCHAR" property="businessId"/>
+        <result column="order_type" jdbcType="INTEGER" property="orderType"/>
+        <result column="auction_id" jdbcType="VARCHAR" property="auctionId"/>
+        <result column="group_buying_id" jdbcType="VARCHAR" property="groupBuyingId"/>
+        <result column="pay_type" jdbcType="VARCHAR" property="payType"/>
+        <result column="group_id" jdbcType="VARCHAR" property="groupId"/>
+        <result column="is_group" jdbcType="SMALLINT" property="isGroup"/>
+        <result column="is_evaluation" jdbcType="SMALLINT" property="isEvaluation"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, remark, create_by, create_time, update_by, update_time, `enable`, order_status,
+        commodity_id, spec_id, commodity_name, commodity_price, commodity_unit, `count`,
+        order_amount, discount_amount, address, receiver, receiver_phone, transaction_id,
+        is_revise, price_revision, revise_by, revise_time, finish_time, user_id, business_id,
+        order_type, auction_id, group_buying_id, pay_type, group_id, is_group, is_evaluation
+    </sql>
+</mapper>

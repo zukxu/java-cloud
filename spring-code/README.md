@@ -9,3 +9,4 @@
   - [x] aop实现加解密
 - classloader：实现代码防止反编译
   - https://mp.weixin.qq.com/s/2NboThd7TyaSPkHfEihENQ
+- redis-order-timeout: 使用redis实现订单超时处理

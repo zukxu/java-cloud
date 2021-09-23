@@ -1,4 +1,4 @@
-package com.zukxu.comment.model;
+package com.zukxu.comment.entity.model;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
