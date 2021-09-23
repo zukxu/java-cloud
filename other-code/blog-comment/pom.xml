@@ -3,19 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>java-cloud</artifactId>
+        <artifactId>other-code</artifactId>
         <groupId>com.zukxu</groupId>
         <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>other-code</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>pinyin4j</module>
-        <module>stock</module>
-        <module>blog-comment</module>
-    </modules>
+    <artifactId>blog-comment</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -23,9 +17,17 @@
     </properties>
     <dependencies>
         <dependency>
-            <groupId>com.zukxu</groupId>
-            <artifactId>common-code</artifactId>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+        </dependency>
     </dependencies>
 </project>

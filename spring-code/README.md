@@ -5,4 +5,7 @@
   - 整合easy excel api实现对excel的操作
   - 具体的easyexcel学习可以参考：[excel学习教程](https://gitee.com/zukxupu/excel-tools.git)
 - jasypt
-  - 敏感数据加密
+  - [x] 敏感数据加密
+  - [x] aop实现加解密
+- classloader：实现代码防止反编译
+  - https://mp.weixin.qq.com/s/2NboThd7TyaSPkHfEihENQ

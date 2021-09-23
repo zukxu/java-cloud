@@ -11,8 +11,8 @@ public class FileType {
     public static final String[] IMG_TYPE = {"jpg", "jpeg", "png", "webp", "bmp", "gif"};
     public static final String[] TXT_TYPE = {"text", "json", "xml", "yaml", "yml", "html", "properties"};
     public static final String[] AUDIO_TYPE = {"mp3"};
-    public static final String[] VIDEO_TYPE = {"mp4"};
+    public static final String[] blog_TYPE = {"mp4"};
     public static final String[] FORBID_TYPE = {"exe", "bin"};
-    public static final String[] ALL_TYPE = ArrayUtils.addAll(IMG_TYPE, TXT_TYPE, AUDIO_TYPE, VIDEO_TYPE);
+    public static final String[] ALL_TYPE = ArrayUtils.addAll(IMG_TYPE, TXT_TYPE, AUDIO_TYPE, blog_TYPE);
 
 }
