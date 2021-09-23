@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zukxu.shiro.mapper.PermissionMapper">
+    <resultMap id="BaseResultMap" type="com.zukxu.shiro.entity.Permission">
+        <!--@mbg.generated-->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="permission" jdbcType="VARCHAR" property="permission"/>
+        <result column="desc" jdbcType="VARCHAR" property="desc"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,
+        permission,
+        `desc`
+    </sql>
+    <select id="findByRoleIds" resultType="java.lang.String">
+        select r.permission
+        from shiro_permission r,
+             shiro_role_permission rp
+                where rp.permission_id = p.id
+                  and rp.role_id in
+        <foreach close=")" collection="roleIds" item="id" open="(" separator=",">
+            #{id}
+        </foreach>
+    </select>
+</mapper>

@@ -5,3 +5,5 @@
 - rabbitmq: 学习rabbitmq
 - minio: 学习minio
 - es: elastic search 学习
+- shiro: shiro 学习
+- security: spring security学习
