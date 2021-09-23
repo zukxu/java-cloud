@@ -9,4 +9,5 @@
 - face-recognition: 人脸识别
   - https://www.faceplusplus.com.cn/
 - interface-idempotence: 接口幂等性测试
-- 
+- luo-pan-time: 罗盘时钟
+- echarts-map: echarts整合

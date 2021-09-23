@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>世界疫情</title>
+  <link rel="stylesheet" href="../static/css/world01.css" th:href="@{/css/world01.css}">
+</head>
+<body>
+<div id="title">
+  <span class="time"></span>
+  世界疫情实时展示
+  <a class="link01" href="china.html" th:href="@{/china}" target="_blank">| 中国疫情展示</a>
+  <a class="link02" href="https://news.qq.com/zt2020/page/feiyan.htm?from=timeline&isappinstalled=0#/" target="_blank" >数据来源：腾讯新闻</a>
+</div>
+
+<div id="left1" ></div>
+<div id="left2" ></div>
+
+<script src="../static/plugins/jquery/jquery.min.js" th:src="@{/plugins/jquery/jquery.min.js}"></script>
+<script src="../static/plugins/echarts/echarts.min.js" th:src="@{/plugins/echarts/echarts.min.js}"></script>
+<script src="../static/plugins/echarts/world.js" th:src="@{/plugins/echarts/world.js}"></script>
+<script src="../static/js/world01.js" th:src="@{/js/world01.js}"></script>
+</body>
+</html>
