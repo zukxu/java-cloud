@@ -8,3 +8,5 @@
   - 两段式评论，将回复和评论都放在一张表中
 - face-recognition: 人脸识别
   - https://www.faceplusplus.com.cn/
+- interface-idempotence: 接口幂等性测试
+- 

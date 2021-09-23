@@ -1,8 +1,7 @@
 package com.zukxu.order.listener;
 
-import com.zukxu.orderdemo.entity.OrderInfo;
-import com.zukxu.orderdemo.service.IOrderInfoService;
-import com.zukxu.orderdemo.service.IStockService;
+import com.zukxu.order.entity.OrderInfo;
+import com.zukxu.order.service.IOrderInfoService;
 import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,8 +10,6 @@ import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.listener.KeyExpirationEventMessageListener;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.stereotype.Component;
-
-import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -28,8 +25,6 @@ public class RedisKeyExpirationListener extends KeyExpirationEventMessageListene
 	private final Logger logger = LoggerFactory.getLogger(RedisKeyExpirationListener.class);
 	@Autowired
 	IOrderInfoService orderInfoService;
-	@Autowired
-	IStockService stockService;
 
 	public RedisKeyExpirationListener(RedisMessageListenerContainer listenerContainer) {
 		super(listenerContainer);
@@ -51,10 +46,8 @@ public class RedisKeyExpirationListener extends KeyExpirationEventMessageListene
 			OrderInfo byId = orderInfoService.getById(orderId);
 			assert byId != null;
 			byId.setOrderStatus(4);
-			byId.setUpdateBy("1");
-			byId.setUpdateTime(LocalDateTime.now());
 			//归还库存
-			boolean stock = stockService.calculateStock(byId.getCommodityId(), byId.getSpecId(), byId.getCount());
+			boolean stock = true;
 			if (stock) {
 				logger.info("归还库存成功");
 				orderInfoService.updOrderStatus(byId);
