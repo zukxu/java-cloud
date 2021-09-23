@@ -16,3 +16,4 @@
 - websocket: 整合websocket
   - websocket: 建立长连接，可用于推送消息
   - qrcode: 二维码扫描登录
+- validator: 参数校验集成

@@ -10,7 +10,8 @@ import lombok.Getter;
 @Getter
 public enum RStatus {
     OK(200, "请求成功"),
-    FAIL(500, "请求失败");
+    FAIL(500, "请求失败"),
+    PARAM_ERROR(501, "参数错误");
 
     private int code;
     private String message;
