@@ -24,7 +24,7 @@
 
         <cloud.version>1.0.0</cloud.version>
         <spring-boot.version>2.5.4</spring-boot.version>
-        <mybatis.version>2.2.0</mybatis.version>
+        <mybatis-plus.version>3.4.3.3</mybatis-plus.version>
         <druid.version>1.2.6</druid.version>
         <knife4j.version>3.0.3</knife4j.version>
         <kaptcha.version>2.3.2</kaptcha.version>
@@ -41,11 +41,11 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <!-- mybatis-spring-boot-starter -->
+            <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-boot-starter -->
             <dependency>
-                <groupId>org.mybatis.spring.boot</groupId>
-                <artifactId>mybatis-spring-boot-starter</artifactId>
-                <version>${mybatis.version}</version>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
             </dependency>
 
             <!--TOOLS DEPENDENCY-->
