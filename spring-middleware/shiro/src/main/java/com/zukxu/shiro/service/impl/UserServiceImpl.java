@@ -20,7 +20,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 	private UserMapper userMapper;
 
 	@Override
-	public User findByAccount(String account) {
-		return userMapper.findByAccount(account);
+	public User findByUsername(String username) {
+		return userMapper.findByUsername(username);
 	}
 }

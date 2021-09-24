@@ -15,8 +15,8 @@ public interface UserMapper extends BaseMapper<User> {
     /**
      * 通过用户名查询用户信息
      *
-     * @param account
+     * @param username
      * @return
      */
-    User findByAccount(@Param("account") String account);
+    User findByUsername(@Param("username") String username);
 }

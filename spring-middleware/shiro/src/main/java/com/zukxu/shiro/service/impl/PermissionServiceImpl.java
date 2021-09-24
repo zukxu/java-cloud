@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * ${END}
@@ -22,7 +23,7 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
 	private PermissionMapper permissionMapper;
 
 	@Override
-	public List<String> findByRoleId(List<Integer> roleIds) {
+	public Set<String> findByRoleIds(List<Integer> roleIds) {
 		return permissionMapper.findByRoleIds(roleIds);
 	}
 }

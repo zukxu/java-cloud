@@ -2,6 +2,7 @@ package com.zukxu.shiro.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zukxu.shiro.entity.RolePermission;
+import com.zukxu.shiro.mapper.RolePermissionMapper;
 import com.zukxu.shiro.service.RolePermissionService;
 import org.springframework.stereotype.Service;
 

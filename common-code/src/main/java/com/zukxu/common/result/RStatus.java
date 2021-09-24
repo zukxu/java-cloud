@@ -11,8 +11,14 @@ import lombok.Getter;
 public enum RStatus {
     OK(200, "请求成功"),
     FAIL(500, "请求失败"),
-    PARAM_ERROR(501, "参数错误");
-
+    PARAM_ERROR(501, "参数错误"),
+    //账号相关
+    ACCOUNT_NOT_EXIST(11, "账号不存在"),
+    DUPLICATE_ACCOUNT(12, "账号重复"),
+    ACCOUNT_IS_DISABLED(13, "账号被禁用"),
+    INCORRECT_CREDENTIALS(14, "账号或密码错误"),
+    NOT_LOGIN_IN(15, "账号未登录"),
+    UNAUTHORIZED(16, "账号没有权限");
     private int code;
     private String message;
 

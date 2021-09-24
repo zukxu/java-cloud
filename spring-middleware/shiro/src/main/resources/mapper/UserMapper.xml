@@ -14,10 +14,10 @@
         username,
         account
     </sql>
-    <select id="findByAccount" resultMap="BaseResultMap">
+    <select id="findByUsername" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from shiro_user
-        where account = #{account}
+        where account = #{username}
     </select>
 </mapper>

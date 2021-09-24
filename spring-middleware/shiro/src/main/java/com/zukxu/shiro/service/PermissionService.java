@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.zukxu.shiro.entity.Permission;
 
 import java.util.List;
+import java.util.Set;
 
 /**
   * ${END}
@@ -14,5 +15,5 @@ import java.util.List;
  */
 public interface PermissionService extends IService<Permission>{
 
-	public List<String> findByRoleId(List<Integer> roleIds);
+	public Set<String> findByRoleIds(List<Integer> roleIds);
 }
