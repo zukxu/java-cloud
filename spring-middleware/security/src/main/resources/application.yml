@@ -1,0 +1,7 @@
+server:
+  port: 29898
+spring:
+  security:
+    user:
+      name: admin
+      password: 12345
