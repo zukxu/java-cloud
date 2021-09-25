@@ -37,6 +37,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().anyRequest().authenticated().and() //所有请求都需要认证才能访问
             .formLogin().loginPage("/login.html")//配置登陆页面路径，如果不配置登录接口.loginProcessingUrl()，那么登录接口也是配置的登录页
+            .loginProcessingUrl("doLogin")//配置登录接口
+            //.usernameParameter("name")//配置用户名的参数名称
+            //.passwordParameter("pasd")//配置密码的参数名称
             .permitAll()//和登录相关的页面全部都放行
             .and().csrf().disable()//关闭csrf
         ;
