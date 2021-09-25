@@ -25,19 +25,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-            .withUser("admin11")
-            .password("12345")
-            .roles("admin");
+        auth.inMemoryAuthentication().withUser("admin11").password("12345").roles("admin");
     }
 
     @Override
-    public void configure(WebSecurity web) throws Exception {
-        super.configure(web);
+    public void configure(WebSecurity web) {
+        web.ignoring().antMatchers("/js/**", "/css/**", "/images/**");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        super.configure(http);
+        http.authorizeRequests().anyRequest().authenticated().and() //所有请求都需要认证才能访问
+            .formLogin().loginPage("/login.html")//配置登陆页面路径，如果不配置登录接口.loginProcessingUrl()，那么登录接口也是配置的登录页
+            .permitAll()//和登录相关的页面全部都放行
+            .and().csrf().disable()//关闭csrf
+        ;
     }
 }
