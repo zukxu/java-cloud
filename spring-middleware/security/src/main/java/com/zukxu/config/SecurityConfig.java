@@ -1,5 +1,6 @@
 package com.zukxu.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -9,6 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import java.io.PrintWriter;
 
 /**
  * @author xupu
@@ -41,21 +44,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .loginProcessingUrl("/doLogin")//配置登录接口
             .usernameParameter("name")//配置用户名的参数名称
             .passwordParameter("passwd")//配置密码的参数名称
+            .successHandler((req, resp, auth) -> {//auth: 当前登录成功的用户信息
+                resp.setContentType("application/json;charset=utf-8");
+                PrintWriter writer = resp.getWriter();
+                writer.write(new ObjectMapper().writeValueAsString(auth.getPrincipal()));
+                writer.flush();
+                writer.close();
+            }).failureHandler((req, resp, exception) -> {
+                resp.setContentType("application/json;charset=utf-8");
+                PrintWriter writer = resp.getWriter();
+                writer.write(new ObjectMapper().writeValueAsString(exception.getMessage()));
+                writer.flush();
+                writer.close();
+            })
             //.successForwardUrl("/success")//登录成功后跳转的接口,服务端跳转
-            .defaultSuccessUrl("/success")//配置默认的成功跳转接口，链接是客户端跳转，和successForwardUrl只需配置一个即可
+            //.defaultSuccessUrl("/success")//配置默认的成功跳转接口，链接是客户端跳转，和successForwardUrl只需配置一个即可
             //.failureForwardUrl("/fail")//登录失败后跳转的接口，服务端跳转
-            .failureUrl("/fail")//客户端跳转
+            //.failureUrl("/fail")//客户端跳转
             .permitAll()//和登录相关的页面全部都放行
-            .and()
-            .logout()
+            .and().logout()
             //.logoutRequestMatcher(new AntPathRequestMatcher("/logout", "POST"))//配置logout的接口和请求方式, 默认是/logout和get请求
             .logoutRequestMatcher(new AntPathRequestMatcher("/logout111", "GET"))//配置logout的接口和请求方式, 默认是/logout和get请求
             .logoutSuccessUrl("/login.html")//注销后跳转的页面
             .deleteCookies()//清除cookie
             .invalidateHttpSession(true)//清除session,默认true
             .clearAuthentication(true)//清除认证, 默认true
-            .and()
-            .csrf().disable()//关闭csrf
+            .and().csrf().disable()//关闭csrf
         ;
     }
 }
