@@ -1,6 +1,7 @@
 package com.zukxu.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.zukxu.jpa.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,14 +11,9 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import org.springframework.security.provisioning.JdbcUserDetailsManager;
 
-import javax.sql.DataSource;
 import java.io.PrintWriter;
 
 /**
@@ -42,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-    @Autowired
+    /*@Autowired
     DataSource dataSource;
 
     @Override
@@ -58,7 +54,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         }
         return manager;
     }
-
+*/
+    @Autowired
+    UserService userService;
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         /*auth.inMemoryAuthentication()
@@ -69,6 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .withUser("user1")
             .password("123456")
             .roles("user");*/
+        auth.userDetailsService(userService);
     }
 
     @Override
