@@ -1,7 +1,7 @@
 package com.zukxu.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.mysql.cj.jdbc.MysqlDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
@@ -10,10 +10,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
+import org.springframework.security.provisioning.UserDetailsManager;
 
 import javax.sql.DataSource;
 import java.io.PrintWriter;
@@ -39,23 +40,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return hierarchy;
     }
 
-    @Autowired
-    DataSource datasource;
-
     @Bean
-    @Override
-    protected UserDetailsService userDetailsService() {
+    DataSource datasource() {
+        return new MysqlDataSource();
+    }
+    @Bean
+    UserDetailsManager userDetailsService(DataSource datasource) {
         //InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
         //manager.createUser(User.withUsername("admin").password("123456").roles("admin").build());
         //manager.createUser(User.withUsername("user1").password("123456").roles("user").build());
 
         JdbcUserDetailsManager manager = new JdbcUserDetailsManager(datasource);
-        if (!manager.userExists("zukxu")) {
-            manager.createUser(User.withUsername("zukxu").password("123456").roles("admin").build());
-        }
-        if (!manager.userExists("user1")) {
-            manager.createUser(User.withUsername("user1").password("123456").roles("user").build());
-        }
+        UserDetails admin = User.builder().username("admin").password("123456").roles("ADMIN").build();
+        UserDetails user = User.builder().username("user").password("123456").roles("USER").build();
+        manager.createUser(admin);
+        manager.createUser(user);
         return manager;
     }
 
