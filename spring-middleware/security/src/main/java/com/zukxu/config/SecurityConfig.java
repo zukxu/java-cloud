@@ -13,7 +13,9 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 
+import javax.sql.DataSource;
 import java.io.PrintWriter;
 
 /**
@@ -38,10 +40,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-    /*@Autowired
+    @Autowired
     DataSource dataSource;
 
-    @Override
+    @Bean
+    JdbcTokenRepositoryImpl jdbcTokenRepository() {
+        JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
+        tokenRepository.setDataSource(dataSource);
+        return tokenRepository;
+
+    }
+    /*@Override
     @Bean
     protected UserDetailsService userDetailsService() {
         InMemoryUserDetailsManager detailsManager = new InMemoryUserDetailsManager();
@@ -53,10 +62,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             manager.createUser(User.withUsername("user").password("123456").roles("user").build());
         }
         return manager;
-    }
-*/
+    }*/
+
     @Autowired
     UserService userService;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         /*auth.inMemoryAuthentication()
@@ -123,9 +133,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 writer.write(new ObjectMapper().writeValueAsString("logout"));
                 writer.flush();
                 writer.close();
-            })
-            .and()
-            .rememberMe().key("zukxu").and()//添加记住我功能
+            }).and().rememberMe().key("zukxu").tokenRepository(jdbcTokenRepository()).and()//添加记住我功能
             .csrf().disable()//关闭csrf
         ;
     }
