@@ -1,7 +1,7 @@
 server:
   port: 29898
 spring:
-  security:
-    user:
-      name: admin
-      password: 12345
+  datasource:
+    url: jdbc:mysql://localhost:3306/security_db?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
