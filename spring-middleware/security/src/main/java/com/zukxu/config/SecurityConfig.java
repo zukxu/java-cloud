@@ -86,10 +86,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .authenticated()
             .and() //所有请求都需要认证才能访问
             .formLogin()
-            .loginPage("/login.html")//配置登陆页面路径，如果不配置登录接口.loginProcessingUrl()，那么登录接口也是配置的登录页
-            .loginProcessingUrl("/doLogin")//配置登录接口
-            .usernameParameter("name")//配置用户名的参数名称
-            .passwordParameter("passwd")//配置密码的参数名称
+            //.loginPage("/login.html")//配置登陆页面路径，如果不配置登录接口.loginProcessingUrl()，那么登录接口也是配置的登录页
+            //.loginProcessingUrl("/doLogin")//配置登录接口
+            //.usernameParameter("name")//配置用户名的参数名称
+            //.passwordParameter("passwd")//配置密码的参数名称
             .successHandler((req, resp, auth) -> {//auth: 当前登录成功的用户信息
                 resp.setContentType("application/json;charset=utf-8");
                 PrintWriter writer = resp.getWriter();
@@ -124,7 +124,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 writer.flush();
                 writer.close();
             })
-            .and().csrf().disable()//关闭csrf
+            .and()
+            .rememberMe().key("zukxu").and()//添加记住我功能
+            .csrf().disable()//关闭csrf
         ;
     }
 }
