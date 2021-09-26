@@ -18,8 +18,8 @@ class UserEntityServiceTest {
     @Test
     void contextLoads() {
         UserEntity u1 = new UserEntity();
-        u1.setUsername("javaboy");
-        u1.setPassword("123");
+        u1.setUsername("admin");
+        u1.setPassword("123456");
         u1.setAccountNonExpired(true);
         u1.setAccountNonLocked(true);
         u1.setCredentialsNonExpired(true);
@@ -32,8 +32,8 @@ class UserEntityServiceTest {
         u1.setRoleEntities(rs1);
         userDao.save(u1);
         UserEntity u2 = new UserEntity();
-        u2.setUsername("江南一点雨");
-        u2.setPassword("123");
+        u2.setUsername("user");
+        u2.setPassword("123456");
         u2.setAccountNonExpired(true);
         u2.setAccountNonLocked(true);
         u2.setCredentialsNonExpired(true);
