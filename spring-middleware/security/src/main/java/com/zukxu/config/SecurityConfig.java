@@ -164,6 +164,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and().rememberMe().key("zukxu").tokenRepository(jdbcTokenRepository()).and()//添加记住我功能
             .csrf().disable()//关闭csrf
             .sessionManagement().maximumSessions(1)//配置最大session数为1,后登录会踢掉前一个
+            .maxSessionsPreventsLogin(true)//已登录后不允许再登录
         ;
     }
 }
