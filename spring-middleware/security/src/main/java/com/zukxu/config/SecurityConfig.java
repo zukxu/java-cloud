@@ -18,6 +18,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.session.FindByIndexNameSessionRepository;
 import org.springframework.session.Session;
 import org.springframework.session.security.SpringSessionBackedSessionRegistry;
@@ -171,6 +172,7 @@ public class SecurityConfig<S extends Session> extends WebSecurityConfigurerAdap
             .tokenRepository(jdbcTokenRepository())
             .and()//添加记住我功能
             .csrf()
+            //.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())//前后端分离时，Cookies中返回_csrf参数
             .disable()//关闭csrf
             .sessionManagement()
             .maximumSessions(1)//配置最大session数为1,后登录会踢掉前一个
