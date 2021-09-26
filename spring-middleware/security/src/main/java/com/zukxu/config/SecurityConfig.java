@@ -2,6 +2,7 @@ package com.zukxu.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zukxu.jpa.service.UserService;
+import com.zukxu.security.details.MyWebAuthenticationDetailsSource;
 import com.zukxu.security.provider.MyAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -82,6 +83,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     UserService userService;
+    @Autowired
+    MyWebAuthenticationDetailsSource myWebAuthenticationDetailsSource;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -118,6 +121,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .authenticated()
             .and() //所有请求都需要认证才能访问
             .formLogin()
+            .authenticationDetailsSource(myWebAuthenticationDetailsSource)
             .permitAll()
             //.loginPage("/login.html")//配置登陆页面路径，如果不配置登录接口.loginProcessingUrl()，那么登录接口也是配置的登录页
             //.loginProcessingUrl("/doLogin")//配置登录接口
