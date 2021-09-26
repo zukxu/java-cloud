@@ -1,17 +1,21 @@
 package com.zukxu.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
 
+import javax.sql.DataSource;
 import java.io.PrintWriter;
 
 /**
@@ -34,15 +38,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         hierarchy.setHierarchy("ROLE_admin > ROLE_user");
         return hierarchy;
     }
-   /* @Bean
-    protected UserDetailsService userDetailsService() {
-        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-        manager.createUser(User.withUsername("admin").password("123456").roles("admin").build());
-        manager.createUser(User.withUsername("user1").password("123456").roles("user").build());
-        return manager;
-    }*/
 
+    @Autowired
+    DataSource datasource;
+
+    @Bean
     @Override
+    protected UserDetailsService userDetailsService() {
+        //InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+        //manager.createUser(User.withUsername("admin").password("123456").roles("admin").build());
+        //manager.createUser(User.withUsername("user1").password("123456").roles("user").build());
+
+        JdbcUserDetailsManager manager = new JdbcUserDetailsManager(datasource);
+        if (!manager.userExists("zukxu")) {
+            manager.createUser(User.withUsername("zukxu").password("123456").roles("admin").build());
+        }
+        if (!manager.userExists("user1")) {
+            manager.createUser(User.withUsername("user1").password("123456").roles("user").build());
+        }
+        return manager;
+    }
+
+    /*@Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
             .withUser("admin")
@@ -52,7 +69,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .withUser("user1")
             .password("123456")
             .roles("user");
-    }
+    }*/
 
     @Override
     public void configure(WebSecurity web) {
