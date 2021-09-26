@@ -20,3 +20,4 @@ spring:
     port: 6379
     password:
     database: 0
+    timeout: 500
