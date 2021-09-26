@@ -1,7 +1,6 @@
 package com.zukxu.web;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -16,7 +15,7 @@ public class HelloController {
         return "hello";
     }
 
-    @RequestMapping("/success")
+ /*   @RequestMapping("/success")
     public String success() {
         return "success, welcome!";
     }
@@ -24,7 +23,7 @@ public class HelloController {
     @RequestMapping("/fail")
     public String fail() {
         return "fail, try again!";
-    }
+    }*/
 
     @GetMapping("/admin/hello")
     public String admin() {
@@ -34,5 +33,10 @@ public class HelloController {
     @GetMapping("/user/hello")
     public String user() {
         return "user";
+    }
+
+    @GetMapping("/rememberme")
+    public String rememberme() {
+        return "rememberme";
     }
 }
