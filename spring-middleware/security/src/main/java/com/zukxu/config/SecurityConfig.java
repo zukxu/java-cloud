@@ -1,5 +1,6 @@
 package com.zukxu.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zukxu.jpa.service.UserService;
 import com.zukxu.security.provider.MyAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 
 import javax.sql.DataSource;
+import java.io.PrintWriter;
 import java.util.Collections;
 
 /**
@@ -102,38 +104,39 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-            .antMatchers("/captcha").permitAll()
+            .antMatchers("/captcha")
+            .permitAll()
             .antMatchers("/rememberme/**")
             .rememberMe()//该接口只有使用了remember登录才能访问
             .antMatchers("/admin/**")
             .fullyAuthenticated()//fullyAuthenticated 不同于 authenticated，fullyAuthenticated 不包含自动登录的形式，而
             // authenticated包含自动登录的形式。
             //.hasRole("admin")
-            .antMatchers("/user/**")
-            .hasRole("user")
+            //.antMatchers("/user/**")
+            //.hasRole("user")
             .anyRequest()
             .authenticated()
             .and() //所有请求都需要认证才能访问
             .formLogin()
-            .and()
+            .permitAll()
             //.loginPage("/login.html")//配置登陆页面路径，如果不配置登录接口.loginProcessingUrl()，那么登录接口也是配置的登录页
             //.loginProcessingUrl("/doLogin")//配置登录接口
             //.usernameParameter("name")//配置用户名的参数名称
             //.passwordParameter("passwd")//配置密码的参数名称
-            //.successHandler((req, resp, auth) -> {//auth: 当前登录成功的用户信息
-            //    resp.setContentType("application/json;charset=utf-8");
-            //    PrintWriter writer = resp.getWriter();
-            //    writer.write(new ObjectMapper().writeValueAsString(auth.getPrincipal()));
-            //    writer.flush();
-            //    writer.close();
-            //})
-            //.failureHandler((req, resp, exception) -> {
-            //    resp.setContentType("application/json;charset=utf-8");
-            //    PrintWriter writer = resp.getWriter();
-            //    writer.write(new ObjectMapper().writeValueAsString(exception.getMessage()));
-            //    writer.flush();
-            //    writer.close();
-            //})
+            .successHandler((req, resp, auth) -> {//auth: 当前登录成功的用户信息
+                resp.setContentType("application/json;charset=utf-8");
+                PrintWriter writer = resp.getWriter();
+                writer.write(new ObjectMapper().writeValueAsString(auth.getPrincipal()));
+                writer.flush();
+                writer.close();
+            })
+            .failureHandler((req, resp, exception) -> {
+                resp.setContentType("application/json;charset=utf-8");
+                PrintWriter writer = resp.getWriter();
+                writer.write(new ObjectMapper().writeValueAsString(exception.getMessage()));
+                writer.flush();
+                writer.close();
+            })
             //.successForwardUrl("/success")//登录成功后跳转的接口,服务端跳转
             //.defaultSuccessUrl("/success")//配置默认的成功跳转接口，链接是客户端跳转，和successForwardUrl只需配置一个即可
             //.failureForwardUrl("/fail")//登录失败后跳转的接口，服务端跳转
@@ -153,7 +156,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             //    writer.write(new ObjectMapper().writeValueAsString("logout"));
             //    writer.flush();
             //    writer.close();
-            //}).and()
+            //})
+            .and()
             .rememberMe()
             .key("zukxu")
             .tokenRepository(jdbcTokenRepository())
