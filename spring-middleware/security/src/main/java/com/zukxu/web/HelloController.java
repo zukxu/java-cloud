@@ -20,8 +20,19 @@ public class HelloController {
     public String success() {
         return "success, welcome!";
     }
+
     @RequestMapping("/fail")
     public String fail() {
         return "fail, try again!";
+    }
+
+    @GetMapping("/admin/hello")
+    public String admin() {
+        return "admin";
+    }
+
+    @GetMapping("/user/hello")
+    public String user() {
+        return "user";
     }
 }
