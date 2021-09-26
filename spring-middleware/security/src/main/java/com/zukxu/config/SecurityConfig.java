@@ -19,6 +19,7 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.session.FindByIndexNameSessionRepository;
+import org.springframework.session.Session;
 import org.springframework.session.security.SpringSessionBackedSessionRegistry;
 
 import javax.sql.DataSource;
@@ -31,7 +32,7 @@ import java.util.Collections;
  * @date 2021/9/25 23:21:14
  */
 @Configuration
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig<S extends Session> extends WebSecurityConfigurerAdapter {
     @Bean
     PasswordEncoder passwordEncoder() {
         //不需要加密
@@ -107,12 +108,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Autowired
-    FindByIndexNameSessionRepository sessionRepository;
+    private FindByIndexNameSessionRepository<S> sessionRepository;
 
-    @Bean
-    SpringSessionBackedSessionRegistry sessionRegistry() {
-        return new SpringSessionBackedSessionRegistry(sessionRepository);
-    }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
@@ -176,5 +173,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .maxSessionsPreventsLogin(true)//已登录后不允许再登录
                 .sessionRegistry(sessionRegistry())//前后端分离配置session共享
         ;
+    }
+    @Bean
+    public SpringSessionBackedSessionRegistry<S> sessionRegistry() {
+        return new SpringSessionBackedSessionRegistry<>(this.sessionRepository);
     }
 }

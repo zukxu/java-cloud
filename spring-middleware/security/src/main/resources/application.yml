@@ -21,3 +21,5 @@ spring:
     password:
     database: 0
     timeout: 500
+  session:
+    store-type: redis
