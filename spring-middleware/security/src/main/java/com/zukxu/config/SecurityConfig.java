@@ -1,20 +1,21 @@
 package com.zukxu.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mysql.cj.jdbc.MysqlDataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
-import org.springframework.security.provisioning.UserDetailsManager;
 
 import javax.sql.DataSource;
 import java.io.PrintWriter;
@@ -40,35 +41,35 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return hierarchy;
     }
 
-    @Bean
-    DataSource datasource() {
-        return new MysqlDataSource();
-    }
-    @Bean
-    UserDetailsManager userDetailsService(DataSource datasource) {
-        //InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-        //manager.createUser(User.withUsername("admin").password("123456").roles("admin").build());
-        //manager.createUser(User.withUsername("user1").password("123456").roles("user").build());
 
-        JdbcUserDetailsManager manager = new JdbcUserDetailsManager(datasource);
-        UserDetails admin = User.builder().username("admin").password("123456").roles("ADMIN").build();
-        UserDetails user = User.builder().username("user").password("123456").roles("USER").build();
-        manager.createUser(admin);
-        manager.createUser(user);
+    @Autowired
+    DataSource dataSource;
+
+    @Override
+    @Bean
+    protected UserDetailsService userDetailsService() {
+        InMemoryUserDetailsManager detailsManager = new InMemoryUserDetailsManager();
+        JdbcUserDetailsManager manager = new JdbcUserDetailsManager(dataSource);
+        if(!manager.userExists("admin")) {
+            manager.createUser(User.withUsername("admin").password("123456").roles("admin").build());
+        }
+        if(!manager.userExists("user")) {
+            manager.createUser(User.withUsername("user").password("123456").roles("user").build());
+        }
         return manager;
     }
 
-    /*@Override
+    @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
+        /*auth.inMemoryAuthentication()
             .withUser("admin")
             .password("123456")
             .roles("admin")
             .and()
             .withUser("user1")
             .password("123456")
-            .roles("user");
-    }*/
+            .roles("user");*/
+    }
 
     @Override
     public void configure(WebSecurity web) {
