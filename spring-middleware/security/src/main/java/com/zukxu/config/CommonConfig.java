@@ -5,6 +5,7 @@ import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 
 import java.util.Properties;
 
@@ -15,6 +16,10 @@ import java.util.Properties;
  */
 @Configuration
 public class CommonConfig {
+    /**
+     * 验证码Bean
+     * @return
+     */
     @Bean
     Producer verifyCode() {
         Properties properties = new Properties();
@@ -26,5 +31,14 @@ public class CommonConfig {
         DefaultKaptcha defaultKaptcha = new DefaultKaptcha();
         defaultKaptcha.setConfig(config);
         return defaultKaptcha;
+    }
+
+    /**
+     * 登陆过后不允许再次登录Bean
+     * @return
+     */
+    @Bean
+    HttpSessionEventPublisher httpSessionEventPublisher() {
+        return new HttpSessionEventPublisher();
     }
 }
