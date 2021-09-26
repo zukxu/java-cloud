@@ -18,6 +18,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.session.FindByIndexNameSessionRepository;
+import org.springframework.session.security.SpringSessionBackedSessionRegistry;
 
 import javax.sql.DataSource;
 import java.io.PrintWriter;
@@ -104,6 +106,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/js/**", "/css/**", "/images/**");
     }
 
+    @Autowired
+    FindByIndexNameSessionRepository sessionRepository;
+
+    @Bean
+    SpringSessionBackedSessionRegistry sessionRegistry() {
+        return new SpringSessionBackedSessionRegistry(sessionRepository);
+    }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
@@ -165,6 +174,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .csrf().disable()//关闭csrf
             .sessionManagement().maximumSessions(1)//配置最大session数为1,后登录会踢掉前一个
             .maxSessionsPreventsLogin(true)//已登录后不允许再登录
+                .sessionRegistry(sessionRegistry())//前后端分离配置session共享
         ;
     }
 }
