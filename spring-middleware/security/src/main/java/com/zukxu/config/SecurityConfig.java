@@ -27,9 +27,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //return new BCryptPasswordEncoder();
     }
 
+   /* @Bean
+    protected UserDetailsService userDetailsService() {
+        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+        manager.createUser(User.withUsername("admin").password("123456").roles("admin").build());
+        manager.createUser(User.withUsername("user1").password("123456").roles("user").build());
+        return manager;
+    }*/
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("admin").password("123456").roles("admin");
+        auth.inMemoryAuthentication()
+            .withUser("admin")
+            .password("123456")
+            .roles("admin")
+            .and()
+            .withUser("user1")
+            .password("12345")
+            .roles("user");
     }
 
     @Override
