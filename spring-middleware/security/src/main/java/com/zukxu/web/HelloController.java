@@ -3,6 +3,8 @@ package com.zukxu.web;
 import com.zukxu.security.service.HelloService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -43,5 +45,26 @@ public class HelloController {
     @GetMapping("/rememberme")
     public String rememberme() {
         return "rememberme";
+    }
+
+    /**
+     * 模拟csrf攻击，模拟转账
+     * @param name
+     * @param money
+     */
+    @PostMapping("/transfer")
+    public void transferMoney(String name, Integer money) {
+        System.out.println("name = " + name);
+        System.out.println("money = " + money);
+    }
+
+    @PostMapping("/csrf")
+    @ResponseBody
+    public String csrfTest() {
+        return "csrf";
+    }
+    @GetMapping("/csrf")
+    public String csrf() {
+        return "csrf";
     }
 }

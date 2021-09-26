@@ -33,6 +33,15 @@ import java.util.Collections;
  */
 @Configuration
 public class SecurityConfig<S extends Session> extends WebSecurityConfigurerAdapter {
+    @Autowired
+    DataSource dataSource;
+    @Autowired
+    UserService userService;
+    @Autowired
+    MyWebAuthenticationDetailsSource myWebAuthenticationDetailsSource;
+    @Autowired
+    private FindByIndexNameSessionRepository<S> sessionRepository;
+
     @Bean
     PasswordEncoder passwordEncoder() {
         //不需要加密
@@ -45,30 +54,6 @@ public class SecurityConfig<S extends Session> extends WebSecurityConfigurerAdap
         RoleHierarchyImpl hierarchy = new RoleHierarchyImpl();
         hierarchy.setHierarchy("ROLE_admin > ROLE_user");
         return hierarchy;
-    }
-
-    @Bean
-    MyAuthenticationProvider myAuthenticationProvider() {
-        MyAuthenticationProvider myAuthenticationProvider = new MyAuthenticationProvider();
-        myAuthenticationProvider.setPasswordEncoder(passwordEncoder());
-        myAuthenticationProvider.setUserDetailsService(userService);
-        return myAuthenticationProvider;
-    }
-
-    @Override
-    protected AuthenticationManager authenticationManager() throws Exception {
-        return new ProviderManager(Collections.singletonList(myAuthenticationProvider()));
-    }
-
-    @Autowired
-    DataSource dataSource;
-
-    @Bean
-    JdbcTokenRepositoryImpl jdbcTokenRepository() {
-        JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
-        tokenRepository.setDataSource(dataSource);
-        return tokenRepository;
-
     }
     /*@Override
     @Bean
@@ -84,10 +69,21 @@ public class SecurityConfig<S extends Session> extends WebSecurityConfigurerAdap
         return manager;
     }*/
 
-    @Autowired
-    UserService userService;
-    @Autowired
-    MyWebAuthenticationDetailsSource myWebAuthenticationDetailsSource;
+    @Bean
+    MyAuthenticationProvider myAuthenticationProvider() {
+        MyAuthenticationProvider myAuthenticationProvider = new MyAuthenticationProvider();
+        myAuthenticationProvider.setPasswordEncoder(passwordEncoder());
+        myAuthenticationProvider.setUserDetailsService(userService);
+        return myAuthenticationProvider;
+    }
+
+    @Bean
+    JdbcTokenRepositoryImpl jdbcTokenRepository() {
+        JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
+        tokenRepository.setDataSource(dataSource);
+        return tokenRepository;
+
+    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -103,12 +99,14 @@ public class SecurityConfig<S extends Session> extends WebSecurityConfigurerAdap
     }
 
     @Override
+    protected AuthenticationManager authenticationManager() throws Exception {
+        return new ProviderManager(Collections.singletonList(myAuthenticationProvider()));
+    }
+
+    @Override
     public void configure(WebSecurity web) {
         web.ignoring().antMatchers("/js/**", "/css/**", "/images/**");
     }
-
-    @Autowired
-    private FindByIndexNameSessionRepository<S> sessionRepository;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -167,13 +165,20 @@ public class SecurityConfig<S extends Session> extends WebSecurityConfigurerAdap
             //    writer.flush();
             //    writer.close();
             //})
-            .and().rememberMe().key("zukxu").tokenRepository(jdbcTokenRepository()).and()//添加记住我功能
-            .csrf().disable()//关闭csrf
-            .sessionManagement().maximumSessions(1)//配置最大session数为1,后登录会踢掉前一个
+            .and()
+            .rememberMe()
+            .key("zukxu")
+            .tokenRepository(jdbcTokenRepository())
+            .and()//添加记住我功能
+            .csrf()
+            .disable()//关闭csrf
+            .sessionManagement()
+            .maximumSessions(1)//配置最大session数为1,后登录会踢掉前一个
             .maxSessionsPreventsLogin(true)//已登录后不允许再登录
-                .sessionRegistry(sessionRegistry())//前后端分离配置session共享
+            .sessionRegistry(sessionRegistry())//前后端分离配置session共享
         ;
     }
+
     @Bean
     public SpringSessionBackedSessionRegistry<S> sessionRegistry() {
         return new SpringSessionBackedSessionRegistry<>(this.sessionRepository);
