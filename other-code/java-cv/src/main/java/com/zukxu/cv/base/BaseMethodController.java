@@ -264,7 +264,7 @@ public class BaseMethodController extends BaseController {
 
 		String sourcePath = Constants.PATH + imageFile;
 		logger.info("url==============" + sourcePath);
-		Mat source = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_COLOR);
+		Mat source = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_ANYCOLOR);
 		Mat destination = new Mat(source.rows(), source.cols(), source.type());
 		logger.info("kwidth:{},kheight:{},sigmaX:{},sigmaY:{}", kwidth, kheight, sigmaX, sigmaY);
 		Imgproc.GaussianBlur(source, destination, new Size(2 * Integer.valueOf(kwidth) + 1,
@@ -296,7 +296,7 @@ public class BaseMethodController extends BaseController {
 
 		String sourcePath = Constants.PATH + imageFile;
 		logger.info("url==============" + sourcePath);
-		Mat source = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_COLOR);
+		Mat source = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_ANYCOLOR);
 		Mat destination = new Mat(source.rows(), source.cols(), source.type());
 		// 先进行中值滤波操作
 		Imgproc.medianBlur(source, destination, 2 * ksize + 1);
@@ -398,7 +398,7 @@ public class BaseMethodController extends BaseController {
 		logger.info("\n 图片缩放方法测试");
 		String sourcePath = Constants.PATH + imageFile;
 		logger.info("url==============" + sourcePath);
-		Mat source = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_COLOR);
+		Mat source = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_ANYCOLOR);
 		Mat destination = new Mat(source.rows(), source.cols(), source.type());
 		logger.info("resizeType:{},rewidth:{},reheight:{}", resizeType, rewidth, reheight);
 		Imgproc.resize(source, destination, new Size(0, 0), width, height, 0);
@@ -420,7 +420,7 @@ public class BaseMethodController extends BaseController {
 		logger.info("\n 腐蚀膨胀测试测试");
 		String sourcePath = Constants.PATH + imageFile;
 		logger.info("url==============" + sourcePath);
-		Mat source = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_COLOR);
+		Mat source = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_ANYCOLOR);
 		Mat destination = new Mat(source.rows(), source.cols(), source.type());
 		if(isBinary) {
 			source = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_GRAYSCALE);
@@ -465,7 +465,7 @@ public class BaseMethodController extends BaseController {
 		logger.info("\n 腐蚀膨胀测试测试");
 		String sourcePath = Constants.PATH + imageFile;
 		logger.info("url==============" + sourcePath);
-		Mat source = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_COLOR);
+		Mat source = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_ANYCOLOR);
 		Mat destination = new Mat(source.rows(), source.cols(), source.type());
 		if(isBinary) {
 			source = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_GRAYSCALE);
@@ -551,7 +551,7 @@ public class BaseMethodController extends BaseController {
 		logger.info("\n 霍夫线变换测试");
 		String sourcePath = Constants.PATH + imageFile;
 		logger.info("url==============" + sourcePath);
-		Mat source1 = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_COLOR);// 彩色图
+		Mat source1 = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_ANYCOLOR);// 彩色图
 		Mat source2 = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_GRAYSCALE);// 灰度图
 		Mat lineMat = new Mat(source2.rows(), source2.cols(), source2.type());
 		Mat destination = new Mat(source2.rows(), source2.cols(), source2.type());
@@ -587,7 +587,7 @@ public class BaseMethodController extends BaseController {
 		logger.info("\n 霍夫圆变换测试");
 		String sourcePath = Constants.PATH + imageFile;
 		logger.info("url==============" + sourcePath);
-		Mat source1 = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_COLOR);// 彩色图
+		Mat source1 = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_ANYCOLOR);// 彩色图
 		Mat source2 = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_GRAYSCALE);// 灰度图
 		Mat circleMat = new Mat(source2.rows(), source2.cols(), source2.type());
 
@@ -631,7 +631,7 @@ public class BaseMethodController extends BaseController {
 		logger.info("\n 查找颜色测试");
 		String sourcePath = Constants.PATH + imageFile;
 		logger.info("url==============" + sourcePath);
-		Mat source = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_COLOR);
+		Mat source = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_ANYCOLOR);
 		Mat destination = new Mat(source.rows(), source.cols(), source.type());
 		if (colorType == 1) {// 1为RGB方式，2为HSV方式
 			double B = 0;
@@ -792,28 +792,29 @@ public class BaseMethodController extends BaseController {
 		logger.info("\n 模板查找测试");
 		String sourcePath = Constants.PATH + imageFile;
 		logger.info("url==============" + sourcePath);
-		Mat source = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_COLOR);
+		Mat source = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_ANYCOLOR);
 		// Mat destination = new Mat(source.rows(), source.cols(), source.type());
 		// String templateimage = Constants.SOURCE_IMAGE_PATH + "/template.png";
 		// System.out.println(templateimage);
-		// Mat matchtemp = Highgui.imread(templateimage);
+		// Mat matchTemp = Highgui.imread(templateimage);
 		// 优化代码，模板图像直接通过前端截取或取得，而不是写死，此处用到了OpenCV的截取图像功能
 		logger.info("{},{},{},{}", x1, y1, width, height);
-		Mat matchtemp = source.submat(new Rect(Integer.valueOf(CommonUtil.setScare(x1.toString(), 0)), Integer
-				.valueOf(CommonUtil.setScare(y1.toString(), 0)), Integer.valueOf(CommonUtil.setScare(width.toString(),
-				0)), Integer.valueOf(CommonUtil.setScare(height.toString(), 0))));
+		Mat matchTemp = source.submat(new Rect(Integer.parseInt(CommonUtil.setScare(x1.toString(), 0)),
+											   Integer.parseInt(CommonUtil.setScare(y1.toString(), 0)),
+											   Integer.parseInt(CommonUtil.setScare(width.toString(), 0)),
+											   Integer.parseInt(CommonUtil.setScare(height.toString(), 0))));
 
-		int result_cols = source.cols() - matchtemp.cols() + 1;
-		int result_rows = source.rows() - matchtemp.rows() + 1;
+		int result_cols = source.cols() - matchTemp.cols() + 1;
+		int result_rows = source.rows() - matchTemp.rows() + 1;
 		Mat destination = new Mat(result_rows, result_cols, CvType.CV_32FC1);
-		Imgproc.matchTemplate(source, matchtemp, destination, method);
+		Imgproc.matchTemplate(source, matchTemp, destination, method);
 		// 矩阵归一化处理
 		Core.normalize(destination, destination, 0, 255, Core.NORM_MINMAX, -1, new Mat());
 		// minMaxLoc(imagematch, minVal, maxVal2, minLoc, maxLoc01, new Mat());
 		Core.MinMaxLocResult minmaxLoc = Core.minMaxLoc(destination);
 		logger.info("相似值=================：最大：" + minmaxLoc.maxVal + "    最小：" + minmaxLoc.minVal);
 		Point matchLoc = new Point();
-		switch (method) {
+		switch(method) {
 			case 0:
 				// method = Imgproc.TM_SQDIFF;
 				matchLoc = minmaxLoc.minLoc;
@@ -847,8 +848,8 @@ public class BaseMethodController extends BaseController {
 		if(imageType == 0) {// 显示过程图片
 			source = destination;
 		} else {// 显示最终框选结果
-			Imgproc.rectangle(source, matchLoc, new Point(matchLoc.x + matchtemp.cols(),
-														  matchLoc.y + matchtemp.rows()), new Scalar(0, 255, 0), 2);
+			Imgproc.rectangle(source, matchLoc, new Point(matchLoc.x + matchTemp.cols(),
+														  matchLoc.y + matchTemp.rows()), new Scalar(0, 255, 0), 2);
 		}
 		try {
 			byte[] imgebyte = OpenCVUtil.covertMat2Byte1(source);
