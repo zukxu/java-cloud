@@ -1,11 +1,11 @@
 package com.zukxu.cv.base;
 
-import com.acts.opencv.common.utils.Constants;
-import com.acts.opencv.common.utils.RectComp;
-import com.acts.opencv.common.web.BaseController;
-import org.apache.commons.lang3.StringUtils;
+import com.zukxu.common.utils.StringUtils;
+import com.zukxu.cv.common.utils.Constants;
+import com.zukxu.cv.common.utils.RectComp;
+import com.zukxu.cv.common.web.BaseController;
 import org.opencv.core.*;
-import org.opencv.highgui.Highgui;
+import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,27 +25,29 @@ public class CardController extends BaseController {
 	/**
 	 * 答题卡识别
 	 * step1 高斯模糊
-	 * 创建者 Songer
-	 * 创建时间	2018年3月22日
+	 *
+	 * @param response
+	 * @param imageFile
+	 * @param kSize
 	 */
 	@RequestMapping(value = "step1")
-	public void step1(HttpServletResponse response, String imagefile, Integer ksize) {
+	public void step1(HttpServletResponse response, String imageFile, Integer kSize) {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		logger.info("\n 高斯模糊");
 
-		String sourcePath = Constants.PATH + imagefile;
+		String sourcePath = Constants.PATH + imageFile;
 		logger.info("url==============" + sourcePath);
 		// 加载为灰度图显示
-		Mat source = Highgui.imread(sourcePath, Highgui.CV_LOAD_IMAGE_GRAYSCALE);
+		Mat source = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_GRAYSCALE);
 		Mat destination = new Mat(source.rows(), source.cols(), source.type());
-		Imgproc.GaussianBlur(source, destination, new Size(2 * ksize + 1, 2 * ksize + 1), 0, 0);
+		Imgproc.GaussianBlur(source, destination, new Size(2 * kSize + 1, 2 * kSize + 1), 0, 0);
 		String destPath = Constants.PATH + Constants.DEST_IMAGE_PATH + "card1.png";
 		File dstfile = new File(destPath);
 		if (StringUtils.isNotBlank(destPath) && dstfile.isFile() && dstfile.exists()) {
 			dstfile.delete();
 			logger.info("删除图片：" + destPath);
 		}
-		Highgui.imwrite(destPath, destination);
+		Imgcodecs.imwrite(destPath, destination);
 		logger.info("生成目标图片==============" + destPath);
 		renderString(response, Constants.DEST_IMAGE_PATH + "card1.png");
 
@@ -54,20 +56,21 @@ public class CardController extends BaseController {
 	/**
 	 * 答题卡识别
 	 * step2 二值化，反向二值化
-	 * 创建者 Songer
-	 * 创建时间	2018年3月22日
+	 *
+	 * @param response
+	 * @param imageFile
+	 * @param thresh
 	 */
 	@RequestMapping(value = "step2")
-	public void step2(HttpServletResponse response, String imagefile, Double thresh) {
+	public void step2(HttpServletResponse response, String imageFile, Double thresh) {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		logger.info("\n 二值化处理");
 
 		// 灰度化
-		// Imgproc.cvtColor(source, destination, Highgui.CV_LOAD_IMAGE_GRAYSCALE);
-		String sourcePath = Constants.PATH + imagefile;
+		String sourcePath = Constants.PATH + imageFile;
 		logger.info("url==============" + sourcePath);
 		// 加载为灰度图显示
-		Mat source = Highgui.imread(sourcePath, Highgui.CV_LOAD_IMAGE_GRAYSCALE);
+		Mat source = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_GRAYSCALE);
 		Mat destination = new Mat(source.rows(), source.cols(), source.type());
 		Imgproc.threshold(source, destination, thresh, 255, Imgproc.THRESH_BINARY_INV);
 		String destPath = Constants.PATH + Constants.DEST_IMAGE_PATH + "card2.png";
@@ -76,7 +79,7 @@ public class CardController extends BaseController {
 			dstfile.delete();
 			logger.info("删除图片：" + destPath);
 		}
-		Highgui.imwrite(destPath, destination);
+		Imgcodecs.imwrite(destPath, destination);
 		logger.info("生成目标图片==============" + destPath);
 		renderString(response, Constants.DEST_IMAGE_PATH + "card2.png");
 
@@ -85,31 +88,28 @@ public class CardController extends BaseController {
 	/**
 	 * 答题卡识别
 	 * step3 膨胀腐蚀闭运算(针对反向二值图是开运算)
-	 * 创建者 Songer
-	 * 创建时间	2018年3月22日
 	 */
 	@RequestMapping(value = "step3")
-	public void step3(HttpServletResponse response, String imagefile, Integer ksize) {
+	public void step3(HttpServletResponse response, String imageFile, Integer kSize) {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		logger.info("\n 开运算");
 
 		// 灰度化
-		// Imgproc.cvtColor(source, destination, Highgui.CV_LOAD_IMAGE_GRAYSCALE);
-		String sourcePath = Constants.PATH + imagefile;
+		String sourcePath = Constants.PATH + imageFile;
 		logger.info("url==============" + sourcePath);
 		// 加载为灰度图显示
-		Mat source = Highgui.imread(sourcePath, Highgui.CV_LOAD_IMAGE_GRAYSCALE);
+		Mat source = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_GRAYSCALE);
 		Mat destination = new Mat(source.rows(), source.cols(), source.type());
-		Mat element = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(2 * ksize + 1, 2 * ksize + 1));
+		Mat element = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(2 * kSize + 1, 2 * kSize + 1));
 
 		Imgproc.morphologyEx(source, destination, Imgproc.MORPH_OPEN, element);
 		String destPath = Constants.PATH + Constants.DEST_IMAGE_PATH + "card3.png";
 		File dstfile = new File(destPath);
-		if (StringUtils.isNotBlank(destPath) && dstfile.isFile() && dstfile.exists()) {
+		if(StringUtils.isNotBlank(destPath) && dstfile.isFile() && dstfile.exists()) {
 			dstfile.delete();
 			logger.info("删除图片：" + destPath);
 		}
-		Highgui.imwrite(destPath, destination);
+		Imgcodecs.imwrite(destPath, destination);
 		logger.info("生成目标图片==============" + destPath);
 		renderString(response, Constants.DEST_IMAGE_PATH + "card3.png");
 	}
@@ -117,21 +117,18 @@ public class CardController extends BaseController {
 	/**
 	 * 答题卡识别
 	 * step4 轮廓识别
-	 * 创建者 Songer
-	 * 创建时间	2018年3月22日
 	 */
 	@RequestMapping(value = "step4")
-	public void step4(HttpServletResponse response, String imagefile) {
+	public void step4(HttpServletResponse response, String imageFile) {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		logger.info("\n 轮廓识别");
 
 		// 灰度化
-		// Imgproc.cvtColor(source, destination, Highgui.CV_LOAD_IMAGE_GRAYSCALE);
-		String sourcePath = Constants.PATH + imagefile;
+		String sourcePath = Constants.PATH + imageFile;
 		logger.info("url==============" + sourcePath);
 		// 加载为灰度图显示
-		Mat source = Highgui.imread(sourcePath, Highgui.CV_LOAD_IMAGE_GRAYSCALE);
-		Highgui.imwrite("D:\\test\\abc\\source.png", source);
+		Mat source = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_GRAYSCALE);
+		Imgcodecs.imwrite("D:\\test\\abc\\source.png", source);
 		//此处固定写死，取每一行选项，切割后进行轮廓识别
 		Mat ch1 = source.submat(new Rect(170, 52, 294, 32));
 		Mat ch2 = source.submat(new Rect(170, 104, 294, 32));
@@ -190,53 +187,35 @@ public class CardController extends BaseController {
 		chlist.add(ch25);
 
 		Mat hierarchy = new Mat();
-        TreeMap<Integer,String> listenAnswer = new TreeMap<Integer,String>();
-        for (int no=0;no<chlist.size();no++) {
-        	Vector<MatOfPoint> contours = new Vector<MatOfPoint>();
-        	Mat ch = chlist.get(no);
+		TreeMap<Integer,String> listenAnswer = new TreeMap<>();
+		for(int no = 0; no < chlist.size(); no++) {
+			Vector<MatOfPoint> contours = new Vector<>();
+			Mat ch = chlist.get(no);
 			Imgproc.findContours(ch, contours, hierarchy, Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE, new Point());
 
-			Vector<RectComp> rectCompList = new Vector<RectComp>();
-        	for(int i = 0;i<contours.size();i++){
-        		MatOfPoint mop= contours.get(i);
+			Vector<RectComp> rectCompList = new Vector<>();
+			for(MatOfPoint mop : contours) {
 				// 获取轮廓外矩，即使用最小矩形将轮廓包裹
-        		Rect rm = Imgproc.boundingRect(mop);
+				Rect rm = Imgproc.boundingRect(mop);
 				RectComp rc = new RectComp(rm);
 				rectCompList.add(rc);
-        	}
-			// System.out.println(no+"size="+rectCompList.size());
+			}
 			Collections.sort(rectCompList);
-			// for(int t = 0;t<rectCompList.size();t++){
-			// RectComp rect = rectCompList.get(t);
-			// System.out.println(rect.getRm().area() + "--------" + rect.getRm().x);
-			// if (rect.getRm().area() < 300) {// 小于300的pass，完美填图的话是≈1500
-			// continue;
-			// }
-			// if (rect.getRm().x < 68) {
-			// listenAnswer.put(Integer.valueOf(no), "A");
-			// } else if ((rect.getRm().x > 68) && (rect.getRm().x < 148)) {
-			// listenAnswer.put(Integer.valueOf(no), "B");
-			// } else if ((rect.getRm().x > 148) && (rect.getRm().x < 228)) {
-			// listenAnswer.put(Integer.valueOf(no), "C");
-			// } else if (rect.getRm().x > 228) {
-			// listenAnswer.put(Integer.valueOf(no), "D");
-			// }
-			// }
 			// 因为已经按面积排序了，所以取第一个面积最大的轮廓即可
 			RectComp rect = rectCompList.get(0);
 			System.out.println(rect.getRm().area() + "--------" + rect.getRm().x);
-			if (rect.getRm().area() > 300) {// 小于300的pass，说明未填写，完美填图的话是≈1500
+			if(rect.getRm().area() > 300) {// 小于300的pass，说明未填写，完美填图的话是≈1500
 				if (rect.getRm().x < 68) {
-					listenAnswer.put(Integer.valueOf(no), "A");
-				} else if ((rect.getRm().x > 68) && (rect.getRm().x < 148)) {
-					listenAnswer.put(Integer.valueOf(no), "B");
-				} else if ((rect.getRm().x > 148) && (rect.getRm().x < 228)) {
-					listenAnswer.put(Integer.valueOf(no), "C");
+					listenAnswer.put(no, "A");
+				} else if((rect.getRm().x > 68) && (rect.getRm().x < 148)) {
+					listenAnswer.put(no, "B");
+				} else if((rect.getRm().x > 148) && (rect.getRm().x < 228)) {
+					listenAnswer.put(no, "C");
 				} else if (rect.getRm().x > 228) {
-					listenAnswer.put(Integer.valueOf(no), "D");
+					listenAnswer.put(no, "D");
 				}
 			} else {
-				listenAnswer.put(Integer.valueOf(no), "未填写");
+				listenAnswer.put(no, "未填写");
 			}
 
 			Mat result = new Mat(ch.size(), CvType.CV_8U, new Scalar(255));
@@ -247,7 +226,7 @@ public class CardController extends BaseController {
 				dstfile.delete();
 				logger.info("删除图片：" + destPath);
 			}
-			Highgui.imwrite(destPath, result);
+			Imgcodecs.imwrite(destPath, result);
 			logger.info("生成目标图片==============" + result);
         }
 		String resultValue = "最终结果：试题编号-答案<br> ";
