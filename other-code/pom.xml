@@ -19,6 +19,7 @@
         <module>interface-idempotence</module>
         <module>echarts-map</module>
         <module>dataWay</module>
+        <module>java-cv</module>
     </modules>
 
     <properties>

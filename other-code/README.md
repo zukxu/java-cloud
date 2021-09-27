@@ -13,3 +13,4 @@
 - echarts-map: echarts整合
 - dataway: hasor 框架,一站式生成代码
   - 官网：https://www.hasor.net/doc/
+- java-cv: opencv 集成到Java中
