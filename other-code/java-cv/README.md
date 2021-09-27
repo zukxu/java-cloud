@@ -8,6 +8,13 @@
 进入当前目录下的 **\build\java** 文件夹, 找到对应的opencv jar包
 ![img.png](images/02.png)
 
+根据自身系统的版本位数将相对应的dll文件放入相对应的环境变量路径下
+
+例如我的系统为【win10 x64】  
+那么我可以将该【opencv_java453.dll】文件放入【C:\Windows\System32】路径下
+![img.png](images/03.png)
+
+依赖外部jar包  
 - 在项目根目录创建libs文件夹
 - 将jar包放入libs文件夹
 - 执行如下命令，将该jar包打入本地maven仓库
