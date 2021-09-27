@@ -4,7 +4,7 @@
 package com.zukxu.cv.common.web;
 
 import cn.hutool.core.util.EscapeUtil;
-import com.zukxu.cv.common.mapper.JsonMapper;
+import com.alibaba.fastjson.JSON;
 import com.zukxu.cv.common.utils.Constants;
 import org.springframework.http.MediaType;
 import org.springframework.ui.Model;
@@ -64,7 +64,7 @@ public abstract class BaseController {
 			response.setCharacterEncoding("UTF-8");
 			response.setHeader("Cache-Control", "no-cache, must-revalidate");
 			PrintWriter writer = response.getWriter();
-			writer.write(JsonMapper.toJsonString(object));
+			writer.write(JSON.toJSONString(object));
 			writer.flush();
 			writer.close();
 		} catch (IOException e) {

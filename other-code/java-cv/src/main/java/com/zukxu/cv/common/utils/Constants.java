@@ -2,9 +2,10 @@ package com.zukxu.cv.common.utils;
 
 import org.springframework.web.context.ContextLoader;
 
+import java.util.Objects;
+
 /**
- * 常量 创建者 Songer 创建时间 2018年3月09日
- *
+ * 常量
  */
 public class Constants {
 	public static final String CURRENT_USER = "UserInfo";
@@ -19,14 +20,16 @@ public class Constants {
 	public static final String SF_PATH_SEPARATOR = System.getProperty("path.separator");// 路径分隔符
 
 
-	public static final String PATH = ContextLoader.getCurrentWebApplicationContext().getServletContext().getRealPath("/");
+	public static final String PATH =
+			Objects.requireNonNull(Objects.requireNonNull(ContextLoader.getCurrentWebApplicationContext())
+																	.getServletContext()).getRealPath("/");
 	/**
 	 * 文件
 	 */
-	public static final String SOURCE_IMAGE_PATH = Constants.SF_FILE_SEPARATOR + "statics"
-			+ Constants.SF_FILE_SEPARATOR + "sourceimage" + Constants.SF_FILE_SEPARATOR;// 图片原地址
-	public static final String DEST_IMAGE_PATH = Constants.SF_FILE_SEPARATOR + "statics" + Constants.SF_FILE_SEPARATOR
-			+ "destimage" + Constants.SF_FILE_SEPARATOR;// 图片生成地址
+	public static final String SOURCE_IMAGE_PATH =
+			Constants.SF_FILE_SEPARATOR + "statics" + Constants.SF_FILE_SEPARATOR + "sourceimage" + Constants.SF_FILE_SEPARATOR;// 图片原地址
+	public static final String DEST_IMAGE_PATH =
+			Constants.SF_FILE_SEPARATOR + "statics" + Constants.SF_FILE_SEPARATOR + "destimage" + Constants.SF_FILE_SEPARATOR;// 图片生成地址
 
 
 	/**
@@ -58,8 +61,5 @@ public class Constants {
 	 * 分页中可能用到的常量
 	 */
 	public static final Integer PAGE_SIZE=10;//一页共有十条内容
-
-
-
 
 }

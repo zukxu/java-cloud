@@ -2,6 +2,9 @@ package com.zukxu.cv.common.utils;
 
 import org.opencv.core.Rect;
 
+/**
+ * rect 比较工具
+ */
 public class RectComp implements Comparable<Object> {
 	private Rect rm;
 
@@ -22,29 +25,14 @@ public class RectComp implements Comparable<Object> {
 		this.rm = rm;
 	}
 
-	// @Override
-	// public int compareTo(Object object) {
-	// if(this == object){
-	// return 0;
-	// } else if (object != null && object instanceof RectComp) {
-	// RectComp rect = (RectComp) object;
-	// if (rm.x <= rect.rm.x) {
-	// return -1;
-	// }else{
-	// return 1;
-	// }
-	// }else{
-	// return -1;
-	// }
-	// }
 	@Override
 	// 按面积排序，最大的放第一个
 	public int compareTo(Object object) {
-		if(this == object){
+		if(this == object) {
 			return 0;
-		} else if (object != null && object instanceof RectComp) {
+		} else if(object instanceof RectComp) {
 			RectComp rect = (RectComp) object;
-			if (rm.area() >= rect.rm.area()) {
+			if(rm.area() >= rect.rm.area()) {
 				return -1;
 			} else {
 				return 1;

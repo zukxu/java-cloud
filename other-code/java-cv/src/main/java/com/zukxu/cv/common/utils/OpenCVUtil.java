@@ -1,7 +1,7 @@
 package com.zukxu.cv.common.utils;
 
 import org.opencv.core.*;
-import org.opencv.highgui.Highgui;
+import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
 import java.awt.image.BufferedImage;
@@ -11,17 +11,16 @@ import java.util.Date;
 import java.util.Vector;
 
 public class OpenCVUtil {
-	public static BufferedImage covertMat2Buffer(Mat mat) throws IOException {
+	public static BufferedImage covertMat2Buffer(Mat mat) {
 		long time1 = new Date().getTime();
 		// Mat 转byte数组
 		BufferedImage originalB = toBufferedImage(mat);
 		long time3 = new Date().getTime();
 		System.out.println("保存读取方法2转=" + (time3 - time1));
 		return originalB;
-		// ImageIO.write(originalB, "jpg", new File("D:\\test\\testImge\\ws2.jpg"));
 	}
 
-	public static byte[] covertMat2Byte(Mat mat) throws IOException {
+	public static byte[] covertMat2Byte(Mat mat) {
 		long time1 = new Date().getTime();
 		// Mat 转byte数组
 		byte[] return_buff = new byte[(int) (mat.total() * mat.channels())];
@@ -36,9 +35,8 @@ public class OpenCVUtil {
 	public static byte[] covertMat2Byte1(Mat mat) throws IOException {
 		long time1 = new Date().getTime();
 		MatOfByte mob = new MatOfByte();
-		Highgui.imencode(".jpg", mat, mob);
+		Imgcodecs.imencode(".jpg", mat, mob);
 		long time3 = new Date().getTime();
-		// System.out.println(mat.total() * mat.channels());
 		System.out.println("Mat转byte[] 耗时=" + (time3 - time1));
 		return mob.toArray();
 	}
@@ -96,10 +94,10 @@ public class OpenCVUtil {
 	 * 2018年2月5日 王嵩  首次创建
 	 *
 	 */
-	public static Mat dilation(Mat source, double dilation_size) {
+	public static Mat dilation(Mat source, double dilationSize) {
 		Mat resultMat = new Mat(source.rows(), source.cols(), source.type());
-		Mat element = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(2 * dilation_size + 1,
-				2 * dilation_size + 1));
+		Mat element = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(2 * dilationSize + 1,
+																				 2 * dilationSize + 1));
 		Imgproc.dilate(source, resultMat, element);
 		return resultMat;
 	}
@@ -119,7 +117,6 @@ public class OpenCVUtil {
 		 *RETR_TREE:检索所有的轮廓，并重构嵌套轮廓的整个层次。
 		 */
 		int mode = Imgproc.RETR_EXTERNAL;
-		// int mode = Imgproc.RETR_TREE;
 		/**
 		 * 定义轮廓识别方法
 		 * 边缘近似方法(除了RETR_RUNS使用内置的近似，其他模式均使用此设定的近似算法)。可取值如下:
