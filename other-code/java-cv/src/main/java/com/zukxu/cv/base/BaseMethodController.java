@@ -2,13 +2,15 @@ package com.zukxu.cv.base;
 
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.extra.qrcode.BufferedImageLuminanceSource;
+import com.google.zxing.*;
+import com.google.zxing.common.HybridBinarizer;
 import com.zukxu.cv.common.utils.CommonUtil;
 import com.zukxu.cv.common.utils.Constants;
 import com.zukxu.cv.common.utils.OpenCVUtil;
 import com.zukxu.cv.common.web.BaseController;
 import com.zukxu.cv.test.DemoController;
 import org.opencv.core.*;
-import org.opencv.highgui.HighGui;
+import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,17 +35,18 @@ public class BaseMethodController extends BaseController {
 	 */
 	@RequestMapping(value = "binary")
 	public void binary(HttpServletResponse response, String imageFile, Integer binaryType, Double thresh, Double maxVal) {
+		//加载路径
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		logger.info("\n 二值化方法");
 
-		// 灰度化
+		//以灰度方式读取图片
 		String sourcePath = Constants.PATH + imageFile;
 		logger.info("url==============" + sourcePath);
-		// 加载为灰度图显示
-		Mat source = HighGui.imread(sourcePath, Highgui.CV_LOAD_IMAGE_GRAYSCALE);
+		Mat source = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_GRAYSCALE);
 
 		Mat destination = new Mat(source.rows(), source.cols(), source.type());
 		logger.info("binaryType:{},thresh:{},maxVal:{}", binaryType, thresh, maxVal);
+
 		switch (binaryType) {
 			case 0:
 				binaryType = Imgproc.THRESH_BINARY;
@@ -63,11 +66,13 @@ public class BaseMethodController extends BaseController {
 			default:
 				break;
 		}
-		Imgproc.threshold(source, destination, Double.valueOf(thresh), Double.valueOf(maxVal), binaryType);
-//		Imgproc.adaptiveThreshold(source, destination, 255, Imgproc.ADAPTIVE_THRESH_MEAN_C, Imgproc.THRESH_BINARY_INV, 31, 15);
-//		Imgproc.threshold(source, destination, 170, 255, Imgproc.THRESH_BINARY_INV);
-//		Imgproc.threshold(source, destination, 127, 255, Imgproc.THRESH_TOZERO);
-//		Imgproc.threshold(source, destination, 0, 255, Imgproc.THRESH_TOZERO_INV);
+		//转成二值化图片
+		Imgproc.threshold(source, destination, thresh, maxVal, binaryType);
+		//		Imgproc.adaptiveThreshold(source, destination, 255, Imgproc.ADAPTIVE_THRESH_MEAN_C, Imgproc
+		//		.THRESH_BINARY_INV, 31, 15);
+		//		Imgproc.threshold(source, destination, 170, 255, Imgproc.THRESH_BINARY_INV);
+		//		Imgproc.threshold(source, destination, 127, 255, Imgproc.THRESH_TOZERO);
+		//		Imgproc.threshold(source, destination, 0, 255, Imgproc.THRESH_TOZERO_INV);
 
 		// String filename = imageFile.substring(imageFile.lastIndexOf("/"), imageFile.length());
 		// String filename_end = filename.substring(filename.lastIndexOf("."), filename.length());
@@ -91,8 +96,8 @@ public class BaseMethodController extends BaseController {
 
 		// 方式2，回写页面图片流
 		try {
-			byte[] imgebyte = OpenCVUtil.covertMat2Byte1(destination);
-			renderImage(response, imgebyte);
+			byte[] imgByte = OpenCVUtil.covertMat2Byte1(destination);
+			renderImage(response, imgByte);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -103,29 +108,23 @@ public class BaseMethodController extends BaseController {
 	 * 自适用二值化
 	 *
 	 * @param response
-	 * @param imagefile
+	 * @param imageFile
 	 * @param binaryType 二值化类型
 	 * @param blockSize  附近区域面积
 	 * @param constantC  它只是一个常数，从平均值或加权平均值中减去的常数
-	 * @Author 王嵩
-	 * @Date 2018年4月9日
-	 * 更新日志
-	 * 2018年4月9日 王嵩  首次创建
 	 */
 	@RequestMapping(value = "adaptiveBinary")
-	public void adaptiveBinary(HttpServletResponse response, String imagefile, Integer adaptiveMethod,
-							   Integer binaryType, Integer blockSize,
-							   Double constantC) {
-		//
+	public void adaptiveBinary(HttpServletResponse response, String imageFile, Integer adaptiveMethod,
+							   Integer binaryType, Integer blockSize, Double constantC) {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		logger.info("\n 自适用二值化方法");
 
 		// 灰度化
 		// Imgproc.cvtColor(source, destination, Highgui.CV_LOAD_IMAGE_GRAYSCALE);
-		String sourcePath = Constants.PATH + imagefile;
+		String sourcePath = Constants.PATH + imageFile;
 		logger.info("url==============" + sourcePath);
 		// 加载为灰度图显示
-		Mat source = Highgui.imread(sourcePath, Highgui.CV_LOAD_IMAGE_GRAYSCALE);
+		Mat source = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_GRAYSCALE);
 		Mat destination = new Mat(source.rows(), source.cols(), source.type());
 		logger.info("binaryType:{},blockSize:{},constantC:{}", binaryType, blockSize, constantC);
 		switch (adaptiveMethod) {
@@ -173,17 +172,13 @@ public class BaseMethodController extends BaseController {
 	 * 自适用二值化+zxing识别条形码
 	 *
 	 * @param response
-	 * @param imagefile
+	 * @param imageFile
 	 * @param binaryType 二值化类型
 	 * @param blockSize  附近区域面积
 	 * @param constantC  它只是一个常数，从平均值或加权平均值中减去的常数
-	 * @Author 王嵩
-	 * @Date 2018年5月17日
-	 * 更新日志
-	 * 2018年5月17日 王嵩  首次创建
 	 */
 	@RequestMapping(value = "zxing")
-	public void zxing(HttpServletResponse response, String imagefile, Integer adaptiveMethod, Integer binaryType,
+	public void zxing(HttpServletResponse response, String imageFile, Integer adaptiveMethod, Integer binaryType,
 					  Integer blockSize, Double constantC) {
 		//
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
@@ -191,10 +186,10 @@ public class BaseMethodController extends BaseController {
 
 		// 灰度化
 		// Imgproc.cvtColor(source, destination, Highgui.CV_LOAD_IMAGE_GRAYSCALE);
-		String sourcePath = Constants.PATH + imagefile;
+		String sourcePath = Constants.PATH + imageFile;
 		logger.info("url==============" + sourcePath);
 		// 加载为灰度图显示
-		Mat source = Highgui.imread(sourcePath, Highgui.CV_LOAD_IMAGE_GRAYSCALE);
+		Mat source = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_GRAYSCALE);
 		Mat destination = new Mat(source.rows(), source.cols(), source.type());
 		logger.info("binaryType:{},blockSize:{},constantC:{}", binaryType, blockSize, constantC);
 		switch (adaptiveMethod) {
@@ -237,11 +232,6 @@ public class BaseMethodController extends BaseController {
 		String resultText = "无法识别！！！";
 		try {
 			MultiFormatReader formatReader = new MultiFormatReader();
-			// if (!file.exists()) {
-			// System.out.println("nofile");
-			// return;
-			// }
-			// BufferedImage image = ImageIO.read(file);
 
 			BufferedImage image = OpenCVUtil.toBufferedImage(mat);
 			LuminanceSource source = new BufferedImageLuminanceSource(image);
@@ -265,27 +255,25 @@ public class BaseMethodController extends BaseController {
 
 	/**
 	 * 高斯滤波方法测试
-	 * 创建者 Songer
-	 * 创建时间	2018年3月9日
 	 */
 	@RequestMapping(value = "gaussian")
-	public void gaussian(HttpServletResponse response, String imagefile, String kwidth, String kheight, String sigmaX,
+	public void gaussian(HttpServletResponse response, String imageFile, String kwidth, String kheight, String sigmaX,
 						 String sigmaY) {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		logger.info("\n 二值化方法");
 
-		String sourcePath = Constants.PATH + imagefile;
+		String sourcePath = Constants.PATH + imageFile;
 		logger.info("url==============" + sourcePath);
-		Mat source = Highgui.imread(sourcePath, Highgui.CV_LOAD_IMAGE_COLOR);
+		Mat source = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_COLOR);
 		Mat destination = new Mat(source.rows(), source.cols(), source.type());
 		logger.info("kwidth:{},kheight:{},sigmaX:{},sigmaY:{}", kwidth, kheight, sigmaX, sigmaY);
-		Imgproc.GaussianBlur(source, destination,
-				new Size(2 * Integer.valueOf(kwidth) + 1, 2 * Integer.valueOf(kheight) + 1),
-				Integer.valueOf(sigmaX), Integer.valueOf(sigmaY));
+		Imgproc.GaussianBlur(source, destination, new Size(2 * Integer.valueOf(kwidth) + 1,
+														   2 * Integer.valueOf(kheight) + 1), Integer.valueOf(sigmaX),
+							 Integer.valueOf(sigmaY));
 		try {
 			byte[] imgebyte = OpenCVUtil.covertMat2Byte1(destination);
 			renderImage(response, imgebyte);
-		} catch (IOException e) {
+		} catch(IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -294,25 +282,21 @@ public class BaseMethodController extends BaseController {
 	 * 图像锐化操作
 	 *
 	 * @param response
-	 * @param imagefile
+	 * @param imageFile
 	 * @param ksize     中值滤波内核size
 	 * @param alpha     控制图层src1的透明度
 	 * @param beta      控制图层src2的透明度
 	 * @param gamma     gamma越大合并的影像越明亮 void
-	 * @Author 王嵩
-	 * @Date 2018年5月18日
-	 * 更新日志
-	 * 2018年5月18日 王嵩  首次创建
 	 */
 	@RequestMapping(value = "sharpness")
-	public void sharpness(HttpServletResponse response, String imagefile, int ksize, double alpha, double beta,
+	public void sharpness(HttpServletResponse response, String imageFile, int ksize, double alpha, double beta,
 						  double gamma) {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		logger.info("\n 锐化操作");
 
-		String sourcePath = Constants.PATH + imagefile;
+		String sourcePath = Constants.PATH + imageFile;
 		logger.info("url==============" + sourcePath);
-		Mat source = Highgui.imread(sourcePath, Highgui.CV_LOAD_IMAGE_COLOR);
+		Mat source = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_COLOR);
 		Mat destination = new Mat(source.rows(), source.cols(), source.type());
 		// 先进行中值滤波操作
 		Imgproc.medianBlur(source, destination, 2 * ksize + 1);
@@ -323,7 +307,7 @@ public class BaseMethodController extends BaseController {
 		try {
 			byte[] imgebyte = OpenCVUtil.covertMat2Byte1(destination);
 			renderImage(response, imgebyte);
-		} catch (IOException e) {
+		} catch(IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -332,25 +316,21 @@ public class BaseMethodController extends BaseController {
 	 * 漫水填充
 	 *
 	 * @param response
-	 * @param imagefile
-	 * @param ksize
-	 * @param alpha
-	 * @param beta
-	 * @param gamma     void
-	 * @Author 王嵩
-	 * @Date 2018年5月24日
-	 * 更新日志
-	 * 2018年5月24日 王嵩  首次创建
+	 * @param imageFile
+	 * @param graysize
+	 * @param lodiff
+	 * @param updiff
+	 * @param flag
 	 */
 	@RequestMapping(value = "floodfill")
-	public void floodfill(HttpServletResponse response, String imagefile, double graysize, double lodiff,
+	public void floodfill(HttpServletResponse response, String imageFile, double graysize, double lodiff,
 						  double updiff, int flag) {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		logger.info("\n 漫水填充操作");
 
-		String sourcePath = Constants.PATH + imagefile;
+		String sourcePath = Constants.PATH + imageFile;
 		logger.info("url==============" + sourcePath);
-		Mat source = Highgui.imread(sourcePath, Highgui.CV_LOAD_IMAGE_GRAYSCALE);
+		Mat source = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_GRAYSCALE);
 		// Mat mask = new Mat(source.rows() + 2, source.cols() + 2, source.type());
 		Mat mask = new Mat();
 		Rect rect = new Rect();
@@ -384,70 +364,66 @@ public class BaseMethodController extends BaseController {
 
 
 		//使用mask调用方式
-		Imgproc.floodFill(source, mask, new Point(0, 0), new Scalar(graysize), rect, new Scalar(lodiff), new Scalar(
-				updiff), flags);
+		Imgproc.floodFill(source, mask, new Point(0, 0), new Scalar(graysize), rect, new Scalar(lodiff),
+						  new Scalar(updiff), flags);
 
 		try {
-			if (flag == 2) {//FLOODFILL_MASK_ONLY方式填充的是掩码图像
+			if(flag == 2) {//FLOODFILL_MASK_ONLY方式填充的是掩码图像
 				byte[] imgebyte = OpenCVUtil.covertMat2Byte1(mask);
 				renderImage(response, imgebyte);
 			} else {
 				byte[] imgebyte = OpenCVUtil.covertMat2Byte1(source);
 				renderImage(response, imgebyte);
 			}
-		} catch (IOException e) {
+		} catch(IOException e) {
 			e.printStackTrace();
 		}
 	}
 
 	/**
 	 * 图片缩放方法测试
-	 * 创建者 Songer
-	 * 创建时间	2018年3月15日
 	 */
 	@RequestMapping(value = "resize")
-	public void resize(HttpServletResponse response, String imagefile, Double rewidth, Double reheight,
+	public void resize(HttpServletResponse response, String imageFile, Double rewidth, Double reheight,
 					   Integer resizeType) {
 		// 默认都是放大
 		double width = rewidth;
 		double height = reheight;
 
-		if (resizeType == 2) {
+		if(resizeType == 2) {
 			width = 1 / width;
 			height = 1 / height;
 		}
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		logger.info("\n 图片缩放方法测试");
-		String sourcePath = Constants.PATH + imagefile;
+		String sourcePath = Constants.PATH + imageFile;
 		logger.info("url==============" + sourcePath);
-		Mat source = Highgui.imread(sourcePath, Highgui.CV_LOAD_IMAGE_COLOR);
+		Mat source = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_COLOR);
 		Mat destination = new Mat(source.rows(), source.cols(), source.type());
 		logger.info("resizeType:{},rewidth:{},reheight:{}", resizeType, rewidth, reheight);
 		Imgproc.resize(source, destination, new Size(0, 0), width, height, 0);
 		try {
 			byte[] imgebyte = OpenCVUtil.covertMat2Byte1(destination);
 			renderImage(response, imgebyte);
-		} catch (IOException e) {
+		} catch(IOException e) {
 			e.printStackTrace();
 		}
 	}
 
 	/**
 	 * 腐蚀膨胀测试
-	 * 创建者 Songer
-	 * 创建时间	2018年3月15日
 	 */
 	@RequestMapping(value = "erodingAndDilation")
-	public void erodingAndDilation(HttpServletResponse response, String imagefile, Double kSize, Integer operateType,
+	public void erodingAndDilation(HttpServletResponse response, String imageFile, Double kSize, Integer operateType,
 								   Integer shapeType, boolean isBinary) {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		logger.info("\n 腐蚀膨胀测试测试");
-		String sourcePath = Constants.PATH + imagefile;
+		String sourcePath = Constants.PATH + imageFile;
 		logger.info("url==============" + sourcePath);
-		Mat source = Highgui.imread(sourcePath, Highgui.CV_LOAD_IMAGE_COLOR);
+		Mat source = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_COLOR);
 		Mat destination = new Mat(source.rows(), source.cols(), source.type());
-		if (isBinary) {
-			source = Highgui.imread(sourcePath, Highgui.CV_LOAD_IMAGE_GRAYSCALE);
+		if(isBinary) {
+			source = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_GRAYSCALE);
 			// Imgproc.threshold(source, source, 100, 255, Imgproc.THRESH_BINARY);
 		}
 		double size = Double.valueOf(kSize);
@@ -465,7 +441,7 @@ public class BaseMethodController extends BaseController {
 		}
 		Mat element = Imgproc.getStructuringElement(shape, new Size(2 * size + 1, 2 * size + 1));
 		logger.info("kSize:{},operateType:{},shapeType:{},isBinary:{}", kSize, operateType, shapeType, isBinary);
-		if (operateType == 1) {// 腐蚀
+		if(operateType == 1) {// 腐蚀
 			Imgproc.erode(source, destination, element);
 		} else {// 膨胀
 			Imgproc.dilate(source, destination, element);
@@ -473,7 +449,7 @@ public class BaseMethodController extends BaseController {
 		try {
 			byte[] imgebyte = OpenCVUtil.covertMat2Byte1(destination);
 			renderImage(response, imgebyte);
-		} catch (IOException e) {
+		} catch(IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -481,20 +457,18 @@ public class BaseMethodController extends BaseController {
 	/**
 	 * 腐蚀膨胀使用进阶
 	 * 更高级的形态学变换处理：morphologyEx
-	 * 创建者 Songer
-	 * 创建时间	2018年3月15日
 	 */
 	@RequestMapping(value = "morphologyEx")
-	public void morphologyEx(HttpServletResponse response, String imagefile, Double kSize, Integer operateType,
+	public void morphologyEx(HttpServletResponse response, String imageFile, Double kSize, Integer operateType,
 							 Integer shapeType, boolean isBinary) {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		logger.info("\n 腐蚀膨胀测试测试");
-		String sourcePath = Constants.PATH + imagefile;
+		String sourcePath = Constants.PATH + imageFile;
 		logger.info("url==============" + sourcePath);
-		Mat source = Highgui.imread(sourcePath, Highgui.CV_LOAD_IMAGE_COLOR);
+		Mat source = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_COLOR);
 		Mat destination = new Mat(source.rows(), source.cols(), source.type());
-		if (isBinary) {
-			source = Highgui.imread(sourcePath, Highgui.CV_LOAD_IMAGE_GRAYSCALE);
+		if(isBinary) {
+			source = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_GRAYSCALE);
 			// Imgproc.threshold(source, source, 100, 255, Imgproc.THRESH_BINARY);
 		}
 		double size = Double.valueOf(kSize);
@@ -540,7 +514,7 @@ public class BaseMethodController extends BaseController {
 		try {
 			byte[] imgebyte = OpenCVUtil.covertMat2Byte1(destination);
 			renderImage(response, imgebyte);
-		} catch (IOException e) {
+		} catch(IOException e) {
 			e.printStackTrace();
 		}
 
@@ -548,58 +522,54 @@ public class BaseMethodController extends BaseController {
 
 	/**
 	 * 边缘检测Canny
-	 * 创建者 Songer
-	 * 创建时间	2018年3月15日
 	 */
 	@RequestMapping(value = "canny")
-	public void canny(HttpServletResponse response, String imagefile, Double threshold1, Double threshold2,
+	public void canny(HttpServletResponse response, String imageFile, Double threshold1, Double threshold2,
 					  boolean isBinary) {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		logger.info("\n 边缘检测测试");
-		String sourcePath = Constants.PATH + imagefile;
+		String sourcePath = Constants.PATH + imageFile;
 		logger.info("url==============" + sourcePath);
-		Mat source = Highgui.imread(sourcePath, Highgui.CV_LOAD_IMAGE_GRAYSCALE);
+		Mat source = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_GRAYSCALE);
 		Mat destination = new Mat(source.rows(), source.cols(), source.type());
 		Imgproc.Canny(source, destination, threshold1, threshold2);
 		try {
 			byte[] imgebyte = OpenCVUtil.covertMat2Byte1(destination);
 			renderImage(response, imgebyte);
-		} catch (IOException e) {
+		} catch(IOException e) {
 			e.printStackTrace();
 		}
 	}
 
 	/**
 	 * 霍夫线变换
-	 * 创建者 Songer
-	 * 创建时间	2018年3月19日
 	 */
 	@RequestMapping(value = "houghline")
-	public void houghline(HttpServletResponse response, String imagefile, Double threshold1, Double threshold2,
+	public void houghline(HttpServletResponse response, String imageFile, Double threshold1, Double threshold2,
 						  Integer threshold, Double minLineLength, Double maxLineGap) {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		logger.info("\n 霍夫线变换测试");
-		String sourcePath = Constants.PATH + imagefile;
+		String sourcePath = Constants.PATH + imageFile;
 		logger.info("url==============" + sourcePath);
-		Mat source1 = Highgui.imread(sourcePath, Highgui.CV_LOAD_IMAGE_COLOR);// 彩色图
-		Mat source2 = Highgui.imread(sourcePath, Highgui.CV_LOAD_IMAGE_GRAYSCALE);// 灰度图
+		Mat source1 = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_COLOR);// 彩色图
+		Mat source2 = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_GRAYSCALE);// 灰度图
 		Mat lineMat = new Mat(source2.rows(), source2.cols(), source2.type());
 		Mat destination = new Mat(source2.rows(), source2.cols(), source2.type());
 		Imgproc.Canny(source2, destination, threshold1, threshold2);
 		Imgproc.HoughLinesP(destination, lineMat, 1, Math.PI / 180, threshold, minLineLength, maxLineGap);
 		int[] a = new int[(int) lineMat.total() * lineMat.channels()]; // 数组a存储检测出的直线端点坐标
 		lineMat.get(0, 0, a);
-		for (int i = 0; i < a.length; i += 4) {
+		for(int i = 0; i < a.length; i += 4) {
 			// new Scalar(255, 0, 0) blue
 			// new Scalar(0, 255, 0) green
 			// new Scalar(0, 0, 255) red
-			Core.line(source1, new Point(a[i], a[i + 1]), new Point(a[i + 2], a[i + 3]), new Scalar(0, 255, 0), 2);
+			Imgproc.line(source1, new Point(a[i], a[i + 1]), new Point(a[i + 2], a[i + 3]), new Scalar(0, 255, 0), 2);
 		}
 
 		try {
 			byte[] imgebyte = OpenCVUtil.covertMat2Byte1(source1);
 			renderImage(response, imgebyte);
-		} catch (IOException e) {
+		} catch(IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -610,29 +580,29 @@ public class BaseMethodController extends BaseController {
 	 * 创建时间	2018年3月20日
 	 */
 	@RequestMapping(value = "houghcircle")
-	public void houghcircle(HttpServletResponse response, String imagefile, Double minDist, Double param1,
+	public void houghcircle(HttpServletResponse response, String imageFile, Double minDist, Double param1,
 							Double param2, Integer minRadius, Integer maxRadius) {
 
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		logger.info("\n 霍夫圆变换测试");
-		String sourcePath = Constants.PATH + imagefile;
+		String sourcePath = Constants.PATH + imageFile;
 		logger.info("url==============" + sourcePath);
-		Mat source1 = Highgui.imread(sourcePath, Highgui.CV_LOAD_IMAGE_COLOR);// 彩色图
-		Mat source2 = Highgui.imread(sourcePath, Highgui.CV_LOAD_IMAGE_GRAYSCALE);// 灰度图
+		Mat source1 = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_COLOR);// 彩色图
+		Mat source2 = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_GRAYSCALE);// 灰度图
 		Mat circleMat = new Mat(source2.rows(), source2.cols(), source2.type());
 
 		Imgproc.HoughCircles(source2, circleMat, Imgproc.CV_HOUGH_GRADIENT, 1.0, minDist, param1, param2, minRadius,
-				maxRadius);// 霍夫变换检测圆
+							 maxRadius);// 霍夫变换检测圆
 		System.out.println("----------------" + circleMat.cols());
 		int cols = circleMat.cols();
 		// Point anchor01 = new Point();
-		if (cols > 0) {
-			for (int i = 0; i < cols; i++) {
+		if(cols > 0) {
+			for(int i = 0; i < cols; i++) {
 				double vCircle[] = circleMat.get(0, i);
 				Point center = new Point(vCircle[0], vCircle[1]);
 				int radius = (int) Math.round(vCircle[2]);
-				Core.circle(source1, center, 3, new Scalar(0, 255, 0), -1, 8, 0);// 绿色圆心
-				Core.circle(source1, center, radius, new Scalar(0, 0, 255), 3, 8, 0);// 红色圆边
+				Imgproc.circle(source1, center, 3, new Scalar(0, 255, 0), -1, 8, 0);// 绿色圆心
+				Imgproc.circle(source1, center, radius, new Scalar(0, 0, 255), 3, 8, 0);// 红色圆边
 				// anchor01.x = vCircle[0];
 				// anchor01.y = vCircle[1];
 
@@ -641,25 +611,27 @@ public class BaseMethodController extends BaseController {
 		try {
 			byte[] imgebyte = OpenCVUtil.covertMat2Byte1(source1);
 			renderImage(response, imgebyte);
-		} catch (IOException e) {
+		} catch(IOException e) {
 			e.printStackTrace();
 		}
 	}
 
 	/**
 	 * 颜色识别测试
-	 * 创建者 Songer
-	 * 创建时间	2018年3月20日
+	 *
+	 * @param response
+	 * @param imageFile
+	 * @param color
+	 * @param colorType
 	 */
 	@RequestMapping(value = "findcolor")
-	public void findcolor(HttpServletResponse response, String imagefile, Integer color,
-						  Integer colorType) {
+	public void findcolor(HttpServletResponse response, String imageFile, Integer color, Integer colorType) {
 
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		logger.info("\n 查找颜色测试");
-		String sourcePath = Constants.PATH + imagefile;
+		String sourcePath = Constants.PATH + imageFile;
 		logger.info("url==============" + sourcePath);
-		Mat source = Highgui.imread(sourcePath, Highgui.CV_LOAD_IMAGE_COLOR);
+		Mat source = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_COLOR);
 		Mat destination = new Mat(source.rows(), source.cols(), source.type());
 		if (colorType == 1) {// 1为RGB方式，2为HSV方式
 			double B = 0;
@@ -719,22 +691,26 @@ public class BaseMethodController extends BaseController {
 		try {
 			byte[] imgebyte = OpenCVUtil.covertMat2Byte1(destination);
 			renderImage(response, imgebyte);
-		} catch (IOException e) {
+		} catch(IOException e) {
 			e.printStackTrace();
 		}
 	}
 
 	/**
 	 * 轮廓识别测试
-	 * 创建者 Songer
-	 * 创建时间	2018年3月20日
+	 *
+	 * @param response
+	 * @param imageFile
+	 * @param mode
+	 * @param method
+	 * @param contourNum
 	 */
 	@RequestMapping(value = "contours")
-	public void contours(HttpServletResponse response, String imagefile, Integer mode, Integer method,
+	public void contours(HttpServletResponse response, String imageFile, Integer mode, Integer method,
 						 Integer contourNum) {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		logger.info("\n 轮廓识别测试");
-		String sourcePath = Constants.PATH + imagefile;
+		String sourcePath = Constants.PATH + imageFile;
 		logger.info("url==============" + sourcePath);
 		logger.info("mode:{},method:{}", mode, method);
 
@@ -773,7 +749,7 @@ public class BaseMethodController extends BaseController {
 				break;
 		}
 
-		Mat source = Highgui.imread(sourcePath, Highgui.CV_LOAD_IMAGE_GRAYSCALE);
+		Mat source = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_GRAYSCALE);
 		// Mat destination = new Mat(source.rows(), source.cols(), source.type());
 		Mat destination = Mat.zeros(source.size(), CvType.CV_8UC3);
 		Mat hierarchy = new Mat(source.rows(), source.cols(), CvType.CV_8UC1, new Scalar(0));
@@ -782,7 +758,7 @@ public class BaseMethodController extends BaseController {
 		System.out.println(contours.size());
 		logger.info("轮廓数量为：{}，当前请求要展现第{}个轮廓", contours.size(), contourNum);
 		// contourNum因为轮廓计数是从0开始
-		if (contourNum == -1 || (contourNum + 1) > contours.size()) {
+		if(contourNum == -1 || (contourNum + 1) > contours.size()) {
 			logger.info("轮廓数量已经超出，默认显示所有轮廓，轮廓数量：{}", contours.size());
 			contourNum = -1;
 		}
@@ -790,24 +766,33 @@ public class BaseMethodController extends BaseController {
 		try {
 			byte[] imgebyte = OpenCVUtil.covertMat2Byte1(destination);
 			renderImage(response, imgebyte);
-		} catch (IOException e) {
+		} catch(IOException e) {
 			e.printStackTrace();
 		}
 	}
 
 	/**
 	 * 模板查找测试
-	 * 创建者 Songer
-	 * 创建时间	2018年3月21日
+	 *
+	 * @param response
+	 * @param imageFile
+	 * @param method
+	 * @param imageType
+	 * @param x1
+	 * @param y1
+	 * @param x2
+	 * @param y2
+	 * @param width
+	 * @param height
 	 */
 	@RequestMapping(value = "findtemplate")
-	public void findtemplate(HttpServletResponse response, String imagefile, Integer method, Integer imageType,
+	public void findtemplate(HttpServletResponse response, String imageFile, Integer method, Integer imageType,
 							 Double x1, Double y1, Double x2, Double y2, Double width, Double height) {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		logger.info("\n 模板查找测试");
-		String sourcePath = Constants.PATH + imagefile;
+		String sourcePath = Constants.PATH + imageFile;
 		logger.info("url==============" + sourcePath);
-		Mat source = Highgui.imread(sourcePath, Highgui.CV_LOAD_IMAGE_COLOR);
+		Mat source = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_COLOR);
 		// Mat destination = new Mat(source.rows(), source.cols(), source.type());
 		// String templateimage = Constants.SOURCE_IMAGE_PATH + "/template.png";
 		// System.out.println(templateimage);
@@ -825,7 +810,7 @@ public class BaseMethodController extends BaseController {
 		// 矩阵归一化处理
 		Core.normalize(destination, destination, 0, 255, Core.NORM_MINMAX, -1, new Mat());
 		// minMaxLoc(imagematch, minVal, maxVal2, minLoc, maxLoc01, new Mat());
-		MinMaxLocResult minmaxLoc = Core.minMaxLoc(destination);
+		Core.MinMaxLocResult minmaxLoc = Core.minMaxLoc(destination);
 		logger.info("相似值=================：最大：" + minmaxLoc.maxVal + "    最小：" + minmaxLoc.minVal);
 		Point matchLoc = new Point();
 		switch (method) {
@@ -859,16 +844,16 @@ public class BaseMethodController extends BaseController {
 				break;
 		}
 
-		if (imageType == 0) {// 显示过程图片
+		if(imageType == 0) {// 显示过程图片
 			source = destination;
 		} else {// 显示最终框选结果
-			Core.rectangle(source, matchLoc, new Point(matchLoc.x + matchtemp.cols(), matchLoc.y + matchtemp.rows()),
-					new Scalar(0, 255, 0), 2);
+			Imgproc.rectangle(source, matchLoc, new Point(matchLoc.x + matchtemp.cols(),
+														  matchLoc.y + matchtemp.rows()), new Scalar(0, 255, 0), 2);
 		}
 		try {
 			byte[] imgebyte = OpenCVUtil.covertMat2Byte1(source);
 			renderImage(response, imgebyte);
-		} catch (IOException e) {
+		} catch(IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -877,21 +862,20 @@ public class BaseMethodController extends BaseController {
 	 * 灰度直方图
 	 *
 	 * @param response
-	 * @param imagefile
+	 * @param imageFile
 	 * @param cols
-	 * @return Mat
-	 * @Author 王嵩
-	 * @Date 2018年4月2日
-	 * 更新日志
-	 * 2018年4月2日 王嵩  首次创建
+	 * @param imageW
+	 * @param imageH
+	 * @param imageKedu
+	 * @param isShow
 	 */
 	@RequestMapping(value = "grayHistogram")
-	public void grayHistogram(HttpServletResponse response, String imagefile, Integer cols, Integer imageW,
+	public void grayHistogram(HttpServletResponse response, String imageFile, Integer cols, Integer imageW,
 							  Integer imageH, Integer imageKedu, boolean isShow) {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		logger.info("\n 灰度直方图测试");
-		String sourcePath = Constants.PATH + imagefile;
-		Mat source = Highgui.imread(sourcePath, Highgui.CV_LOAD_IMAGE_GRAYSCALE);
+		String sourcePath = Constants.PATH + imageFile;
+		Mat source = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_GRAYSCALE);
 		List<Mat> images = new ArrayList<Mat>();
 		images.add(source);
 		MatOfInt channels = new MatOfInt(0); // 图像通道数，0表示只有一个通道
@@ -899,7 +883,7 @@ public class BaseMethodController extends BaseController {
 		Mat histogramOfGray = new Mat(); // 输出直方图结果，共有256行，行数的相当于对应灰度值，每一行的值相当于该灰度值所占比例
 		MatOfFloat histRange = new MatOfFloat(0, 255);
 		Imgproc.calcHist(images, channels, new Mat(), histogramOfGray, histSize, histRange, false); // 计算直方图
-		MinMaxLocResult minmaxLoc = Core.minMaxLoc(histogramOfGray);
+		Core.MinMaxLocResult minmaxLoc = Core.minMaxLoc(histogramOfGray);
 		// 按行归一化
 		// Core.normalize(histogramOfGray, histogramOfGray, 0, histogramOfGray.rows(), Core.NORM_MINMAX, -1, new Mat());
 
@@ -913,46 +897,50 @@ public class BaseMethodController extends BaseController {
 		System.out.println("max--------" + max);
 		double bin_u = (double) (histImg.height() - 20) / max; // max: 最高条的像素个数，则 bin_u 为单个像素的高度
 		int kedu = 0;
-		for (int i = 1; kedu <= minmaxLoc.maxVal; i++) {
+		for(int i = 1; kedu <= minmaxLoc.maxVal; i++) {
 			kedu = i * max / 10;
 			// 在图像中显示文本字符串
-			Core.putText(histImg, kedu + "", new Point(0, histImg.height() - 5 - kedu * bin_u), 1, 1, new Scalar(255, 0, 0));
-			if (isShow) {
+			Imgproc.putText(histImg, kedu + "", new Point(0, histImg.height() - 5 - kedu * bin_u), 1, 1,
+							new Scalar(255, 0, 0));
+			if(isShow) {
 				// 附上高度坐标线，因为高度在画图时-了20，此处也减掉
-				Core.line(histImg, new Point(0, histImg.height() - 20 - kedu * bin_u),
-						new Point(imageW, histImg.height() - 20 - (kedu + 1) * bin_u), new Scalar(255, 0, 0), 1, 8, 0);
+				Imgproc.line(histImg, new Point(0, histImg.height() - 20 - kedu * bin_u), new Point(imageW,
+																									histImg.height() - 20 - (kedu + 1) * bin_u), new Scalar(255, 0, 0), 1, 8, 0);
 			}
 		}
 
 		System.out.println("灰度级:" + histSize.get(0, 0)[0]);
-		for (int i = 0; i < histSize.get(0, 0)[0]; i++) { // 画出每一个灰度级分量的比例，注意OpenCV将Mat最左上角的点作为坐标原点
-			Core.rectangle(histImg, new Point(colStep * i, histImgRows - 20), new Point(colStep * (i + 1), histImgRows
-					- bin_u * Math.round(histogramOfGray.get(i, 0)[0]) - 20), new Scalar(0, 0, 0), 1, 8, 0);
+		for(int i = 0; i < histSize.get(0, 0)[0]; i++) { // 画出每一个灰度级分量的比例，注意OpenCV将Mat最左上角的点作为坐标原点
+			Imgproc.rectangle(histImg, new Point(colStep * i, histImgRows - 20), new Point(colStep * (i + 1),
+																						   histImgRows - bin_u * Math.round(histogramOfGray.get(i, 0)[0]) - 20), new Scalar(0, 0, 0), 1, 8, 0);
 			// if (i % 10 == 0) {
-			// Core.putText(histImg, Integer.toString(i), new Point(colStep * i, histImgRows - 5), 1, 1, new Scalar(255,
+			// Imgproc.putText(histImg, Integer.toString(i), new Point(colStep * i, histImgRows - 5), 1, 1, new Scalar
+			// (255,
 			// 0, 0)); // 附上x轴刻度
 			// }
 			// 每隔10画一下刻度,方式2
 			kedu = i * imageKedu;
-			Core.rectangle(histImg, new Point(colStep * kedu, histImgRows - 20), new Point(colStep * (kedu + 1),
-					histImgRows - 20), new Scalar(255, 0, 0), 2, 8, 0);
-			Core.putText(histImg, kedu + "", new Point(histImgCols / 256 * kedu, histImgRows - 5), 1, 1, new Scalar(
-					255, 0, 0)); // 附上x轴刻度
+			Imgproc.rectangle(histImg, new Point(colStep * kedu, histImgRows - 20), new Point(colStep * (kedu + 1),
+																							  histImgRows - 20),
+							  new Scalar(255, 0, 0), 2, 8, 0);
+			Imgproc.putText(histImg, kedu + "", new Point(histImgCols / 256 * kedu, histImgRows - 5), 1, 1,
+							new Scalar(255, 0, 0)); // 附上x轴刻度
 		}
 		try {
 			byte[] imgebyte = OpenCVUtil.covertMat2Byte1(histImg);
 			renderImage(response, imgebyte);
-		} catch (IOException e) {
+		} catch(IOException e) {
 			e.printStackTrace();
 		}
 
 	}
 
-	// public void qrCode(HttpServletResponse response, String imagefile, Integer binaryType, Double thresh, Double maxval) {
+	// public void qrCode(HttpServletResponse response, String imageFile, Integer binaryType, Double thresh, Double
+	// maxval) {
 	// System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-	// String sourcePath = Constants.PATH + imagefile;
+	// String sourcePath = Constants.PATH + imageFile;
 	// // 加载为灰度图显示
-	// Mat imageGray = Highgui.imread(sourcePath, Highgui.CV_LOAD_IMAGE_GRAYSCALE);
+	// Mat imageGray = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_GRAYSCALE);
 	// Mat image = new Mat(imageGray.rows(), imageGray.cols(), imageGray.type());
 	// Mat imageGuussian = new Mat(imageGray.rows(), imageGray.cols(), imageGray.type());
 	// Mat imageSobelX,imageSobelY,imageSobelOut;
@@ -1072,16 +1060,16 @@ public class BaseMethodController extends BaseController {
 
 
 	@RequestMapping(value = "picTransform")
-	public void picTransform(HttpServletResponse response, String imagefile) {
+	public void picTransform(HttpServletResponse response, String imageFile) {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		logger.info("\n 图像转换开始");
 		//我们假设我们识别的图片如样例一样有明显的边界，那我们可以用边缘检测算法将真正有效区域抽离出来，
 		//以此来提高识别准确度和识别精度
 		//先进行边缘检测
-//		String sourcePath = "d:\\test\\abc\\a.png";
-		String sourcePath = Constants.PATH + imagefile;
-		Mat source = Highgui.imread(sourcePath);
-//		Mat destination = new Mat(source.rows(), source.cols(), source.type());
+		//		String sourcePath = "d:\\test\\abc\\a.png";
+		String sourcePath = Constants.PATH + imageFile;
+		Mat source = Imgcodecs.imread(sourcePath);
+		//		Mat destination = new Mat(source.rows(), source.cols(), source.type());
 		//复制一个source作为四点转换的原图，因为source在轮廓识别时会被覆盖，建议图像处理时都将原图复制一份，
 		//因为opencv的很多算法都会更改传入的soure图片，如果不注意可能就会导致各种异常。
 		Mat orign = source.clone();
@@ -1095,13 +1083,13 @@ public class BaseMethodController extends BaseController {
 		// 灰度化,加载为灰度图显示
 		Mat gray = dst.clone();
 		Imgproc.cvtColor(dst, gray, Imgproc.COLOR_BGR2GRAY);
-		Highgui.imwrite("d:\\test\\abc\\o1.png", gray);
+		Imgcodecs.imwrite("d:\\test\\abc\\o1.png", gray);
 		//高斯滤波,去除杂点等干扰
 		Imgproc.GaussianBlur(gray, gray, new Size(5, 5), 0);
 		//canny边缘检测算法，经过canny算法或的图像会变成二值化效果
 		Mat edges = gray.clone();
 		Imgproc.Canny(gray, edges, 75, 200);
-		Highgui.imwrite("d:\\test\\abc\\o2.png", edges);
+		Imgcodecs.imwrite("d:\\test\\abc\\o2.png", edges);
 
 		String destPath = "d:\\test\\abc\\dst.png";
 		Mat hierarchy = new Mat(gray.rows(), gray.cols(), CvType.CV_8UC1, new Scalar(0));
@@ -1131,7 +1119,7 @@ public class BaseMethodController extends BaseController {
 				listPoint.add(new Point(point2[0] / ratio, point2[1] / ratio));
 				listPoint.add(new Point(point3[0] / ratio, point3[1] / ratio));
 				listPoint.add(new Point(point4[0] / ratio, point4[1] / ratio));
-				for (Point d : listPoint) {
+				for(Point d : listPoint) {
 					System.out.println(d);
 				}
 				System.out.println("######################");
@@ -1141,9 +1129,9 @@ public class BaseMethodController extends BaseController {
 		}
 		//绘制轮廓，注意是在缩放过的图片上绘制的，别在原图上画，肯定画的不对。
 		Imgproc.drawContours(dst, contours, -1, new Scalar(0, 255, 0), 2);
-		Highgui.imwrite("d:\\test\\abc\\o3.png", dst);
+		Imgcodecs.imwrite("d:\\test\\abc\\o3.png", dst);
 		Mat resullt = fourPointTransform(orign, listPoint);
-		Highgui.imwrite(destPath, resullt);
+		Imgcodecs.imwrite(destPath, resullt);
 		// 方式2，回写页面图片流
 		try {
 			byte[] imgebyte = OpenCVUtil.covertMat2Byte1(resullt);
@@ -1155,15 +1143,9 @@ public class BaseMethodController extends BaseController {
 
 	/**
 	 * py中imutils中经典的4点转换方法的java实现
-	 *
 	 * @param source
 	 * @param listPoint
-	 * @return Mat
-	 * <p>
-	 * 更新日志
-	 * 2019年8月20日 song.wang 首次创建
-	 * @author song.wang
-	 * @date 2019年8月20日
+	 * @return
 	 */
 	private static Mat fourPointTransform(Mat source, List<Point> listPoint) {
 		//获得点的顺序
@@ -1208,7 +1190,7 @@ public class BaseMethodController extends BaseController {
 		//注意定义的新图像宽高设置
 		Mat resultMat = Mat.zeros((int) maxHeight - 1, (int) maxWidth - 1, CvType.CV_8UC3);
 		Imgproc.warpPerspective(source, resultMat, transmtx, resultMat.size());
-		Highgui.imwrite("D:\\test\\abc\\t2.png", resultMat);
+		Imgcodecs.imwrite("D:\\test\\abc\\t2.png", resultMat);
 
 		//返回矫正后的图像
 		return resultMat;
@@ -1218,12 +1200,7 @@ public class BaseMethodController extends BaseController {
 	 * 4点排序，四个点按照左上、右上、右下、左下组织返回
 	 *
 	 * @param listPoint
-	 * @return List<Point>
-	 * <p>
-	 * 更新日志
-	 * 2019年8月16日 song.wang 首次创建
-	 * @author song.wang
-	 * @date 2019年8月16日
+	 * @return
 	 */
 	private static List<Point> orderPoints(List<Point> listPoint) {
 		//python中有很多关于数组的函数处理如排序、比较、加减乘除等，在这里我们使用List进行操作
