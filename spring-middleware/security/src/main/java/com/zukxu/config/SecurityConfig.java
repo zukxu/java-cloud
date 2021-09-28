@@ -18,13 +18,16 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.session.FindByIndexNameSessionRepository;
 import org.springframework.session.Session;
 import org.springframework.session.security.SpringSessionBackedSessionRegistry;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import javax.sql.DataSource;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.Collections;
 
 /**
@@ -166,21 +169,26 @@ public class SecurityConfig<S extends Session> extends WebSecurityConfigurerAdap
             //    writer.flush();
             //    writer.close();
             //})
-            .and()
-            .rememberMe()
-            .key("zukxu")
-            .tokenRepository(jdbcTokenRepository())
-            .and()//添加记住我功能
+            .and().rememberMe().key("zukxu").tokenRepository(jdbcTokenRepository()).and()//添加记住我功能
             .csrf()
             //.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())//前后端分离时，Cookies中返回_csrf参数
             .disable()//关闭csrf
+            .cors().and()
             .sessionManagement()
             .maximumSessions(1)//配置最大session数为1,后登录会踢掉前一个
             .maxSessionsPreventsLogin(true)//已登录后不允许再登录
             .sessionRegistry(sessionRegistry())//前后端分离配置session共享
         ;
     }
-
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("https://example.com"));
+        configuration.setAllowedMethods(Arrays.asList("GET","POST"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
     @Bean
     public SpringSessionBackedSessionRegistry<S> sessionRegistry() {
         return new SpringSessionBackedSessionRegistry<>(this.sessionRepository);
