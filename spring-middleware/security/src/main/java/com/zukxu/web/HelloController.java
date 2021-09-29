@@ -33,8 +33,8 @@ public class HelloController {
     }*/
 
     @GetMapping("/admin/hello")
-    public String admin() {
-        return "admin";
+    public String admin(String text) {
+        return "admin: "+"传递的参数为: "+text;
     }
 
     @GetMapping("/user/hello")
