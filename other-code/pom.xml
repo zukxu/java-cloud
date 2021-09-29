@@ -20,6 +20,8 @@
         <module>echarts-map</module>
         <module>dataWay</module>
         <module>java-cv</module>
+        <module>time-clock</module>
+        <module>test-code</module>
     </modules>
 
     <properties>
