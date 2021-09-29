@@ -1,5 +1,6 @@
 package com.zukxu.thread.service.impl;
 
+import com.zukxu.thread.service.IAsyncService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -14,14 +15,14 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @Slf4j
-public class AsyncServiceImpl implements com.zukxu.threadpool.IAsyncService {
+public class AsyncServiceImpl implements IAsyncService {
 
 	@Override
 	@Async
 	public void sentMsg(String msg) {
 		log.info("子线程发送短信");
 		int i = 0;
-		while (i < 10) {
+		while(i < 10) {
 			i++;
 			System.out.println("短信发送" + i);
 		}
