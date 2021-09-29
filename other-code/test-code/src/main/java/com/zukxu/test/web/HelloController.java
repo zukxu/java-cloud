@@ -49,14 +49,8 @@ public class HelloController {
     }
 
     @PostMapping("/json")
-    public Map json(@RequestBody UserDTO user) {
-        String jsonString = "{\n" + "    \"cityid\": \"101120101\",\n" + "    \"city\": \"济南\",\n" + "    " +
-                            "\"update_time\": \"2020-04-17 10:50\",\n" + "    \"wea\": \"晴\",\n" + "    \"wea_img\": "
-                            + "\"qing\",\n" + "    \"tem\": \"16\",\n" + "    \"tem_day\": \"20\",\n" + "    " +
-                            "\"tem_night\": \"9\",\n" + "    \"win\": \"东北风\",\n" + "    \"win_speed\": \"3级\",\n" +
-                            "    \"win_meter\": \"小于12km/h\",\n" + "    \"air\": \"113\"\n" + "}";
-        Map maps = (Map) JSON.parse(jsonString);
-        return maps;
+    public String json(@RequestBody UserDTO user) {
+        return "json数据："+user.toString();
     }
 
     @PostMapping("/file")
