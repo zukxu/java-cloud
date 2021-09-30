@@ -1,4 +1,4 @@
-package com.zukxu.test.service;
+package com.zukxu.test.postman.service;
 
 import org.springframework.stereotype.Service;
 

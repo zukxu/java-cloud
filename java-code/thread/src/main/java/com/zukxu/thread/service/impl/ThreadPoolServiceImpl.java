@@ -1,7 +1,7 @@
 package com.zukxu.thread.service.impl;
 
 import com.zukxu.thread.service.IThreadPoolService;
-import com.zukxu.threadpool.utils.SpringUtils;
+import com.zukxu.thread.utils.SpringContextUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
@@ -42,20 +42,20 @@ public class ThreadPoolServiceImpl implements IThreadPoolService {
 	@Override
 	public List<String> multiProcess(List<String> inputList) {
 		//创建线程池
-		ThreadPoolTaskExecutor executor = SpringUtils.getBean("threadPoolTaskExecutor", ThreadPoolTaskExecutor.class);
+		ThreadPoolTaskExecutor executor = SpringContextUtils.getBean("threadPoolTaskExecutor", ThreadPoolTaskExecutor.class);
 		//创建并使用CountDownLatch等待所有线程执行结束：
 		CountDownLatch latch = new CountDownLatch(inputList.size());
 		//每个线程把执行结果添加到线程安全的List中。这里List应当使用SynchronizedList
 		List<String> outputList = Collections.synchronizedList(new ArrayList<>(inputList.size()));
 
-		for (String input : inputList) {
+		for(String input : inputList) {
 			//分配线程进行执行
 			executor.execute(() -> {
 				try {
 					//执行单个线程方法进行执行
 					String output = singleProcess(input);
 					outputList.add(output);
-				} catch (Exception e) {
+				} catch(Exception e) {
 					e.printStackTrace();
 				} finally {
 					latch.countDown();

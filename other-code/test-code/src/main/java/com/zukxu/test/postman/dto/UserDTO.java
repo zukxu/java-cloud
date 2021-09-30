@@ -1,4 +1,4 @@
-package com.zukxu.test.dto;
+package com.zukxu.test.postman.dto;
 
 import lombok.Data;
 
@@ -11,6 +11,7 @@ import lombok.Data;
 public class UserDTO {
     private String username;
     private String password;
+    private String code;
     private String sex;
     private int age;
 }
