@@ -1,6 +1,7 @@
 package com.zukxu.java8.test.mysql;
 
-import com.zukxu.test.mysql.utils.DBTools;
+
+import com.zukxu.java8.test.mysql.utils.DBTools;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

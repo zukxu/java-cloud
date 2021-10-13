@@ -1,5 +1,7 @@
 package com.zukxu.common.utils.ip;
 
+import cn.hutool.core.net.Ipv4Util;
+
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -7,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
  * @Description IP 工具类
  * @Date 2021-09-17 9:18
  */
-public class IpUtils {
+public class IpUtils extends Ipv4Util {
     /**
      * 获取ip地址
      *
