@@ -1,7 +1,9 @@
 package com.zukxu.common.result;
 
+import com.alibaba.fastjson.JSON;
 import lombok.Data;
 import lombok.experimental.Accessors;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.Serializable;
 
@@ -11,56 +13,55 @@ import java.io.Serializable;
  * @Date 2021-09-16 16:33
  */
 @Data
+@Slf4j
 @Accessors(chain = true)
 public class R<T> implements Serializable {
-    private static final long serialVersionUID = -45239331572204682L;
+    /**
+     * 仅反馈成功，无详细数据，请用这个
+     */
+    public static final R<Void> OK = new R<>(CommREnum.OK);
+    /**
+     * 未知错误，无详细数据，请用这个
+     */
+    public static final R<Void> FAIL = new R<>(CommREnum.FAIL);
 
+    private static final long serialVersionUID = -45239331572204682L;
     private int code;
     private String msg;
     private T data;
 
     private R() {}
 
-    /**
-     * 通用返回成功
-     *
-     * @return R<Void>
-     */
-    public static <T> R<T> ok() {
-        return ok(null);
+    private R(IREnum rEnum) {
+        this.code = rEnum.code();
+        this.msg = rEnum.message();
     }
 
     /**
      * @param data data
      * @param <T>  T
+     *
      * @return R<T>
      */
     public static <T> R<T> ok(T data) {
-        return genResult(RStatus.OK, data);
+        return genResult(CommREnum.OK, data);
     }
 
     /**
      * @param msg  消息
      * @param data 数据
      * @param <T>  T
-     * @return R<T>
-     */
-    public static <T> R<T> ok(String msg, T data) {
-        return genResult(RStatus.OK.getCode(), msg, data);
-    }
-
-    /**
-     * 通用返回失败，未知错误
      *
      * @return R<T>
      */
-    public static <T> R<T> fail() {
-        return genResult(RStatus.FAIL, null);
+    public static <T> R<T> ok(String msg, T data) {
+        return genResult(CommREnum.OK.getCode(), msg, data);
     }
 
     /**
      * @param msg msg
      * @param <T> <T>
+     *
      * @return R
      */
     public static <T> R<T> fail(String msg) {
@@ -70,16 +71,18 @@ public class R<T> implements Serializable {
     /**
      * @param msg  msg
      * @param data data
+     *
      * @return R<T>
      */
     public static <T> R<T> fail(String msg, T data) {
-        return genResult(RStatus.FAIL.getCode(), msg, data);
+        return genResult(CommREnum.FAIL.getCode(), msg, data);
     }
 
     /**
      * @param code code int
      * @param msg  msg String
      * @param <T>  T
+     *
      * @return R
      */
     public static <T> R<T> fail(int code, String msg) {
@@ -88,12 +91,47 @@ public class R<T> implements Serializable {
 
     /**
      * @param status RStatus
-     * @param data   T data
      * @param <T>    T
+     *
      * @return R
      */
-    public static <T> R<T> fail(RStatus status, T data) {
-        return genResult(status, data);
+    public static <T> R<T> fail(CommREnum status) {
+        return genResult(status, null);
+    }
+
+    /**
+     * @param status RStatus
+     * @param data   data
+     * @param <T>    T
+     *
+     * @return R
+     */
+    private static <T> R<T> genResult(CommREnum status, T data) {
+        R<T> r = new R<>();
+        r.setCode(status.getCode());
+        r.setMsg(status.getMessage());
+        r.setData(data);
+        log.info("返回结果:{}", JSON.toJSONString(r));
+        return r;
+    }
+
+    /**
+     * generate a R instance
+     *
+     * @param code code
+     * @param msg  msg
+     * @param data data
+     * @param <T>  <T>
+     *
+     * @return R
+     */
+    private static <T> R<T> genResult(int code, String msg, T data) {
+        R<T> r = new R<>();
+        r.setCode(code);
+        r.setData(data);
+        r.setMsg(msg);
+        log.info("返回结果:{}", JSON.toJSONString(r));
+        return r;
     }
 
     //chain calls methods
@@ -112,37 +150,5 @@ public class R<T> implements Serializable {
     public R<T> code(Integer code) {
         this.setCode(code);
         return this;
-    }
-
-
-    /**
-     * @param status RStatus
-     * @param data   data
-     * @param <T>    T
-     * @return R
-     */
-    private static <T> R<T> genResult(RStatus status, T data) {
-        R<T> r = new R<>();
-        r.setCode(status.getCode());
-        r.setMsg(status.getMessage());
-        r.setData(data);
-        return r;
-    }
-
-    /**
-     * generate a R instance
-     *
-     * @param code code
-     * @param msg  msg
-     * @param data data
-     * @param <T>  <T>
-     * @return R
-     */
-    private static <T> R<T> genResult(int code, String msg, T data) {
-        R<T> r = new R<>();
-        r.setCode(code);
-        r.setData(data);
-        r.setMsg(msg);
-        return r;
     }
 }
