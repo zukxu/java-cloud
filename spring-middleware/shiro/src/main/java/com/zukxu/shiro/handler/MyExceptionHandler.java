@@ -24,6 +24,6 @@ public class MyExceptionHandler {
     @ExceptionHandler(UnauthorizedException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public R<?> UnauthorizedExceptionHandler(UnauthorizedException e) {
-        return R.fail(CommREnum.UNAUTHORIZED, null);
+        return R.fail(CommREnum.UNAUTHORIZED);
     }
 }

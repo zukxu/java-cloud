@@ -109,6 +109,17 @@
                         <encoding>UTF-8</encoding>
                     </configuration>
                 </plugin>
+                <plugin>
+                    <groupId>com.github.shalousun</groupId>
+                    <artifactId>smart-doc-maven-plugin</artifactId>
+                    <version>2.2.9</version>
+                    <configuration>
+                        <!--指定smart-doc使用的配置文件路径-->
+                        <configFile>./src/main/resources/smart-doc.json</configFile>
+                        <!--指定项目名称-->
+                        <projectName>{{artifactId}}</projectName>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
     </build>

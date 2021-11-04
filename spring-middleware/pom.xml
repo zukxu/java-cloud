@@ -19,7 +19,6 @@
         <module>security</module>
         <module>security-jwt</module>
         <module>activiti</module>
-        <module>workflow</module>
     </modules>
 
     <properties>

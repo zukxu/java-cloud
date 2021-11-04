@@ -135,8 +135,8 @@ public class R<T> implements Serializable {
     }
 
     //chain calls methods
-    //R.ok().code(200).message("成功").data(null);
-    //R.fail().code(500).message("失败").data(null);
+    // R.OK.code(200).message("成功").data(null);
+    // R.FAIL.code(500).message("失败").data(null);
     public R<T> data(T data) {
         this.setData(data);
         return this;

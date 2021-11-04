@@ -2,7 +2,10 @@ package com.zukxu.cv.test;
 
 import com.zukxu.cv.common.utils.Constants;
 import com.zukxu.cv.common.web.BaseController;
-import org.opencv.core.*;
+import org.opencv.core.Core;
+import org.opencv.core.Mat;
+import org.opencv.core.MatOfRect;
+import org.opencv.core.Rect;
 import org.opencv.objdetect.CascadeClassifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +35,10 @@ public class DemoController extends BaseController {
 
 		CascadeClassifier faceDetector = new CascadeClassifier(resourcePath);
 		logger.info("url==============" + Constants.PATH + url);
-		Mat image = Highgui.imread(Constants.PATH + url);
+		//TODO this is 2.5.13 version's method now the version is 4.5.3
+		//so we need to use new method
+		//Mat image = HighGui.imread(Constants.PATH + url);
+		Mat image = null;
 		// Detect faces in the image.
 		// MatOfRect is a special container class for Rect.
 		MatOfRect faceDetections = new MatOfRect();
@@ -40,15 +46,16 @@ public class DemoController extends BaseController {
 
 		logger.info(String.format("Detected %s faces", faceDetections.toArray().length));
 		// Draw a bounding box around each face.
-		for (Rect rect : faceDetections.toArray()) {
-			Core.rectangle(image, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height),
-					new Scalar(0, 255, 0));
+		for(Rect rect : faceDetections.toArray()) {
+			//TODO new method
+			//Core.rectangle(image, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height),new Scalar(0, 255, 0));
 		}
 
 		// Save the visualized detection.
 		String filename = url.substring(url.lastIndexOf("/"), url.length());
-		System.out.println(String.format("Writing %s", Constants.PATH + Constants.DEST_IMAGE_PATH + filename));
-		Highgui.imwrite(Constants.PATH + Constants.DEST_IMAGE_PATH + filename, image);
+		System.out.printf("Writing %s%n", Constants.PATH + Constants.DEST_IMAGE_PATH + filename);
+		//TODO new method
+		//Highgui.imwrite(Constants.PATH + Constants.DEST_IMAGE_PATH + filename, image);
 		renderString(response, Constants.SUCCESS);
 	}
 

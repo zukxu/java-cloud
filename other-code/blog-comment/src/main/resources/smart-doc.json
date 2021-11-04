@@ -1,0 +1,6 @@
+{
+  "projectName":"blog-comment",
+  "outPath": "./src/main/resources/static/doc",
+  "allInOne": true,
+  "coverOld": true
+}

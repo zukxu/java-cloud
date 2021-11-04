@@ -51,7 +51,7 @@ public class UserController {
 				FieldError fieldError = (FieldError) error;
 				errs.add(fieldError.getDefaultMessage());
 			});
-			return R.fail(CommREnum.PARAM_ERROR, null);
+			return R.fail(CommREnum.PARAM_ERROR);
 		}
 		//输入入库
 		System.out.println("数据插入成功");
@@ -68,7 +68,7 @@ public class UserController {
 				FieldError fieldError = (FieldError) error;
 				errs.add(fieldError.getDefaultMessage());
 			});
-			return R.fail(CommREnum.PARAM_ERROR,null);
+			return R.fail(CommREnum.PARAM_ERROR);
 		}
 		//输入入库
 		System.out.println("数据修改成功");
@@ -87,7 +87,7 @@ public class UserController {
 	public R getById1(@RequestParam(name = "id") String id, @RequestParam(name = "age") Integer age) {
 		System.out.println("此时需要使用MethodValidationPostProcessor ");
 		System.out.println("数据查询成功：" + id + "年龄：" + age);
-		return R.ok();
+		return R.OK;
 	}
 
 	/**
@@ -102,7 +102,7 @@ public class UserController {
 	public R getById2(@NotBlank(message = "ID不能为空") @RequestParam(name = "id") String id, @Range(min = 0, max = 120, message = "年龄最小为0，最大为120") @RequestParam(name = "age") Integer age) {
 		System.out.println("方法所在的Controller上加注解@Validated");
 		System.out.println("数据查询成功：" + id + "年龄：" + age);
-		return R.ok();
+		return R.OK;
 	}
 
 	/**
@@ -116,7 +116,7 @@ public class UserController {
 	public R getById3(@RequestParam(name = "id") String id, @RequestParam(name = "age") Integer age) {
 		System.out.println("返回验证信息提示,使用统一捕获异常处理：");
 		System.out.println("数据查询成功：" + id + "年龄：" + age);
-		return R.ok();
+		return R.OK;
 	}
 
 

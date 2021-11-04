@@ -44,12 +44,12 @@ public class OrderController {
 	@ApiOperation("更新订单列表")
 	@PutMapping(value = "updOrderInfo")
 	public R<Void> updOrderInfo(OrderInfo orderInfo) {
-		return orderInfoService.updOrderStatus(orderInfo) ? R.ok() : R.fail();
+		return orderInfoService.updOrderStatus(orderInfo) ?  R.OK :  R.FAIL;
 	}
 
 	@ApiOperation("删除订单列表")
 	@DeleteMapping(value = "delOrderInfo")
 	public R<Void> delOrderInfo(String orderId) {
-		return orderInfoService.removeById(orderId) ? R.ok() : R.fail();
+		return orderInfoService.removeById(orderId) ?  R.OK :  R.FAIL;
 	}
 }

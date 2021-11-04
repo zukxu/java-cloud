@@ -29,16 +29,16 @@ public class LoginController {
         try {
             // 登录验证
             userSubject.login(token);
-            return R.ok();
+            return R.OK;
         } catch (UnknownAccountException e) {
-            return R.fail(CommREnum.ACCOUNT_NOT_EXIST, null);
+            return R.fail(CommREnum.ACCOUNT_NOT_EXIST);
         } catch (DisabledAccountException e) {
-            return R.fail(CommREnum.ACCOUNT_IS_DISABLED, null);
+            return R.fail(CommREnum.ACCOUNT_IS_DISABLED);
         } catch (IncorrectCredentialsException e) {
-            return R.fail(CommREnum.INCORRECT_CREDENTIALS, null);
+            return R.fail(CommREnum.INCORRECT_CREDENTIALS);
         } catch (Throwable e) {
             e.printStackTrace();
-            return R.fail(CommREnum.FAIL, null);
+            return R.fail(CommREnum.FAIL);
         }
     }
 
