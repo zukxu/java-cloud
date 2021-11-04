@@ -6,7 +6,8 @@ import java.util.function.Function;
 
 /**
  * lambda中有异常
- *任何的函数式接口都不能抛出受检异常-》 非RuntimeException
+ * 任何的函数式接口都不能抛出受检异常-》 非RuntimeException
+ *
  * @author xupu
  * @date 2021/11/4 21:48:02
  */
@@ -22,4 +23,5 @@ public class LambdaException {
             return null;
         };
     }
+
 }

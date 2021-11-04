@@ -15,6 +15,10 @@ public class Project {
 
     private String name;
 
+    private String language;
+
+    private String author;
+
     private Integer starts;
 
 }
