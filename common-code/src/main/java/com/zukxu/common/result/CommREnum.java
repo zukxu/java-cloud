@@ -8,7 +8,7 @@ import lombok.Getter;
  * @Date 2021-09-16 16:34
  */
 @Getter
-public enum RStatus {
+public enum CommREnum implements IREnum {
     OK(200, "请求成功"),
     FAIL(500, "请求失败"),
     PARAM_ERROR(501, "参数错误"),
@@ -19,11 +19,23 @@ public enum RStatus {
     INCORRECT_CREDENTIALS(14, "账号或密码错误"),
     NOT_LOGIN_IN(15, "账号未登录"),
     UNAUTHORIZED(16, "账号没有权限");
+
+
     private int code;
     private String message;
 
-    RStatus(int code, String message) {
+    CommREnum(int code, String message) {
         this.code = code;
         this.message = message;
+    }
+
+    @Override
+    public int code() {
+        return this.code;
+    }
+
+    @Override
+    public String message() {
+        return this.message;
     }
 }

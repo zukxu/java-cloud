@@ -1,7 +1,7 @@
 package com.zukxu.shiro.handler;
 
 import com.zukxu.common.result.R;
-import com.zukxu.common.result.RStatus;
+import com.zukxu.common.result.CommREnum;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -24,6 +24,6 @@ public class MyExceptionHandler {
     @ExceptionHandler(UnauthorizedException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public R<?> UnauthorizedExceptionHandler(UnauthorizedException e) {
-        return R.fail(RStatus.UNAUTHORIZED, null);
+        return R.fail(CommREnum.UNAUTHORIZED, null);
     }
 }

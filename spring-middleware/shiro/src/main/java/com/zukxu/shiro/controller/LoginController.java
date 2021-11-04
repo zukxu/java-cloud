@@ -1,7 +1,7 @@
 package com.zukxu.shiro.controller;
 
 import com.zukxu.common.result.R;
-import com.zukxu.common.result.RStatus;
+import com.zukxu.common.result.CommREnum;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.DisabledAccountException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -31,14 +31,14 @@ public class LoginController {
             userSubject.login(token);
             return R.ok();
         } catch (UnknownAccountException e) {
-            return R.fail(RStatus.ACCOUNT_NOT_EXIST, null);
+            return R.fail(CommREnum.ACCOUNT_NOT_EXIST, null);
         } catch (DisabledAccountException e) {
-            return R.fail(RStatus.ACCOUNT_IS_DISABLED, null);
+            return R.fail(CommREnum.ACCOUNT_IS_DISABLED, null);
         } catch (IncorrectCredentialsException e) {
-            return R.fail(RStatus.INCORRECT_CREDENTIALS, null);
+            return R.fail(CommREnum.INCORRECT_CREDENTIALS, null);
         } catch (Throwable e) {
             e.printStackTrace();
-            return R.fail(RStatus.FAIL, null);
+            return R.fail(CommREnum.FAIL, null);
         }
     }
 

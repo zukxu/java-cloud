@@ -1,7 +1,7 @@
 package com.zukxu.validator.controller;
 
 import com.zukxu.common.result.R;
-import com.zukxu.common.result.RStatus;
+import com.zukxu.common.result.CommREnum;
 import com.zukxu.validator.entity.Demo2;
 import com.zukxu.validator.entity.Demo3;
 import com.zukxu.validator.entity.Person;
@@ -51,7 +51,7 @@ public class UserController {
 				FieldError fieldError = (FieldError) error;
 				errs.add(fieldError.getDefaultMessage());
 			});
-			return R.fail(RStatus.PARAM_ERROR, null);
+			return R.fail(CommREnum.PARAM_ERROR, null);
 		}
 		//输入入库
 		System.out.println("数据插入成功");
@@ -68,7 +68,7 @@ public class UserController {
 				FieldError fieldError = (FieldError) error;
 				errs.add(fieldError.getDefaultMessage());
 			});
-			return R.fail(RStatus.PARAM_ERROR,null);
+			return R.fail(CommREnum.PARAM_ERROR,null);
 		}
 		//输入入库
 		System.out.println("数据修改成功");
