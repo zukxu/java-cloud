@@ -39,3 +39,6 @@ mvn install:install-file -Dfile=libs/opencv-453.jar -DgroupId=com.opencv -Dartif
 </dependency>
 </dependencies>
 ```
+
+
+学习教程参考：https://www.likecs.com/show-569674.html
