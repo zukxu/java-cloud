@@ -32,7 +32,8 @@ public class SaTokenConfig implements WebMvcConfigurer {
                 // 认证函数: 每次请求执行
                 .setAuth(r -> {
                     System.out.println("---------- sa全局认证");
-                    SaRouter.match(Collections.singletonList("/**")).notMatch(Arrays.asList(
+                    SaRouter.match(Collections.singletonList("/**"))
+                            .notMatch(Arrays.asList(
                             "/login",
                             "/druid/**",
                             "/default/**",
