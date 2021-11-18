@@ -20,6 +20,7 @@
         <module>security-jwt</module>
         <module>activiti</module>
         <module>sa-token</module>
+        <module>flowable</module>
     </modules>
 
     <properties>
