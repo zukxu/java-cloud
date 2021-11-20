@@ -14,6 +14,23 @@
 ```
 2. 创建数据库，生成表结构
 ```java
-
+    /**
+     * 生成activiti 的数据库表
+     */
+    @Test
+    void createTable() {
+        //默认创建方式
+        ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
+        //通用创建方式,指定文件名进行创建
+        //ProcessEngineConfiguration processEngineConfiguration = ProcessEngineConfiguration.createProcessEngineConfigurationFromResource("activiti.cfg.xml","processEngineConfiguration");
+        //processEngineConfiguration.buildProcessEngine();
+        System.out.println(processEngine);
+    }
 ```
-3. 
+3. 执行流程启动过程
+
+1、TestDeployment  
+2、TestStartProcess  
+3、TestTaskList  
+4、TestQueryProcessDefinition
+5、TestDelDeploy

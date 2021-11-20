@@ -13,4 +13,7 @@ spring:
 #  # activiti配置
 #  activiti:
 #    history-level: full
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 #    db-history-used: true
