@@ -4,9 +4,9 @@
     <startEvent id="sid-1" name="startEvent"/>
     <userTask id="sid-2" name="提交请假申请" activiti:assignee="worker"/>
     <userTask id="sid-3" name="部门经理审批" activiti:assignee="manager"/>
-    <sequenceFlow id="sid-ab618f97-1499-4352-80d6-2800d7d64619" sourceRef="sid-1" targetRef="sid-2"/>
     <userTask id="sid-4" name="财务审批" activiti:assignee="financer"/>
     <endEvent id="sid-5" name="endEvent"/>
+    <sequenceFlow id="sid-ab618f97-1499-4352-80d6-2800d7d64619" sourceRef="sid-1" targetRef="sid-2"/>
     <sequenceFlow id="sid-63fe35c9-3b51-468a-bbb8-177607428020" sourceRef="sid-2" targetRef="sid-3"/>
     <sequenceFlow id="sid-00106e3f-2d62-404f-a80a-0a64653855c7" sourceRef="sid-3" targetRef="sid-4"/>
     <sequenceFlow id="sid-7c9755c8-97fd-4ef1-95ba-df9f76b1573e" sourceRef="sid-4" targetRef="sid-5"/>

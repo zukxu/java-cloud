@@ -26,13 +26,14 @@ public class TestDelDeploy {
      */
     @Test
     void deleteDeployment() {
-        String deployId = "1";
+        String deployId = "15001";
         ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
         RepositoryService repositoryService = processEngine.getRepositoryService();
         //删除流程定义，如果该部署已有流程实例启动则删除报错
         repositoryService.deleteDeployment(deployId);
         //删除流程定义，设置true，级联删除即使该部署已有流程实例启动也可以删除,同时删除日志，一般只会开放权限给管理员
         //repositoryService.deleteDeployment(deployId,true);
+        log.info("删除完毕！");
     }
 
     /**
