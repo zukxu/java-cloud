@@ -26,7 +26,7 @@ public class TestDelDeploy {
      */
     @Test
     void deleteDeployment() {
-        String deployId = "15001";
+        String deployId = "17501";
         ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
         RepositoryService repositoryService = processEngine.getRepositoryService();
         //删除流程定义，如果该部署已有流程实例启动则删除报错

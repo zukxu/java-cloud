@@ -39,16 +39,16 @@ public class TestStartProcess {
     }
 
     /**
-     * 启动流程实例,传递流程变量
+     * 启动流程实例,传递流程变量 请假天数<3
      */
     @Test
-    void testStartProcessVariables() {
+    void testStartProcessVariables1() {
         //    创建ProcessEngine
         ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
         //    获取RuntimeService
         RuntimeService runtimeService = processEngine.getRuntimeService();
         //    根据流程定义id进行启动流程
-        String key = "Leave-variable";
+        String key = "evection-variable";
         //设置流程变量
         Map<String, Object> variables = new HashMap<>();
         Evection evection = new Evection();
@@ -56,10 +56,40 @@ public class TestStartProcess {
         evection.setNum(2);
         //设置任务执行人
         variables.put("evection", evection);
-        variables.put("assign0", "李四");
-        variables.put("assign1", "王经理");
-        variables.put("assign2", "张财务");
-        variables.put("assign3", "杨总经理");
+        variables.put("assignee0", "李四");
+        variables.put("assignee1", "王经理");
+        variables.put("assignee2", "张财务");
+        variables.put("assignee3", "杨总经理");
+        //启动流程
+        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(key,variables);
+        //    输出启动信息
+        log.info("流程定义id:{}", processInstance.getProcessDefinitionId());
+        log.info("流程实例id:{}", processInstance.getId());
+        log.info("当前活动id:{}", processInstance.getActivityId());
+    }
+
+    /**
+     * 启动流程实例,传递流程变量 请假天数>=3
+     */
+    @Test
+    void testStartProcessVariables2() {
+        //    创建ProcessEngine
+        ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
+        //    获取RuntimeService
+        RuntimeService runtimeService = processEngine.getRuntimeService();
+        //    根据流程定义id进行启动流程
+        String key = "evection-variable";
+        //设置流程变量
+        Map<String, Object> variables = new HashMap<>();
+        Evection evection = new Evection();
+        //设置出差日期
+        evection.setNum(4);
+        //设置任务执行人
+        variables.put("evection", evection);
+        variables.put("assignee0", "李四1");
+        variables.put("assignee1", "王经理1");
+        variables.put("assignee2", "张财务1");
+        variables.put("assignee3", "杨总经理1");
         //启动流程
         ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(key,variables);
         //    输出启动信息

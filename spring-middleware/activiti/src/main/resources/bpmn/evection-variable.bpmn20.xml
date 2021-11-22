@@ -4,7 +4,7 @@
              xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI"
              typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath"
              targetNamespace="http://www.activiti.org/processdef">
-    <process id="Leave-variable" name="员工请假流程-variable" isExecutable="true">
+    <process id="evection-variable" name="员工出差请假流程-variable" isExecutable="true">
         <startEvent id="sid-1" name="startEvent"/>
         <userTask id="sid-2" name="提交请假申请" activiti:assignee="${assignee0}"/>
         <userTask id="sid-3" name="部门经理审批" activiti:assignee="${assignee1}"/>

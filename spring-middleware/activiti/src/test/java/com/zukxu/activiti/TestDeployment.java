@@ -32,9 +32,9 @@ public class TestDeployment {
         RepositoryService repositoryService = processEngine.getRepositoryService();
         //    使用repositoryService进行部署
         Deployment deployment = repositoryService.createDeployment()
-                                                 .addClasspathResource("bpmn/Leave-variable.bpmn20.xml")//添加流程定义文件
-                                                 .addClasspathResource("bpmn/Leave-variable.png")//添加流程png资源
-                                                 .name("员工请假流程Leave")//定义部署名称
+                                                 .addClasspathResource("bpmn/evection-variable.bpmn20.xml")//添加流程定义文件
+                                                 .addClasspathResource("bpmn/evection-variable.png")//添加流程png资源
+                                                 .name("员工出差请假流程-variable")//定义部署名称
                                                  .deploy();
         //    输出部署信息
         log.info("流程部署id：{}", deployment.getId());

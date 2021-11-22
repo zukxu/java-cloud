@@ -21,7 +21,8 @@ import java.util.List;
 @Slf4j
 @SpringBootTest
 public class TestQueryProcessDefinition {
-
+    //private final String key = "Leave-1";
+    private final String key = "evection-variable";
     /**
      * 查询一个文件中有几个流程定义
      */
@@ -30,7 +31,7 @@ public class TestQueryProcessDefinition {
         ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
         RepositoryService repositoryService = processEngine.getRepositoryService();
         ProcessDefinitionQuery processDefinitionQuery = repositoryService.createProcessDefinitionQuery();
-        List<ProcessDefinition> processDefinitionList = processDefinitionQuery.processDefinitionKey("Leave-1").list();
+        List<ProcessDefinition> processDefinitionList = processDefinitionQuery.processDefinitionKey(key).list();
         for(ProcessDefinition processDefinition : processDefinitionList) {
             log.info("流程定义id：{}", processDefinition.getId());
             log.info("流程定义name:{}", processDefinition.getName());
@@ -45,7 +46,6 @@ public class TestQueryProcessDefinition {
      */
     @Test
     void queryProcessInstance() {
-        String key = "Leave-1";
         ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
         RuntimeService runtimeService = processEngine.getRuntimeService();
         List<ProcessInstance> processInstanceList = runtimeService.createProcessInstanceQuery()
@@ -62,19 +62,26 @@ public class TestQueryProcessDefinition {
     }
 
     /**
-     * 查询当前的流程定义中有几个流程实例运行
+     * 查询当前的流程定义中有几个流程实例运行 历史记录
      */
     @Test
     void queryHistoryInfo() {
-        String key = "Leave-1";
+        //Leave-1
+        //String instanceId = "2501";
+        //String processDefinitionId = "Leave-1:1:4";
+
+        //evection-variable
+        //String instanceId = "30001";
+        String instanceId = "32501";
+        String processDefinitionId = "evection-variable:1:25004";
         ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
         HistoryService historyService = processEngine.getHistoryService();
         //获取actinst的查询对象
         HistoricActivityInstanceQuery instanceQuery = historyService.createHistoricActivityInstanceQuery();
         //查询act_hi_actinst 表 根据InstanceId 进行查询，查询一个流程的所有历史信息
-        instanceQuery.processInstanceId("2501");
+        instanceQuery.processInstanceId(instanceId);
         //查询act_hi_actinst 表 根据DefinitionId进行查询，查询一个流程的所有历史信息
-        instanceQuery.processDefinitionId("Leave-1:1:4");
+        instanceQuery.processDefinitionId(processDefinitionId);
         //排序 根据开始时间排序
         instanceQuery.orderByHistoricActivityInstanceStartTime().asc();
         //查询所有的list
