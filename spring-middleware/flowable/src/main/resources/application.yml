@@ -1,8 +1,13 @@
 server:
-  port: 8992
+  port: 8998
+
 spring:
-  application:
-    name: ceva-workflow
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/workflow?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true
+    username: root
+    password: 123456
+
 #    pageHelper 配置
 pagehelper:
   helper-dialect: mysql #方言
@@ -18,11 +23,5 @@ mybatis-plus:
   mapper-locations: classpath:com/zukxu/workflow/**/*.xml
   type-aliases-package: com.bonc.entity
 
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/workflow?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true
-    username: root
-    password: 123456
 flowable:
-  database-schema-update: drop-create
   async-executor-activate: false
