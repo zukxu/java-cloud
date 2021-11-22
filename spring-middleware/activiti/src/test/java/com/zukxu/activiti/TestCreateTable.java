@@ -1,19 +1,21 @@
-# activiti7学习
+package com.zukxu.activiti;
 
-## 了解BPMN2.0 
-## 整合SpringBoot
-1. 导入依赖
-```xml
-<!-- https://mvnrepository.com/artifact/org.activiti/activiti-spring-boot-starter -->
-<dependency>
-    <groupId>org.activiti</groupId>
-    <artifactId>activiti-spring-boot-starter</artifactId>
-    <version>7.1.0.M6</version>
-</dependency>
+import org.activiti.engine.ProcessEngine;
+import org.activiti.engine.ProcessEngineConfiguration;
+import org.activiti.engine.ProcessEngines;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
-```
-2. 创建数据库，生成表结构
-```java
+/**
+ * activiti 建表
+ *
+ * @author xupu
+ * @description
+ * @date 2021/10/23 12:01:34
+ */
+@SpringBootTest
+public class TestCreateTable {
+
     /**
      * 生成activiti 的数据库表
      */
@@ -26,11 +28,5 @@
         //processEngineConfiguration.buildProcessEngine();
         System.out.println(processEngine);
     }
-```
-3. 执行流程启动过程
 
-1、TestDeployment  
-2、TestStartProcess  
-3、TestTaskList  
-4、TestQueryProcessDefinition
-5、TestDelDeploy
+}

@@ -3,9 +3,17 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/activiti-demo?useUnicode=true&characterEncoding=UTF-8&useSSL=false&nullCatalogMeansCurrent=true&serverTimezone=GMT%2B8
+    url: jdbc:mysql://localhost:3306/activiti-demo?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true
     username: root
     password: 123456
-  activiti:
-    history-level: full
-    db-history-used: true
+    type: com.alibaba.druid.pool.DruidDataSource            # 数据库连接池类别
+    druid:
+      initial-size: 1                                       # 初始化大小
+      max-active: 10
+#  # activiti配置
+#  activiti:
+#    history-level: full
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#    db-history-used: true

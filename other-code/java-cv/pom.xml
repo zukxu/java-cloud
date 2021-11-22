@@ -22,6 +22,8 @@
             <groupId>com.opencv</groupId>
             <artifactId>opencv</artifactId>
             <version>${opencv.version}</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/opencv-453.jar</systemPath>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
         <dependency>
@@ -68,4 +70,15 @@
             <version>3.0.0</version>
         </dependency>
     </dependencies>
+    <build>
+        <resources>
+            <resource>
+                <directory>lib</directory>
+                <targetPath>/BOOT-INF/lib/</targetPath>
+                <includes>
+                    <include>**/*.jar</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
 </project>
