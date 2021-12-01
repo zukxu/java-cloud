@@ -23,6 +23,7 @@
         <module>time-clock</module>
         <module>test-code</module>
         <module>open-office</module>
+        <module>mybatis-plus-generate</module>
     </modules>
 
     <properties>
