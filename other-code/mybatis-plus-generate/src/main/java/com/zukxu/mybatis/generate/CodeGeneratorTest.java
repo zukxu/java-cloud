@@ -78,12 +78,12 @@ public class CodeGeneratorTest {
                             .addTablePrefix("sys_" ); // 设置过滤表前缀
                 })
                 .templateEngine(new VelocityTemplateEngine()).templateConfig(builder -> {
-                    builder.entity("/vm/java/entity.java.vm" );
-                    builder.controller("/vm/java/controller.java.vm" );
-                    builder.service("/vm/java/service.java.vm" );
-                    builder.serviceImpl("/vm/java/serviceImpl.java.vm" );
-                    builder.mapper("/vm/java/mapper.java.vm" );
-                    builder.mapperXml("/vm/xml/mapper.xml.vm" );
+                    builder.entity("/templates/vm/java/entity.java.vm" );
+                    builder.controller("/templates/vm/java/controller.java.vm" );
+                    builder.service("/templates/vm/java/service.java.vm" );
+                    builder.serviceImpl("/templates/vm/java/serviceImpl.java.vm" );
+                    builder.mapper("/templates/vm/java/mapper.java.vm" );
+                    builder.mapperXml("/templates/vm/xml/mapper.xml.vm" );
                 })
                 .execute();
     }
