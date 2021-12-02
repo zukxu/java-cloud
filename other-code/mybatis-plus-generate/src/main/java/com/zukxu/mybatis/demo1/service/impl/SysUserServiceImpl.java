@@ -1,8 +1,8 @@
-package com.zukxu.service.impl;
+package com.zukxu.mybatis.demo1.service.impl;
 
-import com.zukxu.entity.SysUser;
-import com.zukxu.mapper.SysUserMapper;
-import com.zukxu.service.ISysUserService;
+import com.zukxu.mybatis.demo1.entity.SysUser;
+import com.zukxu.mybatis.demo1.mapper.SysUserMapper;
+import com.zukxu.mybatis.demo1.service.ISysUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 

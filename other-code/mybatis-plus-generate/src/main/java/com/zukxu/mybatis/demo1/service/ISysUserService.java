@@ -1,6 +1,6 @@
-package com.zukxu.service;
+package com.zukxu.mybatis.demo1.service;
 
-import com.zukxu.entity.SysUser;
+import com.zukxu.mybatis.demo1.entity.SysUser;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

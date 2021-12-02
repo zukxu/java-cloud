@@ -32,18 +32,18 @@ public class CodeGeneratorTest {
             "123456" );
 
     public static void main(String[] args) {
-        //testFastGenerate();
-        fastGenerate();
+        testFastGenerate();
+        //fastGenerate();
     }
 
     private static void testFastGenerate() {
         FastAutoGenerator.create(DATA_SOURCE_CONFIG)
                 // 全局配置
-                .globalConfig((scanner, builder) -> builder.author(scanner.apply("请输入作者名称？")).fileOverride())
+                .globalConfig((scanner, builder) -> builder.author(scanner.apply("请输入作者名称？" )).fileOverride().outputDir(scanner.apply("请输入存放路径？" )))
                 // 包配置
-                .packageConfig((scanner, builder) -> builder.parent(scanner.apply("请输入包名？")))
+                .packageConfig((scanner, builder) -> builder.parent(scanner.apply("请输入包名？" )))
                 // 策略配置
-                .strategyConfig(builder -> builder.addInclude("sys_user"))
+                .strategyConfig(builder -> builder.addInclude("sys_user" ))
                 /*
                     模板引擎配置，默认 Velocity 可选模板引擎 Beetl 或 Freemarker
                    .templateEngine(new BeetlTemplateEngine())
