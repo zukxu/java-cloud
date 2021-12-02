@@ -16,49 +16,52 @@ import com.baomidou.mybatisplus.generator.keywords.MySqlKeyWordsHandler;
 import java.util.Collections;
 
 /**
- * 正式使用的配置项
- *
+ * 所有的配置项
  * @author xupu
  * @Date 2021-12-01 14:43
  */
-public class CodeConfig {
-    /**
-     * 全局配置
-     */
-    public static final GlobalConfig.Builder GLOBAL_CONFIG = new GlobalConfig.Builder()
-            .fileOverride()//覆盖已生成文件	默认值:false
-            .outputDir("D://temp" )//指定输出目录	默认值: windows:D:// linux or mac : /tmp
-            .author("baomidou" )//作者名	baomidou 默认值:作者
-            .enableKotlin()//开启 kotlin 模式	默认值:false
-            .enableSwagger()//开启 swagger 模式	默认值:false
-            .dateType(DateType.TIME_PACK)//时间策略	DateType.ONLY_DATE 默认值: DateType.TIME_PACK
-            .commentDate("yyyy-MM-dd" );//注释日期	默认值: yyyy-MM-dd
+public class CodeConfigAll {
+
     /**
      * 数据源配置
      */
     public static final DataSourceConfig dataSourceConfig = new DataSourceConfig
-            .Builder("jdbc:mysql://127.0.0.1:3306/mybatis-plus" , "root" , "123456" )
+            .Builder("jdbc:mysql://127.0.0.1:3306/mybatis-plus" , "root" , "123456")
             .dbQuery(new MySqlQuery())//数据库查询方式
-            .schema("mybatis-plus" )//数据库名,某些数据库可能会用到
+            .schema("mybatis-plus")//数据库名,某些数据库可能会用到
             .typeConvert(new MySqlTypeConvert())//数据库类型转换器 可自定义
             .keyWordsHandler(new MySqlKeyWordsHandler())//数据库关键字处理器 可自定义
             .build();
+
+    /**
+     * 全局配置
+     */
+    public static final GlobalConfig GLOBAL_CONFIG = new GlobalConfig.Builder()
+            .fileOverride()//覆盖已生成文件	默认值:false
+            .disableOpenDir()//禁止打开输出目录	默认值:true
+            .outputDir("D://temp")//指定输出目录	默认值: windows:D:// linux or mac : /tmp
+            .author("baomidou")//作者名	baomidou 默认值:作者
+            .enableKotlin()//开启 kotlin 模式	默认值:false
+            .enableSwagger()//开启 swagger 模式	默认值:false
+            .dateType(DateType.TIME_PACK)//时间策略	DateType.ONLY_DATE 默认值: DateType.TIME_PACK
+            .commentDate("yyyy-MM-dd")//注释日期	默认值: yyyy-MM-dd
+            .build();
+
     /**
      * 包名配置
      */
     public static final PackageConfig PACKAGE_CONFIG = new PackageConfig.Builder()
-            .parent("com.baomidou.mybatisplus.samples.generator" )//父包名
-            .moduleName("sys" )//父模块名
-            .entity("entity" )//entity包名 默认entity
-            .service("service" )//service包名
-            .serviceImpl("service.impl" )//service实现类包名
-            .mapper("mapper" )//mapper包名
-            .xml("mapper.xml" )//mapper xml文件包名
-            .controller("controller" )//controller包名
-            .other("other" )//自定义文件包名    输出自定义文件时所用到的包名
-            .pathInfo(Collections.singletonMap(OutputFile.mapperXml, "D://" ))//路径配置信息
+            .parent("com.baomidou.mybatisplus.samples.generator")//父包名
+            .moduleName("sys")//父模块名
+            .entity("po")//entity包名
+            .service("service")//service包名
+            .serviceImpl("service.impl")//service实现类包名
+            .mapper("mapper")//mapper包名
+            .xml("mapper.xml")//mapper xml文件包名
+            .controller("controller")//controller包名
+            .other("other")//自定义文件包名    输出自定义文件时所用到的包名
+            .pathInfo(Collections.singletonMap(OutputFile.mapperXml, "D://"))//路径配置信息
             .build();
-    public static final String PACKAGE_CONFIG1 = new PackageConfig.Builder().build().getXml();
 
     /**
      * 模板配置
@@ -66,9 +69,9 @@ public class CodeConfig {
     public static final TemplateConfig TEMPLATE_CONFIG = new TemplateConfig.Builder()
             .disable()//禁用所有模板
             .disable(TemplateType.ENTITY)//禁用特定模板
-            .entity("/templates/entity.java" )//设置实体模板路径(JAVA)
-            .service("/templates/service.java" )//设置service模板路径(JAVA)
-            .serviceImpl("/templates/serviceImpl.java" )//设置serviceImpl模板路径(JAVA)
+            .entity("/templates/entity.java")//设置实体模板路径(JAVA)
+            .service("/templates/service.java")//设置service模板路径(JAVA)
+            .serviceImpl("/templates/serviceImpl.java")//设置serviceImpl模板路径(JAVA)
             .mapper("/templates/mapper.java")//设置mapper模板路径(JAVA)
             .mapperXml("/templates/mapper.xml")//设置mapper.xml模板路径(JAVA)
             .controller("/templates/controller.java")//设置controller模板路径(JAVA)
