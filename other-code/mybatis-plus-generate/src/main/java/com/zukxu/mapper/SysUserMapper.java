@@ -1,4 +1,4 @@
-package com.zukxu.mybatis.demo.com.zukxu.mapper;
+package com.zukxu.mapper;
 
 import com.zukxu.entity.SysUser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;

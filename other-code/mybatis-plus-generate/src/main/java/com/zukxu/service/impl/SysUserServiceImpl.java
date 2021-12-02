@@ -1,4 +1,4 @@
-package com.zukxu.mybatis.demo.com.zukxu.service.impl;
+package com.zukxu.service.impl;
 
 import com.zukxu.entity.SysUser;
 import com.zukxu.mapper.SysUserMapper;

@@ -1,4 +1,4 @@
-package com.zukxu.mybatis.demo.com.zukxu.controller;
+package com.zukxu.controller;
 
 
 import org.springframework.web.bind.annotation.RequestMapping;
