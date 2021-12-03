@@ -1,8 +1,8 @@
 package com.zukxu.skywalking.controller;
 
-import cn.myjszl.model.Order;
-import com.zukxu.skywalking.service.feign.ProductService;
 import com.google.common.collect.Lists;
+import com.zukxu.model.Order;
+import com.zukxu.skywalking.service.feign.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

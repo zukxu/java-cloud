@@ -10,10 +10,8 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-
     <artifactId>skywalking-product1001</artifactId>
     <name>skywalking-product1001</name>
-
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -22,28 +20,28 @@
     </properties>
 
     <dependencies>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
-
-
         <!--nacos注册中心-->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
-
-        <!--    nacos配置中心的依赖-->
+        <!--nacos配置中心的依赖-->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        </dependency>
+        <!--module-->
+        <dependency>
+            <groupId>com.zukxu</groupId>
+            <artifactId>cloud-common</artifactId>
         </dependency>
     </dependencies>
 

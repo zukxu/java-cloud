@@ -10,7 +10,6 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-
     <artifactId>skywalking-gateway1003</artifactId>
     <name>skywalking-gateway1003</name>
 
@@ -22,23 +21,25 @@
     </properties>
 
     <dependencies>
-
         <!--nacos注册中心-->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
-
-        <!--    nacos配置中心的依赖-->
+        <!--nacos配置中心的依赖-->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
-
         <!--gateway-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-gateway</artifactId>
+        </dependency>
+        <!--module-->
+        <dependency>
+            <groupId>com.zukxu</groupId>
+            <artifactId>cloud-common</artifactId>
         </dependency>
     </dependencies>
 

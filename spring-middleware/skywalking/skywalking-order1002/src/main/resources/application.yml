@@ -1,5 +1,5 @@
 server:
-  port: 1002
+  port: 8002
 spring:
   cloud:
     nacos:

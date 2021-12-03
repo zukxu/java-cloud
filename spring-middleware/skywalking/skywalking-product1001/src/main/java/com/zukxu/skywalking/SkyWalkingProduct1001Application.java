@@ -9,8 +9,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  */
 @SpringBootApplication
 @EnableDiscoveryClient
-public class SkyWalkingProduct1001Application
-{
+public class SkyWalkingProduct1001Application {
     public static void main(String[] args) {
         SpringApplication.run(SkyWalkingProduct1001Application.class, args);
     }
