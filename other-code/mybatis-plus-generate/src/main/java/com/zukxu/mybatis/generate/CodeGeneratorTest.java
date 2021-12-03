@@ -32,8 +32,8 @@ public class CodeGeneratorTest {
             "123456" );
 
     public static void main(String[] args) {
-        testFastGenerate();
-        //fastGenerate();
+        //testFastGenerate();
+        fastGenerate();
     }
 
     private static void testFastGenerate() {
