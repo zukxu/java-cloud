@@ -1,0 +1,23 @@
+server:
+  port: 8991
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/mybatis-plus?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8
+    username: root
+    password: 123456
+mybatis-plus:
+  type-aliases-package: com.zukxu.**.entity,com.zukxu.**.domain
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    banner: false
+  mapper-locations: classpath*:com/zukxu/**/*.xml
+pagehelper:
+  helper-dialect: mysql #方言
+  pageSizeZero: true # 分页参数是否可以为0
+  params: count=countSql
+  reasonable: true
+  support-methods-arguments: true
