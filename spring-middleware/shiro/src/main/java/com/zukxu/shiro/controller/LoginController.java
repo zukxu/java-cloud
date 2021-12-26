@@ -1,7 +1,6 @@
 package com.zukxu.shiro.controller;
 
 import com.zukxu.common.result.R;
-import com.zukxu.common.result.CommREnum;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.DisabledAccountException;
 import org.apache.shiro.authc.IncorrectCredentialsException;

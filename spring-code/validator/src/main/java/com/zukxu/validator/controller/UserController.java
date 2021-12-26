@@ -1,7 +1,6 @@
 package com.zukxu.validator.controller;
 
 import com.zukxu.common.result.R;
-import com.zukxu.common.result.CommREnum;
 import com.zukxu.validator.entity.Demo2;
 import com.zukxu.validator.entity.Demo3;
 import com.zukxu.validator.entity.Person;

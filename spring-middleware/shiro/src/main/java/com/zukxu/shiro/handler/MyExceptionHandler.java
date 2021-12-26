@@ -1,7 +1,6 @@
 package com.zukxu.shiro.handler;
 
 import com.zukxu.common.result.R;
-import com.zukxu.common.result.CommREnum;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
