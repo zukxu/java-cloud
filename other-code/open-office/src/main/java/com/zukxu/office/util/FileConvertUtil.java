@@ -31,9 +31,7 @@ public class FileConvertUtil {
      *
      * @param sourcePath 源文件路径
      * @param suffix     源文件后缀
-     *
      * @return InputStream 转换后文件输入流
-     *
      * @throws Exception
      */
     public static InputStream convertLocaleFile(String sourcePath, String suffix) throws Exception {
@@ -47,9 +45,7 @@ public class FileConvertUtil {
      *
      * @param netFileUrl 网络文件路径
      * @param suffix     文件后缀
-     *
      * @return InputStream 转换后文件输入流
-     *
      * @throws Exception
      */
     public static InputStream convertNetFile(String netFileUrl, String suffix) throws Exception {
@@ -60,7 +56,7 @@ public class FileConvertUtil {
         urlconn.connect();
         HttpURLConnection httpconn = (HttpURLConnection) urlconn;
         int httpResult = httpconn.getResponseCode();
-        if(httpResult == HttpURLConnection.HTTP_OK) {
+        if (httpResult == HttpURLConnection.HTTP_OK) {
             InputStream inputStream = urlconn.getInputStream();
             return covertCommonByStream(inputStream, suffix);
         }
@@ -72,9 +68,7 @@ public class FileConvertUtil {
      *
      * @param inputStream 文件流
      * @param suffix      文件后缀
-     *
      * @return InputStream 转换后文件输入流
-     *
      * @throws Exception
      */
     public static InputStream covertCommonByStream(InputStream inputStream, String suffix) throws Exception {
@@ -94,7 +88,6 @@ public class FileConvertUtil {
      * outputStream转inputStream
      *
      * @param out
-     *
      * @return
      */
     public static ByteArrayInputStream outputStreamConvertInputStream(final OutputStream out) {

@@ -24,65 +24,6 @@ public class RectificationController extends BaseController {
     private static final Logger logger = LoggerFactory.getLogger(RectificationController.class);
 
     /**
-     * 图像矫正透视变换
-     * 创建者 Songer
-     * 创建时间	2018年4月10日
-     */
-    @RequestMapping(value = "rectification")
-    public void rectification(HttpServletResponse response, String imageFile, Integer markType) {
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        logger.info("\n 图像矫正透视变换");
-
-        String sourcePath = Constants.PATH + imageFile;
-        logger.info("url==============" + sourcePath);
-        // 加载为灰度图显示
-        Mat source1 = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_ANYCOLOR);
-        Mat source2 = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_GRAYSCALE);
-        Point anchor01 = new Point();
-        Point anchor02 = new Point();
-        Point anchor03 = new Point();
-        Point anchor04 = new Point();
-        if(markType == 1) {// 模板匹配识别定位点
-            String matchPath = Constants.PATH + Constants.SOURCE_IMAGE_PATH + "z1_temp.png";
-            fetchAnchorPoints1(sourcePath, matchPath, anchor01, anchor02, anchor03, anchor04);
-        } else if(markType == 2) {// 霍夫圆检测识别定位点
-            fetchAnchorPoints2(sourcePath, anchor01, anchor02, anchor03, anchor04);
-        }
-        MatOfPoint mop = new MatOfPoint(anchor01, anchor02, anchor03, anchor04);
-        MatOfPoint2f mat2f = new MatOfPoint2f();
-        MatOfPoint2f refmat2f = new MatOfPoint2f();
-        mop.convertTo(mat2f, CvType.CV_32FC1);
-
-        List<MatOfPoint> contours = new ArrayList<MatOfPoint>();
-        contours.add(mop);
-        Imgproc.polylines(source2, contours, true, new Scalar(0, 0, 255), 1);
-        String destPath = Constants.PATH + Constants.DEST_IMAGE_PATH + "rect1.png";
-        Imgcodecs.imwrite(destPath, source2);
-
-        Point point11 = new Point(99, 200);
-        Point point12 = new Point(2317, 200);
-        Point point13 = new Point(99, 3300);
-        Point point14 = new Point(2317, 3300);
-
-        Mat dst_vertices = new MatOfPoint(point11, point12, point13, point14);
-        dst_vertices.convertTo(refmat2f, CvType.CV_32FC1);
-        Mat warpMatrix = Imgproc.getPerspectiveTransform(mat2f, refmat2f);
-
-        Mat dst = new Mat(source1.rows(), source1.cols(), source1.type());
-        System.out.println(source1.rows() + " " + source1.cols());
-        Imgproc.warpPerspective(source1, dst, warpMatrix, dst.size(), Imgproc.INTER_LINEAR, 0, new Scalar(255, 255,
-                                                                                                          255));
-        destPath = Constants.PATH + Constants.DEST_IMAGE_PATH + "rect2.png";
-        Imgcodecs.imwrite(destPath, dst);
-        try {
-            byte[] imgebyte = OpenCVUtil.covertMat2Byte1(dst);
-            renderImage(response, imgebyte);
-        } catch(IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
      * 获得锚点(定位点)
      * 方法1，通过模板匹配圆心，应该换成正方形也可以，之前模板匹配不行是因为模板图形不是最小的
      *
@@ -180,8 +121,8 @@ public class RectificationController extends BaseController {
         System.out.println("图片高 宽：" + src.rows() + "		" + src.cols());
         System.out.println(circles.cols());
         int cols = circles.cols();
-        if(cols > 0) {
-            for(int i = 0; i < circles.cols(); i++) {
+        if (cols > 0) {
+            for (int i = 0; i < circles.cols(); i++) {
                 double[] vCircle = circles.get(0, i);
                 Point center = new Point(vCircle[0], vCircle[1]);
                 int radius = (int) Math.round(vCircle[2]);
@@ -197,8 +138,8 @@ public class RectificationController extends BaseController {
 
         Imgproc.HoughCircles(source2, circles, Imgproc.CV_HOUGH_GRADIENT, 1.0, 300 / 8.0, 200, 90, 10, 50);// 霍夫变换检测圆
         System.out.println(circles.cols());
-        if(circles.cols() > 0) {
-            for(int i = 0; i < circles.cols(); i++) {
+        if (circles.cols() > 0) {
+            for (int i = 0; i < circles.cols(); i++) {
                 double[] vCircle = circles.get(0, i);
                 Point center = new Point(vCircle[0], vCircle[1]);
                 int radius = (int) Math.round(vCircle[2]);
@@ -213,8 +154,8 @@ public class RectificationController extends BaseController {
 
         Imgproc.HoughCircles(source3, circles, Imgproc.CV_HOUGH_GRADIENT, 1.0, 300 / 8.0, 200, 90, 10, 50);// 霍夫变换检测圆
         System.out.println(circles.cols());
-        if(circles.cols() > 0) {
-            for(int i = 0; i < circles.cols(); i++) {
+        if (circles.cols() > 0) {
+            for (int i = 0; i < circles.cols(); i++) {
                 double[] vCircle = circles.get(0, i);
                 Point center = new Point(vCircle[0], vCircle[1]);
                 int radius = (int) Math.round(vCircle[2]);
@@ -229,8 +170,8 @@ public class RectificationController extends BaseController {
 
         Imgproc.HoughCircles(source4, circles, Imgproc.CV_HOUGH_GRADIENT, 1.0, 300 / 8.0, 200, 90, 10, 50);// 霍夫变换检测圆
         System.out.println(circles.cols());
-        if(circles.cols() > 0) {
-            for(int i = 0; i < circles.cols(); i++) {
+        if (circles.cols() > 0) {
+            for (int i = 0; i < circles.cols(); i++) {
                 double[] vCircle = circles.get(0, i);
                 Point center = new Point(vCircle[0], vCircle[1]);
                 int radius = (int) Math.round(vCircle[2]);
@@ -243,5 +184,64 @@ public class RectificationController extends BaseController {
         destPath = Constants.PATH + Constants.DEST_IMAGE_PATH + "rect_cc4.png";
         Imgcodecs.imwrite(destPath, src04);
 
+    }
+
+    /**
+     * 图像矫正透视变换
+     * 创建者 Songer
+     * 创建时间	2018年4月10日
+     */
+    @RequestMapping(value = "rectification")
+    public void rectification(HttpServletResponse response, String imageFile, Integer markType) {
+        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+        logger.info("\n 图像矫正透视变换");
+
+        String sourcePath = Constants.PATH + imageFile;
+        logger.info("url==============" + sourcePath);
+        // 加载为灰度图显示
+        Mat source1 = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_ANYCOLOR);
+        Mat source2 = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_GRAYSCALE);
+        Point anchor01 = new Point();
+        Point anchor02 = new Point();
+        Point anchor03 = new Point();
+        Point anchor04 = new Point();
+        if (markType == 1) {// 模板匹配识别定位点
+            String matchPath = Constants.PATH + Constants.SOURCE_IMAGE_PATH + "z1_temp.png";
+            fetchAnchorPoints1(sourcePath, matchPath, anchor01, anchor02, anchor03, anchor04);
+        } else if (markType == 2) {// 霍夫圆检测识别定位点
+            fetchAnchorPoints2(sourcePath, anchor01, anchor02, anchor03, anchor04);
+        }
+        MatOfPoint mop = new MatOfPoint(anchor01, anchor02, anchor03, anchor04);
+        MatOfPoint2f mat2f = new MatOfPoint2f();
+        MatOfPoint2f refmat2f = new MatOfPoint2f();
+        mop.convertTo(mat2f, CvType.CV_32FC1);
+
+        List<MatOfPoint> contours = new ArrayList<MatOfPoint>();
+        contours.add(mop);
+        Imgproc.polylines(source2, contours, true, new Scalar(0, 0, 255), 1);
+        String destPath = Constants.PATH + Constants.DEST_IMAGE_PATH + "rect1.png";
+        Imgcodecs.imwrite(destPath, source2);
+
+        Point point11 = new Point(99, 200);
+        Point point12 = new Point(2317, 200);
+        Point point13 = new Point(99, 3300);
+        Point point14 = new Point(2317, 3300);
+
+        Mat dst_vertices = new MatOfPoint(point11, point12, point13, point14);
+        dst_vertices.convertTo(refmat2f, CvType.CV_32FC1);
+        Mat warpMatrix = Imgproc.getPerspectiveTransform(mat2f, refmat2f);
+
+        Mat dst = new Mat(source1.rows(), source1.cols(), source1.type());
+        System.out.println(source1.rows() + " " + source1.cols());
+        Imgproc.warpPerspective(source1, dst, warpMatrix, dst.size(), Imgproc.INTER_LINEAR, 0, new Scalar(255, 255,
+                255));
+        destPath = Constants.PATH + Constants.DEST_IMAGE_PATH + "rect2.png";
+        Imgcodecs.imwrite(destPath, dst);
+        try {
+            byte[] imgebyte = OpenCVUtil.covertMat2Byte1(dst);
+            renderImage(response, imgebyte);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -17,24 +17,24 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/face")
 public class FaceController {
 
-	@PostMapping("/detect")
-	public String detectFace(MultipartFile image) {
-		String res = FaceUtil.detect(FileUtil.getImageBase64(image));
+    @PostMapping("/detect")
+    public String detectFace(MultipartFile image) {
+        String res = FaceUtil.detect(FileUtil.getImageBase64(image));
 
-		return res;
-	}
+        return res;
+    }
 
-	@PostMapping("/search")
-	public String searchFace(String faceToken) {
-		String res = FaceUtil.search(faceToken);
+    @PostMapping("/search")
+    public String searchFace(String faceToken) {
+        String res = FaceUtil.search(faceToken);
 
-		return res;
-	}
+        return res;
+    }
 
-	@PostMapping("/compare")
-	public String compareFace(String faceToken,MultipartFile image) {
-		String res = FaceUtil.compare(faceToken,FileUtil.getImageBase64(image));
+    @PostMapping("/compare")
+    public String compareFace(String faceToken, MultipartFile image) {
+        String res = FaceUtil.compare(faceToken, FileUtil.getImageBase64(image));
 
-		return res;
-	}
+        return res;
+    }
 }

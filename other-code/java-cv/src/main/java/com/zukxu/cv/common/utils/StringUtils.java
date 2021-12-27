@@ -10,13 +10,13 @@ import cn.hutool.core.util.StrUtil;
 public class StringUtils extends StrUtil {
     public static String capitalize(final String str) {
         int strLen;
-        if(str == null || (strLen = str.length()) == 0) {
+        if (str == null || (strLen = str.length()) == 0) {
             return str;
         }
 
         final char firstChar = str.charAt(0);
         final char newChar = Character.toTitleCase(firstChar);
-        if(firstChar == newChar) {
+        if (firstChar == newChar) {
             return str;
         }
 

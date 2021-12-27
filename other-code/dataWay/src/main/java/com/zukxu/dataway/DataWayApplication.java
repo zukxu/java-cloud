@@ -17,7 +17,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @EnableHasorWeb
 @SpringBootApplication(scanBasePackages = {"com.zukxu.dataway"})
 public class DataWayApplication {
-	public static void main(String[] args) {
-		SpringApplication.run(DataWayApplication.class);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(DataWayApplication.class);
+    }
 }

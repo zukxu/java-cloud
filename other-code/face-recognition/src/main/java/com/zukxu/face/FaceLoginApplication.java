@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 public class FaceLoginApplication {
-	public static void main(String[] args) {
-		SpringApplication.run(FaceLoginApplication.class);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(FaceLoginApplication.class);
+    }
 }

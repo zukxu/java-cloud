@@ -4,12 +4,12 @@
 
 主要划分为以下几个模块
 
-- common-code: 通用代码，将一些常用的工具类等放在该模块中
+- common-module: 通用代码，将一些常用的工具类等放在该模块中
 - java-code: java模块,主要是汇总一些Java学习笔记
 - other-code：其余收集学习的代码
 - spring-code：spring相关
-- view-code：前端相关
 - spring-middleware: 中间件学习
+- view-code：前端相关
 - ……
 
 ## 技术选型

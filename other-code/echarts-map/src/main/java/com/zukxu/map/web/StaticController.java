@@ -15,18 +15,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping
 public class StaticController {
-	@GetMapping(path = {"/", "index"})
-	public String index() {
-		return "index";
-	}
+    @GetMapping(path = {"/", "index"})
+    public String index() {
+        return "index";
+    }
 
-	@GetMapping(path = {"/china"})
-	public String china() {
-		return "china";
-	}
+    @GetMapping(path = {"/china"})
+    public String china() {
+        return "china";
+    }
 
-	@GetMapping(path = {"/world"})
-	public String world() {
-		return "world";
-	}
+    @GetMapping(path = {"/world"})
+    public String world() {
+        return "world";
+    }
 }

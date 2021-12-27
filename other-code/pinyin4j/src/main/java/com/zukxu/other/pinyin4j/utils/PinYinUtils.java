@@ -19,131 +19,6 @@ import java.util.Map;
 public class PinYinUtils {
 
     /**
-     * 字符串转拼音
-     *
-     * @param code
-     * @return
-     */
-    public Map<String, StringBuffer> string2Pinyin(String code) {
-        //全拼
-        StringBuffer pinyinAllStr = new StringBuffer();
-        //首字母
-        StringBuffer pinyinFirstStr = new StringBuffer();
-        //将字符串转换为字符数组
-        char[] newChar = code.toCharArray();
-        //定义转换拼音格式
-        HanyuPinyinOutputFormat defaultFormat = pinyinConfig();
-        //设置分隔符
-        String regex = "~";
-        int allLen = pinyinAllStr.length();
-        for (char c : newChar) {
-            if (c > 128) {
-                try {
-                    //获得单个汉字全部拼音（多音字）
-                    String[] pyArr = PinyinHelper.toHanyuPinyinStringArray(c, defaultFormat);
-                    if (pyArr.length == 0) {
-                        pinyinAllStr = getAllPinyin(pyArr, pinyinAllStr, regex, String.valueOf(c));
-                        pinyinFirstStr = getFirstPinyin(pyArr, pinyinFirstStr, regex, String.valueOf(c));
-                    } else {
-                        pinyinAllStr = getAllPinyin(pyArr, pinyinAllStr, regex, null);
-                        pinyinFirstStr = getFirstPinyin(pyArr, pinyinFirstStr, regex, null);
-                    }
-                } catch (BadHanyuPinyinOutputFormatCombination e) {
-                    e.printStackTrace();
-                }
-            } else {
-                pinyinAllStr.append(c);
-                pinyinFirstStr.append(c);
-            }
-        }
-        HashMap<String, StringBuffer> map = new HashMap<>();
-        map.put("all", pinyinAllStr);
-        map.put("first", pinyinFirstStr);
-        return map;
-    }
-
-    /**
-     * 配置拼音格式
-     *
-     * @return HanyuPinyinOutputFormat
-     */
-    private HanyuPinyinOutputFormat pinyinConfig() {
-        HanyuPinyinOutputFormat configFormat = new HanyuPinyinOutputFormat();
-        configFormat.setCaseType(HanyuPinyinCaseType.LOWERCASE);
-        configFormat.setToneType(HanyuPinyinToneType.WITH_TONE_MARK);
-        configFormat.setVCharType(HanyuPinyinVCharType.WITH_U_UNICODE);
-        return configFormat;
-    }
-
-    /**
-     * 获取汉字的首字母
-     *
-     * @param pyArr          汉字拼音
-     * @param pinyinFirstStr 已经存在的首字母
-     * @param regex          分隔符
-     * @param c
-     * @return 首字母
-     */
-    private StringBuffer getFirstPinyin(String[] pyArr, StringBuffer pinyinFirstStr, String regex, String c) {
-        //单音字直接转换存储
-        StringBuffer temp = new StringBuffer();
-        String[] firstPy = new String(pinyinFirstStr).split(regex);
-        if (pyArr.length == 0 && c != null) {
-            for (String s : firstPy) {
-                temp.append(s.trim()).append(c).append(regex);
-            }
-        } else if (pyArr.length == 1) {
-            //单音字
-            for (String s : firstPy) {
-                temp.append(s).append(pyArr[0].toUpperCase(Locale.ROOT).charAt(0)).append(regex);
-            }
-        } else {
-            //多音字
-            for (String s : firstPy) {
-                for (String py : pyArr) {
-                    temp.append(s).append(py.toUpperCase(Locale.ROOT).charAt(0)).append(regex);
-                }
-            }
-        }
-
-        return temp;
-    }
-
-    /**
-     * 获取多音字的拼音组合
-     *
-     * @param pyArr        汉字拼音
-     * @param pinyinAllStr 已经存在的全拼
-     * @param regex        分隔符
-     * @param c
-     * @return 全拼
-     */
-    private StringBuffer getAllPinyin(String[] pyArr, StringBuffer pinyinAllStr, String regex, String c) {
-        //单音字直接转换存储
-        StringBuffer temp = new StringBuffer();
-        String[] allPy = new String(pinyinAllStr).split(regex);
-        //字符
-        if (pyArr.length == 0 && c != null) {
-            for (String s : allPy) {
-                temp.append(s.trim()).append(c).append(regex);
-            }
-        } else if (pyArr.length == 1) {
-            //单音字
-            for (String s : allPy) {
-                temp.append(s).append(pyArr[0]).append(" ").append(regex);
-            }
-        } else {
-            //多音字
-            for (String s : allPy) {
-                for (String py : pyArr) {
-                    temp.append(s).append(py).append(" ").append(regex);
-                }
-            }
-        }
-        return temp;
-    }
-
-    /**
      * 获取汉字串拼音首字母，英文字符不变
      *
      * @param chinese 汉字串
@@ -284,5 +159,130 @@ public class PinYinUtils {
         }
         String newString = new String(ch);
         return newString;
+    }
+
+    /**
+     * 字符串转拼音
+     *
+     * @param code
+     * @return
+     */
+    public Map<String, StringBuffer> string2Pinyin(String code) {
+        //全拼
+        StringBuffer pinyinAllStr = new StringBuffer();
+        //首字母
+        StringBuffer pinyinFirstStr = new StringBuffer();
+        //将字符串转换为字符数组
+        char[] newChar = code.toCharArray();
+        //定义转换拼音格式
+        HanyuPinyinOutputFormat defaultFormat = pinyinConfig();
+        //设置分隔符
+        String regex = "~";
+        int allLen = pinyinAllStr.length();
+        for (char c : newChar) {
+            if (c > 128) {
+                try {
+                    //获得单个汉字全部拼音（多音字）
+                    String[] pyArr = PinyinHelper.toHanyuPinyinStringArray(c, defaultFormat);
+                    if (pyArr.length == 0) {
+                        pinyinAllStr = getAllPinyin(pyArr, pinyinAllStr, regex, String.valueOf(c));
+                        pinyinFirstStr = getFirstPinyin(pyArr, pinyinFirstStr, regex, String.valueOf(c));
+                    } else {
+                        pinyinAllStr = getAllPinyin(pyArr, pinyinAllStr, regex, null);
+                        pinyinFirstStr = getFirstPinyin(pyArr, pinyinFirstStr, regex, null);
+                    }
+                } catch (BadHanyuPinyinOutputFormatCombination e) {
+                    e.printStackTrace();
+                }
+            } else {
+                pinyinAllStr.append(c);
+                pinyinFirstStr.append(c);
+            }
+        }
+        HashMap<String, StringBuffer> map = new HashMap<>();
+        map.put("all", pinyinAllStr);
+        map.put("first", pinyinFirstStr);
+        return map;
+    }
+
+    /**
+     * 配置拼音格式
+     *
+     * @return HanyuPinyinOutputFormat
+     */
+    private HanyuPinyinOutputFormat pinyinConfig() {
+        HanyuPinyinOutputFormat configFormat = new HanyuPinyinOutputFormat();
+        configFormat.setCaseType(HanyuPinyinCaseType.LOWERCASE);
+        configFormat.setToneType(HanyuPinyinToneType.WITH_TONE_MARK);
+        configFormat.setVCharType(HanyuPinyinVCharType.WITH_U_UNICODE);
+        return configFormat;
+    }
+
+    /**
+     * 获取汉字的首字母
+     *
+     * @param pyArr          汉字拼音
+     * @param pinyinFirstStr 已经存在的首字母
+     * @param regex          分隔符
+     * @param c
+     * @return 首字母
+     */
+    private StringBuffer getFirstPinyin(String[] pyArr, StringBuffer pinyinFirstStr, String regex, String c) {
+        //单音字直接转换存储
+        StringBuffer temp = new StringBuffer();
+        String[] firstPy = new String(pinyinFirstStr).split(regex);
+        if (pyArr.length == 0 && c != null) {
+            for (String s : firstPy) {
+                temp.append(s.trim()).append(c).append(regex);
+            }
+        } else if (pyArr.length == 1) {
+            //单音字
+            for (String s : firstPy) {
+                temp.append(s).append(pyArr[0].toUpperCase(Locale.ROOT).charAt(0)).append(regex);
+            }
+        } else {
+            //多音字
+            for (String s : firstPy) {
+                for (String py : pyArr) {
+                    temp.append(s).append(py.toUpperCase(Locale.ROOT).charAt(0)).append(regex);
+                }
+            }
+        }
+
+        return temp;
+    }
+
+    /**
+     * 获取多音字的拼音组合
+     *
+     * @param pyArr        汉字拼音
+     * @param pinyinAllStr 已经存在的全拼
+     * @param regex        分隔符
+     * @param c
+     * @return 全拼
+     */
+    private StringBuffer getAllPinyin(String[] pyArr, StringBuffer pinyinAllStr, String regex, String c) {
+        //单音字直接转换存储
+        StringBuffer temp = new StringBuffer();
+        String[] allPy = new String(pinyinAllStr).split(regex);
+        //字符
+        if (pyArr.length == 0 && c != null) {
+            for (String s : allPy) {
+                temp.append(s.trim()).append(c).append(regex);
+            }
+        } else if (pyArr.length == 1) {
+            //单音字
+            for (String s : allPy) {
+                temp.append(s).append(pyArr[0]).append(" ").append(regex);
+            }
+        } else {
+            //多音字
+            for (String s : allPy) {
+                for (String py : pyArr) {
+                    temp.append(s).append(py).append(" ").append(regex);
+                }
+            }
+        }
+        return temp;
     }
 }

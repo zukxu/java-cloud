@@ -21,27 +21,27 @@ import java.nio.charset.StandardCharsets;
 @RestController
 @RequestMapping("/map")
 public class MapController {
-	@GetMapping
-	public JSONObject getMapData() {
-		String url = "http://zaixianke.com/yq/all";
-		String s = HttpUtil.get(url);
-		return JSONObject.parseObject(s);
-	}
+    @GetMapping
+    public JSONObject getMapData() {
+        String url = "http://zaixianke.com/yq/all";
+        String s = HttpUtil.get(url);
+        return JSONObject.parseObject(s);
+    }
 
-	@GetMapping("/ai")
-	public JSONObject getAiData(@PathParam("q") String question) {
-		String url = "https://api.jisuapi.com/iqa/query?appkey=62958a3a6ef3c56d&question=" + HttpUtil.encodeParams(question, StandardCharsets.UTF_8);
-		String s = HttpUtil.get(url);
-		return JSONObject.parseObject(s);
+    @GetMapping("/ai")
+    public JSONObject getAiData(@PathParam("q") String question) {
+        String url = "https://api.jisuapi.com/iqa/query?appkey=62958a3a6ef3c56d&question=" + HttpUtil.encodeParams(question, StandardCharsets.UTF_8);
+        String s = HttpUtil.get(url);
+        return JSONObject.parseObject(s);
 
-	}
+    }
 
-	@GetMapping("/js")
-	public String getJs() {
-		String url = "http://cdn.zaixianke.com/china.js";
-		String s = HttpUtil.get(url);
-		Console.log(s);
-		return s;
+    @GetMapping("/js")
+    public String getJs() {
+        String url = "http://cdn.zaixianke.com/china.js";
+        String s = HttpUtil.get(url);
+        Console.log(s);
+        return s;
 
-	}
+    }
 }

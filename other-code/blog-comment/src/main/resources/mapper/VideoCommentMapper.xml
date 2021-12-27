@@ -16,9 +16,9 @@
         <result column="status" jdbcType="SMALLINT" property="comment.status"/>
         <result column="parent_id" jdbcType="VARCHAR" property="comment.parentId"/>
         <association property="children"
-                select="com.zukxu.comment.mapper.BlogCommentMapper.selectCommentById"
-                column="{blogId=blog_id,parentId=id}"
-                fetchType="lazy">
+                     select="com.zukxu.comment.mapper.BlogCommentMapper.selectCommentById"
+                     column="{blogId=blog_id,parentId=id}"
+                     fetchType="lazy">
         </association>
     </resultMap>
     <!-- 通用查询结果列 -->
@@ -42,8 +42,8 @@
         <include refid="Base_Column_List"/>
         FROM blog_comment
         WHERE blog_id = #{blogId}
-          AND parent_id = #{parentId}
-                order by create_time desc
+        AND parent_id = #{parentId}
+        order by create_time desc
         <if test="size != null">
             limit #{size}
         </if>

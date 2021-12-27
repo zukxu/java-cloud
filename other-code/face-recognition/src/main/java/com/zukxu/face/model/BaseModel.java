@@ -13,6 +13,6 @@ import java.io.Serializable;
  */
 @Data
 public class BaseModel implements Serializable {
-	private String api_key= FaceConstant.API_KEY;
-	private String api_secret=FaceConstant.API_SECRET;
+    private String api_key = FaceConstant.API_KEY;
+    private String api_secret = FaceConstant.API_SECRET;
 }

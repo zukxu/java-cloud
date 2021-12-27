@@ -1,99 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta content="ie=edge" http-equiv="X-UA-Compatible"/>
     <!-- jquery3  -->
     <script src="https://www.jq22.com/jquery/jquery-1.10.2.js"></script>
-    <link rel="stylesheet" href="css/time-1.css" />
-    <link rel="stylesheet" href="css/time-2.css" />
-    <link rel="stylesheet" href="css/time-3.css" />
+    <link href="css/time-1.css" rel="stylesheet"/>
+    <link href="css/time-2.css" rel="stylesheet"/>
+    <link href="css/time-3.css" rel="stylesheet"/>
     <title>罗盘时钟</title>
-  </head>
-  <style></style>
-  <body>
-    <div id="sum">
-      <!-- 节气信息 -->
-      <div id="message">
+</head>
+<style></style>
+<body>
+<div id="sum">
+    <!-- 节气信息 -->
+    <div id="message">
         <ul>
-          <li class="msgs" v-for="(item,index) in Arrays">{{item}}</li>
+            <li class="msgs" v-for="(item,index) in Arrays">{{item}}</li>
         </ul>
-      </div>
-      <!-- 遮罩 -->
-      <li id="shade"></li>
-      <!-- 秒 -->
-      <div id="second">
-        <ul>
-          <li v-for="item in flag">
-            {{item}}
-          </li>
-        </ul>
-      </div>
-      <!-- 分 -->
-      <div id="minute">
-        <ul>
-          <li v-for="item in flag_minute">
-            {{item}}
-          </li>
-        </ul>
-      </div>
-      <!-- 时 -->
-      <div id="hour">
-        <ul>
-          <li v-for="item in flag_hour">
-            {{item}}
-          </li>
-        </ul>
-      </div>
-      <!-- 年 -->
-      <div id="year">
-        <ul>
-          <li id="yearAll">天祈</li>
-        </ul>
-      </div>
-      <!-- 月 -->
-      <div id="mouth">
-        <ul>
-          <li v-for="item in flag_mouth">
-            {{item.name}}
-          </li>
-        </ul>
-      </div>
-      <!-- 节气 -->
-      <div id="solar">
-        <ul>
-          <li
-            v-for="(item,index) in flag_solar"
-            :key="index"
-            v-on:mouseover="showMsg(index)"
-            v-on:mouseout="hideMsg()"
-            class="mm"
-          >
-            {{item.name}}
-          </li>
-        </ul>
-      </div>
-      <!-- 日 -->
-      <div id="data">
-        <ul>
-          <li v-for="item in flag_data">
-            {{item.name}}
-          </li>
-        </ul>
-      </div>
-      <!-- 上下午 -->
-      <div id="AP">
-        <ul>
-          <li v-for="item in flag_AP">
-            {{item.name}}
-          </li>
-        </ul>
-      </div>
     </div>
-  </body>
-  <!-- vue引入 -->
-  <script src="https://www.jq22.com/jquery/vue.min.js"></script>
-  <script src="js/time.js"></script>
+    <!-- 遮罩 -->
+    <li id="shade"></li>
+    <!-- 秒 -->
+    <div id="second">
+        <ul>
+            <li v-for="item in flag">
+                {{item}}
+            </li>
+        </ul>
+    </div>
+    <!-- 分 -->
+    <div id="minute">
+        <ul>
+            <li v-for="item in flag_minute">
+                {{item}}
+            </li>
+        </ul>
+    </div>
+    <!-- 时 -->
+    <div id="hour">
+        <ul>
+            <li v-for="item in flag_hour">
+                {{item}}
+            </li>
+        </ul>
+    </div>
+    <!-- 年 -->
+    <div id="year">
+        <ul>
+            <li id="yearAll">天祈</li>
+        </ul>
+    </div>
+    <!-- 月 -->
+    <div id="mouth">
+        <ul>
+            <li v-for="item in flag_mouth">
+                {{item.name}}
+            </li>
+        </ul>
+    </div>
+    <!-- 节气 -->
+    <div id="solar">
+        <ul>
+            <li
+                    :key="index"
+                    class="mm"
+                    v-for="(item,index) in flag_solar"
+                    v-on:mouseout="hideMsg()"
+                    v-on:mouseover="showMsg(index)"
+            >
+                {{item.name}}
+            </li>
+        </ul>
+    </div>
+    <!-- 日 -->
+    <div id="data">
+        <ul>
+            <li v-for="item in flag_data">
+                {{item.name}}
+            </li>
+        </ul>
+    </div>
+    <!-- 上下午 -->
+    <div id="AP">
+        <ul>
+            <li v-for="item in flag_AP">
+                {{item.name}}
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+<!-- vue引入 -->
+<script src="https://www.jq22.com/jquery/vue.min.js"></script>
+<script src="js/time.js"></script>
 
 </html>

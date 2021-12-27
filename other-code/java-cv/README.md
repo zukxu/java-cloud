@@ -14,7 +14,8 @@
 那么我可以将该【opencv_java453.dll】文件放入【C:\Windows\System32】路径下
 ![img.png](images/03.png)
 
-依赖外部jar包  
+依赖外部jar包
+
 - 在项目根目录创建libs文件夹
 - 将jar包放入libs文件夹
 - 执行如下命令，将该jar包打入本地maven仓库
@@ -39,6 +40,5 @@ mvn install:install-file -Dfile=libs/opencv-453.jar -DgroupId=com.opencv -Dartif
 </dependency>
 </dependencies>
 ```
-
 
 学习教程参考：https://www.likecs.com/show-569674.html

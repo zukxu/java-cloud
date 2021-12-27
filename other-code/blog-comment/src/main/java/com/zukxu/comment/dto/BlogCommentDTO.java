@@ -23,6 +23,6 @@ import java.util.List;
 @ApiModel(value = "评论DTO对象")
 @JsonIgnoreProperties(value = {"handler"})
 public class BlogCommentDTO {
-	private BlogComment comment;
-	private List<BlogCommentDTO> children;
+    private BlogComment comment;
+    private List<BlogCommentDTO> children;
 }

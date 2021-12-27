@@ -21,18 +21,18 @@ import java.util.concurrent.TimeUnit;
 @RestController
 @RequestMapping("/order")
 public class OrderInfoController {
-	@Autowired
-	RedisUtils redisUtil;
+    @Autowired
+    RedisUtils redisUtil;
 
-	@PostMapping(value = "addOrderInfo")
-	public String addOrderInfo(OrderInfo orderInfo) throws Exception {
-		//获取redis判断当前用户是不是重复提交订单
-		String userId = "1";
-		Optional<Object> o = Optional.ofNullable(redisUtil.get("ORDER:" + userId + ":" + orderInfo.getCommodityId()));
-		if (o.isPresent()) {
-			return "请勿重复提交订单";
-		}
-		redisUtil.setEx("ORDER:" + userId + ":" + orderInfo.getCommodityId(), userId, 60 * 10, TimeUnit.SECONDS);
-		return "success";
-	}
+    @PostMapping(value = "addOrderInfo")
+    public String addOrderInfo(OrderInfo orderInfo) throws Exception {
+        //获取redis判断当前用户是不是重复提交订单
+        String userId = "1";
+        Optional<Object> o = Optional.ofNullable(redisUtil.get("ORDER:" + userId + ":" + orderInfo.getCommodityId()));
+        if (o.isPresent()) {
+            return "请勿重复提交订单";
+        }
+        redisUtil.setEx("ORDER:" + userId + ":" + orderInfo.getCommodityId(), userId, 60 * 10, TimeUnit.SECONDS);
+        return "success";
+    }
 }

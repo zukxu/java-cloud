@@ -1,58 +1,65 @@
-body{
-	background-color:antiquewhite;
+body {
+    background-color: antiquewhite;
 }
-#title{
+
+#title {
     width: 100%;
     height: 10%;
-    position: absolute;  /*绝对定位*/
-    top:0;
-    left:0;
+    position: absolute; /*绝对定位*/
+    top: 0;
+    left: 0;
 
     /*弹性布局*/
     display: flex;
-    justify-content:center;
+    justify-content: center;
     align-items: center;
     color: black;
     font-size: 40px;
 }
-#title .time{
+
+#title .time {
     position: absolute;
     right: 20px;
-    top:5px;
+    top: 5px;
     font-size: 20px;
     color: black;
 }
-#title .link01{
+
+#title .link01 {
     position: absolute;
     left: 220px;
-    top:5px;
+    top: 5px;
     font-size: 20px;
-    color:red;
-    text-decoration:none;
+    color: red;
+    text-decoration: none;
 }
-#title .link02{
+
+#title .link02 {
     position: absolute;
     left: 20px;
-    top:5px;
+    top: 5px;
     font-size: 20px;
     color: #7e0fd2;
-    text-decoration:none;
+    text-decoration: none;
 }
-#title .author{
+
+#title .author {
     position: absolute;
     left: 20px;
     top: 30px;
     font-size: 18px;
     color: blueviolet;
 }
-#left1{
+
+#left1 {
     width: 50%;
     height: 90%;
     position: absolute;
     left: 0;
     top: 10%;
 }
-#left2{
+
+#left2 {
     width: 50%;
     height: 90%;
     position: absolute;

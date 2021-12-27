@@ -18,14 +18,14 @@ import java.util.List;
  */
 @Mapper
 public interface BlogCommentMapper extends BaseMapper<BlogComment> {
-	/**
-	 * 通过id进行查询返回DTO对象
-	 *
-	 * @param blogId 视频id
-	 * @param parentId 父id
-	 * @param current 当前页
-	 * @param size 数量
-	 * @return list
-	 */
-	List<BlogCommentDTO> selectCommentById(@Param("blogId") String blogId, @Param("parentId") String parentId, @Param("current") Integer current, @Param("size") Integer size);
+    /**
+     * 通过id进行查询返回DTO对象
+     *
+     * @param blogId   视频id
+     * @param parentId 父id
+     * @param current  当前页
+     * @param size     数量
+     * @return list
+     */
+    List<BlogCommentDTO> selectCommentById(@Param("blogId") String blogId, @Param("parentId") String parentId, @Param("current") Integer current, @Param("size") Integer size);
 }

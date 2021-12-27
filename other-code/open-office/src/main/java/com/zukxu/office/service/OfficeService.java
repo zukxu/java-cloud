@@ -23,12 +23,12 @@ public class OfficeService {
         //获取文件类型
         List<String> str = StrUtil.split(url, "\\.");
 
-        if(CollectionUtil.isEmpty(str)) {
+        if (CollectionUtil.isEmpty(str)) {
             throw new Exception("文件格式不正确");
         }
         String suffix = str.get(str.size() - 1);
-        if(!suffix.equals("txt") && !suffix.equals("doc") && !suffix.equals("docx") && !suffix.equals("xls")
-           && !suffix.equals("xlsx") && !suffix.equals("ppt") && !suffix.equals("pptx")) {
+        if (!suffix.equals("txt") && !suffix.equals("doc") && !suffix.equals("docx") && !suffix.equals("xls")
+                && !suffix.equals("xlsx") && !suffix.equals("ppt") && !suffix.equals("pptx")) {
             throw new Exception("文件格式不支持预览");
         }
         InputStream in = FileConvertUtil.convertNetFile(url, suffix);
@@ -38,7 +38,7 @@ public class OfficeService {
         //所读取的内容使用n来接收
         int n;
         //当没有读取完时,继续读取,循环
-        while((n = in.read(buff)) != -1) {
+        while ((n = in.read(buff)) != -1) {
             //将字节数组的数据全部写入到输出流中
             outputStream.write(buff, 0, n);
         }

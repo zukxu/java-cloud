@@ -35,17 +35,17 @@ public class HelloController {
     @GetMapping("/test")
     public Map params(int num) {
         String jsonString = "{\n" + "    \"cityid\": \"101120101\",\n" + "    \"city\": \"济南\",\n" + "    " +
-                            "\"update_time\": \"2020-04-17 10:50\",\n" + "    \"wea\": \"晴\",\n" + "    \"wea_img\": "
-                            + "\"qing\",\n" + "    \"tem\": \"16\",\n" + "    \"tem_day\": \"20\",\n" + "    " +
-                            "\"tem_night\": \"9\",\n" + "    \"win\": \"东北风\",\n" + "    \"win_speed\": \"3级\",\n" +
-                            "    \"win_meter\": \"小于12km/h\",\n" + "    \"air\": \"113\"\n" + "}";
+                "\"update_time\": \"2020-04-17 10:50\",\n" + "    \"wea\": \"晴\",\n" + "    \"wea_img\": "
+                + "\"qing\",\n" + "    \"tem\": \"16\",\n" + "    \"tem_day\": \"20\",\n" + "    " +
+                "\"tem_night\": \"9\",\n" + "    \"win\": \"东北风\",\n" + "    \"win_speed\": \"3级\",\n" +
+                "    \"win_meter\": \"小于12km/h\",\n" + "    \"air\": \"113\"\n" + "}";
         Map maps = (Map) JSON.parse(jsonString);
         return maps;
     }
 
     @PostMapping("/form")
-    public String form(String username, @RequestParam(value = "password",required = false) String password, @RequestParam(value = "code",required = false) String code) {
-        System.out.println(username+password+code);
+    public String form(String username, @RequestParam(value = "password", required = false) String password, @RequestParam(value = "code", required = false) String code) {
+        System.out.println(username + password + code);
         return "表单数据: " + username + " | " + password + " | " + code;
     }
 
@@ -85,6 +85,6 @@ public class HelloController {
         System.out.println(
                 "登录数据: " + user.toString());
         return UUID.fastUUID()
-                   .toString();
+                .toString();
     }
 }
