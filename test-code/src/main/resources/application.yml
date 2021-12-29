@@ -1,2 +1,21 @@
 server:
-  port: 8090
+  port: 18081
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.0.21:3310/java_cloud?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true
+    username: root
+    password: 123456
+  redis:
+    host: 192.168.0.21
+    port: 6379
+    database: 0
+    username:
+    password:
+    timeout: 2000
+    lettuce:
+      pool:
+        max-active: 8
+        min-idle: 1
+        max-idle: 5
+    connect-timeout: 500
