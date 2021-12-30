@@ -9,8 +9,7 @@ import com.zukxu.excel.model.satisfaction.Sn5g;
 import com.zukxu.excel.service.ReportService;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <p>
@@ -32,6 +31,8 @@ public class Sn5GListener implements ReadListener<Sn5g> {
      * 缓存的数据
      */
     private List<Sn5g> cachedDataList = ListUtils.newArrayListWithExpectedSize(BATCH_COUNT);
+    private Set<String> headField = new LinkedHashSet<>();
+    private Map<String,Object> reqMap = new HashMap<>();
     /**
      * 假设这个是一个DAO，当然有业务逻辑这个也可以是一个service。当然如果不用存储这个对象没用。
      */
@@ -47,8 +48,9 @@ public class Sn5GListener implements ReadListener<Sn5g> {
      *
      * @param reportService
      */
-    public Sn5GListener(ReportService reportService) {
+    public Sn5GListener(ReportService reportService,Map<String,Object> map) {
         this.reportService = reportService;
+        this.reqMap = map;
     }
 
     /**
@@ -72,7 +74,11 @@ public class Sn5GListener implements ReadListener<Sn5g> {
     @Override
     public void invokeHead(Map<Integer, ReadCellData<?>> headMap, AnalysisContext context) {
         log.info("解析到一条头数据:{}", JSON.toJSONString(headMap));
-        ReadListener.super.invokeHead(headMap, context);
+        headMap.keySet().forEach(key -> {
+            headField.add(headMap.get(key).getStringValue());
+        });
+        headField.remove("编码");
+        headField.remove("地州名称");
     }
 
     /**
@@ -92,7 +98,7 @@ public class Sn5GListener implements ReadListener<Sn5g> {
      */
     private void saveData() {
         log.info("{}条数据，开始存储数据库！", cachedDataList.size());
-        reportService.saveData(cachedDataList);
+        reportService.saveData(headField,reqMap, cachedDataList);
         log.info("存储数据库成功！");
     }
 }

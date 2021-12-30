@@ -9,6 +9,7 @@ import com.alibaba.excel.read.listener.ReadListener;
 import com.alibaba.excel.read.metadata.ReadSheet;
 import com.alibaba.excel.util.ListUtils;
 import com.alibaba.fastjson.JSON;
+import com.zukxu.common.result.RMap;
 import com.zukxu.excel.constant.Const;
 import com.zukxu.excel.listener.Sn5GListener;
 import com.zukxu.excel.model.satisfaction.Sn5g;
@@ -50,7 +51,11 @@ public class ExcelController {
 	@SneakyThrows
 	public void readExcel(@RequestParam("file") MultipartFile file,
 						  @RequestParam("tenantId") String tenantId,
-						  @RequestParam("orgType") String orgType) {
+						  @RequestParam("orgType") String orgType,
+						  @RequestParam("year") String year,
+						  @RequestParam("period") String period) {
+
+		RMap map = new RMap().put("year", year).put("period", period).put("orgType",orgType);
 		if (StrUtil.equalsIgnoreCase(Const.SN, tenantId)) {
 			if (StrUtil.equalsIgnoreCase(Const.G5, orgType)) {
 
@@ -61,7 +66,7 @@ public class ExcelController {
 				//annoyReadExcel(file);
 
 				//3、指定监听类
-				sn5gListenerReadExcel(file);
+				sn5gListenerReadExcel(file,map);
 
 				//4、reader 读取
 				//readerExcel(file);
@@ -103,9 +108,9 @@ public class ExcelController {
 	}
 
 	@SneakyThrows
-	private void sn5gListenerReadExcel(MultipartFile file) {
+	private void sn5gListenerReadExcel(MultipartFile file, Map<String,Object>map) {
 		//封装excel对应实体进行读取，需要编写指定实体类的监听类
-		EasyExcel.read(file.getInputStream(), Sn5g.class, new Sn5GListener(reportService)).sheet().doRead();
+		EasyExcel.read(file.getInputStream(), Sn5g.class, new Sn5GListener(reportService,map)).sheet().doRead();
 	}
 
 	@SneakyThrows

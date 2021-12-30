@@ -4,7 +4,6 @@ import com.alibaba.excel.annotation.ExcelProperty;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.zukxu.excel.annotations.Excel;
 import lombok.Data;
-import lombok.experimental.Accessors;
 
 /**
  * <p>
@@ -16,7 +15,6 @@ import lombok.experimental.Accessors;
  */
 @TableName("satisfaction_sn")
 @Data
-@Accessors(chain = true)
 public class Sn5g {
     @Excel(name = "编码")
     @ExcelProperty(index = 1)
