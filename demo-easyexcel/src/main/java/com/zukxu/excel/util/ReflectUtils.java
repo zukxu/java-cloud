@@ -24,7 +24,7 @@ public class ReflectUtils {
 
     private static final String CGLIB_CLASS_SEPARATOR = "$$";
 
-    private static Logger logger = LoggerFactory.getLogger(ReflectUtils.class);
+    private static Logger log = LoggerFactory.getLogger(ReflectUtils.class);
 
     /**
      * 调用Getter方法.
@@ -46,7 +46,7 @@ public class ReflectUtils {
      */
     public static <E> void invokeSetter(Object obj, String propertyName, E value) {
         Object object = obj;
-        String[] names = StrUtil.split(propertyName, ".");
+        String[] names = StrUtil.split(propertyName, ".").toArray(new String[0]);
         for (int i = 0; i < names.length; i++) {
             if (i < names.length - 1) {
                 String getterMethodName = GETTER_PREFIX + StringUtils.capitalize(names[i]);
@@ -65,14 +65,14 @@ public class ReflectUtils {
     public static <E> E getFieldValue(final Object obj, final String fieldName) {
         Field field = getAccessibleField(obj, fieldName);
         if (field == null) {
-            logger.debug("在 [" + obj.getClass() + "] 中，没有找到 [" + fieldName + "] 字段 ");
+            log.debug("在 [" + obj.getClass() + "] 中，没有找到 [" + fieldName + "] 字段 ");
             return null;
         }
         E result = null;
         try {
             result = (E) field.get(obj);
         } catch (IllegalAccessException e) {
-            logger.error("不可能抛出的异常{}", e.getMessage());
+            log.error("不可能抛出的异常{}", e.getMessage());
         }
         return result;
     }
@@ -83,14 +83,13 @@ public class ReflectUtils {
     public static <E> void setFieldValue(final Object obj, final String fieldName, final E value) {
         Field field = getAccessibleField(obj, fieldName);
         if (field == null) {
-            // throw new IllegalArgumentException("在 [" + obj.getClass() + "] 中，没有找到 [" + fieldName + "] 字段 ");
-            logger.debug("在 [" + obj.getClass() + "] 中，没有找到 [" + fieldName + "] 字段 ");
+            log.debug("在 [" + obj.getClass() + "] 中，没有找到 [" + fieldName + "] 字段 ");
             return;
         }
         try {
             field.set(obj, value);
         } catch (IllegalAccessException e) {
-            logger.error("不可能抛出的异常: {}", e.getMessage());
+            log.error("不可能抛出的异常: {}", e.getMessage());
         }
     }
 
@@ -107,7 +106,7 @@ public class ReflectUtils {
         }
         Method method = getAccessibleMethod(obj, methodName, parameterTypes);
         if (method == null) {
-            logger.debug("在 [" + obj.getClass() + "] 中，没有找到 [" + methodName + "] 方法 ");
+            log.debug("在 [" + obj.getClass() + "] 中，没有找到 [" + methodName + "] 方法 ");
             return null;
         }
         try {
@@ -128,7 +127,7 @@ public class ReflectUtils {
         Method method = getAccessibleMethodByName(obj, methodName, args.length);
         if (method == null) {
             // 如果为空不报错，直接返回空。
-            logger.debug("在 [" + obj.getClass() + "] 中，没有找到 [" + methodName + "] 方法 ");
+            log.debug("在 [" + obj.getClass() + "] 中，没有找到 [" + methodName + "] 方法 ");
             return null;
         }
         try {
@@ -138,8 +137,8 @@ public class ReflectUtils {
                 if (args[i] != null && !args[i].getClass().equals(cs[i])) {
                     if (cs[i] == String.class) {
                         args[i] = Convert.toStr(args[i]);
-                        if (StringUtils.endsWith((String) args[i], ".0")) {
-                            args[i] = StringUtils.substringBefore((String) args[i], ".0");
+                        if (StrUtil.endWith((String) args[i], ".0")) {
+                            args[i] = StrUtil.subBefore((String) args[i], ".0", false);
                         }
                     } else if (cs[i] == Integer.class) {
                         args[i] = Convert.toInt(args[i]);
@@ -151,7 +150,7 @@ public class ReflectUtils {
                         args[i] = Convert.toFloat(args[i]);
                     } else if (cs[i] == Date.class) {
                         if (args[i] instanceof String) {
-                            args[i] = DateUtils.parseDate(args[i]);
+                            args[i] = DateUtils.parseDate((String) args[i]);
                         } else {
                             args[i] = DateUtil.getJavaDate((Double) args[i]);
                         }
@@ -176,7 +175,11 @@ public class ReflectUtils {
         if (obj == null) {
             return null;
         }
-        Validate.notBlank(fieldName, "fieldName can't be blank");
+        if (StrUtil.isBlank(fieldName)) {
+            log.info("fieldName can't be blank");
+            return null;
+        }
+
         for (Class<?> superClass = obj.getClass(); superClass != Object.class; superClass = superClass.getSuperclass()) {
             try {
                 Field field = superClass.getDeclaredField(fieldName);
@@ -201,14 +204,16 @@ public class ReflectUtils {
         if (obj == null) {
             return null;
         }
-        Validate.notBlank(methodName, "methodName can't be blank");
+        if (StrUtil.isBlank(methodName)) {
+            log.info("methodName can't be blank");
+            return null;
+        }
         for (Class<?> searchType = obj.getClass(); searchType != Object.class; searchType = searchType.getSuperclass()) {
             try {
                 Method method = searchType.getDeclaredMethod(methodName, parameterTypes);
                 makeAccessible(method);
                 return method;
-            } catch (NoSuchMethodException e) {
-                continue;
+            } catch (NoSuchMethodException ignored) {
             }
         }
         return null;
@@ -225,7 +230,10 @@ public class ReflectUtils {
         if (obj == null) {
             return null;
         }
-        Validate.notBlank(methodName, "methodName can't be blank");
+        if (StrUtil.isBlank(methodName)) {
+            log.info("methodName can't be blank");
+            return null;
+        }
         for (Class<?> searchType = obj.getClass(); searchType != Object.class; searchType = searchType.getSuperclass()) {
             Method[] methods = searchType.getDeclaredMethods();
             for (Method method : methods) {
@@ -275,19 +283,19 @@ public class ReflectUtils {
         Type genType = clazz.getGenericSuperclass();
 
         if (!(genType instanceof ParameterizedType)) {
-            logger.debug(clazz.getSimpleName() + "'s superclass not ParameterizedType");
+            log.debug(clazz.getSimpleName() + "'s superclass not ParameterizedType");
             return Object.class;
         }
 
         Type[] params = ((ParameterizedType) genType).getActualTypeArguments();
 
         if (index >= params.length || index < 0) {
-            logger.debug("Index: " + index + ", Size of " + clazz.getSimpleName() + "'s Parameterized Type: "
+            log.debug("Index: " + index + ", Size of " + clazz.getSimpleName() + "'s Parameterized Type: "
                     + params.length);
             return Object.class;
         }
         if (!(params[index] instanceof Class)) {
-            logger.debug(clazz.getSimpleName() + " not set the actual class on superclass generic parameter");
+            log.debug(clazz.getSimpleName() + " not set the actual class on superclass generic parameter");
             return Object.class;
         }
 
