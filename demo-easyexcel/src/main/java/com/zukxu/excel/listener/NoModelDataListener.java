@@ -1,14 +1,16 @@
 package com.zukxu.excel.listener;
 
-import cn.hutool.core.util.StrUtil;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.alibaba.excel.exception.ExcelDataConvertException;
+import com.alibaba.fastjson.JSON;
 import com.zukxu.excel.service.ReportService;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -27,7 +29,7 @@ public class NoModelDataListener extends AnalysisEventListener<Map<Integer, Stri
     /**
      * 解析出来的头部
      */
-    private Map<Integer, Set<String>> head2FieldMap = new HashMap<>();
+    private Map<Integer, String> head2FieldMap = new HashMap<>();
     /**
      * 解析出的数据
      */
@@ -47,7 +49,7 @@ public class NoModelDataListener extends AnalysisEventListener<Map<Integer, Stri
 
     @Override
     public void invoke(Map<Integer, String> rowData, AnalysisContext context) {
-        //log.info("解析到一条数据:{}", JSON.toJSONString(rowData));
+        log.info("解析到一条数据:{}", JSON.toJSONString(rowData));
         rowDataList.add(rowData);
         // 达到BATCH_COUNT了，需要去存储一次数据库，防止数据几万条数据在内存，容易OOM
         if (rowDataList.size() >= BATCH_COUNT) {
@@ -59,18 +61,8 @@ public class NoModelDataListener extends AnalysisEventListener<Map<Integer, Stri
 
     @Override
     public void invokeHeadMap(Map<Integer, String> headMap, AnalysisContext context) {
-        //log.info("解析到一条头数据:{}", JSON.toJSONString(headMap));
-        Set<String> set = new LinkedHashSet<>();
-        //第一行为数据表名称，不解析
-        if (context.readRowHolder().getRowIndex() != 0) {
-            //移除第一列的表头
-            headMap.remove(0);
-            Collection<String> values = headMap.values().stream().filter(StrUtil::isNotBlank).collect(Collectors.toList());
-            set.addAll(values);
-            head2FieldMap.put(context.readRowHolder().getRowIndex(), set);
-            //log.info("存储头数据:{}", JSON.toJSONString(head2FieldMap));
-        }
-
+        log.info("解析到一条头数据:{}", JSON.toJSONString(headMap));
+        head2FieldMap.putAll(headMap);
     }
 
     @Override

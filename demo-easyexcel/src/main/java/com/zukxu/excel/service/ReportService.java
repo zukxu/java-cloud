@@ -1,10 +1,10 @@
 package com.zukxu.excel.service;
 
+import com.zukxu.excel.model.satisfaction.Sn5g;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * <p>
@@ -17,6 +17,10 @@ import java.util.Set;
 @Service
 public class ReportService {
 
-    public void saveData(Map<Integer, Set<String>> head2FieldMap, List<Map<Integer, String>> rowDataList, String entityClassName) {
+    public void saveData(Map<Integer, String>  head2FieldMap, List<Map<Integer, String>> rowDataList, String entityClassName) {
+    }
+
+    public void saveData(List<Sn5g> cachedDataList) {
+
     }
 }
