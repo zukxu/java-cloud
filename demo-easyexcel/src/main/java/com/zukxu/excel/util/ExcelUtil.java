@@ -12,8 +12,8 @@ import com.zukxu.excel.annotations.Excel.ColumnType;
 import com.zukxu.excel.annotations.Excel.Type;
 import com.zukxu.excel.annotations.Excels;
 import com.zukxu.excel.constant.Const;
-import org.apache.poi.POIXMLDocumentPart;
 import org.apache.poi.hssf.usermodel.*;
+import org.apache.poi.ooxml.POIXMLDocumentPart;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.ss.util.CellRangeAddressList;
@@ -1087,7 +1087,7 @@ public class ExcelUtil<T> {
         try {
             Cell cell = row.getCell(column);
             if (ObjectUtil.isNotNull(cell)) {
-                if (cell.getCellType() == CellType.NUMERIC.getCode() || cell.getCellType() == CellType.FORMULA.getCode()) {
+                if (cell.getCellType() == CellType.NUMERIC || cell.getCellType() == CellType.FORMULA) {
                     val = cell.getNumericCellValue();
                     if (DateUtil.isCellDateFormatted(cell)) {
                         val = DateUtil.getJavaDate((Double) val); // POI Excel 日期格式转换
@@ -1098,11 +1098,11 @@ public class ExcelUtil<T> {
                             val = new DecimalFormat("0").format(val);
                         }
                     }
-                } else if (cell.getCellType() == CellType.STRING.getCode()) {
+                } else if (cell.getCellType() == CellType.STRING) {
                     val = cell.getStringCellValue();
-                } else if (cell.getCellType() == CellType.BOOLEAN.getCode()) {
+                } else if (cell.getCellType() == CellType.BOOLEAN) {
                     val = cell.getBooleanCellValue();
-                } else if (cell.getCellType() == CellType.ERROR.getCode()) {
+                } else if (cell.getCellType() == CellType.ERROR) {
                     val = cell.getErrorCellValue();
                 }
 
@@ -1125,7 +1125,7 @@ public class ExcelUtil<T> {
         }
         for (int i = row.getFirstCellNum(); i < row.getLastCellNum(); i++) {
             Cell cell = row.getCell(i);
-            if (cell != null && cell.getCellType() != CellType.BLANK.getCode()) {
+            if (cell != null && cell.getCellType() != CellType.BLANK) {
                 return false;
             }
         }
