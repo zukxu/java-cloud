@@ -23,6 +23,6 @@ public class MyExceptionHandler {
     @ExceptionHandler(UnauthorizedException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public R<?> UnauthorizedExceptionHandler(UnauthorizedException e) {
-        return R.fail(CommREnum.UNAUTHORIZED);
+        return R.fail("未授权");
     }
 }

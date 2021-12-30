@@ -1,6 +1,6 @@
 package com.zukxu.cv.base;
 
-import com.zukxu.common.utils.StringUtils;
+import cn.hutool.core.util.StrUtil;
 import com.zukxu.cv.common.utils.Constants;
 import com.zukxu.cv.common.utils.OpenCVUtil;
 import com.zukxu.cv.common.web.BaseController;
@@ -275,8 +275,8 @@ public class CardPlusController extends BaseController {
         Imgproc.threshold(dstNoRed, dstNoRed, binary_thresh, 255, Imgproc.THRESH_BINARY_INV);
         Imgcodecs.imwrite(destPath, dstNoRed);
         logger.info("去除红色基础上进行二值化======" + destPath);
-        String redValue = StringUtils.split(blue_red_thresh, ",").get(0);
-        String blueValue = StringUtils.split(blue_red_thresh, ",").get(1);
+        String redValue = StrUtil.split(blue_red_thresh, ",").get(0);
+        String blueValue = StrUtil.split(blue_red_thresh, ",").get(1);
         System.out.println(blueValue + "			" + redValue);
 
         TreeMap<Integer, String> resultMap = new TreeMap<>();
@@ -299,7 +299,7 @@ public class CardPlusController extends BaseController {
                     Imgproc.rectangle(sourceMat, new Point(rectX.x, rectY.y), new Point(rectX.x + rectX.width,
                                     rectY.y + rectY.height),
                             new Scalar(255, 0, 0), 2);
-                    if (StringUtils.isNotEmpty(resultMap.get(que))) {
+                    if (StrUtil.isNotEmpty(resultMap.get(que))) {
                         resultMap.put(que, resultMap.get(que) + "," + answer);
                     } else {
                         resultMap.put(que, answer);
@@ -308,7 +308,7 @@ public class CardPlusController extends BaseController {
                     Imgproc.rectangle(sourceMat, new Point(rectX.x, rectY.y), new Point(rectX.x + rectX.width,
                                     rectY.y + rectY.height),
                             new Scalar(0, 0, 255), 2);
-                    if (StringUtils.isNotEmpty(resultMap.get(que))) {
+                    if (StrUtil.isNotEmpty(resultMap.get(que))) {
                         resultMap.put(que, resultMap.get(que) + ",(" + answer + ")");
                     } else {
                         resultMap.put(que, "(" + answer + ")");
@@ -325,7 +325,7 @@ public class CardPlusController extends BaseController {
             resultValue.append("  ")
                     .append(i)
                     .append("=")
-                    .append(StringUtils.isEmpty(resultMap.get(i)) ? "未填写" : resultMap.get(i));
+                    .append(StrUtil.isEmpty(resultMap.get(i)) ? "未填写" : resultMap.get(i));
             if (i % 5 == 0) {
                 resultValue.append("<br>");
             }

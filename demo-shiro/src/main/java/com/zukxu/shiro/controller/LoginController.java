@@ -1,6 +1,7 @@
 package com.zukxu.shiro.controller;
 
 import com.zukxu.common.result.R;
+import com.zukxu.common.result.RStatus;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.DisabledAccountException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -10,6 +11,7 @@ import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author xupu
@@ -27,16 +29,16 @@ public class LoginController {
         try {
             // 登录验证
             userSubject.login(token);
-            return R.OK;
+            return R.ok();
         } catch (UnknownAccountException e) {
-            return R.fail(CommREnum.ACCOUNT_NOT_EXIST);
+            return R.fail("账号不存在");
         } catch (DisabledAccountException e) {
-            return R.fail(CommREnum.ACCOUNT_IS_DISABLED);
+            return R.fail("账号已被禁用");
         } catch (IncorrectCredentialsException e) {
-            return R.fail(CommREnum.INCORRECT_CREDENTIALS);
+            return R.fail("登录账号密码错误");
         } catch (Throwable e) {
             e.printStackTrace();
-            return R.fail(CommREnum.FAIL);
+            return R.fail(RStatus.FAIL.getMsg());
         }
     }
 

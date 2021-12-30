@@ -11,7 +11,9 @@
 
     <modelVersion>4.0.0</modelVersion>
 
+    <groupId>com.zukxu</groupId>
     <artifactId>common-module</artifactId>
+    <version>1.0.0</version>
     <description>通用返回类和异常处理</description>
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -21,8 +23,6 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <optional>true</optional>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -42,6 +42,16 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.79</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-spring-boot-starter</artifactId>
+            <version>3.0.3</version>
+        </dependency>
 
+        <!--配置相关-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+        </dependency>
     </dependencies>
 </project>

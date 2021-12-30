@@ -1,6 +1,6 @@
 package com.zukxu.idem.web;
 
-import com.zukxu.common.utils.redis.RedisUtils;
+import com.zukxu.common.config.RedisUtils;
 import com.zukxu.idem.entity.OrderInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,7 +32,7 @@ public class OrderInfoController {
         if (o.isPresent()) {
             return "请勿重复提交订单";
         }
-        redisUtil.setEx("ORDER:" + userId + ":" + orderInfo.getCommodityId(), userId, 60 * 10, TimeUnit.SECONDS);
+        redisUtil.set("ORDER:" + userId + ":" + orderInfo.getCommodityId(), userId, 60 * 10, TimeUnit.SECONDS);
         return "success";
     }
 }

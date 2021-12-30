@@ -1,6 +1,6 @@
 package com.zukxu.cv.base;
 
-import com.zukxu.common.utils.StringUtils;
+import cn.hutool.core.util.StrUtil;
 import com.zukxu.cv.common.utils.Constants;
 import com.zukxu.cv.common.utils.RectComp;
 import com.zukxu.cv.common.web.BaseController;
@@ -43,7 +43,7 @@ public class CardController extends BaseController {
         Imgproc.GaussianBlur(source, destination, new Size(2 * kSize + 1, 2 * kSize + 1), 0, 0);
         String destPath = Constants.PATH + Constants.DEST_IMAGE_PATH + "card1.png";
         File dstfile = new File(destPath);
-        if (StringUtils.isNotBlank(destPath) && dstfile.isFile() && dstfile.exists()) {
+        if (StrUtil.isNotBlank(destPath) && dstfile.isFile() && dstfile.exists()) {
             dstfile.delete();
             logger.info("删除图片：" + destPath);
         }
@@ -75,7 +75,7 @@ public class CardController extends BaseController {
         Imgproc.threshold(source, destination, thresh, 255, Imgproc.THRESH_BINARY_INV);
         String destPath = Constants.PATH + Constants.DEST_IMAGE_PATH + "card2.png";
         File dstfile = new File(destPath);
-        if (StringUtils.isNotBlank(destPath) && dstfile.isFile() && dstfile.exists()) {
+        if (StrUtil.isNotBlank(destPath) && dstfile.isFile() && dstfile.exists()) {
             dstfile.delete();
             logger.info("删除图片：" + destPath);
         }
@@ -105,7 +105,7 @@ public class CardController extends BaseController {
         Imgproc.morphologyEx(source, destination, Imgproc.MORPH_OPEN, element);
         String destPath = Constants.PATH + Constants.DEST_IMAGE_PATH + "card3.png";
         File dstfile = new File(destPath);
-        if (StringUtils.isNotBlank(destPath) && dstfile.isFile() && dstfile.exists()) {
+        if (StrUtil.isNotBlank(destPath) && dstfile.isFile() && dstfile.exists()) {
             dstfile.delete();
             logger.info("删除图片：" + destPath);
         }
@@ -222,7 +222,7 @@ public class CardController extends BaseController {
             Imgproc.drawContours(result, contours, -1, new Scalar(0, 255, 0), 2);
             String destPath = Constants.PATH + Constants.DEST_IMAGE_PATH + "ch" + (no + 1) + ".png";
             File dstfile = new File(destPath);
-            if (StringUtils.isNotBlank(destPath) && dstfile.isFile() && dstfile.exists()) {
+            if (StrUtil.isNotBlank(destPath) && dstfile.isFile() && dstfile.exists()) {
                 dstfile.delete();
                 logger.info("删除图片：" + destPath);
             }

@@ -8,8 +8,6 @@ import java.util.HashMap;
  */
 public class RMap extends HashMap<String, Object> {
 
-    private static final long serialVersionUID = 2222735886139390517L;
-
     public RMap() {
     }
 

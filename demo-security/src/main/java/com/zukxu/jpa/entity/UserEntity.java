@@ -1,7 +1,8 @@
 package com.zukxu.jpa.entity;
 
-import jdk.nashorn.internal.objects.annotations.Getter;
-import jdk.nashorn.internal.objects.annotations.Setter;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 import org.hibernate.Hibernate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -18,8 +19,7 @@ import java.util.Objects;
  * @Description
  * @Date 2021-09-26 11:38
  */
-@Getter
-@Setter
+@Data
 @ToString
 @RequiredArgsConstructor
 @Entity(name = "t_user")
@@ -43,7 +43,7 @@ public class UserEntity implements UserDetails {
         for(RoleEntity RoleEntity : getRoleEntities()) {
             authorities.add(new SimpleGrantedAuthority(RoleEntity.getName()));
         }
-        return authorities;
+        return null;
     }
 
     @Override

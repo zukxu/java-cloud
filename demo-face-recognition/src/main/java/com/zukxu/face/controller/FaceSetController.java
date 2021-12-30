@@ -5,6 +5,7 @@ import com.zukxu.face.common.FaceConstant;
 import com.zukxu.face.model.FaceSetModel;
 import com.zukxu.face.util.FaceSetUtil;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * face detect controller

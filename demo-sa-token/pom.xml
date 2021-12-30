@@ -30,5 +30,10 @@
             <artifactId>sa-token-dao-redis</artifactId>
             <version>1.27.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.zukxu</groupId>
+            <artifactId>common-module</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 </project>

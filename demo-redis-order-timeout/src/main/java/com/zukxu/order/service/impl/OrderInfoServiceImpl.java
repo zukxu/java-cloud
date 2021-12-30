@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zukxu.common.utils.redis.RedisUtils;
+import com.zukxu.common.config.RedisUtils;
 import com.zukxu.order.entity.OrderInfo;
 import com.zukxu.order.mapper.OrderInfoMapper;
 import com.zukxu.order.service.IOrderInfoService;
@@ -34,7 +34,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
 	OrderInfoMapper orderInfoMapper;
 
 	@Autowired
-	RedisUtils redisUtils;
+	private RedisUtils redisUtils;
 
 
 	@Override
@@ -57,7 +57,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
 		log.info("orderId:{}", orderInfo.getId());
 		//使用redis记录未支付超时时间: 30分钟未支付自动取消
 		try {
-			redisUtils.setEx("ORDER:" + orderInfo.getId(), orderInfo.getId(), 30, TimeUnit.SECONDS);
+			redisUtils.set("ORDER:" + orderInfo.getId(), orderInfo.getId(), 30, TimeUnit.SECONDS);
 			log.info("存入redis成功:key：{}，value：{}", "ORDER:" + orderInfo.getId(), orderInfo.getId());
 		} catch (Exception e) {
 			log.error("存入redis失败，key：{}，value：{}", "ORDER:" + orderInfo.getId(), orderInfo.getId());

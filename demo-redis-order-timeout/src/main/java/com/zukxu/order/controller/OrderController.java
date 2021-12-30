@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -44,12 +45,12 @@ public class OrderController {
 	@ApiOperation("更新订单列表")
 	@PutMapping(value = "updOrderInfo")
 	public R<Void> updOrderInfo(OrderInfo orderInfo) {
-		return orderInfoService.updOrderStatus(orderInfo) ?  R.OK :  R.FAIL;
+		return orderInfoService.updOrderStatus(orderInfo) ? R.ok() : R.fail();
 	}
 
 	@ApiOperation("删除订单列表")
 	@DeleteMapping(value = "delOrderInfo")
 	public R<Void> delOrderInfo(String orderId) {
-		return orderInfoService.removeById(orderId) ?  R.OK :  R.FAIL;
+		return orderInfoService.removeById(orderId) ? R.ok() : R.fail();
 	}
 }
