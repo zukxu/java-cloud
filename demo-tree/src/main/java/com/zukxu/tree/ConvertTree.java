@@ -91,7 +91,7 @@ public class ConvertTree<T> {
      * @param childrenNodeList
      */
     private void forChildren(List<T> dataList, String idName, String pidName, List<TreeNode<T>> childrenNodeList) {
-        //    遍历集合
+        //遍历集合
         List<TreeNode<T>> needForList = new ArrayList<>();
         for(TreeNode<T> tTreeNode : childrenNodeList) {
             List<TreeNode<T>> treeNodes = tTreeNode.childrenNode(dataList, idName, pidName);
@@ -161,11 +161,11 @@ public class ConvertTree<T> {
      */
     public String getFieldValue(T obj, String fieldName) {
         Class<?> cls = obj.getClass();
-        //    获取所有属性
+        //获取所有属性
         Field[] fields = cls.getFields();
         for(Field field : fields) {
             try {
-                //    打开私有访问，允许访问私有变量
+                //打开私有访问，允许访问私有变量
                 field.setAccessible(true);
                 //获取属性
                 if(field.getName().equals(fieldName)) {
