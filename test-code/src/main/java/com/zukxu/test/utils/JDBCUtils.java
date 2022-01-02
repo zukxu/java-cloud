@@ -12,8 +12,8 @@ import java.sql.*;
  */
 public class JDBCUtils {
 
-    private static String driverClassName="com.mysql.jdbc.Driver";
-    private static String url="jdbc:mysql://192.168.0.21:3310/java_cloud?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true";
+    private static String driverClassName="com.mysql.cj.jdbc.Driver";
+    private static String url="jdbc:mysql://127.0.0.1:3310/java_cloud?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true";
     private static String user = "root";
     private static String password = "123456";
 
