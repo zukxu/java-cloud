@@ -17,24 +17,6 @@ import java.util.List;
 public class ConvertTree<T> {
 
     /**
-     * 形成森林数据结构
-     *
-     * @param dataList
-     * @param idName
-     * @param pidName
-     *
-     * @return
-     */
-    public List<TreeNode<T>> getForest(List<T> dataList, String idName, String pidName) {
-        List<TreeNode<T>> forest = new ArrayList<>();
-        while(!dataList.isEmpty()) {
-            TreeNode<T> tree = getTree(dataList, idName, pidName);
-            forest.add(tree);
-        }
-        return forest;
-    }
-
-    /**
      * 形成森林(使用注解)
      *
      * @param dataList
@@ -54,7 +36,7 @@ public class ConvertTree<T> {
                     idName = field.getName();
                 }
                 TreePid treeFid = field.getAnnotation(TreePid.class);
-                if(treeFid != null) {
+                if (treeFid != null) {
                     pidName = field.getName();
                 }
             }
@@ -64,12 +46,28 @@ public class ConvertTree<T> {
     }
 
     /**
+     * 形成森林数据结构
+     *
+     * @param dataList
+     * @param idName
+     * @param pidName
+     * @return
+     */
+    public List<TreeNode<T>> getForest(List<T> dataList, String idName, String pidName) {
+        List<TreeNode<T>> forest = new ArrayList<>();
+        while (!dataList.isEmpty()) {
+            TreeNode<T> tree = getTree(dataList, idName, pidName);
+            forest.add(tree);
+        }
+        return forest;
+    }
+
+    /**
      * 生成树结构
      *
      * @param dataList
      * @param idName
      * @param pidName
-     *
      * @return
      */
     public TreeNode<T> getTree(List<T> dataList, String idName, String pidName) {
