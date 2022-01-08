@@ -79,6 +79,19 @@ public class TemplateBuildService {
         FileExportUtil.export(workbook, new File("E:\\temp\\myexcel\\solid_excel"));
     }
 
+    /**
+     * 当前仅模板方式支持设置批注。
+     * <td comment-text="批注内容" comment-author="作者"></td>
+     */
+    @SneakyThrows
+    public void commentExport() {
+        Workbook workbook = new FreemarkerExcelBuilder()
+                // fileTemplate(dirPath,fileName)
+                .classpathTemplate("/templates/freemarkerToExcelExample.ftl")
+                .build(MyExcelUtils.getProductDataMap());
+        FileExportUtil.export(workbook, new File("E:\\temp\\myexcel\\comment_excel"));
+    }
+
     public static void main(String[] args) {
         TemplateBuildService templateBuildService = new TemplateBuildService();
         templateBuildService.htmlExport(null);
