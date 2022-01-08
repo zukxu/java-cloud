@@ -34,18 +34,13 @@ public class StreamExportService {
                 // 如果需要导出Map类型的数据，请使用Map.class
                 //.of(Map.class)
                 //如果需要将数据追加到已存在的excel中，请使用如下配置,不支持多sheet追加
-                //.of(ArtCrowd.class,new FileInputStream(new File("/user.xlsx")))
+                //.of(ArtCrowd.class,new FileInputStream(new File("E:\temp\myexcel\streamExport.xlsx")))
                 //或者如下配置
-                //.of(ArtCrowd.class, Paths.get("/user.xlsx"))
+                //.of(ArtCrowd.class, Paths.get("E:\temp\myexcel\streamExport.xlsx"))
                 .threadPool(Executors.newFixedThreadPool(10))//构建线程池
                 .templateHandler(FreemarkerTemplateHandler.class)//追加模板数据
                 .capacity(10000)//容量设定，在数据量达到设置的值时，会自动生成新的excel
                 .start();
-        //2.1 复杂模板定义
-        /*
-         * 对于某些情况下可能需要某些个性化的表头，涉及到了合并行，合并列，合并样式等复杂布局，单纯的class实体类已经无法满足导入导出了
-         * 所以我们可以通过模板追加的方式，在模板中定义复杂的布局，追加方式如下
-         * */
 
         //2、数据追加
         //append参数可为列表，也可为单个数据，建议使用单个数据追加，如Bean、Map
@@ -57,7 +52,7 @@ public class StreamExportService {
         //如需最大化提升导出性能，请调用noStyle()方法全面禁止样式
         //DefaultStreamExcelBuilder默认采用SXSSF模式（内存占用低）导出，该模式下不支持自动列宽.
         Workbook workbook = streamExport.build();
-        AttachmentExportUtil.export(workbook, "temp", response);
+        AttachmentExportUtil.export(workbook, "streamExport", response);
 
     }
 
@@ -83,7 +78,7 @@ public class StreamExportService {
         //3、完成构建导出
         List<Path> paths = streamExport.buildAsPaths();
         paths.forEach(path -> {
-            AttachmentExportUtil.export(path, "temp", response);
+            AttachmentExportUtil.export(path, "multiStreamExport", response);
         });
     }
 
@@ -107,8 +102,8 @@ public class StreamExportService {
         streamExport.asyncAppend(MyExcelUtils::getArtCrowdDataList);
 
         //3、完成构建导出
-        Path zipPath = streamExport.buildAsZip("test");
-        AttachmentExportUtil.export(zipPath, "test.zip", response);
+        Path zipPath = streamExport.buildAsZip("zipStreamExport");
+        AttachmentExportUtil.export(zipPath, "zipStreamExport.zip", response);
     }
 
 }

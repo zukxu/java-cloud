@@ -54,8 +54,8 @@ public class MyExcelImportService {
         List<ArtCrowd> result = SaxExcelReader.of(ArtCrowd.class)
                                               .sheet(0) // 0代表第一个，如果为0，可省略该操作，也可sheet("名称")读取，.csv文件无效
                                               .rowFilter(row -> row.getRowNum() > 0) // 如无需过滤，可省略该操作，0代表第一行
-                                              .charset("GBK") // 仅.csv文件有效，设置当前文件的编码，可选，默认为UTF-8
-                                              //.csvDelimiter(';') // 仅.csv文件有效，设置当前文件分割符，可选，默认为英文逗号-,
+                                              .csvCharset("GBK") // 仅.csv文件有效，设置当前文件的编码，可选，默认为UTF-8
+                                              .csvDelimiter(';') // 仅.csv文件有效，设置当前文件分割符，可选，默认为英文逗号-,
                                               .ignoreBlankRow() // 是否忽略空行，可选，默认不忽略
                                               .stopReadingOnBlankRow() // 是否遇到空行则停止读取，可选，默认为否
                                               .beanFilter(ArtCrowd::isDance) // 可选，bean过滤
@@ -65,8 +65,8 @@ public class MyExcelImportService {
         // readThen有两种重写接口，返回Boolean型接口允许在返回False情况下直接终止读取
         SaxExcelReader.of(ArtCrowd.class).sheet(0) // 0代表第一个，如果为0，可省略该操作，也可sheet("名称")读取，.csv文件无效
                       .rowFilter(row -> row.getRowNum() > 0) // 如无需过滤，可省略该操作，0代表第一行
-                      .charset("GBK") // 仅.csv文件有效，设置当前文件的编码，可选，默认为UTF-8
-                      //.csvDelimiter(';') // 仅.csv文件有效，设置当前文件分割符，可选，默认为英文逗号-,
+                      .csvCharset("GBK") // 仅.csv文件有效，设置当前文件的编码，可选，默认为UTF-8
+                      .csvDelimiter(';') // 仅.csv文件有效，设置当前文件分割符，可选，默认为英文逗号-,
                       .ignoreBlankRow() // 是否忽略空行，可选，默认不忽略
                       .stopReadingOnBlankRow() // 是否遇到空行则停止读取，可选，默认为否
                       .beanFilter(ArtCrowd::isDance) // 可选，bean过滤

@@ -50,7 +50,7 @@ public class DynamicExportService {
                 .fieldDisplayOrder(order)
                 .build(dataList);
 
-        AttachmentExportUtil.export(workbook, "temp", response);
+        AttachmentExportUtil.export(workbook, "dynamicTitleExport", response);
 
     }
 
@@ -104,7 +104,7 @@ public class DynamicExportService {
                                                .widths(10,20)
                                                .fieldDisplayOrder(orders)
                                                .build(dataMapList);
-        FileExportUtil.export(workbook, new File("E:\\temp\\myexcel\\dynamic_excel.xlsx"));
+        FileExportUtil.export(workbook, new File("E:\\temp\\myexcel\\dynamicMap_excel.xlsx"));
     }
 
     public static void main(String[] rgs) {

@@ -41,16 +41,16 @@ public class DefaultExportService {
                                                .sheetName("sheet1")
                                                .widthStrategy(WidthStrategy.AUTO_WIDTH)
                                                .build(dataList);
-        AttachmentExportUtil.export(workbook, "艺术生信息", response);
-        //FileExportUtil.export(workbook, new File("E:\\temp\\myexcel\\default_excel"));
+        AttachmentExportUtil.export(workbook, "defaultExport", response);
+        //FileExportUtil.export(workbook, new File("E:\\temp\\myexcel\\defaultExport_excel"));
         //加密导出
-        AttachmentExportUtil.encryptExport(workbook, "艺术生信息", response, "password");
-        //FileExportUtil.encryptExport(workbook, new File("E:\\temp\\myexcel\\default_excel"),"password");
+        AttachmentExportUtil.encryptExport(workbook, "defaultExport", response, "password");
+        //FileExportUtil.encryptExport(workbook, new File("E:\\temp\\myexcel\\defaultExport_excel"),"password");
     }
 
 
     /**
-     * 多个sheet导出 保存到文件
+     * 多个sheet导出
      * 模板导出情况下，每一个table就是一个sheet。     *
      * 如需多table导出在同一sheet中，v3.11.3及其后续版本，新增sheetStrategy(SheetStrategy.ONE_SHEET)支持
      */
