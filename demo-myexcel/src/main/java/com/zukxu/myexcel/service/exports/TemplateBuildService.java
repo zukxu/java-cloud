@@ -63,6 +63,21 @@ public class TemplateBuildService {
         }
 
     }
+    /**
+     * 斜线绘制
+     * 1、模板
+     * // 2代表斜线的宽度width
+     * <td slant="solid 2 #000000"></td>
+     * 斜线样式：SOLID、DOT、DASH、LG_DASH、DASH_DOT、LG_DASH_DOT、LG_DASH_DOT_DOT、SYS_DASH、SYS_DOT、SYS_DASH_DOT、SYS_DASH_DOT_DOT
+     */
+    @SneakyThrows
+    public void solidExport() {
+        Workbook workbook = new FreemarkerExcelBuilder()
+                // fileTemplate(dirPath,fileName)
+                .classpathTemplate("/templates/freemarkerToExcelExample.ftl")
+                .build(MyExcelUtils.getProductDataMap());
+        FileExportUtil.export(workbook, new File("E:\\temp\\myexcel\\solid_excel"));
+    }
 
     public static void main(String[] args) {
         TemplateBuildService templateBuildService = new TemplateBuildService();
