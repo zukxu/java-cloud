@@ -32,6 +32,8 @@ public class ArtCrowd extends People {
 
     //@ExcelColumn(linkType= LinkType.URL)
     //private String hyperlink;
+    //@ExcelColumn(title="下拉列表")
+    //private List<String> dropDownList;
 
     public String getPaintingLevel() {
         return paintingLevel;

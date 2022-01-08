@@ -161,6 +161,22 @@ public class DefaultExportService {
         FileExportUtil.export(workbook, new File("E:\\temp\\myexcel\\hyperlink_excel"));
     }
 
+    /**
+     * 下拉列表
+     * 1、注解  @ExcelColumn(title="下拉列表")
+     * 只需要一个一个List或者Array 列表总字符不可超过250字符
+     *
+     * 2、模板
+     * 在td单元格上加上属性“dropDownList”，单元格内容如：选项1,选项2,选项3，以英文逗号,分隔
+     */
+ @SneakyThrows
+    public void dropDownListExport() {
+        Workbook workbook = DefaultExcelBuilder.of(ArtCrowd.class)
+                                               .build(MyExcelUtils.getArtCrowdDataList());
+
+        FileExportUtil.export(workbook, new File("E:\\temp\\myexcel\\dropDownList_excel"));
+    }
+
     public static void main(String[] args) {
         DefaultExportService defaultExportService = new DefaultExportService();
         defaultExportService.multiColumnExport();
