@@ -1,4 +1,4 @@
-package com.zukxu.myexcel.service;
+package com.zukxu.myexcel.service.exports;
 
 import com.github.liaochong.myexcel.core.ExcelBuilder;
 import com.github.liaochong.myexcel.core.FreemarkerExcelBuilder;
