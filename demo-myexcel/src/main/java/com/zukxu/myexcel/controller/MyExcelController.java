@@ -1,6 +1,7 @@
-package com.zukxu.myexcel;
+package com.zukxu.myexcel.controller;
 
 import com.zukxu.common.result.R;
+import com.zukxu.myexcel.service.MyExcelImportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,14 +22,17 @@ public class MyExcelController {
 
     @Autowired
     private MyExcelImportService excelService;
+
     @PostMapping("/default")
     public R<?> generalImportExcel(MultipartFile file) {
         excelService.defaultImport(file);
         return R.ok();
     }
+
     @PostMapping("/sax")
     public R<?> saxImportExcel(MultipartFile file) {
         excelService.saxImport(file);
         return R.ok();
     }
+
 }

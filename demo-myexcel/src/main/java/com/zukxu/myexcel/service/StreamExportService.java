@@ -1,4 +1,4 @@
-package com.zukxu.myexcel;
+package com.zukxu.myexcel.service;
 
 import com.github.liaochong.myexcel.core.DefaultStreamExcelBuilder;
 import com.github.liaochong.myexcel.core.templatehandler.FreemarkerTemplateHandler;
