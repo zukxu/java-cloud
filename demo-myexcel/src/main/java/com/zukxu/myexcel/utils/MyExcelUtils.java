@@ -3,6 +3,7 @@ package com.zukxu.myexcel.utils;
 import com.zukxu.myexcel.entity.ArtCrowd;
 import com.zukxu.myexcel.entity.People;
 import com.zukxu.myexcel.entity.Product;
+import com.zukxu.myexcel.entity.School;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -37,7 +38,8 @@ public class MyExcelUtils {
         }
         return dataList;
     }
-    public static List<People> getPeopleDataList(){
+
+    public static List<People> getPeopleDataList() {
         People testDO = new People();
         testDO.setName("张三");
         People testDO1 = new People();
@@ -58,6 +60,7 @@ public class MyExcelUtils {
 
         return dataList;
     }
+
     public static Map<String, Object> getProductDataMap() {
         Map<String, Object> dataMap = new HashMap<>();
         dataMap.put("sheetName", "freemarker_excel_example");
@@ -69,9 +72,9 @@ public class MyExcelUtils {
         dataMap.put("titles", titles);
 
         List<Product> data = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for(int i = 0; i < 10; i++) {
             Product product = new Product();
-            if (i % 2 == 0) {
+            if(i % 2 == 0) {
                 product.setCategory("蔬菜");
                 product.setName("小白菜");
                 product.setCount(100);
@@ -92,9 +95,9 @@ public class MyExcelUtils {
         list.add(134L);
         list.add(6456L);
         list.add(54354L);
-        for (int i = 0; i < 100; i++) {
+        for(int i = 0; i < 100; i++) {
             ArtCrowd artCrowd = new ArtCrowd();
-            if (i % 2 == 0) {
+            if(i % 2 == 0) {
                 artCrowd.setName("Tom");
                 artCrowd.setAge(19);
                 artCrowd.setGender("Man");
@@ -115,4 +118,21 @@ public class MyExcelUtils {
         }
         return dataList;
     }
+
+    public static List<School> getSchoolDataList() {
+        List<School> schoolList = new ArrayList<>();
+        for(int i = 0; i < 10; i++) {
+            School school = new School();
+            List<String> studentNameList = new ArrayList<>();
+
+            school.setSchoolName(i + "中");
+            studentNameList.add("xiao" + i);
+            studentNameList.add("da" + i);
+            school.setStudentNames(studentNameList);
+            schoolList.add(school);
+        }
+
+        return schoolList;
+    }
+
 }

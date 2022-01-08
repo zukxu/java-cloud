@@ -3,10 +3,13 @@ package com.zukxu.myexcel.service.imports;
 import com.github.liaochong.myexcel.core.DefaultExcelReader;
 import com.github.liaochong.myexcel.core.SaxExcelReader;
 import com.zukxu.myexcel.entity.ArtCrowd;
+import com.zukxu.myexcel.entity.People;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -68,6 +71,20 @@ public class MyExcelImportService {
                       .beanFilter(ArtCrowd::isDance) // 可选，bean过滤
                       .readThen(file.getInputStream(),
                                 artCrowd -> {System.out.println(artCrowd.getName());});// 可接收inputStream
+    }
+
+    /**
+     * sax 多个sheet导入
+     *
+     * @param response
+     */
+    @SneakyThrows
+    public void multiSheetImport(MultipartFile file, HttpServletResponse response) {
+        InputStream excelFile = file.getInputStream();
+        //按照sheet索引导入
+        SaxExcelReader.of(People.class).sheets(0, 1).read(excelFile);
+        //按照sheet名称导入
+        SaxExcelReader.of(People.class).sheets("sheet名称1", "sheet名称2").read(excelFile);
     }
 
 }
