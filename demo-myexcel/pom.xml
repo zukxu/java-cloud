@@ -28,6 +28,45 @@
             <artifactId>myexcel</artifactId>
             <version>3.12.1</version>
         </dependency>
+        <!--    配置模板引擎-->
+        <!--<dependency>-->
+        <!--    <groupId>com.ibeetl</groupId>-->
+        <!--    <artifactId>beetl</artifactId>-->
+        <!--    <version>3.9.3.RELEASE</version>-->
+        <!--</dependency>-->
+
+
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <version>2.3.31</version>
+        </dependency>
+
+
+        <!--<dependency>-->
+        <!--    <groupId>org.codehaus.groovy</groupId>-->
+        <!--    <artifactId>groovy-templates</artifactId>-->
+        <!--    <version>3.0.9</version>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+        <!--    <groupId>org.thymeleaf</groupId>-->
+        <!--    <artifactId>thymeleaf</artifactId>-->
+        <!--    <version>3.0.14.RELEASE</version>-->
+        <!--</dependency>-->
+
+
+        <!--<dependency>-->
+        <!--    <groupId>org.apache.velocity</groupId>-->
+        <!--    <artifactId>velocity</artifactId>-->
+        <!--    <version>1.7</version>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+        <!--    <groupId>com.jfinal</groupId>-->
+        <!--    <artifactId>enjoy</artifactId>-->
+        <!--    <version>4.9.16</version>-->
+        <!--</dependency>-->
     </dependencies>
 
     <build>
