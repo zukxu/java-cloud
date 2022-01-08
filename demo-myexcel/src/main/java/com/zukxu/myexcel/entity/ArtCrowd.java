@@ -38,6 +38,8 @@ public class ArtCrowd extends People {
     //private String sex;
     //@ExcelColumn(writeConverter = MyConverter.class)
     //private String dept;
+    //@ExcelColumn(prompt = @Prompt(title = "提示", text = "这是我的提示哦"))
+    //Long cats;
 
     public String getPaintingLevel() {
         return paintingLevel;
