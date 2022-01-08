@@ -49,9 +49,9 @@ public class StreamExportService {
 
         //2、数据追加
         //append参数可为列表，也可为单个数据，建议使用单个数据追加，如Bean、Map
-        streamExport.append(MyExcelUtils.getDataList());
+        streamExport.append(MyExcelUtils.getArtCrowdDataList());
         //多线程异步追加数据
-        streamExport.asyncAppend(MyExcelUtils::getDataList);
+        streamExport.asyncAppend(MyExcelUtils::getArtCrowdDataList);
 
         //3、完成构建导出
         //如需最大化提升导出性能，请调用noStyle()方法全面禁止样式
@@ -78,7 +78,7 @@ public class StreamExportService {
                 .start();
         //2、数据追加
         //多线程异步追加数据
-        streamExport.asyncAppend(MyExcelUtils::getDataList);
+        streamExport.asyncAppend(MyExcelUtils::getArtCrowdDataList);
 
         //3、完成构建导出
         List<Path> paths = streamExport.buildAsPaths();
@@ -104,7 +104,7 @@ public class StreamExportService {
                 .start();
         //2、数据追加
         //多线程异步追加数据
-        streamExport.asyncAppend(MyExcelUtils::getDataList);
+        streamExport.asyncAppend(MyExcelUtils::getArtCrowdDataList);
 
         //3、完成构建导出
         Path zipPath = streamExport.buildAsZip("test");

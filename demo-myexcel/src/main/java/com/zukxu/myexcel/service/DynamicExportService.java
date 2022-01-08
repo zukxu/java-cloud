@@ -41,7 +41,7 @@ public class DynamicExportService {
         List<String> order = new ArrayList<>();
         order.add("name");
         order.add("age");
-        List<People> dataList = MyExcelUtils.getData();
+        List<People> dataList = MyExcelUtils.getPeopleDataList();
         //1、配置导出
         Workbook workbook = DefaultExcelBuilder
                 //如果已存在导出实体模板类

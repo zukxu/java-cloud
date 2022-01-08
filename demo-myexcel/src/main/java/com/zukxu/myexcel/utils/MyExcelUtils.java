@@ -2,14 +2,17 @@ package com.zukxu.myexcel.utils;
 
 import com.zukxu.myexcel.entity.ArtCrowd;
 import com.zukxu.myexcel.entity.People;
+import com.zukxu.myexcel.entity.Product;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MyExcelUtils {
 
-    public static List<ArtCrowd> getDataList() {
+    public static List<ArtCrowd> getArtCrowdDataList() {
         List<ArtCrowd> dataList = new ArrayList<>(1000);
         for(int i = 0; i < 1000; i++) {
             ArtCrowd artCrowd = new ArtCrowd();
@@ -34,7 +37,7 @@ public class MyExcelUtils {
         }
         return dataList;
     }
-    public static List<People> getData(){
+    public static List<People> getPeopleDataList(){
         People testDO = new People();
         testDO.setName("张三");
         People testDO1 = new People();
@@ -55,5 +58,61 @@ public class MyExcelUtils {
 
         return dataList;
     }
+    public static Map<String, Object> getProductDataMap() {
+        Map<String, Object> dataMap = new HashMap<>();
+        dataMap.put("sheetName", "freemarker_excel_example");
 
+        List<String> titles = new ArrayList<>();
+        titles.add("Category");
+        titles.add("Product Name");
+        titles.add("Count");
+        dataMap.put("titles", titles);
+
+        List<Product> data = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            Product product = new Product();
+            if (i % 2 == 0) {
+                product.setCategory("蔬菜");
+                product.setName("小白菜");
+                product.setCount(100);
+            } else {
+                product.setCategory("电子产品");
+                product.setName("ipad");
+                product.setCount(999);
+            }
+            data.add(product);
+        }
+        dataMap.put("data", data);
+        return dataMap;
+    }
+
+    public static List<ArtCrowd> getArtCrowdList() {
+        List<ArtCrowd> dataList = new ArrayList<>(1000);
+        List<Long> list = new ArrayList<>();
+        list.add(134L);
+        list.add(6456L);
+        list.add(54354L);
+        for (int i = 0; i < 100; i++) {
+            ArtCrowd artCrowd = new ArtCrowd();
+            if (i % 2 == 0) {
+                artCrowd.setName("Tom");
+                artCrowd.setAge(19);
+                artCrowd.setGender("Man");
+                artCrowd.setPaintingLevel("1");
+                artCrowd.setDance(false);
+                artCrowd.setAssessmentTime(LocalDateTime.now());
+                artCrowd.setHobby(null);
+            } else {
+                artCrowd.setName("Marry");
+                artCrowd.setAge(18);
+                artCrowd.setGender("Woman");
+                artCrowd.setPaintingLevel("一级");
+                artCrowd.setDance(true);
+                artCrowd.setAssessmentTime(LocalDateTime.now());
+                artCrowd.setHobby("钓鱼");
+            }
+            dataList.add(artCrowd);
+        }
+        return dataList;
+    }
 }

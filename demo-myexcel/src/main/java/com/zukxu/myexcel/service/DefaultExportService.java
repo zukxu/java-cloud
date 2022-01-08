@@ -31,7 +31,7 @@ public class DefaultExportService {
      */
     public void defaultExport(HttpServletResponse response) {
 
-        List<ArtCrowd> dataList = MyExcelUtils.getDataList();
+        List<ArtCrowd> dataList = MyExcelUtils.getArtCrowdDataList();
         Workbook workbook = DefaultExcelBuilder.of(ArtCrowd.class)
                                                .build(dataList);
         AttachmentExportUtil.export(workbook, "艺术生信息", response);
@@ -45,7 +45,7 @@ public class DefaultExportService {
      */
     @SneakyThrows
     public void defaultExportToFile() {
-        List<ArtCrowd> dataList = MyExcelUtils.getDataList();
+        List<ArtCrowd> dataList = MyExcelUtils.getArtCrowdDataList();
         Workbook workbook = DefaultExcelBuilder.of(ArtCrowd.class)
                                                .build(dataList);
         FileExportUtil.export(workbook, new File("/User/demo.xlsx"));
