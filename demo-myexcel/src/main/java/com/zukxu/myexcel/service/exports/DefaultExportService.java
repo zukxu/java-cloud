@@ -200,6 +200,18 @@ public class DefaultExportService {
         FileExportUtil.export(workbook, new File("E:\\temp\\myexcel\\customConvert_excel"));
     }
 
+    /**
+     * 公式使用
+     * 1、模板 在td上添加属性：formula，公式无需加上=号，无需设定具体值
+     */
+    @SneakyThrows
+    public void formulaExport() {
+        Workbook workbook = DefaultExcelBuilder.of(ArtCrowd.class)
+                                               .build(MyExcelUtils.getArtCrowdDataList());
+
+        FileExportUtil.export(workbook, new File("E:\\temp\\myexcel\\formula_excel"));
+    }
+
     public static void main(String[] args) {
         DefaultExportService defaultExportService = new DefaultExportService();
         defaultExportService.multiColumnExport();
