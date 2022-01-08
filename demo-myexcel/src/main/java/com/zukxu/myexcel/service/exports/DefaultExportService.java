@@ -4,6 +4,7 @@ import com.github.liaochong.myexcel.core.DefaultExcelBuilder;
 import com.github.liaochong.myexcel.core.strategy.WidthStrategy;
 import com.github.liaochong.myexcel.utils.AttachmentExportUtil;
 import com.github.liaochong.myexcel.utils.FileExportUtil;
+import com.github.liaochong.myexcel.utils.WatermarkUtil;
 import com.zukxu.myexcel.entity.ArtCrowd;
 import com.zukxu.myexcel.entity.People;
 import com.zukxu.myexcel.entity.School;
@@ -257,6 +258,19 @@ public class DefaultExportService {
         Workbook workbook = DefaultExcelBuilder.of(ArtCrowd.class)
                                                .build(MyExcelUtils.getArtCrowdDataList());
         FileExportUtil.export(workbook, new File("E:\\temp\\myexcel\\prompt_excel"));
+    }
+
+    /**
+     * 添加水印
+     * 不支持.xls文件添加水印，支持XSSF、SXSSF模式下添加水印，如数据量过大，可能会造成内存溢出，请注意⚠️
+     */
+    @SneakyThrows
+    public void waterMarkExport() {
+        Workbook workbook = DefaultExcelBuilder.of(ArtCrowd.class)
+                                               .build(MyExcelUtils.getArtCrowdDataList());
+        //使用工具生成水印
+        WatermarkUtil.addWatermark(workbook,"MyExcel学习");
+        FileExportUtil.export(workbook, new File("E:\\temp\\myexcel\\waterMark_excel"));
     }
 
     public static void main(String[] args) {
