@@ -141,6 +141,26 @@ public class DefaultExportService {
         FileExportUtil.export(workbook, new File("E:\\temp\\myexcel\\image_excel"));
     }
 
+    /**
+     * 超链接
+     * 1、模板中
+     * 超链接
+     * <td url="http://www.google.com" style="color:blue">谷歌</td>
+     * <td><a href="http://www.baidu.com">百度</a></td>
+     * 邮件
+     * <td email="mailto:poi@apache.org?subject=Hyperlinks" style="color:blue">邮件地址</td>
+     * <td style="color:blue"><a href="mailto:poi@apache.org?subject=Hyperlinks">邮件地址</a></td>
+     *
+     * 2、Bean中 注解 @ExcelColumn(linkType=LinkType.URL)
+     */
+    @SneakyThrows
+    public void hyperlinkExport() {
+        Workbook workbook = DefaultExcelBuilder.of(ArtCrowd.class)
+                                               .build(MyExcelUtils.getArtCrowdDataList());
+
+        FileExportUtil.export(workbook, new File("E:\\temp\\myexcel\\hyperlink_excel"));
+    }
+
     public static void main(String[] args) {
         DefaultExportService defaultExportService = new DefaultExportService();
         defaultExportService.multiColumnExport();

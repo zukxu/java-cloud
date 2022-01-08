@@ -30,6 +30,9 @@ public class ArtCrowd extends People {
     //private File image;
     //private InputStream image;
 
+    //@ExcelColumn(linkType= LinkType.URL)
+    //private String hyperlink;
+
     public String getPaintingLevel() {
         return paintingLevel;
     }
