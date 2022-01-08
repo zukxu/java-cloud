@@ -212,6 +212,27 @@ public class DefaultExportService {
         FileExportUtil.export(workbook, new File("E:\\temp\\myexcel\\formula_excel"));
     }
 
+    /**
+     * 单元格类型设置
+     * 默认情况下，程序会自动判别单元格内容类型，目前自动识别类型有以下三种：     *
+     * 1、String
+     * 2、Double
+     * 3、Boolean
+     *
+     * 设置
+     * 1、模板
+     *  在td上增加属性string设置该单元格类型为字符串
+     *  在td上增加属性double设置该单元格类型为数值
+     *  在td上增加属性double设置该单元格类型为数值
+     */
+    @SneakyThrows
+    public void cellTypeExport() {
+        Workbook workbook = DefaultExcelBuilder.of(ArtCrowd.class)
+                                               .build(MyExcelUtils.getArtCrowdDataList());
+
+        FileExportUtil.export(workbook, new File("E:\\temp\\myexcel\\cellType_excel"));
+    }
+
     public static void main(String[] args) {
         DefaultExportService defaultExportService = new DefaultExportService();
         defaultExportService.multiColumnExport();
