@@ -1,5 +1,6 @@
 package com.zukxu.myexcel.service.imports;
 
+import com.github.liaochong.myexcel.core.ColumnSaxExcelReader;
 import com.github.liaochong.myexcel.core.DefaultExcelReader;
 import com.github.liaochong.myexcel.core.SaxExcelReader;
 import com.zukxu.myexcel.entity.ArtCrowd;
@@ -90,6 +91,7 @@ public class MyExcelImportService {
     /**
      * 图片导入
      * 图片导入仅DefaultExcelReader支持，属性类型为InputStream，实际赋值类型为ByteArrayInputStream。
+     *
      * @param file
      * @param response
      */
@@ -97,6 +99,30 @@ public class MyExcelImportService {
     public void imageImport(MultipartFile file, HttpServletResponse response) {
         InputStream excelFile = file.getInputStream();
         SaxExcelReader.of(ArtCrowd.class).read(excelFile);
+    }
+
+    /**
+     * 按列读取
+     * 支持直接读取为Byte、Short、Integer、Long、Float、Double、String
+     */
+    @SneakyThrows
+    public void columnReadImport(MultipartFile file, HttpServletResponse response) {
+        InputStream excelFile = file.getInputStream();
+
+        // 读取为字符串
+        List<String> strings = ColumnSaxExcelReader.columnNum(0)
+                                                   .rowFilter(row -> row.getRowNum() > 1)
+                                                   .readAsString(excelFile);
+
+        // 读取为Integer
+        List<Integer> integers = ColumnSaxExcelReader.columnNum(1)
+                                                     .rowFilter(row -> row.getRowNum() > 1)
+                                                     .readAsInteger(excelFile);
+
+        // 读取为Long
+        List<Long> longs = ColumnSaxExcelReader.columnNum(2)
+                                               .rowFilter(row -> row.getRowNum() > 1)
+                                               .readAsLong(excelFile);
     }
 
 }
