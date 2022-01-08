@@ -123,15 +123,13 @@ public class DefaultExportService {
      */
     @SneakyThrows
     public void multiTitlesExport() {
-        Workbook workbook = DefaultExcelBuilder.of(School.class)
+        Workbook workbook = DefaultExcelBuilder.of(ArtCrowd.class)
                                                .sheetName("sheet1")
                                                .widthStrategy(WidthStrategy.AUTO_WIDTH)
                                                .style("title->color:red","background-color:green;")
-                                               .build(MyExcelUtils.getSchoolDataList());
+                                               .build(MyExcelUtils.getArtCrowdDataList());
 
-        FileExportUtil.export(workbook, new File("E:\\temp\\myexcel\\customStyle_excel"));
-        //加密导出
-        //FileExportUtil.encryptExport(workbook, new File("E:\\temp\\myexcel\\multiColumn"), "password");
+        FileExportUtil.export(workbook, new File("E:\\temp\\myexcel\\multiTitles_excel"));
     }
 
     public static void main(String[] args) {

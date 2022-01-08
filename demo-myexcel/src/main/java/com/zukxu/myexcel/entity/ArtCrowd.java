@@ -8,6 +8,8 @@ import java.time.LocalDateTime;
 @ExcelModel(sheetName = "艺术生", useFieldNameAsTitle = true)
 //自定义多级头的分隔符
 //@ExcelModel(sheetName = "艺术生", useFieldNameAsTitle = true,titleSeparator = "##")
+//默认单元格内自动换行
+//@ExcelModel(wrapText=true)
 public class ArtCrowd extends People {
 
     @ExcelColumn(order = 3, index = 3)
