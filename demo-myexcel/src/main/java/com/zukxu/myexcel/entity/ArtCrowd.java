@@ -26,6 +26,9 @@ public class ArtCrowd extends People {
     @ExcelColumn(order = 6, defaultValue = "---")
     private String hobby;
 
+    //@ExcelColumn(fileType = FileType.IMAGE)
+    //private File image;
+
     public String getPaintingLevel() {
         return paintingLevel;
     }

@@ -124,12 +124,21 @@ public class DefaultExportService {
     @SneakyThrows
     public void multiTitlesExport() {
         Workbook workbook = DefaultExcelBuilder.of(ArtCrowd.class)
-                                               .sheetName("sheet1")
-                                               .widthStrategy(WidthStrategy.AUTO_WIDTH)
-                                               .style("title->color:red","background-color:green;")
                                                .build(MyExcelUtils.getArtCrowdDataList());
 
         FileExportUtil.export(workbook, new File("E:\\temp\\myexcel\\multiTitles_excel"));
+    }
+
+    /**
+     * 图片导出
+     * 1、注解 标识列为图片 @ExcelColumn(fileType = FileType.IMAGE)属性类型必须时File
+     */
+    @SneakyThrows
+    public void imageExport() {
+        Workbook workbook = DefaultExcelBuilder.of(ArtCrowd.class)
+                                               .build(MyExcelUtils.getArtCrowdDataList());
+
+        FileExportUtil.export(workbook, new File("E:\\temp\\myexcel\\image_excel"));
     }
 
     public static void main(String[] args) {
