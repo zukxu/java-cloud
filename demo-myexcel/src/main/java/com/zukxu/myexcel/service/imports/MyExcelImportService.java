@@ -87,4 +87,16 @@ public class MyExcelImportService {
         SaxExcelReader.of(People.class).sheets("sheet名称1", "sheet名称2").read(excelFile);
     }
 
+    /**
+     * 图片导入
+     * 图片导入仅DefaultExcelReader支持，属性类型为InputStream，实际赋值类型为ByteArrayInputStream。
+     * @param file
+     * @param response
+     */
+    @SneakyThrows
+    public void imageImport(MultipartFile file, HttpServletResponse response) {
+        InputStream excelFile = file.getInputStream();
+        SaxExcelReader.of(ArtCrowd.class).read(excelFile);
+    }
+
 }

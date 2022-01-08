@@ -28,6 +28,7 @@ public class ArtCrowd extends People {
 
     //@ExcelColumn(fileType = FileType.IMAGE)
     //private File image;
+    //private InputStream image;
 
     public String getPaintingLevel() {
         return paintingLevel;
