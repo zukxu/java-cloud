@@ -113,6 +113,27 @@ public class DefaultExportService {
         //FileExportUtil.encryptExport(workbook, new File("E:\\temp\\myexcel\\multiColumn"), "password");
     }
 
+    /**
+     * 多级表头导出
+     * 1、注解 @ExcelColumn(title="拓展信息->年龄")
+     * 默认以->作为分隔符，也可自定义分隔符：@ExcelModel(titleSeparator="#")
+     * 2、方法 titles(List<String> titles)
+     * List<String> titles=new ArrayList<>();
+     * titles.add("拓展信息->年龄");
+     */
+    @SneakyThrows
+    public void multiTitlesExport() {
+        Workbook workbook = DefaultExcelBuilder.of(School.class)
+                                               .sheetName("sheet1")
+                                               .widthStrategy(WidthStrategy.AUTO_WIDTH)
+                                               .style("title->color:red","background-color:green;")
+                                               .build(MyExcelUtils.getSchoolDataList());
+
+        FileExportUtil.export(workbook, new File("E:\\temp\\myexcel\\customStyle_excel"));
+        //加密导出
+        //FileExportUtil.encryptExport(workbook, new File("E:\\temp\\myexcel\\multiColumn"), "password");
+    }
+
     public static void main(String[] args) {
         DefaultExportService defaultExportService = new DefaultExportService();
         defaultExportService.multiColumnExport();

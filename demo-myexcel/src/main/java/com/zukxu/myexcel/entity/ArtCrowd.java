@@ -6,6 +6,8 @@ import com.github.liaochong.myexcel.core.annotation.ExcelModel;
 import java.time.LocalDateTime;
 
 @ExcelModel(sheetName = "艺术生", useFieldNameAsTitle = true)
+//自定义多级头的分隔符
+//@ExcelModel(sheetName = "艺术生", useFieldNameAsTitle = true,titleSeparator = "##")
 public class ArtCrowd extends People {
 
     @ExcelColumn(order = 3, index = 3)
@@ -15,6 +17,8 @@ public class ArtCrowd extends People {
     private boolean dance;
 
     @ExcelColumn(order = 5, title = "考核时间", groups = { People.class, String.class }, index = 5)
+    //多级表头设置
+    //@ExcelColumn(title = "拓展信息->考核时间", index = 5)
     private LocalDateTime assessmentTime;
 
     @ExcelColumn(order = 6, defaultValue = "---")
