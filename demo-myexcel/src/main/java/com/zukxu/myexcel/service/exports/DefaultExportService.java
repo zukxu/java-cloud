@@ -88,6 +88,31 @@ public class DefaultExportService {
         //FileExportUtil.encryptExport(workbook, new File("E:\\temp\\myexcel\\multiColumn"), "password");
     }
 
+    /**
+     * 样式自定义
+     * 1、注解样式自定义 @ExcelColumn(style={"title->color:red","cell->color:green"})
+     * 2、方法样式自定义 .style("title->color:red","background-color:green;")
+     * 使用 -> 分隔符：
+     *
+     * title标明该样式针对标题；
+     * cell标明该样式针对内容行；
+     * odd标明该样式针对奇数内容行；
+     * even标明该样式针对偶数内容行；
+     * 详细使用：https://github.com/liaochong/myexcel/wiki/Style-support
+     */
+    @SneakyThrows
+    public void customStyleExport() {
+        Workbook workbook = DefaultExcelBuilder.of(School.class)
+                                               .sheetName("sheet1")
+                                               .widthStrategy(WidthStrategy.AUTO_WIDTH)
+                                               .style("title->color:red","background-color:green;")
+                                               .build(MyExcelUtils.getSchoolDataList());
+
+        FileExportUtil.export(workbook, new File("E:\\temp\\myexcel\\customStyle_excel"));
+        //加密导出
+        //FileExportUtil.encryptExport(workbook, new File("E:\\temp\\myexcel\\multiColumn"), "password");
+    }
+
     public static void main(String[] args) {
         DefaultExportService defaultExportService = new DefaultExportService();
         defaultExportService.multiColumnExport();
