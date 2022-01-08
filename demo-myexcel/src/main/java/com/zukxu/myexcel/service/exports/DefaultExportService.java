@@ -182,13 +182,13 @@ public class DefaultExportService {
      * 导出数据包含可枚举字段，如性别，存储在数据库中以0、1，导出为男、女。
      * 1、注解简单映射 @ExcelColumn(title="性别",mapping="0:男,1:女")
      * 使用 mapping 属性，以 , 分隔成组，每组以 :分隔，需要注意的是，该属性仅支持简单映射，不支持含有:,,特殊字符的映射
-     *
+     * <p>
      * 2、复杂映射 编写映射转换类
      * 如
      * 需要读取数据库来决定转化，则简单映射无法满足，此时需要自定义转化
      * 2.1、编写转换类，实现CustomWriteConverter接口
      * 2.2、实体字段上添加@ExcelColumn(writeConverter = MyConverter.class)
-     *
+     * <p>
      * 2.3、如果在方法中使用需要引入该转换类 @Autowired
      * 使用.binding(defaultCustomWriteConverter)
      */
@@ -218,12 +218,12 @@ public class DefaultExportService {
      * 1、String
      * 2、Double
      * 3、Boolean
-     *
+     * <p>
      * 设置
      * 1、模板
-     *  在td上增加属性string设置该单元格类型为字符串
-     *  在td上增加属性double设置该单元格类型为数值
-     *  在td上增加属性double设置该单元格类型为数值
+     * 在td上增加属性string设置该单元格类型为字符串
+     * 在td上增加属性double设置该单元格类型为数值
+     * 在td上增加属性double设置该单元格类型为数值
      */
     @SneakyThrows
     public void cellTypeExport() {
@@ -231,6 +231,21 @@ public class DefaultExportService {
                                                .build(MyExcelUtils.getArtCrowdDataList());
 
         FileExportUtil.export(workbook, new File("E:\\temp\\myexcel\\cellType_excel"));
+    }
+
+    /**
+     * 表头冻结
+     * 1、冻结全部  .fixedTitles()
+     * 2、自定义冻结 .freezePane(new FreezePane(1,2))// 一行，两列
+     * 3、模板 相同
+     */
+    @SneakyThrows
+    public void freezeTitleExport() {
+        Workbook workbook = DefaultExcelBuilder.of(ArtCrowd.class)
+                                               .fixedTitles()
+                                               //.freezePane(new FreezePane(1, 2))// 一行，两列
+                                               .build(MyExcelUtils.getArtCrowdDataList());
+        FileExportUtil.export(workbook, new File("E:\\temp\\myexcel\\freezeTitle_excel"));
     }
 
     public static void main(String[] args) {
