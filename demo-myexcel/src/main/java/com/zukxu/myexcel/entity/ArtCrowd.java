@@ -34,6 +34,10 @@ public class ArtCrowd extends People {
     //private String hyperlink;
     //@ExcelColumn(title="下拉列表")
     //private List<String> dropDownList;
+    //@ExcelColumn(title="性别",mapping="0:男,1:女")
+    //private String sex;
+    //@ExcelColumn(writeConverter = MyConverter.class)
+    //private String dept;
 
     public String getPaintingLevel() {
         return paintingLevel;

@@ -93,7 +93,7 @@ public class DefaultExportService {
      * 1、注解样式自定义 @ExcelColumn(style={"title->color:red","cell->color:green"})
      * 2、方法样式自定义 .style("title->color:red","background-color:green;")
      * 使用 -> 分隔符：
-     *
+     * <p>
      * title标明该样式针对标题；
      * cell标明该样式针对内容行；
      * odd标明该样式针对奇数内容行；
@@ -105,7 +105,7 @@ public class DefaultExportService {
         Workbook workbook = DefaultExcelBuilder.of(School.class)
                                                .sheetName("sheet1")
                                                .widthStrategy(WidthStrategy.AUTO_WIDTH)
-                                               .style("title->color:red","background-color:green;")
+                                               .style("title->color:red", "background-color:green;")
                                                .build(MyExcelUtils.getSchoolDataList());
 
         FileExportUtil.export(workbook, new File("E:\\temp\\myexcel\\customStyle_excel"));
@@ -150,7 +150,7 @@ public class DefaultExportService {
      * 邮件
      * <td email="mailto:poi@apache.org?subject=Hyperlinks" style="color:blue">邮件地址</td>
      * <td style="color:blue"><a href="mailto:poi@apache.org?subject=Hyperlinks">邮件地址</a></td>
-     *
+     * <p>
      * 2、Bean中 注解 @ExcelColumn(linkType=LinkType.URL)
      */
     @SneakyThrows
@@ -165,16 +165,39 @@ public class DefaultExportService {
      * 下拉列表
      * 1、注解  @ExcelColumn(title="下拉列表")
      * 只需要一个一个List或者Array 列表总字符不可超过250字符
-     *
+     * <p>
      * 2、模板
      * 在td单元格上加上属性“dropDownList”，单元格内容如：选项1,选项2,选项3，以英文逗号,分隔
      */
- @SneakyThrows
+    @SneakyThrows
     public void dropDownListExport() {
         Workbook workbook = DefaultExcelBuilder.of(ArtCrowd.class)
                                                .build(MyExcelUtils.getArtCrowdDataList());
 
         FileExportUtil.export(workbook, new File("E:\\temp\\myexcel\\dropDownList_excel"));
+    }
+
+    /**
+     * 自定义转化映射
+     * 导出数据包含可枚举字段，如性别，存储在数据库中以0、1，导出为男、女。
+     * 1、注解简单映射 @ExcelColumn(title="性别",mapping="0:男,1:女")
+     * 使用 mapping 属性，以 , 分隔成组，每组以 :分隔，需要注意的是，该属性仅支持简单映射，不支持含有:,,特殊字符的映射
+     *
+     * 2、复杂映射 编写映射转换类
+     * 如
+     * 需要读取数据库来决定转化，则简单映射无法满足，此时需要自定义转化
+     * 2.1、编写转换类，实现CustomWriteConverter接口
+     * 2.2、实体字段上添加@ExcelColumn(writeConverter = MyConverter.class)
+     *
+     * 2.3、如果在方法中使用需要引入该转换类 @Autowired
+     * 使用.binding(defaultCustomWriteConverter)
+     */
+    @SneakyThrows
+    public void customConvertExport() {
+        Workbook workbook = DefaultExcelBuilder.of(ArtCrowd.class)
+                                               .build(MyExcelUtils.getArtCrowdDataList());
+
+        FileExportUtil.export(workbook, new File("E:\\temp\\myexcel\\customConvert_excel"));
     }
 
     public static void main(String[] args) {
