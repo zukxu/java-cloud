@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zukxu.myexcel.mapper.CommonMapper">
+    <sql id="Base_Column_List">
+        PROVINCE_ID,
+        PROVINCE_NAME,
+        CITY_ID,
+        CITY_NAME,
+        COUNTY_ID,
+        COUNTY_NAME
+    </sql>
+
+
+    <select id="getAreaCode" resultType="com.zukxu.myexcel.entity.BsAreaCounty">
+        select
+        <include refid="Base_Column_List"/>
+        from bs_area_county
+    </select>
+
+    <select id="getChildArea" resultType="com.zukxu.myexcel.entity.BsAreaCounty">
+        <if test="level != null and level != '' ">
+            <if test="level=='1'.toString() ">
+                select distinct province_id, province_name from bs_area_county;
+            </if>
+            <if test="level=='2'.toString() ">
+                select distinct city_id, city_name from bs_area_county where province_id = #{cityId};
+            </if>
+            <if test="level=='3'.toString() ">
+                select distinct county_id, county_name from bs_area_county where city_id = #{cityId};
+            </if>
+        </if>
+    </select>
+    <select id="getUserArea" resultType="com.zukxu.myexcel.entity.BsAreaCounty">
+        <if test="level != null and level != '' ">
+            <if test="level=='1'.toString() ">
+                select distinct <include refid="Base_Column_List"/> from bs_area_county where province_id = #{cityId};
+            </if>
+            <if test="level=='2'.toString() ">
+                select distinct <include refid="Base_Column_List"/> from bs_area_county where city_id = #{cityId};
+            </if>
+            <if test="level=='3'.toString() ">
+                select distinct <include refid="Base_Column_List"/> from bs_area_county where county_id = #{cityId};
+            </if>
+        </if>
+    </select>
+
+    <select id="getAreaCodeList" resultType="com.zukxu.myexcel.entity.BsAreaCounty">
+        select distinct PROVINCE_ID as cityId, PROVINCE_NAME as cityName from bs_area_county a  where PROVINCE_ID='ALL'
+        union
+        select distinct CITY_ID as cityId, CITY_NAME as cityName from bs_area_county where PROVINCE_ID = 'ALL'
+        union
+        select distinct COUNTY_ID as cityId, COUNTY_NAME as cityName from bs_area_county where PROVINCE_ID = 'ALL'
+    </select>
+</mapper>

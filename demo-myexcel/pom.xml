@@ -23,6 +23,15 @@
             <artifactId>common-module</artifactId>
             <version>1.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.4.3.4</version>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/com.github.liaochong/myexcel -->
         <dependency>
             <groupId>com.github.liaochong</groupId>
