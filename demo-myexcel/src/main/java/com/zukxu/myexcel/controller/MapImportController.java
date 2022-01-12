@@ -1,6 +1,7 @@
 package com.zukxu.myexcel.controller;
 
 import cn.hutool.core.io.IoUtil;
+import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.github.liaochong.myexcel.core.ColumnSaxExcelReader;
@@ -35,6 +36,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -86,24 +88,18 @@ public class MapImportController {
         for (Object key : map.keySet()) {
             titles.add(String.valueOf(map.get(key)));
         }
+        //读取数据
+        List<Map> result = SaxExcelReader.of(Map.class)
+                .rowFilter(row -> row.getRowNum() > finalTitleRowNum)
+                .ignoreBlankRow() // 是否忽略空行，可选，默认不忽略
+                .stopReadingOnBlankRow()//遇到空行停止读取
+                .read(file.getInputStream());// 可接收inputStream
         //读取地市列
-        // 读取为字符串
-        List<String> strings = ColumnSaxExcelReader.columnNum(1)
-                .rowFilter(row -> row.getRowNum() > 0)
-                .readAsString(file.getInputStream());
-
         List<String> cityNames = ColumnSaxExcelReader.columnNum(cityNameColumnNum)
                 .rowFilter(row -> row.getRowNum() > finalTitleRowNum)
                 .readAsString(file.getInputStream());
         //根据地市名称转换为地市编码
         List<String> cityCode = translateToCode(cityNames, getAreaCodeList());
-
-        //读取数据
-        List<Map> result = SaxExcelReader.of(Map.class)
-                .rowFilter(row->row.getRowNum()>finalTitleRowNum)
-                .ignoreBlankRow() // 是否忽略空行，可选，默认不忽略
-                .stopReadingOnBlankRow()//遇到空行停止读取
-                .read(file.getInputStream());// 可接收inputStream
 
         List insertList = new ArrayList();
 
@@ -164,7 +160,7 @@ public class MapImportController {
         List<String> cityCode = new ArrayList<>();
         for (String cityName : cityNames) {
             for (BsAreaCounty areaCounty : cityCodeList) {
-                if (areaCounty.getCityName().contains(cityName)) {
+                if (areaCounty.getCityName().contains(cityName.substring(0,2))) {
                     cityCode.add(areaCounty.getCityId());
                 }
             }
@@ -187,7 +183,7 @@ public class MapImportController {
      */
     private String getKeysStr(String tenantId, String orgType) {
         String keys = "0";
-        if (!StrUtil.equalsIgnoreCase(TenantEnum.SN.getType(), tenantId)) {
+        if (StrUtil.equalsIgnoreCase(TenantEnum.SN.getType(), tenantId)) {
             keys += "1";
         } else {
             keys += "2";
@@ -252,7 +248,9 @@ public class MapImportController {
      * @return
      */
     public List<BsAreaCounty> getAreaCodeList() {
-        return commonMapper.getAreaCodeList();
+        List<BsAreaCounty> codeList = commonMapper.getAreaCodeList();
+        return codeList.stream()
+                .filter(t -> ObjectUtil.isNotEmpty(t)&&StrUtil.isNotEmpty(t.getCityId())).collect(Collectors.toList());
     }
 
     private <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
