@@ -10,7 +10,9 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
+    <groupId>com.zukxu</groupId>
     <artifactId>demo-flowable6</artifactId>
+    <version>1.0.0</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -18,6 +20,11 @@
         <flowable.version>6.7.1</flowable.version>
     </properties>
     <dependencies>
+        <dependency>
+            <groupId>com.zukxu</groupId>
+            <artifactId>common-module</artifactId>
+            <version>1.0.0</version>
+        </dependency>
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -32,11 +39,27 @@
             <artifactId>pagehelper-spring-boot-starter</artifactId>
             <version>1.4.0</version>
         </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.7.16</version>
+        </dependency>
         <!--flowable工作流依赖 -->
         <dependency>
             <groupId>org.flowable</groupId>
             <artifactId>flowable-spring-boot-starter</artifactId>
             <version>${flowable.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.flowable</groupId>
+            <artifactId>flowable-engine</artifactId>
+            <version>${flowable.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eweb4j</groupId>
+            <artifactId>fel</artifactId>
+            <version>0.8</version>
         </dependency>
     </dependencies>
 
