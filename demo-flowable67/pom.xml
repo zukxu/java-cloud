@@ -20,14 +20,14 @@
         <flowable.version>6.7.1</flowable.version>
     </properties>
     <dependencies>
-        <!--<dependency>
+        <dependency>
             <groupId>com.zukxu</groupId>
             <artifactId>common-module</artifactId>
             <version>1.0.0</version>
-        </dependency>-->
+        </dependency>
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
             <groupId>com.baomidou</groupId>
@@ -45,15 +45,36 @@
             <version>5.7.16</version>
         </dependency>
         <!--flowable工作流依赖 -->
-       <!-- <dependency>
+        <dependency>
             <groupId>org.flowable</groupId>
             <artifactId>flowable-spring-boot-starter</artifactId>
             <version>${flowable.version}</version>
-        </dependency>-->
-        <dependency>
+        </dependency>
+       <!-- <dependency>
             <groupId>org.flowable</groupId>
             <artifactId>flowable-engine</artifactId>
             <version>${flowable.version}</version>
+        </dependency>-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
+        <!--日志依赖-->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>2.0.0-alpha6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>2.0.0-alpha6</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
     </dependencies>
 
