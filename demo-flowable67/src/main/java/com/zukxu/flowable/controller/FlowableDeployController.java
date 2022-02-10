@@ -33,7 +33,7 @@ public class FlowableDeployController {
      * 部署流程定义
      * @return
      */
-    @PostMapping
+    @PostMapping("/deploy")
     public R<?> deployDefinition() {
         flowableDefinitionService.deployDefinition();
         return R.ok();
