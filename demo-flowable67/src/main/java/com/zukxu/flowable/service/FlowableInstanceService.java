@@ -1,6 +1,7 @@
 package com.zukxu.flowable.service;
 
 import com.zukxu.common.result.R;
+import com.zukxu.common.result.RMap;
 import com.zukxu.flowable.FlowServiceFactory;
 import org.flowable.engine.runtime.ProcessInstance;
 import org.springframework.stereotype.Service;
@@ -28,9 +29,14 @@ public class FlowableInstanceService extends FlowServiceFactory {
         //variables.put("employee", employee);
         //variables.put("nrOfHolidays", nrOfHolidays);
         //variables.put("description", description);
-        ProcessInstance processInstance = runtimeService.startProcessInstanceById(procDefId, variables);
-
-        return R.ok(processInstance);
+        try {
+            ProcessInstance processInstance = runtimeService.startProcessInstanceById(procDefId, variables);
+            RMap rMap = new RMap().put("processInstanceId", processInstance.getProcessInstanceId());
+            return R.ok(rMap).message("流程启动成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return R.fail("流程启动错误");
+        }
     }
 
     /**
@@ -41,8 +47,13 @@ public class FlowableInstanceService extends FlowServiceFactory {
      * @return R
      */
     public R<?> addNewInstanceByKey(String procDefKey, Map<String, Object> variables) {
-        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(procDefKey, variables);
-
-        return R.ok(processInstance);
+        try {
+            ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(procDefKey, variables);
+            RMap rMap = new RMap().put("processInstanceId", processInstance.getProcessInstanceId());
+            return R.ok(rMap).message("流程启动成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return R.fail("流程启动错误");
+        }
     }
 }
