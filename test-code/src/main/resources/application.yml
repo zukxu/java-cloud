@@ -1,6 +1,10 @@
 server:
   port: 18081
+  servlet:
+    context-path: /test-code
 spring:
+  application:
+    name: test-code
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3310/java_cloud?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true
