@@ -1,6 +1,13 @@
 server:
   port: 30001
-
+spring:
+  # IO文件上传配置
+  servlet:
+    multipart:
+      # 单个文件大小
+      max-file-size:  10MB
+      # 设置总上传的文件大小
+      max-request-size:  20MB
 file:
-  returnPath: /file
-  uploadPath: E:/temp/file-io
+  uploadPath: E:/temp/res
+  returnPath: /res

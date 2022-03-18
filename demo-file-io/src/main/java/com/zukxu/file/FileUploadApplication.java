@@ -9,8 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @Date 2021-09-16 17:53
  */
 @SpringBootApplication
-public class FileUploadApplication {
+public class FileApplication {
     public static void main(String[] args) {
-        SpringApplication.run(FileUploadApplication.class);
+        SpringApplication.run(FileApplication.class);
     }
 }
