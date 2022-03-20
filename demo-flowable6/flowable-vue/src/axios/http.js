@@ -2,7 +2,7 @@ import axios from "axios";
 import qs from "qs";
 import Vue from "vue";
 // import store from 'store/index'
-import router from "../router/index";
+import router from "../router";
 import {Message} from "element-ui";
 
 axios.defaults.timeout = 30 * 1000;; // 请求超时时间

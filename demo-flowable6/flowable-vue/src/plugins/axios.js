@@ -1,7 +1,7 @@
 "use strict";
 
 import Vue from 'vue';
-import axios from "axios";
+import axios from "flowable-vue/src/plugins/axios";
 
 // Full config:  https://github.com/axios/axios#request-config
 // axios.defaults.baseURL = process.env.baseURL || process.env.apiUrl || '';

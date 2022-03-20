@@ -7,7 +7,7 @@
 	</div>
 </template>
 <script>
-let echarts = require("echarts");
+let echarts = require("flowable-vue/src/components/report/satisfactionReport/echarts");
 var tooltip = {
 	trigger: "axis",
 	axisPointer: {
