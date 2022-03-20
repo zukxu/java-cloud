@@ -1,11 +1,11 @@
-package com.zukxu.test;
+package com.zukxu.test.others;
 
 /**
  * @author xupu
  * @Description
  * @Date 2021-09-30 11:25
  */
-public class Test {
+public class TestIpToLong {
     /**
      * 把字符串IP转换成long
      *
