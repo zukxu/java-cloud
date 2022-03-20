@@ -1,6 +1,6 @@
-package com.zukxu.test.postman.web;
+package com.zukxu.test.apifox;
 
-import com.zukxu.test.postman.dto.UserDTO;
+import com.zukxu.test.apifox.dto.UserDTO;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,52 +18,6 @@ import java.util.Map;
 @RestController
 @RequestMapping("/post")
 public class PostController {
-
-    /**
-     * 普通Get请求
-     *
-     * @return
-     */
-    @GetMapping("/hello")
-    public String hello() {
-        return "普通Get请求";
-    }
-
-    /**
-     * get params请求
-     * 参数可以为空
-     *
-     * @param text
-     * @return
-     */
-    @GetMapping("/params")
-    public String params(String text) {
-        return "get params请求: " + "传递的参数为: " + text;
-    }
-
-    /**
-     * 参数必须填
-     * 将传递的name参数赋给变量text
-     *
-     * @param text
-     * @return
-     */
-    @GetMapping("/requiredParams")
-    public String requiredParams(@RequestParam(value = "name") String text) {
-        return "get params请求: " + "传递的参数为: " + text;
-    }
-
-    /**
-     * get query请求
-     *
-     * @param url
-     * @return
-     */
-    @GetMapping("/query/{url}")
-    public String preview(@PathVariable String url) {
-        return "get query请求:" + url;
-    }
-
     /**
      * post form请求
      *
@@ -98,12 +52,9 @@ public class PostController {
     @PostMapping("/file")
     public Map<String, Object> fileUpload(MultipartFile file) {
         Map<String, Object> map = new HashMap<>();
-        map.put("url",
-                "/upload/" + file.getOriginalFilename());
-        map.put("title",
-                "banner");
-        map.put("filename",
-                file.getOriginalFilename());
+        map.put("url","/upload/" + file.getOriginalFilename());
+        map.put("title","banner");
+        map.put("filename",file.getOriginalFilename());
         return map;
     }
 }

@@ -1,4 +1,4 @@
-package com.zukxu.test.postman.dto;
+package com.zukxu.test.apifox.dto;
 
 import lombok.Data;
 
