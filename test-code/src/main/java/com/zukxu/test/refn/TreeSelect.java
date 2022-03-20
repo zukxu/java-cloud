@@ -1,5 +1,7 @@
 package com.zukxu.test.refn;
 
+import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.util.ObjectUtil;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -26,11 +28,8 @@ public class TreeSelect implements Serializable {
     /**
      * 节点名称
      */
-    private String label;
-    /**
-     * 排序
-     */
-    private Integer sort;
+    private String value;
+
 
     /**
      * 子节点
@@ -39,11 +38,18 @@ public class TreeSelect implements Serializable {
 
     public TreeSelect() {}
 
-    public TreeSelect(SatisfactionTSConfig ts) {
-        this.id = ts.getId();
-        this.label = ts.getTableHead();
-        this.sort = ts.getSort();
-        this.children = ts.getChildren().stream().map(TreeSelect::new).collect(Collectors.toList());
+    public TreeSelect(ReFnEntity rf) {
+        this.id = rf.getId();
+        this.value = rf.getTitle();
+        if(CollectionUtil.isNotEmpty(rf.getChildren())) {
+            this.children = rf.getChildren()
+                              .stream()
+                              .filter(ObjectUtil::isNotNull)
+                              .map(TreeSelect::new)
+                              .collect(Collectors.toList());
+        } else {
+            this.children = CollectionUtil.newArrayList();
+        }
     }
 
 }
