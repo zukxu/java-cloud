@@ -23,6 +23,12 @@ mybatis-plus:
   mapper-locations: classpath*:com/zukxu/**/*.xml
   type-aliases-package: com.zukxu.**.entity
 
+#  flowable配置
 flowable:
-  async-executor-activate: false
-  database-schema-update: false
+  database-schema-update: false #创建数据库的规则
+  async-executor-activate: false #关闭异步
+  check-process-definitions: true #是否需要自动部署流程定义。默认true
+  db-history-used: true # 是否要使用db历史。'
+  history-level: audit # 要使用的历史级别。'
+  idm:
+    enabled: false # 是否启用IDM引擎。'
