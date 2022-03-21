@@ -1,8 +1,8 @@
 package com.zukxu.flowable.controller;
 
 import com.zukxu.common.result.R;
-import com.zukxu.flowable.domain.dto.FlowTaskDTO;
-import com.zukxu.flowable.domain.vo.FlowTaskVo;
+import com.zukxu.flowable.model.dto.FlowTaskDTO;
+import com.zukxu.flowable.model.vo.FlowTaskVo;
 import com.zukxu.flowable.service.FlowTaskService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

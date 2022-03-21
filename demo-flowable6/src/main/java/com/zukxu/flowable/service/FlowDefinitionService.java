@@ -1,8 +1,8 @@
 package com.zukxu.flowable.service;
 import com.github.pagehelper.PageInfo;
-import com.zukxu.flowable.domain.dto.ActProcDefDTO;
-import com.zukxu.flowable.domain.dto.FlowCategoryDTO;
-import com.zukxu.flowable.domain.dto.ProcessDefinitionDTO;
+import com.zukxu.flowable.model.dto.ActProcDefDTO;
+import com.zukxu.flowable.model.dto.FlowCategoryDTO;
+import com.zukxu.flowable.model.dto.ProcessDefinitionDTO;
 
 import java.io.InputStream;
 import java.util.List;

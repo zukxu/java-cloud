@@ -1,8 +1,8 @@
 package com.zukxu.flowable.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.zukxu.flowable.domain.entity.SysForm;
-import com.zukxu.flowable.domain.entity.SysFormDeploy;
+import com.zukxu.flowable.model.entity.SysForm;
+import com.zukxu.flowable.model.entity.SysFormDeploy;
 
 public interface SysFormDeployMapper extends BaseMapper<SysFormDeploy> {
     /**

@@ -1,7 +1,7 @@
 package com.zukxu.flowable.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zukxu.flowable.domain.entity.SysForm;
+import com.zukxu.flowable.model.entity.SysForm;
 import com.zukxu.flowable.mapper.SysFormMapper;
 import com.zukxu.flowable.service.SysFormService;
 import org.springframework.beans.factory.annotation.Autowired;

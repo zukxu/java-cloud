@@ -2,7 +2,7 @@ package com.zukxu.flowable.service.impl;
 
 
 import com.zukxu.common.result.R;
-import com.zukxu.flowable.domain.vo.FlowTaskVo;
+import com.zukxu.flowable.model.vo.FlowTaskVo;
 import com.zukxu.flowable.factory.FlowServiceFactory;
 import com.zukxu.flowable.service.FlowInstanceService;
 import lombok.extern.slf4j.Slf4j;

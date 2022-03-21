@@ -2,7 +2,7 @@ package com.zukxu.flowable.mapper;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.zukxu.flowable.domain.entity.SysFormTask;
+import com.zukxu.flowable.model.entity.SysFormTask;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

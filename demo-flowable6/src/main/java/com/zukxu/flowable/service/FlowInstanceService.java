@@ -1,7 +1,7 @@
 package com.zukxu.flowable.service;
 
 import com.zukxu.common.result.R;
-import com.zukxu.flowable.domain.vo.FlowTaskVo;
+import com.zukxu.flowable.model.vo.FlowTaskVo;
 import org.flowable.engine.history.HistoricProcessInstance;
 import org.flowable.task.api.Task;
 
