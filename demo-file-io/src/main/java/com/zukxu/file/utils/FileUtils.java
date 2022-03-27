@@ -1,7 +1,12 @@
 package com.zukxu.file.utils;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileItemFactory;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -113,4 +118,37 @@ public class FileUtils {
             }
         }
     }
+
+    /**
+     * 将File文件流转换为MultipartFile上传文件流
+     *
+     * @param file
+     * @return
+     */
+    public static MultipartFile getMulFileByFile(File file) {
+        FileItem fileItem = createFileItem(file.getPath(), file.getName());
+        return new CommonsMultipartFile(fileItem);
+    }
+
+    public static FileItem createFileItem(String filePath, String fileName) {
+        String fieldName = "file";
+        FileItemFactory factory = new DiskFileItemFactory(16, null);
+        FileItem item = factory.createItem(fieldName, "text/plain", false, fileName);
+        File newFile = new File(filePath);
+        int bytesRead = 0;
+        byte[] buffer = new byte[8192];
+        try {
+            FileInputStream fis = new FileInputStream(newFile);
+            OutputStream os = item.getOutputStream();
+            while ((bytesRead = fis.read(buffer, 0, 8192)) != -1) {
+                os.write(buffer, 0, bytesRead);
+            }
+            os.close();
+            fis.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return item;
+    }
+
 }
