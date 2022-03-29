@@ -66,8 +66,6 @@ public class LoginUser implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
-        if(authorities.size()==0)
-            return authorities;
         for(SysRole role : roles) {
             authorities.add(new SimpleGrantedAuthority(role.getName()));
         }

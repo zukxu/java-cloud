@@ -1,10 +1,9 @@
+server:
+  port: 18089
 # JWT配置
 token:
-  # 密匙KEY
-  secret: JWTSecret
   # 过期时间 单位秒 1天后过期=86400 7天后过期=604800
   expireTime: 86400
   # 配置不需要认证的接口
-  antMatchers: /index,/login/**,/favicon.ico
-server:
-  port: 8089
+security:
+  ignored: /doLogin/**, /captcha,/favicon.ico
