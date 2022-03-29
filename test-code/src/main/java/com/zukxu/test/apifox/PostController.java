@@ -28,17 +28,19 @@ public class PostController {
      * post form请求
      *
      * @param username
-     * @param password
+     * @param isShow
+     * @param num
      * @param code
      *
      * @return
      */
     @PostMapping("/form")
-    public String form(@RequestParam(value = "username", required = false)String username,
-                       @RequestParam(value = "password", required = false) String password,
-                       @RequestParam(value = "code", required = false) String code) {
-        System.out.println(username + password + code);
-        return "表单数据: " + username + " | " + password + " | " + code;
+    public String form(@RequestParam(value = "username", required = false) String username,
+                       @RequestParam(value = "isShow", required = false) boolean isShow,
+                       @RequestParam(value = "num", required = false) int num,
+                       @RequestParam(value = "code", required = false) double code) {
+        System.out.println(username + isShow + num + code);
+        return "表单数据: " + username + " | " + isShow + " | " + num + " | " + code;
     }
 
     /**

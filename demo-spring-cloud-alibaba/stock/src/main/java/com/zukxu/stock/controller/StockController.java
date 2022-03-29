@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/stock")
 public class StockController {
 
-    @GetMapping("/reduce")
-    public String reduce(@RequestParam Integer num) {
+    @PostMapping("/reduce")
+    public String reduce(@RequestParam(value = "num", required = false) int num) {
         return "库存扣减" + num;
     }
 
