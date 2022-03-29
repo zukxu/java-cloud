@@ -1,6 +1,5 @@
 package com.zukxu.excel.controller;
 
-import cn.hutool.core.util.StrUtil;
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.ExcelReader;
 import com.alibaba.excel.context.AnalysisContext;
@@ -9,17 +8,13 @@ import com.alibaba.excel.read.listener.ReadListener;
 import com.alibaba.excel.read.metadata.ReadSheet;
 import com.alibaba.excel.util.ListUtils;
 import com.alibaba.fastjson.JSON;
-import com.zukxu.common.result.RMap;
-import com.zukxu.excel.constant.Const;
 import com.zukxu.excel.listener.Sn5GListener;
 import com.zukxu.excel.model.satisfaction.Sn5g;
 import com.zukxu.excel.service.ReportService;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -40,45 +35,6 @@ import java.util.Map;
 public class ExcelController {
 	@Autowired
 	private ReportService reportService;
-
-	/**
-	 * 读取数据
-	 *
-	 * @param file 文件名称
-	 * @return list
-	 */
-	@PostMapping("/readExcel")
-	@SneakyThrows
-	public void readExcel(@RequestParam("file") MultipartFile file,
-						  @RequestParam("tenantId") String tenantId,
-						  @RequestParam("orgType") String orgType,
-						  @RequestParam("year") String year,
-						  @RequestParam("period") String period) {
-
-		RMap map = new RMap().put("year", year).put("period", period).put("orgType",orgType);
-		if (StrUtil.equalsIgnoreCase(Const.SN, tenantId)) {
-			if (StrUtil.equalsIgnoreCase(Const.G5, orgType)) {
-
-				//1、最简单的读,不用额外写一个Listener
-				//simpleReadExcel(file);
-
-				//2、匿名内部类读取
-				//annoyReadExcel(file);
-
-				//3、指定监听类
-				sn5gListenerReadExcel(file,map);
-
-				//4、reader 读取
-				//readerExcel(file);
-
-				//5、全sheet读取
-				//mapReadExcel(file);
-
-			}
-		} else {
-			System.out.println("待定……");
-		}
-	}
 
 	@SneakyThrows
 	private void mapReadExcel(MultipartFile file) {

@@ -11,7 +11,7 @@ import com.zukxu.excel.annotations.Excel;
 import com.zukxu.excel.annotations.Excel.ColumnType;
 import com.zukxu.excel.annotations.Excel.Type;
 import com.zukxu.excel.annotations.Excels;
-import com.zukxu.excel.constant.Const;
+import com.zukxu.excel.constant.ExcelConst;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ooxml.POIXMLDocumentPart;
 import org.apache.poi.ss.usermodel.*;
@@ -941,7 +941,7 @@ public class ExcelUtil<T> {
      * @param filename 文件名称
      */
     public String getAbsoluteFile(String filename) {
-        String downloadPath = Const.DOWNLOAD_PATH + filename;
+        String downloadPath = ExcelConst.DOWNLOAD_PATH + filename;
         File desc = new File(downloadPath);
         if (!desc.getParentFile().exists()) {
             boolean mkdirs = desc.getParentFile().mkdirs();
