@@ -11,13 +11,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MyExcelUtils {
+/**
+ * 测试数据 生成类
+ */
+public class DataInitUtils {
 
     public static List<ArtCrowd> getArtCrowdDataList() {
         List<ArtCrowd> dataList = new ArrayList<>(1000);
-        for(int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 1000; i++) {
             ArtCrowd artCrowd = new ArtCrowd();
-            if(i % 2 == 0) {
+            if (i % 2 == 0) {
                 artCrowd.setName("Tom");
                 artCrowd.setAge(19);
                 artCrowd.setGender("Man");
@@ -72,9 +75,9 @@ public class MyExcelUtils {
         dataMap.put("titles", titles);
 
         List<Product> data = new ArrayList<>();
-        for(int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++) {
             Product product = new Product();
-            if(i % 2 == 0) {
+            if (i % 2 == 0) {
                 product.setCategory("蔬菜");
                 product.setName("小白菜");
                 product.setCount(100);
@@ -95,9 +98,9 @@ public class MyExcelUtils {
         list.add(134L);
         list.add(6456L);
         list.add(54354L);
-        for(int i = 0; i < 100; i++) {
+        for (int i = 0; i < 100; i++) {
             ArtCrowd artCrowd = new ArtCrowd();
-            if(i % 2 == 0) {
+            if (i % 2 == 0) {
                 artCrowd.setName("Tom");
                 artCrowd.setAge(19);
                 artCrowd.setGender("Man");
@@ -121,7 +124,7 @@ public class MyExcelUtils {
 
     public static List<School> getSchoolDataList() {
         List<School> schoolList = new ArrayList<>();
-        for(int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++) {
             School school = new School();
             List<String> studentNameList = new ArrayList<>();
 

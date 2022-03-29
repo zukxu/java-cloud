@@ -5,7 +5,7 @@ import com.github.liaochong.myexcel.utils.AttachmentExportUtil;
 import com.github.liaochong.myexcel.utils.FileExportUtil;
 import com.zukxu.myexcel.entity.ArtCrowd;
 import com.zukxu.myexcel.entity.People;
-import com.zukxu.myexcel.utils.MyExcelUtils;
+import com.zukxu.myexcel.utils.DataInitUtils;
 import lombok.SneakyThrows;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.stereotype.Service;
@@ -41,7 +41,7 @@ public class DynamicExportService {
         List<String> order = new ArrayList<>();
         order.add("name");
         order.add("age");
-        List<People> dataList = MyExcelUtils.getPeopleDataList();
+        List<People> dataList = DataInitUtils.getPeopleDataList();
         //1、配置导出
         Workbook workbook = DefaultExcelBuilder
                 //如果已存在导出实体模板类

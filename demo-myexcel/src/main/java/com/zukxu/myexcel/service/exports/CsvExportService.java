@@ -5,7 +5,7 @@ import com.github.liaochong.myexcel.core.CsvBuilder;
 import com.github.liaochong.myexcel.utils.AttachmentExportUtil;
 import com.zukxu.myexcel.entity.ArtCrowd;
 import com.zukxu.myexcel.entity.People;
-import com.zukxu.myexcel.utils.MyExcelUtils;
+import com.zukxu.myexcel.utils.DataInitUtils;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
@@ -26,7 +26,7 @@ public class CsvExportService {
      * @param response
      */
     public void generalCSVExport(HttpServletResponse response) {
-        Csv csv = CsvBuilder.of(ArtCrowd.class).build(MyExcelUtils.getArtCrowdList());
+        Csv csv = CsvBuilder.of(ArtCrowd.class).build(DataInitUtils.getArtCrowdList());
         AttachmentExportUtil.export(csv.getFilePath(), "generalCSV.csv", response);
         //FileExportUtil.export(csv.getFilePath(),new File(""));
     }
@@ -36,7 +36,7 @@ public class CsvExportService {
      */
     public void mapCSVExport(HttpServletResponse response) {
         List<Map> list = new ArrayList<>();
-        list.add(MyExcelUtils.getProductDataMap());
+        list.add(DataInitUtils.getProductDataMap());
         Csv csv = CsvBuilder.of(Map.class).build(list);
         AttachmentExportUtil.export(csv.getFilePath(), "mapCSV.csv", response);
         //FileExportUtil.export(csv.getFilePath(),new File(""));
@@ -48,7 +48,7 @@ public class CsvExportService {
     public void attachCSVExport(HttpServletResponse response) {
         CsvBuilder<People> csvBuilder = CsvBuilder.of(People.class);
         for(int i = 0; i < 10; i++) {
-            csvBuilder.append(MyExcelUtils.getPeopleDataList());
+            csvBuilder.append(DataInitUtils.getPeopleDataList());
         }
         Csv csv = csvBuilder.build();
         AttachmentExportUtil.export(csv.getFilePath(), "attachCSV.csv", response);
@@ -60,7 +60,7 @@ public class CsvExportService {
     public void attachTwoCSVExport(HttpServletResponse response) {
         CsvBuilder<People> csvBuilder = CsvBuilder.of(People.class).noTitles();
         for(int i = 0; i < 10; i++) {
-            csvBuilder.append(MyExcelUtils.getPeopleDataList());
+            csvBuilder.append(DataInitUtils.getPeopleDataList());
         }
         Csv csv = csvBuilder.build();
         //会在原文件的后面追加内容，不会覆盖

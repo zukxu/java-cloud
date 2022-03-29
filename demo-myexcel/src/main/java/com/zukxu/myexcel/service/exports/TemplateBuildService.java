@@ -4,7 +4,7 @@ import com.github.liaochong.myexcel.core.ExcelBuilder;
 import com.github.liaochong.myexcel.core.FreemarkerExcelBuilder;
 import com.github.liaochong.myexcel.core.HtmlToExcelFactory;
 import com.github.liaochong.myexcel.utils.FileExportUtil;
-import com.zukxu.myexcel.utils.MyExcelUtils;
+import com.zukxu.myexcel.utils.DataInitUtils;
 import lombok.SneakyThrows;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.stereotype.Service;
@@ -51,7 +51,7 @@ public class TemplateBuildService {
      */
     @SneakyThrows
     public void freemarkerExport(HttpServletResponse response) {
-        Map<String, Object> dataMap = MyExcelUtils.getProductDataMap();
+        Map<String, Object> dataMap = DataInitUtils.getProductDataMap();
         try(ExcelBuilder excelBuilder = new FreemarkerExcelBuilder()) {
             Workbook workbook = excelBuilder
                     // fileTemplate(dirPath,fileName)
@@ -75,7 +75,7 @@ public class TemplateBuildService {
         Workbook workbook = new FreemarkerExcelBuilder()
                 // fileTemplate(dirPath,fileName)
                 .classpathTemplate("/templates/freemarkerToExcelExample.ftl")
-                .build(MyExcelUtils.getProductDataMap());
+                .build(DataInitUtils.getProductDataMap());
         FileExportUtil.export(workbook, new File("E:\\temp\\myexcel\\solid_excel"));
     }
 
@@ -88,7 +88,7 @@ public class TemplateBuildService {
         Workbook workbook = new FreemarkerExcelBuilder()
                 // fileTemplate(dirPath,fileName)
                 .classpathTemplate("/templates/freemarkerToExcelExample.ftl")
-                .build(MyExcelUtils.getProductDataMap());
+                .build(DataInitUtils.getProductDataMap());
         FileExportUtil.export(workbook, new File("E:\\temp\\myexcel\\comment_excel"));
     }
 
