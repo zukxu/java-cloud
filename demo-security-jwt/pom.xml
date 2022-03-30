@@ -11,6 +11,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>security-jwt</artifactId>
+    <description>认证授权中心，基于 spring security oAuth2</description>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

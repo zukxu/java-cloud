@@ -4,7 +4,6 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.stereotype.Component;
 
 /**
  * <p>
@@ -14,7 +13,7 @@ import org.springframework.stereotype.Component;
  * @author xupu
  * @since 2022-03-30 11:55
  */
-@Component
+//@Component //TODO 测试该功能的时候打开
 public class InitClass implements InitializingBean, ApplicationContextAware {
 
     ApplicationContext applicationContext;
