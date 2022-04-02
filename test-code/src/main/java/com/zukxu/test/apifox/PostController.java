@@ -1,5 +1,6 @@
 package com.zukxu.test.apifox;
 
+import com.zukxu.common.annotations.PostSingleParam;
 import com.zukxu.test.apifox.dto.UserDTO;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,6 +25,10 @@ import java.util.Map;
 @RequestMapping("/post")
 public class PostController {
 
+    @PostMapping("/single")
+    public String singleParam(@PostSingleParam("name") String name) {
+        return name;
+    }
     /**
      * post form请求
      *
