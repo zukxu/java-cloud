@@ -1,6 +1,7 @@
 package com.zukxu.jasypt.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.zukxu.common.base.Content;
 import com.zukxu.jasypt.annotations.EncryptField;
 import com.zukxu.jasypt.annotations.EncryptMethod;
 import com.zukxu.jasypt.constant.EncryptConstant;
@@ -18,18 +19,23 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/jasypt")
 public class JasyptController {
     @Autowired
-    StringEncryptor encryptor;
+    private StringEncryptor encryptor;
 
     @GetMapping("encrypt")
-    public String encrypt(String password) {
-        System.out.println("加密：" + password);
-        return encryptor.encrypt(password);
+    public String encrypt(String str) {
+        System.out.println("加密：" + str);
+        return encryptor.encrypt(str);
+    }
+    @PostMapping("/encrypt1")
+    public String encrypt1(@RequestBody Content content) {
+        System.out.println("加密：" + content.getContent());
+        return encryptor.encrypt(content.getContent());
     }
 
     @GetMapping("decrypt")
-    public String decrypt(String password) {
-        System.out.println("解密：" + password);
-        return encryptor.decrypt(password);
+    public String decrypt(@RequestParam(value = "str")String str) {
+        System.out.println("解密：" + str);
+        return encryptor.decrypt(str);
     }
 
     @EncryptMethod
@@ -47,12 +53,14 @@ public class JasyptController {
 
     private UserDTO insertUser(UserDTO user, String name) {
         System.out.println("加密后的数据：user" + JSON.toJSONString(user));
+        System.out.println("加密后的数据：name" + name);
         return user;
     }
 
     private UserDTO getUserByName(String name) {
         UserDTO dto = new UserDTO();
         dto.setUserId(10001L);
+        dto.setUserName(name);
         dto.setMobile("bX7Zxbzv3r/N7Ky+/Wl0qNsRKxmDJGXColmczJ2WQp9ZjJZOrY3X9/zt7X3ZKQYZ");
         dto.setAddress("asd");
         dto.setAge(22);

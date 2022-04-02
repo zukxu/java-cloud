@@ -12,6 +12,8 @@ import lombok.Data;
 public class UserDTO {
     private Long userId;
 
+    private String userName;
+
     @EncryptField
     private String mobile;
 
