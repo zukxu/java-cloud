@@ -1,6 +1,7 @@
 package com.zukxu.common.utils;
 
 import cn.hutool.core.convert.Convert;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -8,6 +9,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -44,6 +46,27 @@ public class ServletUtils {
     }
 
     /**
+     * 从request中获取参数
+     *
+     * @param request
+     * @param name
+     * @return
+     * @throws IOException
+     */
+    public static Object getParameter(HttpServletRequest request, String name) throws IOException {
+        //通过request获取传递的参数
+        BufferedReader reader = request.getReader();
+        StringBuilder sb = new StringBuilder();
+        char[] buf = new char[1024];
+        int rd;
+        while ((rd = reader.read(buf)) != -1) {
+            sb.append(buf, 0, rd);
+        }
+        JSONObject jsonObject = JSONObject.parseObject(sb.toString());
+        return jsonObject.get(name);
+    }
+
+    /**
      * 获取request
      */
     public static HttpServletRequest getRequest() {
@@ -69,7 +92,6 @@ public class ServletUtils {
         return (ServletRequestAttributes) attributes;
     }
 
-
     /**
      * 将字符串渲染到客户端
      *
@@ -79,9 +101,9 @@ public class ServletUtils {
     public static void renderString(HttpServletResponse response, String string) {
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
-        try(PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             out.print(string);
-        } catch(IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
