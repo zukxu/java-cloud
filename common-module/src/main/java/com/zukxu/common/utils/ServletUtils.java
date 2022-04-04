@@ -46,24 +46,24 @@ public class ServletUtils {
     }
 
     /**
-     * 从request中获取参数
+     * 从request中获取body内容
      *
      * @param request
-     * @param name
+     *
      * @return
+     *
      * @throws IOException
      */
-    public static Object getParameter(HttpServletRequest request, String name) throws IOException {
+    public static String getRequestBody(HttpServletRequest request) throws IOException {
         //通过request获取传递的参数
         BufferedReader reader = request.getReader();
         StringBuilder sb = new StringBuilder();
         char[] buf = new char[1024];
         int rd;
-        while ((rd = reader.read(buf)) != -1) {
+        while((rd = reader.read(buf)) != -1) {
             sb.append(buf, 0, rd);
         }
-        JSONObject jsonObject = JSONObject.parseObject(sb.toString());
-        return jsonObject.get(name);
+        return sb.toString();
     }
 
     /**
@@ -101,9 +101,9 @@ public class ServletUtils {
     public static void renderString(HttpServletResponse response, String string) {
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
-        try (PrintWriter out = response.getWriter()) {
+        try(PrintWriter out = response.getWriter()) {
             out.print(string);
-        } catch (IOException e) {
+        } catch(IOException e) {
             e.printStackTrace();
         }
     }

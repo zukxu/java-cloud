@@ -1,4 +1,4 @@
-package com.zukxu.common.config;
+package com.zukxu.common.config.redis;
 
 import cn.hutool.core.lang.Assert;
 import com.alibaba.fastjson.JSON;

@@ -1,4 +1,4 @@
-package com.zukxu.common.annotations;
+package com.zukxu.common.config.aop;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -22,7 +22,7 @@ public @interface PostSingleParam {
      *
      * @return
      */
-    String value();
+    String value() default "";
 
     /**
      * 是否必填

@@ -1,4 +1,4 @@
-package com.zukxu.common.config;
+package com.zukxu.common.config.redis;
 
 import org.springframework.data.redis.core.BoundSetOperations;
 import org.springframework.data.redis.core.HashOperations;
@@ -54,6 +54,7 @@ public class RedisUtils {
      *
      * @param key     Redis键
      * @param timeout 超时时间
+     *
      * @return true=设置成功；false=设置失败
      */
     public boolean expire(final String key, final long timeout) {
@@ -66,6 +67,7 @@ public class RedisUtils {
      * @param key     Redis键
      * @param timeout 超时时间
      * @param unit    时间单位
+     *
      * @return true=设置成功；false=设置失败
      */
     public boolean expire(final String key, final long timeout, final TimeUnit unit) {
@@ -76,6 +78,7 @@ public class RedisUtils {
      * 获得缓存的基本对象。
      *
      * @param key 缓存键值
+     *
      * @return 缓存键值对应的数据
      */
     public <T> T get(final String key) {
@@ -96,6 +99,7 @@ public class RedisUtils {
      * 删除集合对象
      *
      * @param collection 多个对象
+     *
      * @return
      */
     public long delete(final Collection collection) {
@@ -107,6 +111,7 @@ public class RedisUtils {
      *
      * @param key      缓存的键值
      * @param dataList 待缓存的List数据
+     *
      * @return 缓存的对象
      */
     public <T> long setList(final String key, final List<T> dataList) {
@@ -118,6 +123,7 @@ public class RedisUtils {
      * 获得缓存的list对象
      *
      * @param key 缓存的键值
+     *
      * @return 缓存键值对应的数据
      */
     public <T> List<T> getList(final String key) {
@@ -130,6 +136,7 @@ public class RedisUtils {
      * @param key   键值
      * @param start 开始 开始位置, 0是开始位置
      * @param end   结束   结束位置, -1返回所有
+     *
      * @return 返回值
      */
     public <T> List<T> getRange(String key, long start, long end) {
@@ -141,11 +148,12 @@ public class RedisUtils {
      *
      * @param key     缓存键值
      * @param dataSet 缓存的数据
+     *
      * @return 缓存数据的对象
      */
     public <T> BoundSetOperations<String, T> setAdd(final String key, final Set<T> dataSet) {
         BoundSetOperations<String, T> setOperation = redisTemplate.boundSetOps(key);
-        for (T t : dataSet) {
+        for(T t : dataSet) {
             setOperation.add(t);
         }
         return setOperation;
@@ -155,6 +163,7 @@ public class RedisUtils {
      * 获得缓存的set
      *
      * @param key
+     *
      * @return
      */
     public <T> Set<T> getSet(final String key) {
@@ -168,7 +177,7 @@ public class RedisUtils {
      * @param dataMap
      */
     public <T> void setCacheMap(final String key, final Map<String, T> dataMap) {
-        if (dataMap != null) {
+        if(dataMap != null) {
             redisTemplate.opsForHash().putAll(key, dataMap);
         }
     }
@@ -177,6 +186,7 @@ public class RedisUtils {
      * 获得缓存的Map
      *
      * @param key
+     *
      * @return
      */
     public <T> Map<String, T> getCacheMap(final String key) {
@@ -199,6 +209,7 @@ public class RedisUtils {
      *
      * @param key  Redis键
      * @param hKey Hash键
+     *
      * @return Hash中的对象
      */
     public <T> T getMapValue(final String key, final String hKey) {
@@ -211,6 +222,7 @@ public class RedisUtils {
      *
      * @param key   Redis键
      * @param hKeys Hash键集合
+     *
      * @return Hash对象集合
      */
     public <T> List<T> getMultiCacheMapValue(final String key, final Collection<Object> hKeys) {
@@ -221,6 +233,7 @@ public class RedisUtils {
      * 获得缓存的基本对象列表
      *
      * @param pattern 字符串前缀
+     *
      * @return 对象列表
      */
     public Collection<String> keys(final String pattern) {
