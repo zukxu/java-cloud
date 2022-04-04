@@ -30,6 +30,17 @@ public class PostController {
         System.out.println("接收参数："+test);
         return "返回参数："+test;
     }
+
+    /**
+     * 可变长参数
+     * @param test
+     * @return
+     */
+    @PostMapping("/length")
+    public String lengthParam(String...test) {
+        System.out.println("接收参数："+test[0]);
+        return "返回参数："+test[0];
+    }
     /**
      * post form请求
      *
