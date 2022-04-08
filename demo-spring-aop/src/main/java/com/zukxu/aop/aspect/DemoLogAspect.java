@@ -22,7 +22,7 @@ public class DemoLogAspect {
     // 定义一个切点：所有被GetMapping注解修饰的方法会织入advice
     //@Pointcut("@annotation(org.springframework.web.bind.annotation.GetMapping)")
     // 定义一个切点：所有满足此表达式的类都会织入advice
-    @Pointcut("execution(* com.zukxu.aop.controller..*.*(..))")
+    @Pointcut("execution(* com.zukxu.aop.controller..*.*(String))")
     private void DemoLogAspectPoint(){}
 
     @Before("DemoLogAspectPoint()")
