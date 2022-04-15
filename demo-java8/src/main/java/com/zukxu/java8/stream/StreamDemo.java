@@ -1,5 +1,8 @@
 package com.zukxu.java8.stream;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -14,28 +17,12 @@ import java.util.stream.Stream;
  * CreateTime: 2021/2/2 0002 10:11
  */
 public class StreamDemo {
-
-	public static void main(String[] args) {
-		// createStream()
-		// forEachStream();
-		// filterStream();
-		// juHeStream();
-		// mapStream();
-		// reduceStream();
-		// toCollect();
-		// countCollect();
-		// groupCollect();
-		// joinCollect();
-		// reducingCollect();
-		// sortStream();
-		comStream();
-	}
-
+	private static final Logger log = LoggerFactory.getLogger(StreamDemo.class);
 
 	/**
 	 * 创建stream的方法
 	 */
-	private static void createStream() {
+	public static void createStream() {
 		//	1、通过 java.util.Collection.stream() 方法用集合创建流
 		List<String> list = Arrays.asList("a", "b", "c", "d");
 		//	创建一个顺序流
@@ -61,7 +48,7 @@ public class StreamDemo {
 	/**
 	 * 遍历
 	 */
-	private static void forEachStream() {
+	public static void forEachStream() {
 		List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 0);
 
 		//	遍历输出符合要求的元素
@@ -69,21 +56,21 @@ public class StreamDemo {
 
 		//	匹配符合要求的第一个元素
 		Optional<Integer> first = list.stream().filter((x) -> x % 2 == 0).findFirst();
-		System.out.println("符合要求的第一个元素:" + first.get());
+		log.info("符合要求的第一个元素:{}", first.get());
 
 		//	匹配任意一个（适用于并行流）
 		Optional<Integer> any = list.parallelStream().filter(x -> x % 2 == 0).findAny();
-		System.out.println("符合要求的任意一个元素:" + any.get());
+		log.info("符合要求的任意一个元素:{}",any.get());
 
 		//	判断是否包含符合条件的元素
 		boolean isMatch = list.stream().anyMatch(x -> x % 2 == 0);
-		System.out.println("是否存在符合条件的元素:" + isMatch);
+		log.info("是否存在符合条件的元素:{}",isMatch);
 	}
 
 	/**
 	 * 筛选
 	 */
-	private static void filterStream() {
+	public static void filterStream() {
 
 		List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 0);
 		Stream<Integer> stream = list.stream();
@@ -100,31 +87,27 @@ public class StreamDemo {
 
 
 		List<String> filterList = personList.stream().filter(x -> x.getSalary() > 8000).map(Person::getName).collect(Collectors.toList());
-		System.out.print("高于8000的员工姓名：" + filterList);
+		log.info("高于8000的员工姓名：{}", filterList);
 	}
 
 	/**
 	 * 聚合 max/min/count
 	 */
-	private static void juHe() {
+	public static void juHe() {
 		List<String> list1 = Arrays.asList("adnm", "admmt", "pot", "xbangd", "weoujgsd");
 		Optional<String> max = list1.stream().max(Comparator.comparing(String::length));
 		Optional<String> min = list1.stream().min(Comparator.comparing(String::length));
-		System.out.println("最长的字符串：" + max.get());
-		System.out.println("最短的字符串：" + min.get());
+		log.info("最长的字符串：{}", max.get());
+		log.info("最短的字符串：{}", min.get());
 
 
 		List<Integer> list2 = Arrays.asList(7, 6, 9, 4, 11, 6);
 		Optional<Integer> max1 = list2.stream().max(Integer::compareTo);
 		// 自定义排序
-		Optional<Integer> max2 = list2.stream().max(new Comparator<Integer>() {
-			@Override
-			public int compare(Integer o1, Integer o2) {
-				return o1.compareTo(o2);
-			}
-		});
-		System.out.println("自然排序的最大值：" + max1.get());
-		System.out.println("自定义排序的最大值：" + max1.get());
+		Optional<Integer> max2 = list2.stream().max(Integer::compareTo);
+		log.info("自然排序的最大值：{}", max1.get());
+		log.info("自定义排序的最大值：{}", max1.get());
+		log.info("自定义排序的最大值：{}", max2.get());
 
 
 		List<Person> personList = new ArrayList<Person>();
@@ -136,26 +119,26 @@ public class StreamDemo {
 		personList.add(new Person("Alisa", 7900, 26, "female", "New York"));
 
 		Optional<Person> max3 = personList.stream().max(Comparator.comparingInt(Person::getSalary));
-		System.out.println("员工工资最大值：" + max3.get().getSalary());
+		log.info("员工工资最大值：{}",max3.get().getSalary());
 
 
 		List<Integer> list = Arrays.asList(7, 6, 4, 8, 2, 11, 9);
 		long count = list.stream().filter(x -> x > 6).count();
-		System.out.println("list中大于6的元素个数：" + count);
+		log.info("list中大于6的元素个数：{}", count);
 	}
 
 	/**
 	 * 映射
 	 */
-	private static void mapStream() {
+	public static void mapStream() {
 		String[] strArr = {"abcd", "bcdd", "defde", "fTr"};
 		List<String> strList = Arrays.stream(strArr).map(String::toUpperCase).collect(Collectors.toList());
 
 		List<Integer> intList = Arrays.asList(1, 3, 5, 7, 9, 11);
 		List<Integer> intListNew = intList.stream().map(x -> x + 3).collect(Collectors.toList());
 
-		System.out.println("每个元素大写：" + strList);
-		System.out.println("每个元素+3：" + intListNew);
+		log.info("每个元素大写：{}", strList);
+		log.info("每个元素+3：{}", intListNew);
 
 
 		List<Person> personList = new ArrayList<Person>();
@@ -172,16 +155,16 @@ public class StreamDemo {
 			personNew.setSalary(person.getSalary() + 10000);
 			return personNew;
 		}).collect(Collectors.toList());
-		System.out.println("一次改动前：" + personList.get(0).getName() + "-->" + personList.get(0).getSalary());
-		System.out.println("一次改动后：" + personListNew.get(0).getName() + "-->" + personListNew.get(0).getSalary());
+		log.info("一次改动前：{}", personList.get(0).getName() + "-->{}", personList.get(0).getSalary());
+		log.info("一次改动后：{}", personListNew.get(0).getName() + "-->{}", personListNew.get(0).getSalary());
 
 		// 改变原来员工集合的方式
 		List<Person> personListNew2 = personList.stream().map(person -> {
 			person.setSalary(person.getSalary() + 10000);
 			return person;
 		}).collect(Collectors.toList());
-		System.out.println("二次改动前：" + personList.get(0).getName() + "-->" + personListNew.get(0).getSalary());
-		System.out.println("二次改动后：" + personListNew2.get(0).getName() + "-->" + personListNew.get(0).getSalary());
+		log.info("二次改动前：{}:{}", personList.get(0).getName() + "-->{}", personListNew.get(0).getSalary());
+		log.info("二次改动后：{}:{}", personListNew2.get(0).getName() + "-->{}", personListNew.get(0).getSalary());
 
 
 		List<String> list = Arrays.asList("m,k,l,a", "1,3,5,7");
@@ -191,14 +174,14 @@ public class StreamDemo {
 			return Arrays.stream(split);
 		}).collect(Collectors.toList());
 
-		System.out.println("处理前的集合：" + list);
-		System.out.println("处理后的集合：" + listNew);
+		log.info("处理前的集合：{}", list);
+		log.info("处理后的集合：{}", listNew);
 	}
 
 	/**
 	 * 归约
 	 */
-	private static void reduceStream() {
+	public static void reduceStream() {
 		List<Integer> list = Arrays.asList(1, 3, 2, 8, 11, 4);
 		// 求和方式1
 		Optional<Integer> all1 = list.stream().reduce((x, y) -> x + y);
@@ -215,9 +198,9 @@ public class StreamDemo {
 		// 求最大值写法2
 		Integer reduce2 = list.stream().reduce(1, Integer::max);
 
-		System.out.println("list求和：" + all1.get() + "," + all2.get() + "," + sum3);
-		System.out.println("list求积：" + product.get());
-		System.out.println("list求和：" + reduce1.get() + "," + reduce2);
+		log.info("list求和：{}+{}={}", all1.get(), all2.get() , sum3);
+		log.info("list求积：{}", product.get());
+		log.info("list求和：{}+{}", reduce1.get(), reduce2);
 
 
 		List<Person> personList = new ArrayList<Person>();
@@ -240,14 +223,14 @@ public class StreamDemo {
 		// 求最高工资方式2：
 		Integer maxSalary2 = personList.stream().reduce(0, (max, p) -> max > p.getSalary() ? max : p.getSalary(), (max1, max2) -> max1 > max2 ? max1 : max2);
 
-		System.out.println("工资之和：" + sumSalary.get() + "," + sumSalary2 + "," + sumSalary3);
-		System.out.println("最高工资：" + maxSalary + "," + maxSalary2);
+		log.info("工资之和：{}+{}+{}", sumSalary.get(), sumSalary2, sumSalary3);
+		log.info("最高工资：{}+{}", maxSalary, maxSalary2);
 	}
 
 	/**
 	 * 归集
 	 */
-	private static void toCollect() {
+	public static void toCollect() {
 		List<Integer> list = Arrays.asList(1, 6, 3, 4, 6, 7, 9, 6, 20);
 		List<Integer> listNew = list.stream().filter(x -> x % 2 == 0).collect(Collectors.toList());
 		Set<Integer> set = list.stream().filter(x -> x % 2 == 0).collect(Collectors.toSet());
@@ -259,15 +242,15 @@ public class StreamDemo {
 		personList.add(new Person("Anni", 8200, 24, "female", "New York"));
 
 		Map<?, Person> map = personList.stream().filter(p -> p.getSalary() > 8000).collect(Collectors.toMap(Person::getName, p -> p));
-		System.out.println("toList:" + listNew);
-		System.out.println("toSet:" + set);
-		System.out.println("toMap:" + map);
+		log.info("toList:{}", listNew);
+		log.info("toSet:{}", set);
+		log.info("toMap:{}", map);
 	}
 
 	/**
 	 * 统计
 	 */
-	private static void countCollect() {
+	public static void countCollect() {
 		List<Person> personList = new ArrayList<Person>();
 		personList.add(new Person("Tom", 8900, 23, "male", "New York"));
 		personList.add(new Person("Jack", 7000, 25, "male", "Washington"));
@@ -284,16 +267,16 @@ public class StreamDemo {
 		// 一次性统计所有信息
 		DoubleSummaryStatistics collect = personList.stream().collect(Collectors.summarizingDouble(Person::getSalary));
 
-		System.out.println("员工总数：" + count);
-		System.out.println("员工平均工资：" + average);
-		System.out.println("员工工资总和：" + sum);
-		System.out.println("员工工资所有统计：" + collect);
+		log.info("员工总数：{}", count);
+		log.info("员工平均工资：{}", average);
+		log.info("员工工资总和：{}", sum);
+		log.info("员工工资所有统计：{}", collect);
 	}
 
 	/**
 	 * 分组
 	 */
-	private static void groupCollect() {
+	public static void groupCollect() {
 		List<Person> personList = new ArrayList<Person>();
 		personList.add(new Person("Tom", 8900, 23, "male", "New York"));
 		personList.add(new Person("Jack", 7000, 25, "male", "Washington"));
@@ -306,31 +289,31 @@ public class StreamDemo {
 		Map<String, List<Person>> group = personList.stream().collect(Collectors.groupingBy(Person::getSex));
 		// 将员工先按性别分组，再按地区分组
 		Map<String, Map<String, List<Person>>> group2 = personList.stream().collect(Collectors.groupingBy(Person::getSex, Collectors.groupingBy(Person::getArea)));
-		System.out.println("员工按薪资是否大于8000分组情况：" + part);
-		System.out.println("员工按性别分组情况：" + group);
-		System.out.println("员工按性别、地区：" + group2);
+		log.info("员工按薪资是否大于8000分组情况：{}", part);
+		log.info("员工按性别分组情况：{}", group);
+		log.info("员工按性别、地区：{}", group2);
 	}
 
 	/**
 	 * 接合
 	 */
-	private static void joinCollect() {
+	public static void joinCollect() {
 		List<Person> personList = new ArrayList<Person>();
 		personList.add(new Person("Tom", 8900, 23, "male", "New York"));
 		personList.add(new Person("Jack", 7000, 25, "male", "Washington"));
 		personList.add(new Person("Lily", 7800, 21, "female", "Washington"));
 
 		String names = personList.stream().map(p -> p.getName()).collect(Collectors.joining(","));
-		System.out.println("所有员工的姓名：" + names);
+		log.info("所有员工的姓名：{}", names);
 		List<String> list = Arrays.asList("A", "B", "C");
 		String string = list.stream().collect(Collectors.joining("-"));
-		System.out.println("拼接后的字符串：" + string);
+		log.info("拼接后的字符串：{}", string);
 	}
 
 	/**
 	 * 归约
 	 */
-	private static void reducingCollect() {
+	public static void reducingCollect() {
 		List<Person> personList = new ArrayList<Person>();
 		personList.add(new Person("Tom", 8900, 23, "male", "New York"));
 		personList.add(new Person("Jack", 7000, 25, "male", "Washington"));
@@ -338,17 +321,17 @@ public class StreamDemo {
 
 		// 每个员工减去起征点后的薪资之和（这个例子并不严谨，但一时没想到好的例子）
 		Integer sum = personList.stream().collect(Collectors.reducing(0, Person::getSalary, (i, j) -> (i + j - 5000)));
-		System.out.println("员工扣税薪资总和：" + sum);
+		log.info("员工扣税薪资总和：{}",sum);
 
 		// stream的reduce
 		Optional<Integer> sum2 = personList.stream().map(Person::getSalary).reduce(Integer::sum);
-		System.out.println("员工薪资总和：" + sum2.get());
+		log.info("员工薪资总和：{}", sum2.get());
 	}
 
 	/**
 	 * 排序
 	 */
-	private static void sortStream() {
+	public static void sortStream() {
 		List<Person> personList = new ArrayList<Person>();
 
 		personList.add(new Person("Sherry", 9000, 24, "female", "New York"));
@@ -372,16 +355,16 @@ public class StreamDemo {
 			}
 		}).map(Person::getName).collect(Collectors.toList());
 
-		System.out.println("按工资升序排序：" + newList);
-		System.out.println("按工资降序排序：" + newList2);
-		System.out.println("先按工资再按年龄升序排序：" + newList3);
-		System.out.println("先按工资再按年龄自定义降序排序：" + newList4);
+		log.info("按工资升序排序：{}", newList);
+		log.info("按工资降序排序：{}", newList2);
+		log.info("先按工资再按年龄升序排序：{}", newList3);
+		log.info("先按工资再按年龄自定义降序排序：{}", newList4);
 	}
 
 	/**
 	 * 组合提取
 	 */
-	private static void comStream() {
+	public static void comStream() {
 		String[] arr1 = {"a", "b", "c", "d"};
 		String[] arr2 = {"d", "e", "f", "g"};
 
@@ -394,8 +377,8 @@ public class StreamDemo {
 		// skip：跳过前n个数据
 		List<Integer> collect2 = Stream.iterate(1, x -> x + 2).skip(1).limit(5).collect(Collectors.toList());
 
-		System.out.println("流合并：" + newList);
-		System.out.println("limit：" + collect);
-		System.out.println("skip：" + collect2);
+		log.info("流合并：{}", newList);
+		log.info("limit：{}",collect);
+		log.info("skip：{}",collect2);
 	}
 }
