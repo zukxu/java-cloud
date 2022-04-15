@@ -5,9 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Consumer;
 
 /**
@@ -141,7 +139,35 @@ public class OptionalSimpleDemo {
 		optional = optional.filter((value) -> value.getAge() < 2);
 		log.info("Optional 的值不为空：：" + optional.isPresent());
 	}
+	/**
+	 * 对集合中的对象属性进行过滤
+	 */
+	public static void testFilterCollections() {
+		// 创建一个测试的用户集合
+		List<User> userList = new ArrayList<>();
 
+		// 创建几个测试用户
+		User user1 = new User("abc");
+		User user2 = new User("efg");
+		User user3 = null;
+
+		// 将用户加入集合
+		userList.add(user1);
+		userList.add(user2);
+		userList.add(user3);
+
+		// 创建用于存储姓名的集合
+		List<String> nameList = new ArrayList();
+		// 循环用户列表获取用户信息，值获取不为空且用户以 a 开头的姓名，
+		// 如果不符合条件就设置默认值，最后将符合条件的用户姓名加入姓名集合
+		for (User user : userList) {
+			nameList.add(Optional.ofNullable(user).map(User::getName).filter(value -> value.startsWith("a")).orElse("未填写"));
+		}
+
+		// 输出名字集合中的值
+		log.info("通过 Optional 过滤的集合输出：");
+		nameList.forEach(log::info);
+	}
 	private static User createUser(String id) {
 		log.info("执行了生成方法:::id===>{}", id);
 		return new User(id, "小米" + id, 18, LocalDate.now());

@@ -55,4 +55,8 @@ public class TestOptional {
     void testFilter() {
         OptionalSimpleDemo.testFilter();
     }
+    @Test
+    void testFilterCollections() {
+        OptionalSimpleDemo.testFilterCollections();
+    }
 }
