@@ -1,6 +1,6 @@
 package com.zukxu.java8.lambda;
 
-import com.zukxu.java8.lambda.model.Student;
+import com.zukxu.java8.model.Student;
 
 import java.math.BigDecimal;
 import java.util.function.*;

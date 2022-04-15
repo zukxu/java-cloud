@@ -1,6 +1,7 @@
 package com.zukxu.java8.optional;
 
 import com.alibaba.fastjson.JSON;
+import com.zukxu.java8.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

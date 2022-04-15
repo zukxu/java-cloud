@@ -1,5 +1,7 @@
 package com.zukxu.java8.test.newClass;
 
+import com.zukxu.java8.model.Student;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;

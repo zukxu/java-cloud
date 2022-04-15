@@ -1,6 +1,6 @@
 package com.zukxu.java8.lambda.reference;
 
-import com.zukxu.java8.lambda.model.Project;
+import com.zukxu.java8.model.Project;
 
 import java.util.Arrays;
 import java.util.List;

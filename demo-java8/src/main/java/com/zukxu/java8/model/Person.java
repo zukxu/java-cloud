@@ -1,4 +1,4 @@
-package com.zukxu.java8.stream;
+package com.zukxu.java8.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package com.zukxu.java8.lambda.model;
+package com.zukxu.java8.model;
 
 import lombok.Builder;
 import lombok.Data;
