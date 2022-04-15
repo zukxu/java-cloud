@@ -1,7 +1,9 @@
 package com.zukxu.java8.optional;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 import java.time.LocalDate;
 
@@ -14,6 +16,8 @@ import java.time.LocalDate;
  * CreateTime: 2021/3/9 0009 09:38
  */
 @Data
+@Accessors(chain = true)
+@AllArgsConstructor
 @NoArgsConstructor
 public class User {
 
