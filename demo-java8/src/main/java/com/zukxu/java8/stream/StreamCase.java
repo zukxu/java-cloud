@@ -1,12 +1,17 @@
 package com.zukxu.java8.stream;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.alibaba.fastjson.JSON;
+import com.zukxu.java8.model.Student;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -33,7 +38,7 @@ public class StreamCase {
 				.map(e -> e + "Java")
 				.map(e -> e + "技术")
 				.map(e -> e + "小白").get();
-		System.log.infoln(string);
+		log.info(string);
 	}
 
 	/**
@@ -53,27 +58,51 @@ public class StreamCase {
 		for (String s : stringList) {
 			log.info(s);
 		}
-		System.out.println();
 		stringList = stringList.stream().distinct().collect(Collectors.toList());
 		log.info("去重后：");
 		for (String s : stringList) {
 			log.info(s);
 		}
-		System.out.println();
 	}
 
 	public static void testListObjectDistinct() {
-		ObjectMapper objectMapper = new ObjectMapper();
 		// 1. 对于 Student 列表去重
 		List<Student> studentList = getStudentList();
-		out.print("去重前：");
-		out.println(objectMapper.writeValueAsString(studentList));
+		log.info("去重前：{}", JSON.toJSONString(studentList));
 		studentList = studentList.stream().distinct().collect(Collectors.toList());
-		out.print("去重后：");
-		out.println(objectMapper.writeValueAsString(studentList));
+		log.info("去重后：{}", JSON.toJSONString(studentList));
 	}
 
-	public static void testStringDistinct() {}
 
-	public static void testStringDistinct() {}
+	public static void testFilterDistinct() {
+		List<Student> studentList = getStudentList();
+
+		log.info("去重前: {}", JSON.toJSONString(studentList));
+		studentList = studentList.stream().distinct().collect(Collectors.toList());
+		log.info("distinct去重后:");
+		log.info("distinct去重后: {}", JSON.toJSONString(studentList));
+		// 这里我们将 distinctByKey() 方法作为 filter() 的参数，过滤掉那些不能加入到 set 的元素
+		studentList = studentList.stream().filter(distinctByKey(Student::getAge)).collect(Collectors.toList());
+		log.info("根据名字去重后: {}", JSON.toJSONString(studentList));
+	}
+
+	/**
+	 * 判断key是否可以加入set
+	 *
+	 * @param keyExtractor
+	 * @param <T>
+	 * @return
+	 */
+	private static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
+		Set<Object> seen = ConcurrentHashMap.newKeySet();
+		return t -> seen.add(keyExtractor.apply(t));
+	}
+
+	private static List<Student> getStudentList() {
+		ArrayList<Student> list = new ArrayList<>();
+		for (int i = 0; i < 10; i++) {
+			list.add(new Student("小米" + i % 3, i % 3 == 0 ? "男" : "女", (int)99 / (i % 3 + 2)));
+		}
+		return list;
+	}
 }

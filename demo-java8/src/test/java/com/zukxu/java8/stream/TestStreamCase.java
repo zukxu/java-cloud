@@ -12,11 +12,27 @@ import org.junit.jupiter.api.Test;
  */
 public class TestStreamCase {
     @Test
-    void testStream(){
+    void testStream() {
         StreamCase.testStream();
     }
+
     @Test
-    void testOptional(){
+    void testOptional() {
         StreamCase.testOptional();
+    }
+
+    @Test
+    void testListStringDistinct() {
+        StreamCase.testListStringDistinct();
+    }
+
+    @Test
+    void testListObjectDistinct() {
+        StreamCase.testListObjectDistinct();
+    }
+
+    @Test
+    void testFilterDistinct() {
+        StreamCase.testFilterDistinct();
     }
 }
