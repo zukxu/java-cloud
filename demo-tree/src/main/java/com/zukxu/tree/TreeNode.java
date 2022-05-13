@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 树形结构模型类
@@ -34,14 +35,13 @@ public class TreeNode<T> {
      * @param dataList 数据集合
      * @param idName   id字段名
      * @param pidName  pid字段名
-     *
      * @return 子节点集合
      */
     public List<TreeNode<T>> childrenNode(List<T> dataList, String idName, String pidName) {
         ConvertTree<T> convertTree = new ConvertTree<>();
         String idValue = convertTree.getFieldValue(rootNode, idName);
         List<T> collect = dataList.stream()
-                                  .filter(t -> idValue.equals(convertTree.getFieldValue(rootNode, pidName))).toList();
+                .filter(t -> idValue.equals(convertTree.getFieldValue(rootNode, pidName))).collect(Collectors.toList());
         dataList.removeAll(collect);
         collect.forEach(t -> {
             TreeNode<T> treeNode = new TreeNode<>();

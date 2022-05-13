@@ -160,7 +160,7 @@ public class ConvertTree<T> {
     public String getFieldValue(T obj, String fieldName) {
         Class<?> cls = obj.getClass();
         //获取所有属性
-        Field[] fields = cls.getFields();
+        Field[] fields = cls.getDeclaredFields();
         for(Field field : fields) {
             try {
                 //打开私有访问，允许访问私有变量

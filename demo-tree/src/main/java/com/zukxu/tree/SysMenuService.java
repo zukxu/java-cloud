@@ -14,7 +14,7 @@ public class SysMenuService {
 
     private String driverClassName = "com.mysql.cj.jdbc.Driver";
 
-    private String url = "jdbc:mysql://127.0.0.1:3306/java_cloud?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true";
+    private String url = "jdbc:mysql://124.221.255.102:3306/java_cloud?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true";
 
     private String user = "root";
 
@@ -43,7 +43,7 @@ public class SysMenuService {
         try {
             Class.forName(driverClassName);
             conn = DriverManager.getConnection(url, user, password);
-            String sql = "select * from sys_menu";
+            String sql = "select * from sys_menu_tree";
             stat = conn.createStatement();
             res = stat.executeQuery(sql);
             List<SysMenu> menuList = new ArrayList<>();
