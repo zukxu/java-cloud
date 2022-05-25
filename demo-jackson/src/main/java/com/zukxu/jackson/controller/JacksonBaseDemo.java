@@ -91,7 +91,7 @@ public class JacksonBaseDemo {
                         result.setCreateTime(LocalDateTime.parse(jsonParser.getText(), DateTimeFormatter.ISO_LOCAL_DATE_TIME));
                         break;
                     default:
-                        logger.error("未知字段：" + fieldName + "'");
+                        logger.error("未知字段 '" + fieldName + "'");
                         throw new IOException("未知字段 '" + fieldName + "'");
                 }
             }
