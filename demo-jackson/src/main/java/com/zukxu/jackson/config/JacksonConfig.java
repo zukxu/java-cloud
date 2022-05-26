@@ -36,7 +36,11 @@ public class JacksonConfig {
         mapper.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);//允许单引号
 
         //配合注解@JsonRootName()使用
-        mapper.enable(SerializationFeature.WRAP_ROOT_VALUE);//在json 序列化时包裹上对象名称 默认是实例的类名，如果实例有JsonRootName注解，就是该注解的value值
+        //在json 序列化时包裹上对象名称 默认是实例的类名，如果实例有JsonRootName注解，就是该注解的value值
+        mapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
+        //默认情况下，反序列化时json字符串不能有root对象； 所以如果开启了上面的序列化root对象配置，也需要开启下面反序列化的注解
+        //用于反序列化的json字符串就必须要有root对象
+        mapper.enable(DeserializationFeature.UNWRAP_ROOT_VALUE);
         return mapper;
     }
 
