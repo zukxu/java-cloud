@@ -1,7 +1,7 @@
-package com.zukxu.jackson.controller;
+package com.zukxu.jackson.dmeo;
 
 import com.fasterxml.jackson.core.*;
-import com.zukxu.jackson.controller.bean.TestEntity;
+import com.zukxu.jackson.bean.TestEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

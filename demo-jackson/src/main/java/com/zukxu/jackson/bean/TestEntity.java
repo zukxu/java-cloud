@@ -1,4 +1,4 @@
-package com.zukxu.jackson.controller.bean;
+package com.zukxu.jackson.bean;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
