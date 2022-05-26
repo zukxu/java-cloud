@@ -1,5 +1,6 @@
 package com.zukxu.jackson.bean;
 
+import com.fasterxml.jackson.annotation.JsonRootName;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @Accessors(chain = true)
+@JsonRootName("test")
 public class TestEntity {
 
     /**
