@@ -4,8 +4,12 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
+
+import java.text.SimpleDateFormat;
 
 /**
  * <p>
@@ -18,9 +22,12 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class JacksonConfig {
 
-    @Bean
-    public ObjectMapper mapper() {
-        ObjectMapper mapper = new ObjectMapper();
+    @Bean("jacksonMapper")
+    @ConditionalOnMissingBean(ObjectMapper.class)
+    public ObjectMapper getJacksonMapper(Jackson2ObjectMapperBuilder builder) {
+        ObjectMapper mapper = builder.build();
+        //日期格式设置
+        mapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
         //序列化设置
         mapper.enable(SerializationFeature.INDENT_OUTPUT);//格式化输出
         mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);//空指针不抛出异常
@@ -31,8 +38,8 @@ public class JacksonConfig {
         mapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);//反序列化时空字符串为null
 
         //配置 序列化和反序列化都支持
-        mapper.configure(JsonParser.Feature.ALLOW_COMMENTS, true);//允许注释
         mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);//允许字段名不包括引号
+        mapper.configure(JsonParser.Feature.ALLOW_COMMENTS, true);//允许注释
         mapper.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);//允许单引号
 
         //配合注解@JsonRootName()使用
