@@ -1,5 +1,7 @@
 package com.zukxu.jackson.bean;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -17,6 +19,7 @@ import java.time.LocalDateTime;
 @Data
 @Accessors(chain = true)
 @JsonRootName("test")
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.PUBLIC_ONLY)
 public class TestEntity {
 
     /**
@@ -27,6 +30,7 @@ public class TestEntity {
     /**
      * 消息内容
      */
+    @JsonProperty(value = "TEXT", index = 1)
     String text;
 
     /**
