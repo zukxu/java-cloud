@@ -18,13 +18,13 @@ import java.util.Collections;
  * @author xupu
  * @Date 2021-11-05 15:09
  */
-@Configuration
+//@Configuration
 public class SaTokenConfig implements WebMvcConfigurer {
 
     /**
      * 注册 [sa-token全局过滤器]
      */
-    @Bean
+    //@Bean
     public SaServletFilter getSaServletFilter() {
         return new SaServletFilter()
                 // 指定 [拦截路由] 与 [放行路由]

@@ -2,6 +2,7 @@ package com.zukxu.jackson.bean;
 
 import com.fasterxml.jackson.annotation.JacksonInject;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.zukxu.jackson.filter.LocalDateTimeToString;
 
 import java.time.LocalDateTime;
 
@@ -22,6 +23,7 @@ public class Test1 {
 
     @JacksonInject
     private String field2;
+
     @JsonSerialize(using = LocalDateTimeToString.class)
     private LocalDateTime field3;
 

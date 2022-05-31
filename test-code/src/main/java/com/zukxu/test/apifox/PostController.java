@@ -27,20 +27,23 @@ public class PostController {
 
     @PostMapping("/single")
     public String singleParam(@PostSingleParam String test) {
-        System.out.println("接收参数："+test);
-        return "返回参数："+test;
+        System.out.println("接收参数：" + test);
+        return "返回参数：" + test;
     }
 
     /**
      * 可变长参数
+     *
      * @param test
+     *
      * @return
      */
     @PostMapping("/length")
-    public String lengthParam(String...test) {
-        System.out.println("接收参数："+test[0]);
-        return "返回参数："+test[0];
+    public String lengthParam(String... test) {
+        System.out.println("接收参数：" + test[0]);
+        return "返回参数：" + test[0];
     }
+
     /**
      * post form请求
      *
@@ -54,8 +57,8 @@ public class PostController {
     @PostMapping("/form")
     public String form(@RequestParam(value = "username", required = false) String username,
                        @RequestParam(value = "isShow", required = false) boolean isShow,
-                       @RequestParam(value = "num", required = false) int num,
-                       @RequestParam(value = "code", required = false) double code) {
+                       @RequestParam(value = "num", required = false, defaultValue = "0") int num,
+                       @RequestParam(value = "code", required = false,defaultValue = "0") double code) {
         System.out.println(username + isShow + num + code);
         return "表单数据: " + username + " | " + isShow + " | " + num + " | " + code;
     }
@@ -71,10 +74,11 @@ public class PostController {
     public String json(@RequestBody UserDTO user) {
         return "json数据：" + user.toString();
     }
+
     @PostMapping("/jsonList")
     public String json(@RequestBody List<UserDTO> users) {
         String result = "";
-        for(UserDTO user:users){
+        for(UserDTO user : users) {
             result += user.getUsername() + " " + user.getAge() + "\n";
         }
         return result;
