@@ -12,6 +12,7 @@ import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -27,6 +28,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import javax.sql.DataSource;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -36,13 +38,18 @@ import java.util.Collections;
  * @date 2021/9/25 23:21:14
  */
 @Configuration
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class SecurityConfig<S extends Session> extends WebSecurityConfigurerAdapter {
+
     @Autowired
     DataSource dataSource;
+
     @Autowired
     UserService userService;
+
     @Autowired
     MyWebAuthenticationDetailsSource myWebAuthenticationDetailsSource;
+
     @Autowired
     private FindByIndexNameSessionRepository<S> sessionRepository;
 
@@ -99,6 +106,9 @@ public class SecurityConfig<S extends Session> extends WebSecurityConfigurerAdap
             .withUser("user1")
             .password("123456")
             .roles("user");*/
+        ArrayList<Object> list1 = new ArrayList<>();
+        ArrayList<Object> list2 = new ArrayList<>();
+        list1.retainAll(list2);
         auth.userDetailsService(userService);
     }
 
@@ -180,17 +190,20 @@ public class SecurityConfig<S extends Session> extends WebSecurityConfigurerAdap
             .sessionRegistry(sessionRegistry())//前后端分离配置session共享
         ;
     }
+
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("https://example.com"));
-        configuration.setAllowedMethods(Arrays.asList("GET","POST"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
+
     @Bean
     public SpringSessionBackedSessionRegistry<S> sessionRegistry() {
         return new SpringSessionBackedSessionRegistry<>(this.sessionRepository);
     }
+
 }
