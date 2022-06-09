@@ -1,4 +1,6 @@
-package com.zukxu.design.strategy;
+package com.zukxu.design.strategy.service.impl;
+
+import com.zukxu.design.strategy.service.FlyBehavior;
 
 /**
  * @author xupu

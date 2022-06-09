@@ -1,4 +1,7 @@
-package com.zukxu.design.strategy;
+package com.zukxu.design.strategy.entity;
+
+import com.zukxu.design.strategy.service.impl.FlyNoway;
+import com.zukxu.design.strategy.service.impl.Squeak;
 
 /**
  * @author xupu

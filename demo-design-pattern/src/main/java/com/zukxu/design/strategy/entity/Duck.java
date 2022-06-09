@@ -1,4 +1,7 @@
-package com.zukxu.design.strategy;
+package com.zukxu.design.strategy.entity;
+
+import com.zukxu.design.strategy.service.FlyBehavior;
+import com.zukxu.design.strategy.service.QuackBehavior;
 
 /**
  * @author xupu
