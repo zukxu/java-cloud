@@ -1,7 +1,12 @@
 package com.zukxu.test.others;
 
-import cn.hutool.core.io.FileUtil;
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -16,7 +21,7 @@ public class TestString {
     public static void main(String[] args) {
         //testJsonStr();
         //testSplit();
-        System.out.println(FileUtil.readableFileSize(2147483647L));
+        //System.out.println(FileUtil.readableFileSize(2147483647L));
         testToMap();
     }
 
@@ -32,16 +37,133 @@ public class TestString {
     }
 
     private static void testToMap() {
-        String str1 = "{\"CreatorContactInfo\":\"13639109135\",\"CreatTime\":\"20220614130023\",\"HallStoreinfo\":\"贵阳观山湖厅店\",\"ProcessTime\":\"20220630164304\",\"HandlerInfor\":\"13639109135\",\"HandingDepartment\":\"\",\"Creator\":\"liutingyong\",\"County\":\"贵阳\",\"ListenProvice\":\"北京\",\"HandlingOpinion\":\"创建站店听音建议任务单\",\"FileNo\":\"20220614FNO85154522074\",\"ResolutionStatus\":\"02\",\"ListenCity\":\"北京\",\"IdentyDetail\":\"02020503\",\"CreatorCity\":\"851\",\"HandingTime\":\"20220614130223\",\"ThinkAbout\":\"改进思考\",\"HandlerRank\":\"\",\"MainDiscover\":\"主要发现\",\"ActivityModel\":\"01\",\"Handler\":\"liutingyong\",\"Title\":\"一线回传申请单02:站店问题档案\",\"ReformMeasures\":\"无\",\"HandlerDept\":\"0003\",\"Objective\":\"站店目标\",\"CreatorDept\":\"省公司客户服务部\",\"Content\":\"一线回传申请单02:站店问题档案-贵州\",\"ProblemType\":\"1001\",\"ActivityTime\":\"20220630\",\"OtherTips\":\"无\"}";
-        String str2 = "{\"CreatorContactInfo\":\"13639109135\",\"CreatTime\":\"20220614130023\",\"HallStoreinfo\":\"中移在线公司\",\"HandlerInfor\":\"13639109135\",\"ProcessTime\":\"20220630164304\",\"HandingDepartment\":\"省公司客户服务部\",\"Creator\":\"liutingyong\",\"County\":\"贵阳\",\"ListenProvice\":\"北京\",\"HandlingOpinion\":\"创建站店听音建议任务单\",\"FileNo\":\"20220614FNO85154522075\",\"ResolutionStatus\":\"02\",\"ListenCity\":\"北京\",\"IdentyDetail\":\"02020501\",\"CreatorCity\":\"851\",\"HandingTime\":\"20220614130223\",\"ThinkAbout\":\"改进思考\",\"HandlerRank\":\"\",\"MainDiscover\":\"主要发现\",\"ActivityModel\":\"02\",\"Handler\":\"liutingyong\",\"Title\":\"一线回传申请单03:听音问题档案\",\"ReformMeasures\":\"无\",\"HandlerDept\":\"0003\",\"Objective\":\"听音目标\",\"CreatorDept\":\"省公司客户服务部\",\"Content\":\"一线回传申请单03:听音问题档案-贵州\",\"ProblemType\":\"1001\",\"ActivityTime\":\"20220630\",\"OtherTips\":\"无\"}";
-        String str3 = "{\"CreatorContactInfo\":\"13639109135\",\"CreatTime\":\"20220614130023\",\"HallStoreinfo\":\"贵阳观山湖厅店\",\"HandlerInfor\":\"13639109135\",\"ProcessTime\":\"20220630164304\",\"HandingDepartment\":\"省公司客户服务部\",\"Creator\":\"liutingyong\",\"County\":\"贵阳\",\"ListenProvice\":\"北京\",\"HandlingOpinion\":\"创建站店听音建议任务单\",\"FileNo\":\"20220614FNO85154522076\",\"ResolutionStatus\":\"02\",\"ListenCity\":\"北京\",\"IdentyDetail\":\"02020504\",\"CreatorCity\":\"851\",\"HandingTime\":\"20220614130223\",\"ThinkAbout\":\"改进思考\",\"HandlerRank\":\"\",\"MainDiscover\":\"主要发现\",\"ActivityModel\":\"03\",\"Handler\":\"liutingyong\",\"Title\":\"一线回传申请单04:追投诉问题档案\",\"ReformMeasures\":\"无\",\"HandlerDept\":\"0003\",\"Objective\":\"追投诉目标\",\"CreatorDept\":\"省公司客户服务部\",\"Content\":\"一线回传申请单04:追投诉问题档案-贵州\",\"ProblemType\":\"1001\",\"ActivityTime\":\"20220630\",\"OtherTips\":\"无\"}";
-        //System.out.println(JSON.parseObject(str1));
-        //System.out.println(JSON.parseObject(str2));
-        //System.out.println(JSON.parseObject(str3));
+        String str7 = "[\n" +
+                      "        {\n" +
+                      "            \"work_flow_status\": \"04\",\n" +
+                      "            \"receiver_unit\": \"531\",\n" +
+                      "            \"identifier\": \"20220615GZL85118279435\",\n" +
+                      "            \"process_id\": \"ed1cb24d-ec8c-11ec-9ed2-005056bd390a\",\n" +
+                      "            \"identy_detail\": \"03030201\"\n" +
+                      "        },\n" +
+                      "        {\n" +
+                      "            \"work_flow_status\": \"04\",\n" +
+                      "            \"receiver_unit\": \"431\",\n" +
+                      "            \"identifier\": \"20220615GZL85145309128\",\n" +
+                      "            \"process_id\": \"f0c658be-ec8c-11ec-9ed2-005056bd390a\",\n" +
+                      "            \"identy_detail\": \"03030201\"\n" +
+                      "        },\n" +
+                      "        {\n" +
+                      "            \"work_flow_status\": \"04\",\n" +
+                      "            \"receiver_unit\": \"351\",\n" +
+                      "            \"identifier\": \"20220615GZL85148631207\",\n" +
+                      "            \"process_id\": \"ed7d7035-ec8c-11ec-9ed2-005056bd390a\",\n" +
+                      "            \"identy_detail\": \"03030201\"\n" +
+                      "        },\n" +
+                      "        {\n" +
+                      "            \"work_flow_status\": \"04\",\n" +
+                      "            \"receiver_unit\": \"240\",\n" +
+                      "            \"identifier\": \"20220615GZL85165032789\",\n" +
+                      "            \"process_id\": \"f0e79c82-ec8c-11ec-9ed2-005056bd390a\",\n" +
+                      "            \"identy_detail\": \"03030201\"\n" +
+                      "        },\n" +
+                      "        {\n" +
+                      "            \"work_flow_status\": \"01\",\n" +
+                      "            \"receiver_unit\": \"240\",\n" +
+                      "            \"identifier\": \"20220616GZL85108254637\",\n" +
+                      "            \"process_id\": \"d26244d4-ed1e-11ec-9fd3-005056bd390a\",\n" +
+                      "            \"identy_detail\": \"03030202\"\n" +
+                      "        },\n" +
+                      "        {\n" +
+                      "            \"work_flow_status\": \"01\",\n" +
+                      "            \"receiver_unit\": \"431\",\n" +
+                      "            \"identifier\": \"20220616GZL85113459608\",\n" +
+                      "            \"process_id\": \"d19b99fc-ed1e-11ec-9fd3-005056bd390a\",\n" +
+                      "            \"identy_detail\": \"03030202\"\n" +
+                      "        },\n" +
+                      "        {\n" +
+                      "            \"work_flow_status\": \"01\",\n" +
+                      "            \"receiver_unit\": \"531\",\n" +
+                      "            \"identifier\": \"20220616GZL85114968537\",\n" +
+                      "            \"process_id\": \"d0193fcc-ed1e-11ec-9fd3-005056bd390a\",\n" +
+                      "            \"identy_detail\": \"03030202\"\n" +
+                      "        },\n" +
+                      "        {\n" +
+                      "            \"work_flow_status\": \"01\",\n" +
+                      "            \"receiver_unit\": \"351\",\n" +
+                      "            \"identifier\": \"20220616GZL85154196302\",\n" +
+                      "            \"process_id\": \"d0db7dd4-ed1e-11ec-9fd3-005056bd390a\",\n" +
+                      "            \"identy_detail\": \"03030202\"\n" +
+                      "        },\n" +
+                      "        {\n" +
+                      "            \"work_flow_status\": \"01\",\n" +
+                      "            \"receiver_unit\": \"240\",\n" +
+                      "            \"identifier\": \"20220616GZL85125703164\",\n" +
+                      "            \"process_id\": \"d2a149cc-ed1e-11ec-9fd3-005056bd390a\",\n" +
+                      "            \"identy_detail\": \"03030203\"\n" +
+                      "        },\n" +
+                      "        {\n" +
+                      "            \"work_flow_status\": \"01\",\n" +
+                      "            \"receiver_unit\": \"351\",\n" +
+                      "            \"identifier\": \"20220616GZL85135642718\",\n" +
+                      "            \"process_id\": \"d119e68c-ed1e-11ec-9fd3-005056bd390a\",\n" +
+                      "            \"identy_detail\": \"03030203\"\n" +
+                      "        },\n" +
+                      "        {\n" +
+                      "            \"work_flow_status\": \"01\",\n" +
+                      "            \"receiver_unit\": \"531\",\n" +
+                      "            \"identifier\": \"20220616GZL85150982647\",\n" +
+                      "            \"process_id\": \"d057f6a4-ed1e-11ec-9fd3-005056bd390a\",\n" +
+                      "            \"identy_detail\": \"03030203\"\n" +
+                      "        },\n" +
+                      "        {\n" +
+                      "            \"work_flow_status\": \"01\",\n" +
+                      "            \"receiver_unit\": \"431\",\n" +
+                      "            \"identifier\": \"20220616GZL85198701346\",\n" +
+                      "            \"process_id\": \"d1e881a4-ed1e-11ec-9fd3-005056bd390a\",\n" +
+                      "            \"identy_detail\": \"03030203\"\n" +
+                      "        },\n" +
+                      "        {\n" +
+                      "            \"work_flow_status\": \"01\",\n" +
+                      "            \"receiver_unit\": \"431\",\n" +
+                      "            \"identifier\": \"20220616GZL85137182450\",\n" +
+                      "            \"process_id\": \"d225149c-ed1e-11ec-9fd3-005056bd390a\",\n" +
+                      "            \"identy_detail\": \"03030204\"\n" +
+                      "        },\n" +
+                      "        {\n" +
+                      "            \"work_flow_status\": \"01\",\n" +
+                      "            \"receiver_unit\": \"531\",\n" +
+                      "            \"identifier\": \"20220616GZL85147291065\",\n" +
+                      "            \"process_id\": \"d09c03ac-ed1e-11ec-9fd3-005056bd390a\",\n" +
+                      "            \"identy_detail\": \"03030204\"\n" +
+                      "        },\n" +
+                      "        {\n" +
+                      "            \"work_flow_status\": \"01\",\n" +
+                      "            \"receiver_unit\": \"351\",\n" +
+                      "            \"identifier\": \"20220616GZL85163182907\",\n" +
+                      "            \"process_id\": \"d15dcd84-ed1e-11ec-9fd3-005056bd390a\",\n" +
+                      "            \"identy_detail\": \"03030204\"\n" +
+                      "        },\n" +
+                      "        {\n" +
+                      "            \"work_flow_status\": \"01\",\n" +
+                      "            \"receiver_unit\": \"240\",\n" +
+                      "            \"identifier\": \"20220616GZL85170386524\",\n" +
+                      "            \"process_id\": \"d2dc3014-ed1e-11ec-9fd3-005056bd390a\",\n" +
+                      "            \"identy_detail\": \"03030204\"\n" +
+                      "        }\n" +
+                      "    ]";
+        //JSONArray array7 = JSON.parseArray(str7);
+        //printArr(array7);
+    }
 
-        String str4 = "{\"Identifier\":\"20220614GZL85193450817\",\"IdentySubtype\":\"0302\",\"IdentyType\":\"03\",\"LaunchCompany\":\"851\",\"ParaList\":[{\"ParaID\":\"CreatorContactInfo\",\"ParaVal\":\"13639109135\"},{\"ParaID\":\"CreatTime\",\"ParaVal\":\"20220614130023\"},{\"ParaID\":\"HallStoreinfo\",\"ParaVal\":\"中移在线公司\"},{\"ParaID\":\"ProcessTime\",\"ParaVal\":\"20220630164304\"},{\"ParaID\":\"HandlerInfor\",\"ParaVal\":\"13639109135\"},{\"ParaID\":\"HandingDepartment\",\"ParaVal\":\"\"},{\"ParaID\":\"Creator\",\"ParaVal\":\"liutingyong\"},{\"ParaID\":\"County\",\"ParaVal\":\"贵阳\"},{\"ParaID\":\"ListenProvice\",\"ParaVal\":\"北京\"},{\"ParaID\":\"HandlingOpinion\",\"ParaVal\":\"创建站店听音建议任务单\"},{\"ParaID\":\"FileNo\",\"ParaVal\":\"20220614FNO85154522075\"},{\"ParaID\":\"ResolutionStatus\",\"ParaVal\":\"02\"},{\"ParaID\":\"ListenCity\",\"ParaVal\":\"北京\"},{\"ParaID\":\"IdentyDetail\",\"ParaVal\":\"02020501\"},{\"ParaID\":\"CreatorCity\",\"ParaVal\":\"851\"},{\"ParaID\":\"HandingTime\",\"ParaVal\":\"20220614130223\"},{\"ParaID\":\"ThinkAbout\",\"ParaVal\":\"改进思考\"},{\"ParaID\":\"HandlerRank\",\"ParaVal\":\"\"},{\"ParaID\":\"MainDiscover\",\"ParaVal\":\"主要发现\"},{\"ParaID\":\"ActivityModel\",\"ParaVal\":\"02\"},{\"ParaID\":\"Handler\",\"ParaVal\":\"liutingyong\"},{\"ParaID\":\"Title\",\"ParaVal\":\"一线回传申请单03:听音问题档案\"},{\"ParaID\":\"ReformMeasures\",\"ParaVal\":\"无\"},{\"ParaID\":\"HandlerDept\",\"ParaVal\":\"0003\"},{\"ParaID\":\"Objective\",\"ParaVal\":\"听音目标\"},{\"ParaID\":\"CreatorDept\",\"ParaVal\":\"省公司客户服务部\"},{\"ParaID\":\"Content\",\"ParaVal\":\"一线回传申请单03:听音问题档案-贵州\"},{\"ParaID\":\"ProblemType\",\"ParaVal\":\"1001\"},{\"ParaID\":\"ActivityTime\",\"ParaVal\":\"20220630\"},{\"ParaID\":\"OtherTips\",\"ParaVal\":\"无\"}],\"ReceiverUnit\":\"0057\"}";
-        //System.out.println(JSON.parseObject(str4));
-
+    public static void printArr(JSONArray array) {
+        String pName = "";
+        String pCode = ",0609,";
+        for(int i = 0; i < array.size(); i++) {
+            JSONObject object = JSON.parseObject(JSON.toJSONString(array.get(i)));
+            pName = object.getString("identifier");
+            System.out.println(object.getString("identy_detail") + "," + pName + (i + 1) + pCode + object.getString("identifier") + "," + object.getString(
+                    "process_id"));
+        }
     }
 
 }

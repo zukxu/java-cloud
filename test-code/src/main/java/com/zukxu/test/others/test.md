@@ -1,6 +1,10 @@
 ## 流程：
 建立一线回传申请单——》在创建的过程中新增档案挂载--》获得返回的档案编号挂载到一线回传单
-
+## 一线
+### 申请单
+```json
+{"Title":"一线回传申请单01:一线声音申请单","Content":"一线回传申请单01:一线声音申请单贵州","IdentyType":"03","IdentySubtype":"0302","IdentyDetail":"03030201","AttachList":"","strategy":"apply","isDispatchNow":false,"Identifier":"","HandlerDept":"971","FileNo":"","ProblemType":"1001","ProblemNature":"01","InitialSuggestion":"","PersonnelType":"01","Introducer":"刘廷勇","IntroducerTel":"13639109135","InformationType":"01"}
+```
 ## 站店
 
 ### 档案
