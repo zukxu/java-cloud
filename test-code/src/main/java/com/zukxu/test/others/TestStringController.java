@@ -45,19 +45,19 @@ public class TestStringController {
         List<String> list = new ArrayList<>();
 
         String json = String.valueOf(map.get("json"));
+        List<JSONObject> array = (List<JSONObject>) map.get("json");
         String isP = ObjectUtil.isNotEmpty(map.get("p")) ? "P" : "";
         String pName,status, pCode, detail, id, pid, s1,s2;
-        JSONArray array = JSON.parseArray(json);
         for(int i = 0; i < array.size(); i++) {
-            JSONObject object = JSON.parseObject(JSON.toJSONString(array.get(i)));
+            JSONObject object  = JSON.parseObject(JSON.toJSONString(array.get(i)));
             pCode = object.getString("receiver_unit");
-            pName = isP+sysCodeMap.get(pCode);
-            detail = object.getString("identy_detail").substring(6,8);
+            pName = isP + sysCodeMap.get(pCode);
+            detail = object.getString("identy_detail").substring(6, 8);
             status = object.getString("work_flow_status");
             id = object.getString("identifier");
             pid = object.getString("process_id");
-            s1 = status+"^"+detail+","+pName+ (i + 1)+ "," + pCode + "," + id + "," + pid;
-            s2 = pName+detail+":"+ id;
+            s1 = status + "^" + detail + "," + pName + (i + 1) + "," + pCode + "," + id + "," + pid;
+            s2 = pName + detail + ":" + id;
             System.out.println(s1);
             list.add(s2);
         }

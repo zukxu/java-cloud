@@ -21,7 +21,7 @@ public class MyBean2 {
 
     @PostConstruct
     public void init(){
-        System.out.println("MyBean2 初始化了"+ LocalDateTime.now());
+        System.out.println("MyBean2初始化了"+ LocalDateTime.now());
     }
 
     public void hello(){
