@@ -47,7 +47,7 @@ public class TestStringController {
         String json = String.valueOf(map.get("json"));
         List<JSONObject> array = (List<JSONObject>) map.get("json");
         String isP = ObjectUtil.isNotEmpty(map.get("p")) ? "P" : "";
-        String pName,status, pCode, detail, id, pid, s1,s2;
+        String pName, status, pCode, detail, id, pid, s1, s2;
         for(int i = 0; i < array.size(); i++) {
             JSONObject object  = JSON.parseObject(JSON.toJSONString(array.get(i)));
             pCode = object.getString("receiver_unit");
