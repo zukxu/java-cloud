@@ -1,4 +1,4 @@
-package com.zukxu.web;
+package com.zukxu.controller;
 
 import com.zukxu.security.service.HelloService;
 import org.springframework.beans.factory.annotation.Autowired;
