@@ -11,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,6 +91,14 @@ public class HelloService {
     public SysUser getUserByUsername(String username) {
         log.info("username {}", username);
         return new SysUser(99, username);
+    }
+
+    /**
+     * 具备任一角色即可访问
+     */
+    @RolesAllowed({ "ADMIN", "USER"})
+    public String rolesAllowed() {
+        return "Roles Allowed";
     }
 
     public String success() {

@@ -75,4 +75,20 @@ public class TestSecurity {
         assertNotNull(user);
     }
 
+    @Test
+    @WithMockUser(roles = "ADMIN", username = "zukxu")
+    void testSecured() {
+        SysUser user = helloService.getUserByUsername("zukxu");
+        System.out.println(user);
+        assertNotNull(user);
+    }
+
+    @Test
+    @WithMockUser(roles = "ADMIN", username = "zukxu")
+    void testRolesAllowed() {
+        String s = helloService.rolesAllowed();
+        System.out.println(s);
+        assertNotNull(s);
+    }
+
 }
