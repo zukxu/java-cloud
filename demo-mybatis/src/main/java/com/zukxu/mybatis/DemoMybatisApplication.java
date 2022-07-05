@@ -1,13 +1,13 @@
-package com.zukxu.mybatis.typehandler;
+package com.zukxu.mybatis;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DemoMybatisTypeHandlerApplication {
+public class DemoMybatisApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(DemoMybatisTypeHandlerApplication.class, args);
+        SpringApplication.run(DemoMybatisApplication.class, args);
     }
 
 }

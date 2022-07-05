@@ -16,7 +16,7 @@ import java.sql.SQLException;
 
 /**
  * <p>
- * typeHandler 类
+ * 数据脱敏 typeHandler 类
  * </p>
  *
  * @author xupu
@@ -25,8 +25,9 @@ import java.sql.SQLException;
 @MappedJdbcTypes(JdbcType.VARCHAR)
 @MappedTypes(Encrypt.class)
 public class EncryptTypeHandler extends BaseTypeHandler<Encrypt> {
+
     /**
-     * 加解密key值
+     * 加解密key值 16位
      */
     private static final byte[] KEYS = "12345678abcdefgh".getBytes(StandardCharsets.UTF_8);
 
@@ -35,7 +36,7 @@ public class EncryptTypeHandler extends BaseTypeHandler<Encrypt> {
      */
     @Override
     public void setNonNullParameter(PreparedStatement ps, int i, Encrypt parameter, JdbcType jdbcType) throws SQLException {
-        if (parameter == null || parameter.getValue() == null) {
+        if(parameter == null || parameter.getValue() == null) {
             ps.setString(i, null);
             return;
         }
@@ -69,9 +70,10 @@ public class EncryptTypeHandler extends BaseTypeHandler<Encrypt> {
     }
 
     public Encrypt decrypt(String value) {
-        if (null == value) {
+        if(null == value) {
             return null;
         }
         return new Encrypt(SecureUtil.aes(KEYS).decryptStr(value));
     }
+
 }
