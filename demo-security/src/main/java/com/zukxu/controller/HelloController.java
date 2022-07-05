@@ -1,10 +1,9 @@
 package com.zukxu.controller;
 
-import com.zukxu.security.service.HelloService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -13,58 +12,46 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2021/9/25 22:44:41
  */
 @RestController
+@RequestMapping("/demo1")
+@RequiredArgsConstructor
 public class HelloController {
-    @Autowired
-    HelloService helloService;
 
+    //@formatter:off
+    private final HelloService helloService;
+    //@formatter:on
+
+    /**
+     * 标识该接口只能被有着ADMIN角色的用户访问
+     */
     @GetMapping("/hello")
+    @PreAuthorize("hasRole('ADMIN')")
     public String hello() {
         return helloService.hello();
     }
 
- /*   @RequestMapping("/success")
+    @GetMapping("/success")
     public String success() {
-        return "success, welcome!";
+        return helloService.success();
     }
 
-    @RequestMapping("/fail")
+    @GetMapping("/fail")
     public String fail() {
-        return "fail, try again!";
-    }*/
+        return helloService.fail();
+    }
 
     @GetMapping("/admin/hello")
     public String admin(String text) {
-        return "admin: "+"传递的参数为: "+text;
+        return helloService.adminHello(text);
     }
 
     @GetMapping("/user/hello")
     public String user() {
-        return "user";
+        return helloService.userHello();
     }
 
     @GetMapping("/rememberme")
-    public String rememberme() {
-        return "rememberme";
+    public String rememberMe() {
+        return helloService.rememberMe();
     }
 
-    /**
-     * 模拟csrf攻击，模拟转账
-     * @param name
-     * @param money
-     */
-    @PostMapping("/transfer")
-    public void transferMoney(String name, Integer money) {
-        System.out.println("name = " + name);
-        System.out.println("money = " + money);
-    }
-
-    @PostMapping("/csrf")
-    @ResponseBody
-    public String csrfTest() {
-        return "csrf";
-    }
-    @GetMapping("/csrf")
-    public String csrf() {
-        return "csrf";
-    }
 }
