@@ -18,7 +18,6 @@ import java.util.List;
 public interface SysUserMapper extends BaseMapper<SysUser> {
 
     @DataSource
-    @Select("select * from sys_user")
     List<SysUser> listUser1();
 
 }
