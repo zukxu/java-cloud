@@ -7,13 +7,13 @@ spring:
     primary:
       driver-class-name: com.mysql.cj.jdbc.Driver
       jdbc-url: jdbc:mysql://localhost:3306/test1?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false
-      password: root
-      username: 123456
+      username: root
+      password: 123456
     secondary:
       driver-class-name: com.mysql.cj.jdbc.Driver
       jdbc-url: jdbc:mysql://localhost:3306/test2?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false
-      password: root
-      username: 123456
+      username: root
+      password: 123456
     druid:
       filters: mergeStat
       initial-size: 0

@@ -3,7 +3,7 @@
 <mapper namespace="com.zukxu.mybatis.mapper.SysUserMapper2">
     <resultMap id="BaseResultMap" type="com.zukxu.mybatis.model.SysUser">
         <!--@mbg.generated-->
-        <!--@Table sys_user-->
+        <!--@Table sys_user_t-->
         <id column="id" jdbcType="VARCHAR" property="id"/>
         <result column="user_no" jdbcType="VARCHAR" property="userNo"/>
         <result column="user_name" jdbcType="VARCHAR" property="userName"/>
@@ -52,8 +52,4 @@
         update_by,
         update_time
     </sql>
-    <select id="listUser2" resultMap="BaseResultMap">
-        select *
-        from sys_user;
-    </select>
 </mapper>
