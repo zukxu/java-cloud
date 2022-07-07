@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zukxu.mybatis.mapper.SysUserMapper2">
+    <resultMap id="BaseResultMap" type="com.zukxu.mybatis.model.SysUser">
+        <!--@mbg.generated-->
+        <!--@Table sys_user-->
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="user_no" jdbcType="VARCHAR" property="userNo"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="login_name" jdbcType="VARCHAR" property="loginName"/>
+        <result column="sex" jdbcType="INTEGER" property="sex"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="fax" jdbcType="VARCHAR" property="fax"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="company_id" jdbcType="VARCHAR" property="companyId"/>
+        <result column="dep_id" jdbcType="VARCHAR" property="depId"/>
+        <result column="del_flag" jdbcType="BOOLEAN" property="delFlag"/>
+        <result column="state" jdbcType="BOOLEAN" property="state"/>
+        <result column="fail_time" jdbcType="TIMESTAMP" property="failTime"/>
+        <result column="pwd_f_time" jdbcType="TIMESTAMP" property="pwdFTime"/>
+        <result column="pwd_init" jdbcType="BOOLEAN" property="pwdInit"/>
+        <result column="data_scope" jdbcType="BOOLEAN" property="dataScope"/>
+        <result column="create_by" jdbcType="VARCHAR" property="createBy"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_by" jdbcType="VARCHAR" property="updateBy"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id,
+        user_no,
+        user_name,
+        login_name,
+        sex,
+        `password`,
+        mobile,
+        email,
+        fax,
+        address,
+        company_id,
+        dep_id,
+        del_flag,
+        `state`,
+        fail_time,
+        pwd_f_time,
+        pwd_init,
+        data_scope,
+        create_by,
+        create_time,
+        update_by,
+        update_time
+    </sql>
+    <select id="listUser2" resultMap="BaseResultMap">
+        select *
+        from sys_user;
+    </select>
+</mapper>
