@@ -1,6 +1,5 @@
 package com.zukxu.test.others;
 
-import cn.hutool.core.util.ObjectUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -51,8 +50,8 @@ public class TestStringController {
         objects.forEach(o -> {
             String id = o.getString(IDENTIFIER_);
             String pid = o.getString(PROCESS_ID_);
-            list.add(id+","+pid);
-            System.out.println(id+","+pid);
+            list.add(id + "," + pid);
+            System.out.println(id + "," + pid);
         });
         System.out.println("\n\n");
         return list;
