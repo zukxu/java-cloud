@@ -11,6 +11,7 @@
     <modules>
         <module>demo-myexcel</module>
         <module>demo-easyexcel</module>
+        <module>demo-alanpoi-analysis</module>
     </modules>
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
