@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <exg name="excelId" version="1.0" file-type="excel">
     <excel id="ACCOUNT" consume="com.zukxu.alan.excel.handler.FinAccountImportHandler">
-        <sheet index="0" row-start="1" column-start="0" vo="com.zukxu.alan.excel.vo.AccountVO">
+        <sheet index="0" row-start="1" column-start="0" vo="com.zukxu.alan.excel.model.vo.AccountVO">
             <column name="编号" offset="1">id</column>
             <column name="名称" offset="2">name</column>
             <column name="银行账号" offset="3">bankAccount</column>
