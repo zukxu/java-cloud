@@ -167,4 +167,5 @@ public void notifyInvokerFuture(String requestId, final XxlRpcResponse xxlRpcRes
 ```
 
 ## 使用
-具体项目使用可参考官方文档：https://www.xuxueli.com/xxl-job/#2.1%20%E5%88%9D%E5%A7%8B%E5%8C%96%E2%80%9C%E8%B0%83%E5%BA%A6%E6%95%B0%E6%8D%AE%E5%BA%93%E2%80%9D
+具体项目使用可参考官方文档：https://www.xuxueli.com/xxl-job/#2.1%20%E5%88%9D%E5%A7%8B%E5%8C%96%E2%80%9C%E8%B0%83%E5%BA%A6%E6%95%B0%E6%8D%AE%E5%BA%93%E2%80%9D  
+简单使用xxl-job：https://www.yuque.com/docs/share/95a06803-d739-46e6-91e7-7e7646805467?# 《简单实用xxl-job》
