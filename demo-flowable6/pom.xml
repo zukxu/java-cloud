@@ -17,7 +17,7 @@
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
-        <flowable.version>6.7.1</flowable.version>
+        <flowable.version>6.7.2</flowable.version>
     </properties>
     <dependencies>
         <dependency>
@@ -32,7 +32,7 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.4.3.4</version>
+            <version>3.5.2</version>
         </dependency>
         <dependency>
             <groupId>com.github.pagehelper</groupId>
@@ -55,7 +55,6 @@
             <artifactId>flowable-engine</artifactId>
             <version>${flowable.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.eweb4j</groupId>
             <artifactId>fel</artifactId>
