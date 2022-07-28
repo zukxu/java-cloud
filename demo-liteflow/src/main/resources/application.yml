@@ -1,0 +1,7 @@
+server:
+  port: 18082
+  servlet:
+    context-path: /liteFlow
+liteflow:
+  rule-source: config/flow.el.xml
+
