@@ -1,14 +1,19 @@
 package com.zukxu.test.others;
 
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import lombok.SneakyThrows;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.PostConstruct;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -56,4 +61,41 @@ public class TestStringController {
         System.out.println("\n\n");
         return list;
     }
+
+    public static void main(String[] args) throws IOException {
+        String t1 = "|用户场景|${HEAD} |";
+        String t2 = "|--------------------------------------- | ------------------------------------------------------------------------------------------ |";
+        String t3 = "| 功能描述 | 1 |";
+
+        FileReader fr1 = new FileReader("C:\\Users\\17747\\Desktop\\WORKING\\aaa.txt");
+        BufferedReader bfr = new BufferedReader(fr1);
+        //bfr.readLine() 通过换行符回车符 或者回车换行符作为终止符号
+        String line;
+        StringBuilder ct = new StringBuilder("");
+        int i = 1;
+        while((line = bfr.readLine()) != null) {
+            if(line.equals("#")) {
+                ct = new StringBuilder("t");
+                System.out.println(ct);
+                i = 1;
+                System.out.println();
+                ct = new StringBuilder("");
+                continue;
+            }
+            if(i == 1) {
+                if(StrUtil.isNotBlank(line)) {
+                    String[] s = line.split("\t");
+                    System.out.println(s[0]);
+                    ct.append(i).append(".").append(s[1]).append(" ");
+                    i++;
+                    continue;
+                }
+            }
+            ct.append(i).append(".").append(line.replace("\t", "")).append(" ");
+            i++;
+        }
+        fr1.close();
+        bfr.close();
+    }
+
 }
