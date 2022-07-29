@@ -1,12 +1,12 @@
 package com.zukxu.test.others;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import cn.hutool.core.util.StrUtil;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 /**
  * <p>
@@ -18,152 +18,84 @@ import java.util.Map;
  */
 public class TestString {
 
-    public static void main(String[] args) {
-        //testJsonStr();
-        //testSplit();
-        //System.out.println(FileUtil.readableFileSize(2147483647L));
-        testToMap();
+    public static void main(String[] args) throws IOException {
+        String file = "E:\\Cloud\\temp.txt";
+        buildFunctionalRequirementsDocument(file);
     }
 
-    private static void testJsonStr() {
-        String str = "process_research_audit:1:busType";
-        String defKey = "process_research_audit";
-        System.out.println(str.substring(str.lastIndexOf(":") + 1));
-        System.out.println(JSON.toJSONString(str.split(":")));
-    }
+    /**
+     * 构建功能需求文档
+     */
+    private static void buildFunctionalRequirementsDocument(String file) throws IOException {
+        String tblTemplate = "<table border=\"1\">\n" +
+                             "    <tr>\n" +
+                             "        <td bgcolor=\"#d9d9d9\">用户场景</td>\n" +
+                             "        <td style=\"width:400px\">T1</td>\n" +
+                             "    </tr>\n" +
+                             "    <tr>\n" +
+                             "        <td bgcolor=\"#d9d9d9\">功能描述</td>\n" +
+                             "        <td style=\"width:400px\">T2</td>\n" +
+                             "    </tr>\n" +
+                             "</table>";
+        String key = "^";
+        String startCode = "1.";
+        System.out.println("# 1. 功能特性");
 
-    private static void testSplit() {
-        String s = "IdentyDetail:12,Title:122";
-    }
+        String prefix = "## ";
+        int second = 0, third = 0, fourth = 0;
+        StringBuilder title = new StringBuilder(startCode);
 
-    private static void testToMap() {
-        String str7 = "[\n" +
-                      "        {\n" +
-                      "            \"work_flow_status\": \"04\",\n" +
-                      "            \"receiver_unit\": \"531\",\n" +
-                      "            \"identifier\": \"20220615GZL85118279435\",\n" +
-                      "            \"process_id\": \"ed1cb24d-ec8c-11ec-9ed2-005056bd390a\",\n" +
-                      "            \"identy_detail\": \"03030201\"\n" +
-                      "        },\n" +
-                      "        {\n" +
-                      "            \"work_flow_status\": \"04\",\n" +
-                      "            \"receiver_unit\": \"431\",\n" +
-                      "            \"identifier\": \"20220615GZL85145309128\",\n" +
-                      "            \"process_id\": \"f0c658be-ec8c-11ec-9ed2-005056bd390a\",\n" +
-                      "            \"identy_detail\": \"03030201\"\n" +
-                      "        },\n" +
-                      "        {\n" +
-                      "            \"work_flow_status\": \"04\",\n" +
-                      "            \"receiver_unit\": \"351\",\n" +
-                      "            \"identifier\": \"20220615GZL85148631207\",\n" +
-                      "            \"process_id\": \"ed7d7035-ec8c-11ec-9ed2-005056bd390a\",\n" +
-                      "            \"identy_detail\": \"03030201\"\n" +
-                      "        },\n" +
-                      "        {\n" +
-                      "            \"work_flow_status\": \"04\",\n" +
-                      "            \"receiver_unit\": \"240\",\n" +
-                      "            \"identifier\": \"20220615GZL85165032789\",\n" +
-                      "            \"process_id\": \"f0e79c82-ec8c-11ec-9ed2-005056bd390a\",\n" +
-                      "            \"identy_detail\": \"03030201\"\n" +
-                      "        },\n" +
-                      "        {\n" +
-                      "            \"work_flow_status\": \"01\",\n" +
-                      "            \"receiver_unit\": \"240\",\n" +
-                      "            \"identifier\": \"20220616GZL85108254637\",\n" +
-                      "            \"process_id\": \"d26244d4-ed1e-11ec-9fd3-005056bd390a\",\n" +
-                      "            \"identy_detail\": \"03030202\"\n" +
-                      "        },\n" +
-                      "        {\n" +
-                      "            \"work_flow_status\": \"01\",\n" +
-                      "            \"receiver_unit\": \"431\",\n" +
-                      "            \"identifier\": \"20220616GZL85113459608\",\n" +
-                      "            \"process_id\": \"d19b99fc-ed1e-11ec-9fd3-005056bd390a\",\n" +
-                      "            \"identy_detail\": \"03030202\"\n" +
-                      "        },\n" +
-                      "        {\n" +
-                      "            \"work_flow_status\": \"01\",\n" +
-                      "            \"receiver_unit\": \"531\",\n" +
-                      "            \"identifier\": \"20220616GZL85114968537\",\n" +
-                      "            \"process_id\": \"d0193fcc-ed1e-11ec-9fd3-005056bd390a\",\n" +
-                      "            \"identy_detail\": \"03030202\"\n" +
-                      "        },\n" +
-                      "        {\n" +
-                      "            \"work_flow_status\": \"01\",\n" +
-                      "            \"receiver_unit\": \"351\",\n" +
-                      "            \"identifier\": \"20220616GZL85154196302\",\n" +
-                      "            \"process_id\": \"d0db7dd4-ed1e-11ec-9fd3-005056bd390a\",\n" +
-                      "            \"identy_detail\": \"03030202\"\n" +
-                      "        },\n" +
-                      "        {\n" +
-                      "            \"work_flow_status\": \"01\",\n" +
-                      "            \"receiver_unit\": \"240\",\n" +
-                      "            \"identifier\": \"20220616GZL85125703164\",\n" +
-                      "            \"process_id\": \"d2a149cc-ed1e-11ec-9fd3-005056bd390a\",\n" +
-                      "            \"identy_detail\": \"03030203\"\n" +
-                      "        },\n" +
-                      "        {\n" +
-                      "            \"work_flow_status\": \"01\",\n" +
-                      "            \"receiver_unit\": \"351\",\n" +
-                      "            \"identifier\": \"20220616GZL85135642718\",\n" +
-                      "            \"process_id\": \"d119e68c-ed1e-11ec-9fd3-005056bd390a\",\n" +
-                      "            \"identy_detail\": \"03030203\"\n" +
-                      "        },\n" +
-                      "        {\n" +
-                      "            \"work_flow_status\": \"01\",\n" +
-                      "            \"receiver_unit\": \"531\",\n" +
-                      "            \"identifier\": \"20220616GZL85150982647\",\n" +
-                      "            \"process_id\": \"d057f6a4-ed1e-11ec-9fd3-005056bd390a\",\n" +
-                      "            \"identy_detail\": \"03030203\"\n" +
-                      "        },\n" +
-                      "        {\n" +
-                      "            \"work_flow_status\": \"01\",\n" +
-                      "            \"receiver_unit\": \"431\",\n" +
-                      "            \"identifier\": \"20220616GZL85198701346\",\n" +
-                      "            \"process_id\": \"d1e881a4-ed1e-11ec-9fd3-005056bd390a\",\n" +
-                      "            \"identy_detail\": \"03030203\"\n" +
-                      "        },\n" +
-                      "        {\n" +
-                      "            \"work_flow_status\": \"01\",\n" +
-                      "            \"receiver_unit\": \"431\",\n" +
-                      "            \"identifier\": \"20220616GZL85137182450\",\n" +
-                      "            \"process_id\": \"d225149c-ed1e-11ec-9fd3-005056bd390a\",\n" +
-                      "            \"identy_detail\": \"03030204\"\n" +
-                      "        },\n" +
-                      "        {\n" +
-                      "            \"work_flow_status\": \"01\",\n" +
-                      "            \"receiver_unit\": \"531\",\n" +
-                      "            \"identifier\": \"20220616GZL85147291065\",\n" +
-                      "            \"process_id\": \"d09c03ac-ed1e-11ec-9fd3-005056bd390a\",\n" +
-                      "            \"identy_detail\": \"03030204\"\n" +
-                      "        },\n" +
-                      "        {\n" +
-                      "            \"work_flow_status\": \"01\",\n" +
-                      "            \"receiver_unit\": \"351\",\n" +
-                      "            \"identifier\": \"20220616GZL85163182907\",\n" +
-                      "            \"process_id\": \"d15dcd84-ed1e-11ec-9fd3-005056bd390a\",\n" +
-                      "            \"identy_detail\": \"03030204\"\n" +
-                      "        },\n" +
-                      "        {\n" +
-                      "            \"work_flow_status\": \"01\",\n" +
-                      "            \"receiver_unit\": \"240\",\n" +
-                      "            \"identifier\": \"20220616GZL85170386524\",\n" +
-                      "            \"process_id\": \"d2dc3014-ed1e-11ec-9fd3-005056bd390a\",\n" +
-                      "            \"identy_detail\": \"03030204\"\n" +
-                      "        }\n" +
-                      "    ]";
-        //JSONArray array7 = JSON.parseArray(str7);
-        //printArr(array7);
-    }
-
-    public static void printArr(JSONArray array) {
-        String pName = "";
-        String pCode = ",0609,";
-        for(int i = 0; i < array.size(); i++) {
-            JSONObject object = JSON.parseObject(JSON.toJSONString(array.get(i)));
-            pName = object.getString("identifier");
-            System.out.println(object.getString("identy_detail") + "," + pName + (i + 1) + pCode + object.getString("identifier") + "," + object.getString(
-                    "process_id"));
+        FileReader fr = new FileReader(file);
+        BufferedReader bfr = new BufferedReader(fr);
+        String line;
+        while((line = bfr.readLine()) != null) {
+            int count = getCount(line, key);
+            line = line.replace(key, "");
+            switch(count) {
+                case 2:
+                    second++;
+                    third = 0;
+                    title.append(second).append(".");
+                    System.out.println(prefix + title + line);
+                    break;
+                case 3:
+                    third++;
+                    fourth = 0;
+                    title.append(second).append(".").append(third).append(".");
+                    prefix = "### ";
+                    System.out.println(prefix + title + line);
+                    break;
+                case 4:
+                    fourth++;
+                    title.append(second).append(".").append(third).append(".").append(fourth).append(".");
+                    prefix = "#### ";
+                    System.out.println(prefix + title + line);
+                    System.out.println(tblTemplate.replace("T1", line) + "\n");
+                    break;
+                default:
+                    title = new StringBuilder(startCode);
+                    break;
+            }
+            title = new StringBuilder(startCode);
         }
+        fr.close();
+        bfr.close();
+    }
+
+    /**
+     * 获取某个字符的数量
+     */
+    public static int getCount(String str, String key) {
+        if(StrUtil.isBlank(str) || StrUtil.isBlank(key)) {
+            return 0;
+        }
+        int count = 0;
+        int index = 0;
+        while((index = str.indexOf(key, index)) != -1) {
+            index = index + key.length();
+            count++;
+        }
+        return count;
     }
 
 }
