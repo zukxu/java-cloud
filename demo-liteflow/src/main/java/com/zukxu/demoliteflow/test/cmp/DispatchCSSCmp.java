@@ -3,6 +3,7 @@ package com.zukxu.demoliteflow.test.cmp;
 import com.yomahub.liteflow.annotation.LiteflowComponent;
 import com.yomahub.liteflow.core.NodeComponent;
 import com.yomahub.liteflow.slot.Slot;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * <p>
@@ -12,18 +13,19 @@ import com.yomahub.liteflow.slot.Slot;
  * @author xupu
  * @since 2022/7/28 14:33:15
  */
-@LiteflowComponent(id = "a",name = "ACmp")
-public class DisPatcherCSSCmp extends NodeComponent {
+@LiteflowComponent(id = "DispatchCSSCmp", name = "工单派发")
+@Slf4j
+public class DispatchCSSCmp extends NodeComponent {
 
     @Override
     public void process() {
         //do your business
-        System.out.println("Running A …………");
+        log.info("执行 DispatchCSSCmp 组件 …………");
     }
 
     @Override
     public boolean isAccess() {
-        System.out.println("是否进入该节点预先判断");
+        System.out.println("是否进入节点预先判断");
         return super.isAccess();
     }
 
