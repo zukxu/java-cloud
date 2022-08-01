@@ -23,11 +23,8 @@
         <spring-boot.version>2.6.7</spring-boot.version>
         <spring-cloud.version>2021.0.1</spring-cloud.version>
         <spring-cloud-alibaba.version>2021.0.1.0</spring-cloud-alibaba.version>
-        <alibaba.nacos.version>2.0.4</alibaba.nacos.version>
         <mybatis-plus.version>3.5.2</mybatis-plus.version>
         <pagehelper.boot.version>1.4.2</pagehelper.boot.version>
-        <knife4j.version>3.0.3</knife4j.version>
-        <hutool.version>5.8.2</hutool.version>
 
     </properties>
     <dependencyManagement>
