@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
  * @author xupu
  * @since 2022/7/28 14:33:15
  */
-@Component("a")
+@Component("b")
 public class BCmp extends NodeComponent {
 
     @Override

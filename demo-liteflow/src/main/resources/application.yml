@@ -3,5 +3,5 @@ server:
   servlet:
     context-path: /liteFlow
 liteflow:
+  #规则文件路径
   rule-source: config/flow.el.xml
-

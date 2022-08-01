@@ -5,21 +5,22 @@ import com.yomahub.liteflow.flow.LiteflowResponse;
 import com.zukxu.demoliteflow.context.BatchMessageResultContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 
+/**
+ * 获取执行类，进行执行链路
+ */
 @Component
-public class ChainExecute implements CommandLineRunner {
+public class ChainExecute {
 
     private static final Logger log = LoggerFactory.getLogger(ChainExecute.class);
 
     @Resource
     private FlowExecutor flowExecutor;
 
-    @Override
-    public void run(String... args) throws Exception {
+    public void testConfig() {
         //第二个参数为流程入参，示例中没用到，所以传null，实际业务是有值的
         LiteflowResponse response = flowExecutor.execute2Resp("channelSenderChain", null, BatchMessageResultContext.class);
         BatchMessageResultContext context = response.getFirstContextBean();
