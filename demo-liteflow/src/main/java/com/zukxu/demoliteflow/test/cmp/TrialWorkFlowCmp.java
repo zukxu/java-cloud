@@ -7,21 +7,20 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * <p>
- * 派发组件
+ * 工单初审处理组件
  * </p>
  *
  * @author xupu
  * @since 2022/7/28 14:33:15
  */
-@LiteflowComponent(id = "DispatchCSSCmp", name = "工单派发")
+@LiteflowComponent(id = "TrialWorkFlowCmp", name = "工单处理组件")
 @Slf4j
-public class DispatchCSSCmp extends NodeComponent {
+public class TrialWorkFlowCmp extends NodeComponent {
 
     @Override
     public void process() {
         //do your business
-        log.info("执行 DispatchCSSCmp 组件 …………");
-        log.info("执行派发操作");
+        log.info("执行 TrialWorkFlowCmp 组件 …………");
     }
 
     @Override

@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <flow>
-    <chain name="chain1">
-        THEN(a, b, c);
+    <chain name="SN_SN_DIS">
+        THEN(DispatchCSSCmp,HandlerWorkFlowCmp,StatementCSSCmp);
+    </chain>
+    <chain name="SN_SN_DIS_SYNC">
+        THEN(DispatchCSSCmp,SyncDataCSSCmp,HandlerWorkFlowCmp,StatementCSSCmp,SyncDataCSSCmp);
+    </chain>
+    <chain name="SN_JT_DIS">
+        THEN(DispatchCSSCmp,QueryCSSCmp,StatementCSSCmp);
+    </chain>
+    <chain name="SN_JT_DIS_TRIAL">
+        THEN(TrialWorkFlowCmp,SyncDataCSSCmp,DispatchCSSCmp,QueryCSSCmp,StatementCSSCmp);
+    </chain>
+    <chain name="JT_DIS">
+        THEN(HandlerWorkFlowCmp,ReplyCSSCmp);
+    </chain>
+    <chain name="JT_DIS_OTHER">
+        THEN(HandlerWorkFlowCmp,ReplyCSSCmp);
     </chain>
 </flow>
 
