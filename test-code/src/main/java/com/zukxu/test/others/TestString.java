@@ -4,7 +4,6 @@ package com.zukxu.test.others;
 import cn.hutool.core.util.StrUtil;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -27,16 +26,7 @@ public class TestString {
      * 构建功能需求文档
      */
     private static void buildFunctionalRequirementsDocument(String file) throws IOException {
-        String tblTemplate = "<table border=\"1\">\n" +
-                             "    <tr>\n" +
-                             "        <td bgcolor=\"#d9d9d9\">用户场景</td>\n" +
-                             "        <td style=\"width:400px\">T1</td>\n" +
-                             "    </tr>\n" +
-                             "    <tr>\n" +
-                             "        <td bgcolor=\"#d9d9d9\">功能描述</td>\n" +
-                             "        <td style=\"width:400px\">T2</td>\n" +
-                             "    </tr>\n" +
-                             "</table>";
+        String tblTemplate = "<table border=\"1\">\n" + "    <tr>\n" + "        <td bgcolor=\"#d9d9d9\">用户场景</td>\n" + "        <td style=\"width:400px\">T1</td>\n" + "    </tr>\n" + "    <tr>\n" + "        <td bgcolor=\"#d9d9d9\">功能描述</td>\n" + "        <td style=\"width:400px\">T2</td>\n" + "    </tr>\n" + "</table>";
         String key = "^";
         String startCode = "1.";
         System.out.println("# 1. 功能特性");
