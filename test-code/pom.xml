@@ -27,6 +27,11 @@
         <artifactId>mysql-connector-java</artifactId>
     </dependency>
     <dependency>
+        <groupId>com.baomidou</groupId>
+        <artifactId>mybatis-plus-boot-starter</artifactId>
+        <version>3.5.2</version>
+    </dependency>
+    <dependency>
         <groupId>org.freemarker</groupId>
         <artifactId>freemarker</artifactId>
         <version>2.3.30</version>
