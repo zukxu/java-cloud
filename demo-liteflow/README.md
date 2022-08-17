@@ -5,3 +5,4 @@
 
 ## 附录
 参考：https://liteflow.yomahub.com
+官方案例：https://github.com/bryan31/message-demo

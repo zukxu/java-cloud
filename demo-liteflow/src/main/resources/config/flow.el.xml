@@ -1,22 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <flow>
-    <chain name="SN_SN_DIS">
-        THEN(DispatchCSSCmp,HandlerWorkFlowCmp,StatementCSSCmp);
+    <chain name="sn_dis">
+        //参考wf1.png
+        JT=THEN(SWITCH(IfDis).to(
+        THEN(Dispatch,SWITCH(IfSync).to(SyncData,NoHandler)).id("jt")
+        ,BindProcess)
+        ).id("jt");
+
+        THEN(CreateWF,SWITCH(IfJT).to(JT,BindProcess));
     </chain>
-    <chain name="SN_SN_DIS_SYNC">
-        THEN(DispatchCSSCmp,SyncDataCSSCmp,HandlerWorkFlowCmp,StatementCSSCmp,SyncDataCSSCmp);
+    <chain name="sn_handler">
+        //参考wf2.png
+        JT=THEN(SWITCH(IfSync).to(THEN(SyncData,Dispatch).id("jt"),Dispatch)).id("jt");
+
+        THEN(HandlerWF,SWITCH(IfJT).to(JT,Statement));
     </chain>
-    <chain name="SN_JT_DIS">
-        THEN(DispatchCSSCmp,QueryCSSCmp,StatementCSSCmp);
+    <!--参考wf3.png-->
+    <chain name="jt_dis">
+        THEN(CreateWF,BindProcess);
     </chain>
-    <chain name="SN_JT_DIS_TRIAL">
-        THEN(TrialWorkFlowCmp,SyncDataCSSCmp,DispatchCSSCmp,QueryCSSCmp,StatementCSSCmp);
+    <chain name="sn_jt_reply">
+        THEN(HandlerWF,Reply);
     </chain>
-    <chain name="JT_DIS">
-        THEN(HandlerWorkFlowCmp,ReplyCSSCmp);
-    </chain>
-    <chain name="JT_DIS_OTHER">
-        THEN(HandlerWorkFlowCmp,ReplyCSSCmp);
+    <chain name="jt_reprocess">
+        THEN(Reprocess,BindProcess);
     </chain>
 </flow>
 
