@@ -5,7 +5,6 @@ import com.alibaba.excel.metadata.data.ReadCellData;
 import com.alibaba.excel.read.listener.ReadListener;
 import com.alibaba.excel.util.ListUtils;
 import com.alibaba.fastjson.JSON;
-import com.zukxu.excel.model.satisfaction.Sn5g;
 import com.zukxu.excel.service.ReportService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,7 +20,7 @@ import java.util.*;
  * CreateTime: 2021/2/6 0006 16:26
  */
 @Slf4j
-public class Sn5GListener implements ReadListener<Sn5g> {
+public class Sn5GListener implements ReadListener<Map> {
 
     /**
      * 每隔5条存储数据库，实际使用中可以100条，然后清理list ，方便内存回收
@@ -30,7 +29,7 @@ public class Sn5GListener implements ReadListener<Sn5g> {
     /**
      * 缓存的数据
      */
-    private List<Sn5g> cachedDataList = ListUtils.newArrayListWithExpectedSize(BATCH_COUNT);
+    private List<Map> cachedDataList = ListUtils.newArrayListWithExpectedSize(BATCH_COUNT);
     private Set<String> headField = new LinkedHashSet<>();
     private Map<String,Object> reqMap = new HashMap<>();
     /**
@@ -60,7 +59,7 @@ public class Sn5GListener implements ReadListener<Sn5g> {
      * @param context
      */
     @Override
-    public void invoke(Sn5g data, AnalysisContext context) {
+    public void invoke(Map data, AnalysisContext context) {
         log.info("解析到一条数据:{}", JSON.toJSONString(data));
         cachedDataList.add(data);
         // 达到BATCH_COUNT了，需要去存储一次数据库，防止数据几万条数据在内存，容易OOM
@@ -98,7 +97,7 @@ public class Sn5GListener implements ReadListener<Sn5g> {
      */
     private void saveData() {
         log.info("{}条数据，开始存储数据库！", cachedDataList.size());
-        reportService.saveData(headField,reqMap, cachedDataList);
+        reportService.saveData(headField, reqMap, Collections.singletonList(cachedDataList));
         log.info("存储数据库成功！");
     }
 }

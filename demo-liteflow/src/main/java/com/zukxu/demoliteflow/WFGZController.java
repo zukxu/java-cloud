@@ -25,7 +25,22 @@ public class WFGZController {
 
     /**
      * 省分派发申请单
-     *
+     *{
+     *     "Identifier": "20220727GZL85107961345",
+     *     "IdentyType": "04",
+     *     "IdentySubtype": "0401",
+     *     "IdentyDetail": null,
+     *     "Title": "调研:测试2222",
+     *     "Content": "asdf",
+     *     "OriginUnit": "851",
+     *     "ReceiverUnit": "851",
+     *     "CreatTime": "20220727163334",
+     *     "ProcessTime": null,
+     *     "Creator": "admin",
+     *     "CreatorContactInfo": null,
+     *     "AttachList": null,
+     *     "ParaList": null
+     * }
      * @return R
      */
 

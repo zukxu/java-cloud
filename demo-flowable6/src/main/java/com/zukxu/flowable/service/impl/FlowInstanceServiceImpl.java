@@ -3,7 +3,7 @@ package com.zukxu.flowable.service.impl;
 
 import com.zukxu.common.result.R;
 import com.zukxu.flowable.model.vo.FlowTaskVo;
-import com.zukxu.flowable.factory.FlowServiceFactory;
+import com.zukxu.flowable.factory.FlowFactory;
 import com.zukxu.flowable.service.FlowInstanceService;
 import lombok.extern.slf4j.Slf4j;
 import org.flowable.common.engine.api.FlowableObjectNotFoundException;
@@ -24,7 +24,7 @@ import java.util.Objects;
  */
 @Service
 @Slf4j
-public class FlowInstanceServiceImpl extends FlowServiceFactory implements FlowInstanceService {
+public class FlowInstanceServiceImpl extends FlowFactory implements FlowInstanceService {
 
 
     @Override

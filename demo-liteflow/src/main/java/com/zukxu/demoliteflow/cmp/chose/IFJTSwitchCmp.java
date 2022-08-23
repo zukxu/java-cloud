@@ -2,7 +2,9 @@ package com.zukxu.demoliteflow.cmp.chose;
 
 import com.yomahub.liteflow.annotation.LiteflowComponent;
 import com.yomahub.liteflow.core.NodeSwitchComponent;
+import com.zukxu.demoliteflow.context.WorkFlowContext;
 
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -16,8 +18,15 @@ import java.util.Random;
 @LiteflowComponent(id = "IfJT", name = "是否外派单子")
 public class IFJTSwitchCmp extends NodeSwitchComponent {
 
+
     @Override
     public String processSwitch() throws Exception {
+        WorkFlowContext context = this.getFirstContextBean();
+        Map<String, Object> data = this.getRequestData();
+        context.setWorkFlow(data);
+        System.out.println(this.getNodeId());
+        System.out.println(this.getName());
+        System.out.println(this.getChainName());
         //模拟业务耗时
         int time = new Random().nextInt(1000);
         Thread.sleep(time);

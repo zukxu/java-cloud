@@ -11,11 +11,11 @@ import com.zukxu.flowable.common.InitUtils;
 import com.zukxu.flowable.common.constant.ProcessConstants;
 import com.zukxu.flowable.common.entity.SysUser;
 import com.zukxu.flowable.common.enums.FlowComment;
+import com.zukxu.flowable.factory.FlowFactory;
 import com.zukxu.flowable.model.dto.ActProcDefDTO;
 import com.zukxu.flowable.model.dto.FlowCategoryDTO;
 import com.zukxu.flowable.model.dto.ProcessDefinitionDTO;
 import com.zukxu.flowable.model.entity.SysForm;
-import com.zukxu.flowable.factory.FlowServiceFactory;
 import com.zukxu.flowable.mapper.FlowDefinitionMapper;
 import com.zukxu.flowable.service.FlowDefinitionService;
 import com.zukxu.flowable.service.SysFormDeployService;
@@ -47,7 +47,7 @@ import java.util.Objects;
  * @since 2021-12-15 20:12
  */
 @Service
-public class FlowDefinitionServiceImpl extends FlowServiceFactory implements FlowDefinitionService {
+public class FlowDefinitionServiceImpl extends FlowFactory implements FlowDefinitionService {
     @Autowired
     private FlowDefinitionMapper flowDefinitionMapper;
     @Autowired
