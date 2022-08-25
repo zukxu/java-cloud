@@ -1,7 +1,6 @@
 package com.zukxu.mybatis.inserts.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.zukxu.mybatis.inserts.mapper.DemoMybatisInsertsMapper;
 import com.zukxu.mybatis.inserts.model.DemoMybatisInserts;
 
 /**

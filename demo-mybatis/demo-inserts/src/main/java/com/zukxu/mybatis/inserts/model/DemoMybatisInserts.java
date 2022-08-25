@@ -1,6 +1,8 @@
 package com.zukxu.mybatis.inserts.model;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,6 +17,7 @@ public class DemoMybatisInserts {
     /**
      *id
      */
+    @TableId(type = IdType.AUTO)
     private Integer id;
 
     /**
