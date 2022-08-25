@@ -1,9 +1,6 @@
 package com.zukxu.mybatis.dynamic;
 
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
-import org.springframework.stereotype.Component;
 
 /**
  * <p>

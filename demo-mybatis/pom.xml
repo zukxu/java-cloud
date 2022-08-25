@@ -10,6 +10,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>demo-mybatis</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>demo-inserts</module>
+    </modules>
 
     <dependencies>
         <dependency>

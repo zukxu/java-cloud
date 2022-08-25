@@ -3,7 +3,6 @@ package com.zukxu.mybatis.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zukxu.mybatis.dynamic.annotations.DataSource;
 import com.zukxu.mybatis.model.SysUser;
-import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
