@@ -29,7 +29,7 @@ public class DemoMybatisInserts {
     /**
      *工号
      */
-    private String No;
+    private String _No;
 
 }
 
