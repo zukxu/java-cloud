@@ -1,5 +1,6 @@
 package com.zukxu.mybatis.inserts.model;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,7 +30,8 @@ public class DemoMybatisInserts {
     /**
      *工号
      */
-    private String _No;
+    @TableField("_no")
+    private String No;
 
 }
 
