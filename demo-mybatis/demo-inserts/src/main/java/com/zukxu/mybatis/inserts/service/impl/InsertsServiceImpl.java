@@ -1,5 +1,6 @@
 package com.zukxu.mybatis.inserts.service.impl;
 
+import cn.hutool.core.date.StopWatch;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zukxu.mybatis.inserts.handler.DemoResultHandler;
@@ -40,6 +41,8 @@ public class InsertsServiceImpl extends ServiceImpl<DemoMybatisInsertsMapper, De
 
     @Override
     public void export(DemoMybatisInserts demoMybatisInserts) {
+        StopWatch sw = new StopWatch();
+        sw.start();
         //定义导出的的表头，以及每个表头字段对应的对象变量名
         List<String> headerArray = Arrays.asList("姓名", "工号");
         List<String> fieldArray = Arrays.asList("username", "No");
@@ -59,6 +62,9 @@ public class InsertsServiceImpl extends ServiceImpl<DemoMybatisInsertsMapper, De
         //真正调用excel的导出开始，在方法中exportExcel会调用写excel表头，
         //然后调用tryFetchDataAndWriteToExcel，进行驱动调用userMapper的方法，然后遍历结果集，一条一条写入excel,最后关闭盯应的流资源。
         handler.startExportExcel();
+        sw.stop();
+        System.out.println("=======================================");
+        System.out.println(sw.getTotalTimeMillis());
     }
 
 }
