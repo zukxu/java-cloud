@@ -12,6 +12,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.util.StopWatch;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,7 +102,7 @@ public class TestInserts {
         int result = 1;
         try(SqlSession batchSqlSession = sqlSessionFactory.openSession(ExecutorType.BATCH, false)) {
             List<DemoMybatisInserts> records = new ArrayList<>();
-            for(int i = 0; i < 10000; i++) {
+            for(int i = 0; i < 1000000; i++) {
                 records.add(DemoMybatisInserts.builder()
                                               .username("test" + i)
                                               .password("123456")

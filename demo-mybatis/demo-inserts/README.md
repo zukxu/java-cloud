@@ -34,3 +34,4 @@ INSERT INTO demo_mybatis_inserts(username,password,_no)
         </foreach>
 
 ```
+推荐第三种方法进行使用，插入效率大幅度提升

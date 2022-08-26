@@ -39,7 +39,7 @@ public class GetController {
      */
     @GetMapping("/query/{url}")
     public String preview(@PathVariable String url) {
-        return "get query请求:" + url;
+        return "get 【PathVariable】请求:" + url;
     }
 
     /**

@@ -12,6 +12,7 @@ package com.zukxu.test.others;
 import ch.ethz.ssh2.Connection;
 import ch.ethz.ssh2.Session;
 import ch.ethz.ssh2.StreamGobbler;
+import cn.hutool.core.util.StrUtil;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -88,7 +89,7 @@ public class RemoteExecuteCommand {
                 session.execCommand(cmd);//执行命令
                 result = processStdout(session.getStdout(), DEFAULT_CHART);
                 //如果为得到标准输出为空，说明脚本执行出错了
-                if(result == null) {
+                if(StrUtil.isBlank(result)) {
                     result = processStdout(session.getStderr(), DEFAULT_CHART);
                 }
                 conn.close();
@@ -166,7 +167,7 @@ public class RemoteExecuteCommand {
                 session.execCommand("sh /app/Saiku/saikuRefreshShell.sh");//执行命令，这里需要确定刷新脚本存在的绝对路径哦
                 String result = processStdout(session.getStdout(), DEFAULT_CHART);
                 //如果为得到标准输出为空，说明脚本执行出错了
-                if(result == null) {
+                if(StrUtil.isBlank(result)) {
                     System.out.println("脚本出错");
                     result = processStdout(session.getStderr(), DEFAULT_CHART);
                 }

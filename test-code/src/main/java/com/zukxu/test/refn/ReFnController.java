@@ -3,6 +3,9 @@ package com.zukxu.test.refn;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
+import com.zukxu.common.model.JDBCProperties;
+import com.zukxu.common.utils.JDBCUtil;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,20 +30,23 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping("/refn")
+@RequiredArgsConstructor
 public class ReFnController {
 
     private static final Logger log = LoggerFactory.getLogger(ReFnController.class);
 
+    private final JDBCProperties jdbcProperties;
     @GetMapping
     public List<TreeSelect> list() {
         Connection conn = null;
         Statement stat = null;
         ResultSet res = null;
         try {
-            conn = JDBCUtils.getConnection();
+            conn = JDBCUtil.getConnection(jdbcProperties);
             String sql = "select * from test_refn";
             log.info(sql);
-            stat = conn.createStatement();
+            //stat = conn.createStatement();
+            stat = conn.prepareStatement("");
             res = stat.executeQuery(sql);
             List<ReFnEntity> list = new ArrayList<>();
             while(res.next()) {
@@ -56,8 +62,10 @@ public class ReFnController {
             return treeSelects;
         } catch(SQLException | ClassNotFoundException e) {
             e.printStackTrace();
+        } catch(Exception e) {
+            throw new RuntimeException(e);
         } finally {
-            JDBCUtils.close(res, stat, conn);
+            JDBCUtil.close(res, stat, conn);
         }
         return null;
     }

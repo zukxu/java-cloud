@@ -1,7 +1,6 @@
 package com.zukxu.common.utils;
 
 
-
 import com.zukxu.common.model.JDBCProperties;
 
 import java.sql.*;
@@ -25,13 +24,13 @@ public class JDBCUtil {
         return DriverManager.getConnection(url, user, password);
     }
 
-    public static void close(ResultSet resultSet, PreparedStatement preparedStatement, Connection connection) {
+    public static void close(ResultSet resultSet, Statement statement, Connection connection) {
         try {
             if(resultSet != null) {
                 resultSet.close();
             }
-            if(preparedStatement != null) {
-                preparedStatement.close();
+            if(statement != null) {
+                statement.close();
             }
             if(connection != null) {
                 connection.close();
