@@ -7,4 +7,8 @@
             (#{item.username}, #{item.password}, #{item.no})
         </foreach>
     </insert>
+
+    <select id="scanMapper" resultSetType="FORWARD_ONLY" fetchSize="1000">
+        select id, username, password, _no from demo_mybatis_inserts ${ew.customSqlSegment}
+    </select>
 </mapper>
