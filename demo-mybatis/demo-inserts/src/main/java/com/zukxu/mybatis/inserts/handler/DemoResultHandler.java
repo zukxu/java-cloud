@@ -3,6 +3,8 @@ package com.zukxu.mybatis.inserts.handler;
 import com.zukxu.mybatis.inserts.model.DemoMybatisInserts;
 import org.apache.ibatis.session.ResultContext;
 import org.apache.ibatis.session.ResultHandler;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +30,7 @@ public class DemoResultHandler implements ResultHandler<DemoMybatisInserts> {
     //@formatter:on
 
     public DemoResultHandler() {
-        this.list = new ArrayList<>(BATCH_SIZE);
+        this.list = new ArrayList<>();
     }
 
     @Override
@@ -40,6 +42,7 @@ public class DemoResultHandler implements ResultHandler<DemoMybatisInserts> {
         list.add(resultObject);
         size++;
         if(size == BATCH_SIZE) {
+            temp.add("a");
             handle();
         }
     }

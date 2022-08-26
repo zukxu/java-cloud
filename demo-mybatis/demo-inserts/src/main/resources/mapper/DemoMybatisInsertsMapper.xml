@@ -8,7 +8,8 @@
         </foreach>
     </insert>
 
-    <select id="scanMapper" resultSetType="FORWARD_ONLY" fetchSize="1000">
-        select id, username, password, _no from demo_mybatis_inserts ${ew.customSqlSegment}
+    <select id="scanMapper" resultType="com.zukxu.mybatis.inserts.model.DemoMybatisInserts" resultSetType="FORWARD_ONLY" fetchSize="1000">
+        select id, username, password, _no
+        from demo_mybatis_inserts ${ew.customSqlSegment}
     </select>
 </mapper>

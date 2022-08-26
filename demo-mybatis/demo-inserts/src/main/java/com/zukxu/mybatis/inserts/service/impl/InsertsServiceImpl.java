@@ -42,16 +42,16 @@ public class InsertsServiceImpl extends ServiceImpl<DemoMybatisInsertsMapper, De
     public void export(DemoMybatisInserts demoMybatisInserts) {
         //定义导出的的表头，以及每个表头字段对应的对象变量名
         List<String> headerArray = Arrays.asList("姓名", "工号");
-        List<String> fieldArray = Arrays.asList("username", "_no");
+        List<String> fieldArray = Arrays.asList("username", "No");
 
         //定义要导出的excel的文件名，不带"xlsx"后缀。
         String exportExcelFileName = "文件测试";
         QueryWrapper<DemoMybatisInserts> wrapper = new QueryWrapper<>();
-        wrapper.apply("id%2=0");
+        wrapper.apply("id%7=0");
         //每次导出new一个handler对象，将headerArray,fieldArray,exportExcelFileName传递进去。
         ExcelResultHandler<DemoMybatisInserts> handler = new ExcelResultHandler<>(headerArray, fieldArray, exportExcelFileName) {
             public void tryFetchDataAndWriteToExcel() {
-                //这里的this,指的就是ExcelResultHandler<User> handler这个对象，在这里写mapper调用获取数据的调用
+                //这里的this,ExcelResultHandler<DemoMybatisInserts> handler这个对象，在这里写mapper调用获取数据的调用
                 demoMybatisInsertsMapper.scanMapper(wrapper,this);
             }
         };

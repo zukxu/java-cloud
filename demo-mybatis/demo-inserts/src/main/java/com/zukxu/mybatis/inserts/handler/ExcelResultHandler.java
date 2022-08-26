@@ -102,7 +102,7 @@ public abstract class ExcelResultHandler<T> implements ResultHandler<T> {
         try {
             log.info("--------->>>>写入Excel开始..");
             //写入文件
-            String fileName = new String((exportFileName + ".zip").trim().getBytes(StandardCharsets.UTF_8), StandardCharsets.ISO_8859_1);
+            String fileName = exportFileName + ".zip";
             assert response != null;
             response.setContentType("application/octet-stream");
             response.setHeader("Content-Disposition", "attachment;filename=" + fileName);
@@ -123,7 +123,6 @@ public abstract class ExcelResultHandler<T> implements ResultHandler<T> {
             for(int cellNumber = 0; cellNumber < totalCellNumber; cellNumber++) {
                 Cell cell = row.createCell(cellNumber);
                 cell.setCellValue(headerArray.get(cellNumber)); //写入表头数据
-
             }
 
             //写入数据
