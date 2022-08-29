@@ -11,7 +11,7 @@ Github：https://github.com/alan-et/alanpoi
 ### 一配置
 
 - 在项目resources目录中新建excel-config.xml文件,
-- cosume中配置自己的消费类路径，继承ExcelConsumeInterface接口，
+- consume中配置自己的消费类路径，继承ExcelConsumeInterface接口，
 - sheet中的vo是把当前sheet序列化的对象路径，
 - column中当然就是配置vo中的属性了，
 - 其中name可选字段，填了就是按照这个匹配excel列名，不填就是按照offset顺序；
@@ -22,7 +22,7 @@ Github：https://github.com/alan-et/alanpoi
 consume类实现ExcelConsumeInterface接口，实现其中的方法
 
 ```java
-public class Temp {
+public class Temp implements ExcelConsumeInterface {
 
     @Override
     public void error(ExcelError excelError) {
@@ -90,6 +90,10 @@ public class ExportVO {
 - 方式一. 直接导出到浏览器
 
 ```java
+import com.zukxu.alanpoi.model.SysUser;
+
+import java.util.ArrayList;
+
 public interface Temp {
 
     //ExcelExportUtil
@@ -171,3 +175,4 @@ public class Temp {
 
 }
 ```
+对于大数据量的数据导出时性能不是很好，不推荐在大型项目中使用
