@@ -1,8 +1,8 @@
 package com.zukxu.mybatis.inserts;
 
-import com.zukxu.mybatis.inserts.mapper.DemoMybatisInsertsMapper;
-import com.zukxu.mybatis.inserts.model.DemoMybatisInserts;
-import com.zukxu.mybatis.inserts.service.InsertsService;
+import com.zukxu.mybatis.inserts.mapper.SysUserMapper;
+import com.zukxu.mybatis.inserts.model.SysUser;
+import com.zukxu.mybatis.inserts.service.InsertsSysUserService;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -12,7 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.util.StopWatch;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,20 +31,31 @@ public class TestInserts {
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
-    private InsertsService insertsService;
+    private InsertsSysUserService insertsService;
 
     @Autowired
     private SqlSessionFactory sqlSessionFactory;
 
     @Test
     void testMybatis() {
-        List<DemoMybatisInserts> list = new ArrayList<>();
+        List<SysUser> list = new ArrayList<>();
         for(int i = 0; i < 10000; i++) {
-            list.add(DemoMybatisInserts.builder()
-                                       .username("test" + i)
-                                       .password("123456")
-                                       .No("0119" + i)
-                                       .build());
+            list.add(SysUser.builder()
+                            .id("test" + i)
+                            .deptId("1")
+                            .loginName("test" + i)
+                            .userName("test" + i)
+                            .password("123456")
+                            .sex("" + (i % 3))
+                            .email("test" + i + "@163.com")
+                            .phone("15815422158")
+                            .status("1")
+                            .createBy("admin")
+                            .createTime(LocalDateTime.now())
+                            .yd4aAccount("yd4a" + i)
+                            .oaAccount("oa" + i)
+                            .crmAccount("crm" + i)
+                            .build());
         }
         StopWatch sw = new StopWatch();
         sw.start();
@@ -60,13 +70,13 @@ public class TestInserts {
         List<Object[]> records = new ArrayList<>();
         Object[] ob1;
         for(int i = 0; i < 10000; i++) {
-            ob1 = new Object[]{ "name" + i, "password", 151 + i };
+            ob1 = new Object[]{ "name" + i, "1", "name" + i, "name" + i, "123456", i % 3, "name" + i + "@163.com", "151215875412", "1", "admin", LocalDateTime.now(), "yd4a" + i, "oa" + i, "crm" + i };
             records.add(ob1);
         }
         StopWatch sw = new StopWatch();
         sw.start();
         //插入上传任务数据
-        String insertSql = "insert into demo_mybatis_inserts(username, password, _no) values (?,?,?)";
+        String insertSql = "INSERT INTO sys_user (id, dept_id, login_name, user_name, password, sex, email, phone, status, create_by, create_time, yd4a_account,oa_account, crm_account) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         int result = 1;
         int batchCount = 1000;// 每批commit的个数
         int batchLastIndex = batchCount;// 每批最后一个的下标
@@ -101,15 +111,28 @@ public class TestInserts {
         //基本思想是将 MyBatis session 的 executor type 设为 Batch ，然后多次执行插入语句
         int result = 1;
         try(SqlSession batchSqlSession = sqlSessionFactory.openSession(ExecutorType.BATCH, false)) {
-            List<DemoMybatisInserts> records = new ArrayList<>();
+            List<SysUser> records = new ArrayList<>();
             for(int i = 0; i < 1000000; i++) {
-                records.add(DemoMybatisInserts.builder()
-                                              .username("test" + i)
-                                              .password("123456")
-                                              .No("0119" + i)
-                                              .build());
+                records.add(
+                        SysUser.builder()
+                               .id("test" + i)
+                               .deptId("1")
+                               .loginName("test" + i)
+                               .userName("test" + i)
+                               .password("123456")
+                               .sex("" + (i % 3))
+                               .email("test" + i + "@163.com")
+                               .phone("15815422158")
+                               .status("1")
+                               .createBy("admin")
+                               .createTime(LocalDateTime.now())
+                               .yd4aAccount("yd4a" + i)
+                               .oaAccount("oa" + i)
+                               .crmAccount("crm" + i)
+                               .build()
+                           );
             }
-            DemoMybatisInsertsMapper mapper = batchSqlSession.getMapper(DemoMybatisInsertsMapper.class);
+            SysUserMapper mapper = batchSqlSession.getMapper(SysUserMapper.class);
             StopWatch sw = new StopWatch();
             sw.start();
             int batchCount = 1000;// 每批commit的个数

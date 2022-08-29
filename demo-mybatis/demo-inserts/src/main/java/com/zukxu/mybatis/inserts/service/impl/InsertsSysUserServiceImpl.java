@@ -3,11 +3,10 @@ package com.zukxu.mybatis.inserts.service.impl;
 import cn.hutool.core.date.StopWatch;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zukxu.mybatis.inserts.handler.DemoResultHandler;
 import com.zukxu.mybatis.inserts.handler.ExcelResultHandler;
-import com.zukxu.mybatis.inserts.mapper.DemoMybatisInsertsMapper;
-import com.zukxu.mybatis.inserts.model.DemoMybatisInserts;
-import com.zukxu.mybatis.inserts.service.InsertsService;
+import com.zukxu.mybatis.inserts.mapper.SysUserMapper;
+import com.zukxu.mybatis.inserts.model.SysUser;
+import com.zukxu.mybatis.inserts.service.InsertsSysUserService;
 import org.apache.ibatis.cursor.Cursor;
 import org.springframework.stereotype.Service;
 
@@ -25,13 +24,14 @@ import java.util.List;
  * @since 2022/8/25 10:32:26
  */
 @Service
-public class InsertsServiceImpl extends ServiceImpl<DemoMybatisInsertsMapper, DemoMybatisInserts> implements InsertsService {
+public class InsertsSysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements InsertsSysUserService {
 
     @Resource
-    private DemoMybatisInsertsMapper demoMybatisInsertsMapper;
+    private SysUserMapper demoMybatisInsertsMapper;
+
     @Override
-    public List<DemoMybatisInserts> list(Integer limit) throws IOException {
-        try(Cursor<DemoMybatisInserts> cursor = demoMybatisInsertsMapper.scan(limit)) {
+    public List<SysUser> list(Integer limit) throws IOException {
+        try(Cursor<SysUser> cursor = demoMybatisInsertsMapper.scan(limit)) {
             cursor.forEach(rows -> {
 
             });
@@ -40,22 +40,22 @@ public class InsertsServiceImpl extends ServiceImpl<DemoMybatisInsertsMapper, De
     }
 
     @Override
-    public void export(DemoMybatisInserts demoMybatisInserts) {
+    public void export(SysUser demoMybatisInserts) {
         StopWatch sw = new StopWatch();
         sw.start();
         //定义导出的的表头，以及每个表头字段对应的对象变量名
-        List<String> headerArray = Arrays.asList("姓名", "工号");
-        List<String> fieldArray = Arrays.asList("username", "No");
+        List<String> headerArray = Arrays.asList("姓名", "登录名","OA账号");
+        List<String> fieldArray = Arrays.asList("user_name", "login_name","oa_account");
 
         //定义要导出的excel的文件名，不带"xlsx"后缀。
         String exportExcelFileName = "文件测试";
-        QueryWrapper<DemoMybatisInserts> wrapper = new QueryWrapper<>();
-        wrapper.apply("id%7=0");
+        QueryWrapper<SysUser> wrapper = new QueryWrapper<>();
+        wrapper.apply("sex=1");
         //每次导出new一个handler对象，将headerArray,fieldArray,exportExcelFileName传递进去。
-        ExcelResultHandler<DemoMybatisInserts> handler = new ExcelResultHandler<>(headerArray, fieldArray, exportExcelFileName) {
+        ExcelResultHandler<SysUser> handler = new ExcelResultHandler<>(headerArray, fieldArray, exportExcelFileName) {
             public void tryFetchDataAndWriteToExcel() {
-                //这里的this,ExcelResultHandler<DemoMybatisInserts> handler这个对象，在这里写mapper调用获取数据的调用
-                demoMybatisInsertsMapper.scanMapper(wrapper,this);
+                //这里的this,ExcelResultHandler<SysUser> handler这个对象，在这里写mapper调用获取数据的调用
+                demoMybatisInsertsMapper.scanMapper(wrapper, this);
             }
         };
 

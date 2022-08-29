@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -42,18 +41,18 @@ public abstract class ExcelResultHandler<T> implements ResultHandler<T> {
     private static final Logger log = LoggerFactory.getLogger(ExcelResultHandler.class);
 
     //@formatter:off
-    private AtomicInteger currentRowNumber = new AtomicInteger(0);//记录当前excel行号，从0开始
+    private final AtomicInteger currentRowNumber = new AtomicInteger(0);//记录当前excel行号，从0开始
     private Sheet sheet = null;
 
-    private List<String> headerArray ; //excel表头
-    private List<String> fieldArray ; //对应的字段
+    private final List<String> headerArray ; //excel表头
+    private final List<String> fieldArray ; //对应的字段
 
     //定义totalCellNumber变量，
-    private int totalCellNumber;
+    private final int totalCellNumber;
 
     //定义导出成zip格式的还是原始的xlsx格式
     private boolean isExportZip = true;
-    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     //定义要导出的excel文件名,不带xlsx后缀,默认为uuID,也可以通过构造函数传进来进行改变。
     private String exportFileName = UUID.fastUUID().toString();

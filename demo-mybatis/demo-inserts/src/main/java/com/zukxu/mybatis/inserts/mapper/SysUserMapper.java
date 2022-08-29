@@ -3,7 +3,7 @@ package com.zukxu.mybatis.inserts.mapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
-import com.zukxu.mybatis.inserts.model.DemoMybatisInserts;
+import com.zukxu.mybatis.inserts.model.SysUser;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultType;
@@ -20,21 +20,22 @@ import java.util.List;
  * </p>
  *
  * @author xupu
- * @since 2022/8/25 16:05:42
+ * @since 2022/8/29 10:20:05
  */
-public interface DemoMybatisInsertsMapper extends BaseMapper<DemoMybatisInserts> {
+public interface SysUserMapper extends BaseMapper<SysUser> {
 
-    int insertBatch(@Param("list") List<DemoMybatisInserts> record);
+    int insertBatch(@Param("list") List<SysUser> record);
 
-    @Select("select id, username, password, _no from demo_mybatis_inserts limit #{limit}")
+    @Select("select id, login_name,user_name, password, phone,yd4a_account from sys_user limit #{limit}")
     //ResultSetType.FORWARD_ONLY 表示游标只向前滚动    fetchSize 每次获取量
     @Options(resultSetType = ResultSetType.FORWARD_ONLY, fetchSize = 1000)
-    Cursor<DemoMybatisInserts> scan(@Param("limit") Integer limit);
+    Cursor<SysUser> scan(@Param("limit") Integer limit);
 
-    @Select("select id, username, password, _no from demo_mybatis_inserts ${ew.customSqlSegment}")
+    @Select("select id, login_name,user_name, password, phone,yd4a_account from sys_user ${ew.customSqlSegment}")
     @Options(resultSetType = ResultSetType.FORWARD_ONLY, fetchSize = 1000)
-    @ResultType(DemoMybatisInserts.class)
-    void scanHandler(@Param(Constants.WRAPPER) QueryWrapper<DemoMybatisInserts> wrapper, ResultHandler<DemoMybatisInserts> handler);
+    @ResultType(SysUser.class)
+    void scanHandler(@Param(Constants.WRAPPER) QueryWrapper<SysUser> wrapper, ResultHandler<SysUser> handler);
 
-    void scanMapper(@Param(Constants.WRAPPER) QueryWrapper<DemoMybatisInserts> wrapper,ResultHandler<DemoMybatisInserts> handler);
+    void scanMapper(@Param(Constants.WRAPPER) QueryWrapper<SysUser> wrapper, ResultHandler<SysUser> handler);
+
 }

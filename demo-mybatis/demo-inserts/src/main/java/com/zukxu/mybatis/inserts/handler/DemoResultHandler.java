@@ -1,10 +1,8 @@
 package com.zukxu.mybatis.inserts.handler;
 
-import com.zukxu.mybatis.inserts.model.DemoMybatisInserts;
+import com.zukxu.mybatis.inserts.model.SysUser;
 import org.apache.ibatis.session.ResultContext;
 import org.apache.ibatis.session.ResultHandler;
-import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +16,7 @@ import java.util.Set;
  * @author xupu
  * @since 2022/8/26 11:15:25
  */
-public class DemoResultHandler implements ResultHandler<DemoMybatisInserts> {
+public class DemoResultHandler implements ResultHandler<SysUser> {
 
     //@formatter:off
     // 这是每批处理的大小
@@ -26,7 +24,7 @@ public class DemoResultHandler implements ResultHandler<DemoMybatisInserts> {
     private int size;
     // 存储每批数据的临时容器
     private Set<String> temp;
-    private final List<DemoMybatisInserts> list;
+    private final List<SysUser> list;
     //@formatter:on
 
     public DemoResultHandler() {
@@ -34,11 +32,11 @@ public class DemoResultHandler implements ResultHandler<DemoMybatisInserts> {
     }
 
     @Override
-    public void handleResult(ResultContext<? extends DemoMybatisInserts> resultContext) {
+    public void handleResult(ResultContext<? extends SysUser> resultContext) {
         // 这里获取流式查询每次返回的单条结果
-        DemoMybatisInserts resultObject = resultContext.getResultObject();
+        SysUser resultObject = resultContext.getResultObject();
         // 你可以看自己的项目需要分批进行处理或者单个处理，这里以分批处理为例
-        resultObject.setUsername(resultObject.getUsername() + "HANDLER");
+        resultObject.setUserName(resultObject.getUserName() + "HANDLER");
         list.add(resultObject);
         size++;
         if(size == BATCH_SIZE) {
@@ -65,7 +63,7 @@ public class DemoResultHandler implements ResultHandler<DemoMybatisInserts> {
         handle();
     }
 
-    public List<DemoMybatisInserts> getResultList() {
+    public List<SysUser> getResultList() {
         return this.list;
     }
 
