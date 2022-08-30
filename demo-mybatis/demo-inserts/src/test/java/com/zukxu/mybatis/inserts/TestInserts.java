@@ -3,6 +3,7 @@ package com.zukxu.mybatis.inserts;
 import com.zukxu.mybatis.inserts.mapper.SysUserMapper;
 import com.zukxu.mybatis.inserts.model.SysUser;
 import com.zukxu.mybatis.inserts.service.InsertsSysUserService;
+import com.zukxu.mybatis.inserts.utils.ExcelUtil;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -12,6 +13,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.util.StopWatch;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -141,7 +144,6 @@ public class TestInserts {
                 if(batchLastIndex >= records.size()) {
                     batchLastIndex = records.size();
                     result = result * mapper.insertBatch(records.subList(index, batchLastIndex));
-                    batchSqlSession.commit();
                     System.out.println("index:" + index + " batchLastIndex:" + batchLastIndex);
                     break;// 数据插入完毕，退出循环
                 } else {
@@ -158,6 +160,41 @@ public class TestInserts {
             System.out.println("总共耗时：" + sw.getTotalTimeMillis() + "ms");
         }
         //  2164ms = 2s
+    }
+
+    @Test
+    void testExcelInsert() throws IOException {
+        List<String[]> dataList = ExcelUtil.readExcel(new File(""));
+        List<String> params = new ArrayList<>();
+        String tableName = "";
+        insertExcelBatch(sqlSessionFactory, dataList,tableName,params);
+    }
+
+    public static void insertExcelBatch(SqlSessionFactory sqlSessionFactory, List<String[]> dataList, String tableName, List<String> paramsList) {
+        int result = 1;
+        try(SqlSession batchSqlSession = sqlSessionFactory.openSession(ExecutorType.BATCH, false)) {
+            SysUserMapper reportMapper = batchSqlSession.getMapper(SysUserMapper.class);
+            StopWatch sw = new StopWatch();
+            sw.start();
+            int batchCount = 1000;// 每批commit的个数
+            int batchLastIndex = batchCount;// 每批最后一个的下标
+            for(int index = 0; index < dataList.size(); ) {
+                if(batchLastIndex >= dataList.size()) {
+                    batchLastIndex = dataList.size();
+                    result = result * reportMapper.insertExcelBatch(dataList.subList(index, batchLastIndex), tableName, paramsList);
+                    break;// 数据插入完毕，退出循环
+                } else {
+                    result = result * reportMapper.insertExcelBatch(dataList.subList(index, batchLastIndex), tableName, paramsList);
+                    batchSqlSession.commit();
+                    index = batchLastIndex;// 设置下一批下标
+                    batchLastIndex = index + (batchCount - 1);
+                }
+            }
+            batchSqlSession.commit();
+
+            sw.stop();
+            System.out.println("总共耗时：" + sw.getTotalTimeMillis() + "ms");
+        }
     }
 
 }

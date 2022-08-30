@@ -60,4 +60,27 @@
         select id, login_name, user_name, password, phone, yd4a_account
         from sys_user ${ew.customSqlSegment}
     </select>
+    <insert id="insertExcelBatch">
+        INSERT INTO ${t}
+        <if test="p != null and p.size() != 0">(
+            <foreach collection="p" item="pt" separator=",">
+                ${pt}
+            </foreach>)
+        </if>
+        VALUES
+        <foreach collection="d" item="dt" separator=",">
+            <if test="dt != null and dt.length != 0">
+                (<foreach collection="dt" item="dt1" separator=",">
+                <choose>
+                    <when test="dt1 != null and dt1 != ''.toString() ">
+                        #{dt1,jdbcType=VARCHAR}
+                    </when>
+                    <otherwise>
+                        null
+                    </otherwise>
+                </choose>
+            </foreach>)
+            </if>
+        </foreach>
+    </insert>
 </mapper>

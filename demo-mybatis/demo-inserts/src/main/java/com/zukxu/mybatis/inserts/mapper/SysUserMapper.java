@@ -26,6 +26,8 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
 
     int insertBatch(@Param("list") List<SysUser> record);
 
+    int insertExcelBatch(@Param("d") List<String[]> dataList, @Param("t") String tableName, @Param("p") List<String> paramsList);
+
     @Select("select id, login_name,user_name, password, phone,yd4a_account from sys_user limit #{limit}")
     //ResultSetType.FORWARD_ONLY 表示游标只向前滚动    fetchSize 每次获取量
     @Options(resultSetType = ResultSetType.FORWARD_ONLY, fetchSize = 1000)
