@@ -28,123 +28,116 @@ public class WorkFlowGzController {
 
     /**
      * 省分派发申请单
-     *
-     * @return R
      */
-    @LogAnnotation(module = "sync/gz")
+
     @PostMapping("/DispatchCSS")
-    public R<?> DispatchCSS(@RequestBody Map<String, Object> paramMap) {
-        return workFlowGZService.dispatchCSS(paramMap);
+    public void DispatchCSS(@RequestBody Map<String, Object> paramMap) {
+        workFlowGZService.dispatchCSS(paramMap);
     }
 
-    @LogAnnotation(module = "sync/gz")
-    @PostMapping("/addDocument")
-    public R<WorkFlowDocument> addDocument(@RequestBody WorkFlowDocument document) {
-        return workFlowGZService.addDocument(document);
-    }
 
     /**
      * 工单回复
      *
-     * @return R
+     * @ R
      */
-    @LogAnnotation(module = "sync/gz")
+
     @PostMapping("/ReplyCSS")
-    public R<?> ReplyCSS(@RequestBody Map<String, Object> paramMap) {
+    public void ReplyCSS(@RequestBody Map<String, Object> paramMap) {
         ReplyCSSDto replyCSSDto = JSON.parseObject(JSON.toJSONString(paramMap), ReplyCSSDto.class);
-        return workFlowGZService.replyCSS(replyCSSDto);
+        workFlowGZService.replyCSS(replyCSSDto);
     }
 
     /**
      * 工单查询
      *
-     * @return R
+     * @ R
      */
-    @LogAnnotation(module = "sync/gz")
+
     @PostMapping("/QueryCSS")
-    public R<?> QueryCSS(@RequestBody QueryCSSDto queryCSS) {
-        return workFlowGZService.queryCSS(queryCSS);
+    public void QueryCSS(@RequestBody QueryCSSDto queryCSS) {
+        workFlowGZService.queryCSS(queryCSS);
     }
 
     /**
      * 工单归档
      *
-     * @return R
+     * @ R
      */
-    @LogAnnotation(module = "sync/gz")
+
     @PostMapping("/StatementCSS")
-    public R<?> StatementCSS(@RequestBody StatementCSSDto statementCSS) {
-        return workFlowGZService.statementCSS(statementCSS);
+    public void StatementCSS(@RequestBody StatementCSSDto statementCSS) {
+        workFlowGZService.statementCSS(statementCSS);
     }
 
     /**
      * 工单撤单
      *
-     * @return R
+     * @ R
      */
-    @LogAnnotation(module = "sync/gz")
+
     @PostMapping("/WithdrawCSS")
-    public R<?> WithdrawCSS(@RequestBody WithdrawCSSDto withdrawCSS) {
-        return workFlowGZService.withdrawCSS(withdrawCSS);
+    public void WithdrawCSS(@RequestBody WithdrawCSSDto withdrawCSS) {
+        workFlowGZService.withdrawCSS(withdrawCSS);
     }
 
     /**
      * 工单再处理
      *
-     * @return R
+     * @ R
      */
-    @LogAnnotation(module = "sync/gz")
+
     @PostMapping("/ReprocessCSS")
-    public R<?> ReprocessCSS(@RequestBody ReprocessCSSDto reprocessCSSDto) {
-        return workFlowGZService.reprocessCSS(reprocessCSSDto);
+    public void ReprocessCSS(@RequestBody ReprocessCSSDto reprocessCSSDto) {
+        workFlowGZService.reprocessCSS(reprocessCSSDto);
     }
 
     /**
      * 工单催办
      *
-     * @return R
+     * @ R
      */
-    @LogAnnotation(module = "sync/gz")
+
     @PostMapping("/UrgeCSS")
-    public R<?> UrgeCSS(@RequestBody UrgeCSSDto urgeCSS) {
-        return workFlowGZService.urgeCSS(urgeCSS);
+    public void UrgeCSS(@RequestBody UrgeCSSDto urgeCSS) {
+        workFlowGZService.urgeCSS(urgeCSS);
     }
 
     /**
      * 附件上传
      *
-     * @return R
+     * @ R
      */
-    @LogAnnotation(module = "sync/gz")
+
     @PostMapping("/upload")
-    public R<?> upload(MultipartFile file) throws Exception {
+    public void upload(MultipartFile file) throws Exception {
         String fName = workFlowGZService.uploadToJT(file);
-        return R.ok(fName);
+        R.ok(fName);
     }
 
     /**
      * 重新刷新拉取来自集团的附件
      *
-     * @return R
+     * @ R
      */
     @GetMapping("/download")
-    public R<?> downloadFile(String path, @RequestParam(defaultValue = "2") String unit) throws Exception {
+    public void downloadFile(String path, @RequestParam(defaultValue = "2") String unit) throws Exception {
         //只拉取集团附件
         if(StrUtil.equals(CSVSConstant.UNIT_JT, unit)) {
             FileUtil.download(path);
         }
-        return R.ok();
+        R.ok();
     }
 
     /**
      * 获取附件上传校验文件
      *
-     * @return R
+     * @ R
      */
-    @LogAnnotation(module = "sync/gz")
+
     @GetMapping("/getUploadCheckFile")
-    public R<?> getUploadCheckFile() {
-        return workFlowGZService.getUploadCheckFile();
+    public void getUploadCheckFile() {
+        workFlowGZService.getUploadCheckFile();
     }
 
     /**
@@ -155,10 +148,10 @@ public class WorkFlowGzController {
      * @author xupu
      * @since 2022/3/31 11:22
      */
-    @LogAnnotation(module = "sync/gz")
+
     @PostMapping("/CurrencyCSS")
-    public R<?> CurrencyCSS(@RequestBody CurrentCSSDto currentCSS) {
-        return workFlowGZService.currencyCSS(currentCSS);
+    public void CurrencyCSS(@RequestBody CurrentCSSDto currentCSS) {
+        workFlowGZService.currencyCSS(currentCSS);
     }
 
     /**
@@ -166,12 +159,12 @@ public class WorkFlowGzController {
      *
      * @param syncDataDto SyncDataDto
      *
-     * @return R
+     * @ R
      */
-    @LogAnnotation(module = "sync/gz")
+
     @PostMapping("/SyncData")
-    public R<?> SyncData(@RequestBody SyncDataDto syncDataDto) {
-        return workFlowGZService.syncData(syncDataDto);
+    public void SyncData(@RequestBody SyncDataDto syncDataDto) {
+        workFlowGZService.syncData(syncDataDto);
     }
 
     /**
@@ -179,12 +172,12 @@ public class WorkFlowGzController {
      *
      * @param workFlowF WorkFlowF
      *
-     * @return R
+     * @ R
      */
-    @LogAnnotation(module = "sync/gz")
+
     @PostMapping("/TestjobCSS")
-    public R<?> TestJobCSS(@RequestBody WorkFlowF workFlowF) {
-        return workFlowGZService.TestJobCSS(workFlowF);
+    public void TestJobCSS(@RequestBody WorkFlowF workFlowF) {
+        workFlowGZService.TestJobCSS(workFlowF);
     }
 
 }

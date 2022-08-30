@@ -98,10 +98,10 @@ public class WorkFlowGZServiceImpl implements WorkFlowGZService {
 
     @Override
     @SneakyThrows
-    public R<?> dispatchByWorkFlowId(String identifier) {
+    public void  dispatchByWorkFlowId(String identifier) {
         WorkFlowF flowF = initDispatchWorkFlow(identifier);
         dispatchBizHandler(flowF);
-        R<?> result = dispatchWorkFlowF(flowF);
+        void  result = dispatchWorkFlowF(flowF);
         if(result.isSuccess()) {
             workFlowFService.updateById(flowF.setUnit(CSVSConstant.UNIT_SN));
         }
@@ -180,7 +180,7 @@ public class WorkFlowGZServiceImpl implements WorkFlowGZService {
 
     @SneakyThrows
     @Override
-    public R<?> dispatchCSS(Map<String, Object> param) {
+    public void  dispatchCSS(Map<String, Object> param) {
         String PARAM_JSON = JSON.toJSONString(param);
         log.info("省分===>集团-派单:::{}", PARAM_JSON);
         //通用处理 初始化工单
@@ -193,7 +193,7 @@ public class WorkFlowGZServiceImpl implements WorkFlowGZService {
         workFlowFService.save(flowF);
         workFlowSubService.save(flowSub);
         boolean isSn = StrUtil.equals(CSVSConstant.CODE_SN, flowF.getReceiverUnit()) && StrUtil.equals(CSVSConstant.CODE_SN, flowF.getOriginUnit());
-        R<?> result = R.ok();
+        void  result = R.ok();
         if(!isSn && (Boolean) param.get("isDispatchNow")) {
             result = dispatchWorkFlowF(flowF);
         }
@@ -211,7 +211,7 @@ public class WorkFlowGZServiceImpl implements WorkFlowGZService {
      * 派发工单
      */
     @SneakyThrows
-    private R<?> dispatchWorkFlowF(WorkFlowF flowF) {
+    private void  dispatchWorkFlowF(WorkFlowF flowF) {
         RequestDto<String> requestDto = RequestDto.buildRequestDTO(envFlag);
         requestDto.setContent(JSON.toJSONString(flowF));
         requestDto.setSign(SignUtil.sign(JSON.toJSONString(requestDto)));
@@ -225,12 +225,12 @@ public class WorkFlowGZServiceImpl implements WorkFlowGZService {
 
     @SneakyThrows
     @Override
-    public R<?> replyCSS(ReplyCSSDto replyCSS) {
+    public void  replyCSS(ReplyCSSDto replyCSS) {
         String identifier = replyCSS.getIdentifier();
         WorkFlowF flowF = workFlowFService.getById(identifier);
 
         Map<Object, Object> replyMap = workFlowFService.getWorkFlowMap(identifier, WorkFlowSubEnum.ReplyCSS.getKey());
-        R<?> result = replyBizHandler(flowF);
+        void  result = replyBizHandler(flowF);
         if(!result.isSuccess()) return result;
         //处理人
         Map<Object, Object> handler = new HashMap<>();
@@ -267,7 +267,7 @@ public class WorkFlowGZServiceImpl implements WorkFlowGZService {
         return result;
     }
 
-    private R<?> replyBizHandler(WorkFlowF flowF) {
+    private void  replyBizHandler(WorkFlowF flowF) {
         //查询工单状态
         //不在处理中或催办中
         String status = flowF.getWorkFlowStatus();
@@ -326,7 +326,7 @@ public class WorkFlowGZServiceImpl implements WorkFlowGZService {
     }
 
     @Override
-    public R<?> queryCSS(QueryCSSDto queryCSS) {
+    public void  queryCSS(QueryCSSDto queryCSS) {
         String identifier = queryCSS.getIdentifier();
         WorkFlowF flowF = workFlowFService.getById(identifier);
         if(ObjectUtil.isEmpty(flowF)) {
@@ -343,7 +343,7 @@ public class WorkFlowGZServiceImpl implements WorkFlowGZService {
         log.info("省分===>集团-工单查询:::请求报文:::{}", param);
         String resp = HttpUtils.post(queryCSSUrl, param);
         log.info("省分===>集团-查询:::响应结果::::{}", resp);
-        R<?> r = RJT.result(resp);
+        void  r = RJT.result(resp);
         if(r.isSuccess()) {
             //查询处理记录入库
             String queryJson = JSON.parseObject(resp, ResponseDto.class).getResult();
@@ -353,9 +353,9 @@ public class WorkFlowGZServiceImpl implements WorkFlowGZService {
         return r;
     }
 
-    public R<?> statementCSS(StatementCSSDto statementCSS) {
+    public void  statementCSS(StatementCSSDto statementCSS) {
         WorkFlowF flowF = workFlowFService.getById(statementCSS.getIdentifier());
-        R<?> result = R.ok();
+        void  result = R.ok();
         if(!StrUtil.equals(CSVSConstant.FLOW_STATUS_REPLIED, flowF.getWorkFlowStatus())) {
             return result.code(RStatus.FAIL.getCode()).message("当前工单未回复完毕，无法归档！");
         }
@@ -379,7 +379,7 @@ public class WorkFlowGZServiceImpl implements WorkFlowGZService {
     }
 
     @Override
-    public R<?> withdrawCSS(WithdrawCSSDto withdrawCSS) {
+    public void  withdrawCSS(WithdrawCSSDto withdrawCSS) {
         WorkFlowF flowF = workFlowFService.getById(withdrawCSS.getIdentifier());
         if(!StrUtil.equals(CSVSConstant.FLOW_STATUS_PROCESSING, flowF.getWorkFlowStatus())) {
             return R.fail("当前工单已处理，无法撤单！");
@@ -394,7 +394,7 @@ public class WorkFlowGZServiceImpl implements WorkFlowGZService {
         log.info("省分===>集团-工单撤单:::请求参数:::{}", param);
         String resp = HttpUtils.post(withdrawCSSUrl, param);
         log.info("省分===>集团-工单撤单:::响应参数:::{}", resp);
-        R<?> result = RJT.result(resp);
+        void  result = RJT.result(resp);
         if(result.isSuccess()) {
             flowF = JSON.parseObject(JSON.toJSONString(withdrawCSS), WorkFlowF.class).setWorkFlowStatus(CSVSConstant.FLOW_STATUS_HAS_WITHDRAWN);
             workFlowFService.updateById(flowF);
@@ -403,7 +403,7 @@ public class WorkFlowGZServiceImpl implements WorkFlowGZService {
     }
 
     @Override
-    public R<?> reprocessCSS(ReprocessCSSDto reprocessCSS) {
+    public void  reprocessCSS(ReprocessCSSDto reprocessCSS) {
         WorkFlowF flowF = workFlowFService.getById(reprocessCSS.getIdentifier());
         if(!StrUtil.equals(CSVSConstant.FLOW_STATUS_REPLIED, flowF.getWorkFlowStatus())) {
             return R.fail("当前工单未回复完毕，无法再处理！");
@@ -421,7 +421,7 @@ public class WorkFlowGZServiceImpl implements WorkFlowGZService {
         log.info("省分===>集团-工单再处理:::请求参数:::{}", param);
         String resp = HttpUtils.post(reprocessCSSUrl, param);
         log.info("省分===>集团-工单再处理:::响应参数:::{}", resp);
-        R<?> result = RJT.result(resp);
+        void  result = RJT.result(resp);
         if(result.isSuccess()) {
             updateWorkFlowStatus(reprocessCSS.getIdentifier(), CSVSConstant.FLOW_STATUS_PROCESSING);
         }
@@ -429,7 +429,7 @@ public class WorkFlowGZServiceImpl implements WorkFlowGZService {
     }
 
     @Override
-    public R<?> urgeCSS(UrgeCSSDto urgeCSS) {
+    public void  urgeCSS(UrgeCSSDto urgeCSS) {
         WorkFlowF flowF = workFlowFService.getById(urgeCSS.getIdentifier());
         if(!StrUtil.equals(CSVSConstant.FLOW_STATUS_PROCESSING, flowF.getWorkFlowStatus())) {
             return R.fail("当前工单已回复完毕，无法催办！");
@@ -445,7 +445,7 @@ public class WorkFlowGZServiceImpl implements WorkFlowGZService {
         log.info("省分===>集团-工单催办:::请求参数:::{}", param);
         String resp = HttpUtils.post(urgeCSSUrl, param);
         log.info("省分===>集团-工单催办:::响应参数:::{}", resp);
-        R<?> result = RJT.result(resp);
+        void  result = RJT.result(resp);
         if(result.isSuccess()) {
             flowF = JSON.parseObject(JSON.toJSONString(urgeCSS), WorkFlowF.class).setWorkFlowStatus(CSVSConstant.FLOW_STATUS_HAS_URGE);
             workFlowFService.updateById(flowF);
@@ -454,7 +454,7 @@ public class WorkFlowGZServiceImpl implements WorkFlowGZService {
     }
 
     @Override
-    public R<?> currencyCSS(CurrentCSSDto currentCSS) {
+    public void  currencyCSS(CurrentCSSDto currentCSS) {
         Map currentMap = workFlowFService.getWorkFlowMap(currentCSS.getIdentifier(),
                                                          WorkFlowSubEnum.CurrencyCSS.getKey(),
                                                          currentCSS.getInterfaceType());
@@ -467,7 +467,7 @@ public class WorkFlowGZServiceImpl implements WorkFlowGZService {
         log.info("省分===>集团-工单通用接口:::请求参数:::{}", param);
         String resp = HttpUtils.post(currencyCSSUrl, param);
         log.info("省分===>集团-工单通用接口:::响应参数:::{}", resp);
-        R<?> result = RJT.result(resp);
+        void  result = RJT.result(resp);
         if(result.isSuccess()) {
             //    TODO 业务逻辑
         }
@@ -476,7 +476,7 @@ public class WorkFlowGZServiceImpl implements WorkFlowGZService {
 
     @SneakyThrows
     @Override
-    public R<?> syncData(SyncDataDto syncDataDto) {
+    public void  syncData(SyncDataDto syncDataDto) {
         commonHandler.buildSyncDataDto(syncDataDto);
         //将信息同步到集团
         RequestDto<String> requestDto = RequestDto.buildRequestDTO(envFlag);
@@ -494,7 +494,7 @@ public class WorkFlowGZServiceImpl implements WorkFlowGZService {
 
     @Override
     @SneakyThrows
-    public R<?> getUploadCheckFile() {
+    public void  getUploadCheckFile() {
         String fileName = FlowConstants.UPLOAD_CHECK_FILE_PREFIX + "*";
         FileUtil.lsSftpFileList(fileName);
         return R.ok();
@@ -502,7 +502,7 @@ public class WorkFlowGZServiceImpl implements WorkFlowGZService {
 
     @Override
     @SneakyThrows
-    public R<?> TestJobCSS(WorkFlowF workFlowF) {
+    public void  TestJobCSS(WorkFlowF workFlowF) {
         RequestDto<String> requestDto = RequestDto.buildRequestDTO(envFlag);
         requestDto.setContent(workFlowF.getIdentifier());
         requestDto.setSign(SignUtil.sign(JSON.toJSONString(requestDto)));

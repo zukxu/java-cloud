@@ -26,7 +26,7 @@ public interface WorkFlowGZService {
      *
      * @return R
      */
-    R<?> dispatchByWorkFlowId(String identifier);
+    void  dispatchByWorkFlowId(String identifier);
 
     /**
      * 派单
@@ -36,7 +36,7 @@ public interface WorkFlowGZService {
      *
      * @return R
      */
-    R<?> dispatchCSS(Map<String, Object> param);
+    void  dispatchCSS(Map<String, Object> param);
 
     /**
      * 挂载档案
@@ -54,7 +54,7 @@ public interface WorkFlowGZService {
      *
      * @return
      */
-    R<?> replyCSS(ReplyCSSDto replyCSS);
+    void  replyCSS(ReplyCSSDto replyCSS);
 
     /**
      * 申请单上传附件
@@ -79,7 +79,7 @@ public interface WorkFlowGZService {
      *
      * @return
      */
-    R<?> queryCSS(QueryCSSDto queryCSS);
+    void  queryCSS(QueryCSSDto queryCSS);
 
     /**
      * 归档
@@ -88,7 +88,7 @@ public interface WorkFlowGZService {
      *
      * @return
      */
-    R<?> statementCSS(StatementCSSDto statementCSS);
+    void  statementCSS(StatementCSSDto statementCSS);
 
     /**
      * 撤单
@@ -97,7 +97,7 @@ public interface WorkFlowGZService {
      *
      * @return
      */
-    R<?> withdrawCSS(WithdrawCSSDto withdrawCSS);
+    void  withdrawCSS(WithdrawCSSDto withdrawCSS);
 
     /**
      * 再处理
@@ -106,7 +106,7 @@ public interface WorkFlowGZService {
      *
      * @return
      */
-    R<?> reprocessCSS(ReprocessCSSDto reprocessCSS);
+    void  reprocessCSS(ReprocessCSSDto reprocessCSS);
 
     /**
      * 催办
@@ -115,7 +115,7 @@ public interface WorkFlowGZService {
      *
      * @return
      */
-    R<?> urgeCSS(UrgeCSSDto urgeCSS);
+    void  urgeCSS(UrgeCSSDto urgeCSS);
 
     /**
      * 工单通用接口
@@ -126,7 +126,7 @@ public interface WorkFlowGZService {
      *
      * @return
      */
-    R<?> currencyCSS(CurrentCSSDto currentCSS);
+    void  currencyCSS(CurrentCSSDto currentCSS);
 
     /**
      * 工单信息同步
@@ -135,14 +135,14 @@ public interface WorkFlowGZService {
      * @author xupu
      * @since 2022/3/31 11:28
      */
-    R<?> syncData(SyncDataDto syncData);
+    void  syncData(SyncDataDto syncData);
 
     /**
      * 获取上传校验文件
      *
      * @return R
      */
-    R<?> getUploadCheckFile();
+    void  getUploadCheckFile();
 
     /**
      * 测试工单同步删除
@@ -151,6 +151,6 @@ public interface WorkFlowGZService {
      *
      * @return R
      */
-    R<?> TestJobCSS(WorkFlowF workFlowF);
+    void  TestJobCSS(WorkFlowF workFlowF);
 
 }
