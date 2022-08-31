@@ -23,8 +23,8 @@ import java.nio.charset.StandardCharsets;
  * @since 2022-03-18 15:45
  */
 public class FileUtils {
-    final static Logger log = LoggerFactory.getLogger(FileUtils.class);
 
+    final static Logger log = LoggerFactory.getLogger(FileUtils.class);
 
     private FileUtils() {}
 
@@ -43,7 +43,7 @@ public class FileUtils {
             //中文乱码解决
             String type = req.getHeader("User-Agent").toLowerCase();
             // 字符编码格式
-            if (type.indexOf("firefox") > 0 || type.indexOf("chrome") > 0) {
+            if(type.indexOf("firefox") > 0 || type.indexOf("chrome") > 0) {
                 //谷歌或火狐
                 fileName = new String(fileName.getBytes(charsetCode), "iso8859-1");
             } else {
@@ -58,7 +58,7 @@ public class FileUtils {
             resp.setContentLength((int) file.length());
             // 输出
             outStream(new FileInputStream(file), resp.getOutputStream());
-        } catch (Exception e) {
+        } catch(Exception e) {
             log.error("执行文件下载时发生了异常====>{}", e.getMessage());
         }
     }
@@ -70,21 +70,21 @@ public class FileUtils {
     private static String getFileContentType(String name) {
         String result = "";
         String fileType = name.toLowerCase();
-        if (fileType.endsWith(".png")) {
+        if(fileType.endsWith(".png")) {
             result = "image/png";
-        } else if (fileType.endsWith(".gif")) {
+        } else if(fileType.endsWith(".gif")) {
             result = "image/gif";
-        } else if (fileType.endsWith(".jpg") || fileType.endsWith(".jpeg")) {
+        } else if(fileType.endsWith(".jpg") || fileType.endsWith(".jpeg")) {
             result = "image/jpeg";
-        } else if (fileType.endsWith(".svg")) {
+        } else if(fileType.endsWith(".svg")) {
             result = "image/svg+xml";
-        } else if (fileType.endsWith(".doc")) {
+        } else if(fileType.endsWith(".doc")) {
             result = "application/msword";
-        } else if (fileType.endsWith(".xls")) {
+        } else if(fileType.endsWith(".xls")) {
             result = "application/x-excel";
-        } else if (fileType.endsWith(".zip")) {
+        } else if(fileType.endsWith(".zip")) {
             result = "application/zip";
-        } else if (fileType.endsWith(".pdf")) {
+        } else if(fileType.endsWith(".pdf")) {
             result = "application/pdf";
         } else {
             result = "application/octet-stream";
@@ -99,21 +99,21 @@ public class FileUtils {
         try {
             byte[] buffer = new byte[10240];
             int length = -1;
-            while ((length = is.read(buffer)) != -1) {
+            while((length = is.read(buffer)) != -1) {
                 os.write(buffer, 0, length);
                 os.flush();
             }
-        } catch (Exception e) {
+        } catch(Exception e) {
             log.error("执行 outStream 发生了异常===>{}", e.getMessage());
         } finally {
             try {
                 os.close();
-            } catch (IOException e) {
+            } catch(IOException e) {
                 e.printStackTrace();
             }
             try {
                 is.close();
-            } catch (IOException e) {
+            } catch(IOException e) {
                 e.printStackTrace();
             }
         }
@@ -123,6 +123,7 @@ public class FileUtils {
      * 将File文件流转换为MultipartFile上传文件流
      *
      * @param file
+     *
      * @return
      */
     public static MultipartFile getMulFileByFile(File file) {
@@ -140,15 +141,43 @@ public class FileUtils {
         try {
             FileInputStream fis = new FileInputStream(newFile);
             OutputStream os = item.getOutputStream();
-            while ((bytesRead = fis.read(buffer, 0, 8192)) != -1) {
+            while((bytesRead = fis.read(buffer, 0, 8192)) != -1) {
                 os.write(buffer, 0, bytesRead);
             }
             os.close();
             fis.close();
-        } catch (IOException e) {
+        } catch(IOException e) {
             e.printStackTrace();
         }
         return item;
+    }
+
+    public void exportTxt(HttpServletResponse response, String text) {
+        response.setCharacterEncoding("utf-8");
+        //设置响应的内容类型
+        response.setContentType("text/plain");
+        //设置文件的名称和格式
+        response.addHeader("Content-Disposition", "attachment;filename="
+                                                  + genAttachmentFileName("文件名称", "JSON_FOR_UCC_")//设置名称格式，没有这个中文名称无法显示
+                                                  + ".txt");
+        BufferedOutputStream buff = null;
+        ServletOutputStream outStr = null;
+        try {
+            outStr = response.getOutputStream();
+            buff = new BufferedOutputStream(outStr);
+            buff.write(text.getBytes("UTF-8"));
+            buff.flush();
+            buff.close();
+        } catch(Exception e) {
+            //LOGGER.error("导出文件文件出错:{}",e);
+        } finally {
+            try {
+                buff.close();
+                outStr.close();
+            } catch(Exception e) {
+                //LOGGER.error("关闭流对象出错 e:{}",e);
+            }
+        }
     }
 
 }

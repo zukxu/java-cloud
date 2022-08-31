@@ -16,8 +16,11 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "thread-pool")
 public class ThreadPoolProperties {
-	private int corePoolSize;
-	private int maxPoolSize;
-	private int queueCapacity;
-	private int keepAliveSeconds;
+
+    //@formatter:off
+	  private int corePoolSize;
+	  private int maxPoolSize;
+	  private int queueCapacity;
+	  private int keepAliveSeconds;
+	//@formatter:on
 }
