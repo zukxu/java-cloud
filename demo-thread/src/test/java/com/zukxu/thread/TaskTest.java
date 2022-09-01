@@ -43,7 +43,10 @@ public class TaskTest {
             if(task1.isDone() && task2.isDone() && task3.isDone()) {
                 // 三个任务都调用完成，退出循环等待
                 i++;
-                System.out.println("任务执行中");
+                System.out.println("任务执行完毕");
+                System.out.println(task1.get());
+                System.out.println(task2.get());
+                System.out.println(task3.get());
                 break;
             }
             TimeUnit.MILLISECONDS.sleep(500);

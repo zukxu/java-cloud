@@ -26,7 +26,7 @@ public class Task {
         log.info("任务1执行...");
         TimeUnit.SECONDS.sleep(10);
         log.info("任务1执行完毕");
-        return new AsyncResult<>("任务1执行完毕");
+        return new AsyncResult<>("任务11111");
     }
 
     @Async
@@ -34,7 +34,7 @@ public class Task {
         log.info("任务2执行...");
         TimeUnit.SECONDS.sleep(10);
         log.info("任务2执行完毕");
-        return new AsyncResult<>("任务2执行完毕");
+        return new AsyncResult<>("任务22222");
     }
 
     //@Async
@@ -42,7 +42,7 @@ public class Task {
         log.info("任务3执行...");
         TimeUnit.SECONDS.sleep(10);
         log.info("任务3执行完毕");
-        return new AsyncResult<>("任务3执行完毕");
+        return new AsyncResult<>("任务33333");
 
     }
 
