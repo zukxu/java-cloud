@@ -30,6 +30,7 @@ public class Main {
             put("idea", ".IntelliJIdea");
             put("webstorm", ".WebStorm");
             put("datagrip", ".DataGrip");
+            put("pycharm", ".Pycharm");
         }
     };
     private static final List<String> configList = new ArrayList<String>() {
