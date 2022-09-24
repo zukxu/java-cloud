@@ -2,6 +2,7 @@ package com.zukxu.demoliteflow.model.common;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.zukxu.demoliteflow.model.extend.Para;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -92,6 +93,6 @@ public class CDisPatch {
     @ApiModelProperty(value = "ParaList", name = "请求参数列表")
     @JsonProperty(value = "ParaList")
     @JSONField(name = "ParaList")
-    private com.bonc.flowable.model.extend.Para[] ParaList;
+    private Para[] ParaList;
 
 }

@@ -5,3 +5,22 @@ server:
 liteflow:
   #规则文件路径
   rule-source: config/flow.el.xml
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/work_flow?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true&allowMultiQueries=true
+    username: root
+    password: 123456
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 0
+    username:
+    password:
+    timeout: 2000
+    lettuce:
+      pool:
+        max-active: 8
+        min-idle: 1
+        max-idle: 5
+    connect-timeout: 500

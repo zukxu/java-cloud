@@ -2,6 +2,9 @@ package com.zukxu.test.others;
 
 
 import cn.hutool.core.util.StrUtil;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -18,8 +21,15 @@ import java.io.IOException;
 public class TestString {
 
     public static void main(String[] args) throws IOException {
-        String file = "E:\\Cloud\\temp.txt";
-        buildFunctionalRequirementsDocument(file);
+        //String file = "E:\\Cloud\\temp.txt";
+        //buildFunctionalRequirementsDocument(file);
+        String s = "{\"accessToken\":\"\",\"busType\":\"CSVC\",\"content\":\"{\\\"Identifier\\\":\\\"20220920GZL85142358709\\\",\\\"IdentySubtype\\\":\\\"0205\\\",\\\"IdentyType\\\":\\\"02\\\",\\\"LaunchCompany\\\":\\\"851\\\",\\\"ParaList\\\":[{\\\"ParaID\\\":\\\"CreatorContactInfo\\\",\\\"ParaVal\\\":\\\"13885146567\\\"},{\\\"ParaID\\\":\\\"CreatTime\\\",\\\"ParaVal\\\":\\\"20220920175205\\\"},{\\\"ParaID\\\":\\\"HallStoreinfo\\\",\\\"ParaVal\\\":\\\"中移在线公司\\\"},{\\\"ParaID\\\":\\\"ProcessTime\\\",\\\"ParaVal\\\":\\\"20221020175205\\\"},{\\\"ParaID\\\":\\\"HandlerInfor\\\",\\\"ParaVal\\\":\\\"13639109135\\\"},{\\\"ParaID\\\":\\\"HandingDepartment\\\",\\\"ParaVal\\\":\\\"省公司客户服务部\\\"},{\\\"ParaID\\\":\\\"Creator\\\",\\\"ParaVal\\\":\\\"聂璇\\\"},{\\\"ParaID\\\":\\\"County\\\",\\\"ParaVal\\\":\\\"\\\"},{\\\"ParaID\\\":\\\"ListenProvice\\\",\\\"ParaVal\\\":\\\"851\\\"},{\\\"ParaID\\\":\\\"HandlingOpinion\\\",\\\"ParaVal\\\":\\\"工单创建信息同步\\\"},{\\\"ParaID\\\":\\\"FileNo\\\",\\\"ParaVal\\\":\\\"20220920FNO85109328333\\\"},{\\\"ParaID\\\":\\\"ResolutionStatus\\\",\\\"ParaVal\\\":\\\"02\\\"},{\\\"ParaID\\\":\\\"IdentyDetail\\\",\\\"ParaVal\\\":\\\"02020501\\\"},{\\\"ParaID\\\":\\\"ListenCity\\\",\\\"ParaVal\\\":\\\"0851\\\"},{\\\"ParaID\\\":\\\"CreatorCity\\\",\\\"ParaVal\\\":\\\"0851\\\"},{\\\"ParaID\\\":\\\"HandingTime\\\",\\\"ParaVal\\\":\\\"20220920175335\\\"},{\\\"ParaID\\\":\\\"AttachList\\\",\\\"ParaVal\\\":\\\"\\\"},{\\\"ParaID\\\":\\\"Introducer\\\",\\\"ParaVal\\\":\\\"聂璇\\\"},{\\\"ParaID\\\":\\\"ThinkAbout\\\",\\\"ParaVal\\\":\\\"改进思考\\\"},{\\\"ParaID\\\":\\\"InformationType\\\",\\\"ParaVal\\\":\\\"01\\\"},{\\\"ParaID\\\":\\\"HandlerRank\\\",\\\"ParaVal\\\":\\\"\\\"},{\\\"ParaID\\\":\\\"IntroducerTel\\\",\\\"ParaVal\\\":\\\"13885146567\\\"},{\\\"ParaID\\\":\\\"MainDiscover\\\",\\\"ParaVal\\\":\\\"主要发现\\\"},{\\\"ParaID\\\":\\\"ActivityModel\\\",\\\"ParaVal\\\":\\\"02\\\"},{\\\"ParaID\\\":\\\"ExtIdentylogList\\\",\\\"ParaVal\\\":\\\"[{\\\\\\\"ApprovalResults\\\\\\\":\\\\\\\"1\\\\\\\",\\\\\\\"HandingDepartment\\\\\\\":\\\\\\\"省公司客户服务部\\\\\\\",\\\\\\\"HandingOpinions\\\\\\\":\\\\\\\"\\\\\\\",\\\\\\\"HandingTime\\\\\\\":\\\\\\\"\\\\\\\",\\\\\\\"Handler\\\\\\\":\\\\\\\"刘廷勇\\\\\\\",\\\\\\\"HandlerContactInfor\\\\\\\":\\\\\\\"13639109135\\\\\\\",\\\\\\\"PhaseType\\\\\\\":\\\\\\\"0\\\\\\\",\\\\\\\"ProcessingName\\\\\\\":\\\\\\\"站店人员直线经理\\\\\\\"},{\\\\\\\"ApprovalResults\\\\\\\":\\\\\\\"1\\\\\\\",\\\\\\\"HandingDepartment\\\\\\\":\\\\\\\"省公司信息技术部系统开发测试室\\\\\\\",\\\\\\\"HandingOpinions\\\\\\\":\\\\\\\"流程启动\\\\\\\",\\\\\\\"HandingTime\\\\\\\":\\\\\\\"20220920175205\\\\\\\",\\\\\\\"Handler\\\\\\\":\\\\\\\"聂璇\\\\\\\",\\\\\\\"HandlerContactInfor\\\\\\\":\\\\\\\"13885146567\\\\\\\",\\\\\\\"PhaseType\\\\\\\":\\\\\\\"0\\\\\\\",\\\\\\\"ProcessingName\\\\\\\":\\\\\\\"站店人员\\\\\\\"}]\\\"},{\\\"ParaID\\\":\\\"Title\\\",\\\"ParaVal\\\":\\\"测试工单-贵州派发集团外呼中心站店听音建议任务单01\\\"},{\\\"ParaID\\\":\\\"Handler\\\",\\\"ParaVal\\\":\\\"刘廷勇\\\"},{\\\"ParaID\\\":\\\"ReformMeasures\\\",\\\"ParaVal\\\":\\\"优化举措\\\"},{\\\"ParaID\\\":\\\"HandlerDept\\\",\\\"ParaVal\\\":\\\"851\\\"},{\\\"ParaID\\\":\\\"Objective\\\",\\\"ParaVal\\\":\\\"目标\\\"},{\\\"ParaID\\\":\\\"CreatorDept\\\",\\\"ParaVal\\\":\\\"省公司信息技术部系统开发测试室\\\"},{\\\"ParaID\\\":\\\"Content\\\",\\\"ParaVal\\\":\\\"测试工单-贵州派发集团外呼中心站店听音建议任务单01\\\"},{\\\"ParaID\\\":\\\"ProblemType\\\",\\\"ParaVal\\\":\\\"1003\\\"},{\\\"ParaID\\\":\\\"ActivityTime\\\",\\\"ParaVal\\\":\\\"20220920\\\"},{\\\"ParaID\\\":\\\"OtherTips\\\",\\\"ParaVal\\\":\\\"其他建议\\\"},{\\\"ParaID\\\":\\\"ProblemNature\\\",\\\"ParaVal\\\":\\\"01\\\"}],\\\"ReceiverUnit\\\":\\\"0057\\\"}\",\"cutOffDay\":\"20220920\",\"domain\":\"CSVC\",\"envFlag\":\"0\",\"routeType\":\"00\",\"routeValue\":\"998\",\"sessionID\":\"7b7f1aff60954a9f84f94abb0e2978b7\",\"sign\":\"CF82F2EAF2A0591EFF577E5A55F21DF4\",\"signMethod\":\"md5\",\"timeStamp\":\"20220920175408\",\"transIDO\":\"7b7f1aff60954a9f84f94abb0e2978b7\",\"userPartyID\":\"COP8510\",\"version\":\"1.0.1\"}";
+        JSONObject jsonObject = JSON.parseObject(s);
+        //JSONArray paraList = jsonObject.getJSONArray("ParaList");
+        //paraList.forEach(t->{
+        //    System.out.println(t);
+        //});
+        System.out.println(jsonObject);
     }
 
     /**
