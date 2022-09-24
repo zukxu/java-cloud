@@ -4,24 +4,22 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 /**
  * <p>
- *  ${END}
+ * CSVC 请求/响应报文
  * </p>
  *
  * @author xupu
  * @since 2022-09-25 00:03:28
  */
 
-/**
- * CSVC 请求/响应报文
- */
 @Data
 @Builder
 @AllArgsConstructor
@@ -33,7 +31,7 @@ public class CsvcReqRespMessage {
      * 服务使用方交易流水号 UUID去掉其中的四个减号
      */
     @TableId(value = "transIDO", type = IdType.INPUT)
-    private String transido;
+    private String transIDO;
 
     /**
      * API服务编码
@@ -57,7 +55,7 @@ public class CsvcReqRespMessage {
      * 业务流水号,单原子服务取值与transIDO相同,组合服务的各原子服务sessionID保持一致。如异步业务受理服务,业务受理和业务受理结果反馈两个服务的sessionID须保持一致
      */
     @TableField(value = "sessionID")
-    private String sessionid;
+    private String sessionID;
 
     /**
      * 数字签名
@@ -93,7 +91,7 @@ public class CsvcReqRespMessage {
      * 服务使用方partyid,基础服务平台填写,组成方式为附录domain表的“机构DOMAIN+机构交换节点
      */
     @TableField(value = "user_partyID")
-    private String userPartyid;
+    private String userPartyID;
 
     /**
      * 基础服务平台日切点 (yyyymmdd)
@@ -139,6 +137,7 @@ public class CsvcReqRespMessage {
 
     /**
      * 1:工单派发,2：工单回复,3：工单归档,4：工单撤单,5：工单查询,6：工单再处理,7：工单催办,8：工单通用接口,9：工单信息同步,10：测试工单同步删除
+     * {@link com.zukxu.demoliteflow.enums.OpType}
      */
     @TableField(value = "op_type")
     private Integer opType;
@@ -147,19 +146,19 @@ public class CsvcReqRespMessage {
      * 服务提供方处理交易流水号 服务提供方唯一标识一个交易的流水号，系统内唯一 注：服务提供方返回报文时填写
      */
     @TableField(value = "transIDH")
-    private String transidh;
+    private String transIDH;
 
     /**
      * 服务提供方处理请求的时间 (YYYYMMDDHHMMSS) 注：服务提供方返回报文时填写
      */
     @TableField(value = "transIDHTime")
-    private String transidhtime;
+    private String transIDHTime;
 
     /**
      * 服务提供方partyid 组成方式为附录domain表的“机构DOMAIN+机构交换节点”
      */
     @TableField(value = "provide_partyID")
-    private String providePartyid;
+    private String providePartyID;
 
     /**
      * 一级应答/错误代码

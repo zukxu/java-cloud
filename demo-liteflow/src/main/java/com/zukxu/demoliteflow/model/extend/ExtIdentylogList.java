@@ -17,7 +17,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class ExtIdentylogList {
 
-    //处理时间    必填
+    //处理时间
     @JsonProperty(value = "HandingTime")
     @JSONField(name = "HandingTime")
     private String HandingTime;

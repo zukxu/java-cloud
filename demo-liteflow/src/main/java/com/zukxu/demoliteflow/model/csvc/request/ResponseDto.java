@@ -1,6 +1,8 @@
 package com.zukxu.demoliteflow.model.csvc.request;
 
-import com.bonc.flowable.constant.CSVCConstant;
+import com.zukxu.demoliteflow.constant.CSVC;
+import com.zukxu.demoliteflow.constant.RespCode;
+import com.zukxu.demoliteflow.model.csvc.CsvcReqRespMessage;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -20,19 +22,41 @@ public class ResponseDto implements Serializable {
 
     private static final long serialVersionUID = -6499800642221699957L;
 
-    private String transIDO;//必选	同服务使用方交易流水号
+    /**
+     * 同服务使用方交易流水号
+     */
+    private String transIDO;
 
-    private String transIDH;//可选	服务提供方处理交易流水号
+    /**
+     * 服务提供方处理交易流水号
+     */
+    private String transIDH;
 
-    private String transIDHTime;//服务提供方唯一标识一个交易的流水号，系统内唯一
+    /**
+     * 服务提供方处理请求的时间 YYYYMMDDHHMMSS
+     */
+    private String transIDHTime;
 
-    private String cutOffDay;//注：服务提供方返回报文时填写。
+    /**
+     * 基础服务平台日切点 yyyymmdd
+     */
+    private String cutOffDay;
 
-    private String providePartyID;//可选	服务提供方处理请求的时间YYYYMMDDHHMMSS
+    /**
+     * 服务提供方partyid 机构DOMAIN+机构交换节点
+     */
+    private String providePartyID;
 
-    private Response response;//注：服务提供方返回报文时填写
+    /**
+     * 应答节点
+     */
+    private Response response;
 
-    private String result;//必选	基础服务平台日切点
+    /**
+     * 业务响应结果
+     * result内容为业务参数对象；如果服务的应答参数为空时不返回此节点
+     */
+    private String result;
 
     public ResponseDto() {}
 
@@ -50,8 +74,13 @@ public class ResponseDto implements Serializable {
         private String rspDesc;
 
         public Response() {
-            this.rspCode = CSVCConstant.JT_SUCCESS_CODE;
-            this.rspDesc = CSVCConstant.JT_SUCCESS_MSG;
+            this.rspCode = RespCode.SUCCESS.getCode();
+            this.rspDesc = RespCode.SUCCESS.getDesc();
+        }
+
+        public Response(RespCode respCode) {
+            this.rspCode = respCode.getCode();
+            this.rspDesc = respCode.getDesc();
         }
 
         public String getRspCode() {
@@ -72,4 +101,9 @@ public class ResponseDto implements Serializable {
 
     }
 
+    public static ResponseDto buildResponseDto(CsvcReqRespMessage reqRespMessage) {
+        ResponseDto vo = new ResponseDto(reqRespMessage.getCutOffDay(), reqRespMessage.getTransIDO(), CSVC.PROVIDE_PARTY_ID);
+        vo.setResponse(vo.new Response());
+        return vo;
+    }
 }
