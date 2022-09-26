@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zukxu.demoliteflow.mapper.CsvcReqRespMessageMapper">
+  <resultMap id="BaseResultMap" type="com.zukxu.demoliteflow.model.csvc.CsvcReqRespMessage">
+    <!--@mbg.generated-->
+    <!--@Table csvc_req_resp_message-->
+    <id column="transIDO" jdbcType="VARCHAR" property="transIDO" />
+    <result column="api_code" jdbcType="VARCHAR" property="apiCode" />
+    <result column="service_pack_name" jdbcType="VARCHAR" property="servicePackName" />
+    <result column="time_stamp" jdbcType="VARCHAR" property="timeStamp" />
+    <result column="sessionID" jdbcType="VARCHAR" property="sessionID" />
+    <result column="sign" jdbcType="VARCHAR" property="sign" />
+    <result column="env_flag" jdbcType="VARCHAR" property="envFlag" />
+    <result column="access_token" jdbcType="VARCHAR" property="accessToken" />
+    <result column="version" jdbcType="VARCHAR" property="version" />
+    <result column="sign_method" jdbcType="VARCHAR" property="signMethod" />
+    <result column="user_partyID" jdbcType="VARCHAR" property="userPartyID" />
+    <result column="cut_off_day" jdbcType="VARCHAR" property="cutOffDay" />
+    <result column="domain" jdbcType="VARCHAR" property="domain" />
+    <result column="route_type" jdbcType="VARCHAR" property="routeType" />
+    <result column="route_value" jdbcType="VARCHAR" property="routeValue" />
+    <result column="bus_type" jdbcType="VARCHAR" property="busType" />
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="op_type" jdbcType="INTEGER" property="opType" />
+    <result column="transIDH" jdbcType="VARCHAR" property="transIDH" />
+    <result column="transIDHTime" jdbcType="VARCHAR" property="transIDHTime" />
+    <result column="provide_partyID" jdbcType="VARCHAR" property="providePartyID" />
+    <result column="rsp_code" jdbcType="VARCHAR" property="rspCode" />
+    <result column="rsp_desc" jdbcType="VARCHAR" property="rspDesc" />
+    <result column="result" jdbcType="LONGVARCHAR" property="result" />
+    <result column="resp_time" jdbcType="TIMESTAMP" property="respTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    transIDO, api_code, service_pack_name, time_stamp, sessionID, sign, env_flag, access_token, 
+    version, sign_method, user_partyID, cut_off_day, `domain`, route_type, route_value, 
+    bus_type, content, create_time, op_type, transIDH, transIDHTime, provide_partyID, 
+    rsp_code, rsp_desc, `result`, resp_time
+  </sql>
+</mapper>
