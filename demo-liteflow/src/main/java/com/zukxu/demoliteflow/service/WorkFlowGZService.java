@@ -1,9 +1,7 @@
 package com.zukxu.demoliteflow.service;
 
-import com.bonc.common.response.R;
-import com.bonc.flowable.model.condition.csvs.*;
-import com.bonc.flowable.model.csvc.WorkFlowDocument;
-import com.bonc.flowable.model.csvc.WorkFlowF;
+import com.zukxu.demoliteflow.model.WorkFlowF;
+import com.zukxu.demoliteflow.model.common.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Map;
@@ -23,20 +21,16 @@ public interface WorkFlowGZService {
      * 建单 初审完再派单 不需要再次启动流程
      *
      * @param identifier identifier
-     *
-     * @return R
      */
-    void  dispatchByWorkFlowId(String identifier);
+    void dispatchByWFId(String identifier);
 
     /**
      * 派单
      * 建单就进行派单
      *
-     * @param param param
-     *
-     * @return R
+     * @param param map
      */
-    void  dispatchCSS(Map<String, Object> param);
+    void dispatchCSS(Map<String, Object> param);
 
     /**
      * 挂载档案
@@ -45,88 +39,58 @@ public interface WorkFlowGZService {
      *
      * @return R
      */
-    R<WorkFlowDocument> addDocument(WorkFlowDocument document);
+    //R<WorkFlowDocument> addDocument(WorkFlowDocument document);
 
     /**
      * 回复
      *
-     * @param replyCSS
-     *
-     * @return
+     * @param cReply CReply
      */
-    void  replyCSS(ReplyCSSDto replyCSS);
-
-    /**
-     * 申请单上传附件
-     *
-     * @param file
-     *
-     * @return
-     */
-    String uploadToJT(MultipartFile file);
-
-    /**
-     * 回复集团上传附件
-     *
-     * @param file
-     */
-    void uploadToJT(String file);
+    void replyCSS(CReply cReply);
 
     /**
      * 查询
      *
-     * @param queryCSS
-     *
-     * @return
+     * @param cQuery CQuery
      */
-    void  queryCSS(QueryCSSDto queryCSS);
+    void queryCSS(CQuery cQuery);
 
     /**
      * 归档
      *
-     * @param statementCSS
-     *
-     * @return
+     * @param cStatement CStatement
      */
-    void  statementCSS(StatementCSSDto statementCSS);
+    void statementCSS(CStatement cStatement);
 
     /**
      * 撤单
      *
-     * @param withdrawCSS
-     *
-     * @return
+     * @param cWithdraw CWithdraw
      */
-    void  withdrawCSS(WithdrawCSSDto withdrawCSS);
+    void withdrawCSS(CWithdraw cWithdraw);
 
     /**
      * 再处理
      *
-     * @param reprocessCSS
-     *
-     * @return
+     * @param cReprocess CReprocess
      */
-    void  reprocessCSS(ReprocessCSSDto reprocessCSS);
+    void reprocessCSS(CReprocess cReprocess);
 
     /**
      * 催办
      *
-     * @param urgeCSS
-     *
-     * @return
+     * @param cUrge CUrge
      */
-    void  urgeCSS(UrgeCSSDto urgeCSS);
+    void urgeCSS(CUrge cUrge);
 
     /**
      * 工单通用接口
      * Refund 退单转派
      * HandlingComment 中途意见
      *
-     * @param currentCSS
-     *
-     * @return
+     * @param cCurrency CCurrency
      */
-    void  currencyCSS(CurrentCSSDto currentCSS);
+    void currencyCSS(CCurrency cCurrency);
 
     /**
      * 工单信息同步
@@ -135,22 +99,35 @@ public interface WorkFlowGZService {
      * @author xupu
      * @since 2022/3/31 11:28
      */
-    void  syncData(SyncDataDto syncData);
-
-    /**
-     * 获取上传校验文件
-     *
-     * @return R
-     */
-    void  getUploadCheckFile();
+    void syncData(CSyncData cSyncData);
 
     /**
      * 测试工单同步删除
      *
      * @param workFlowF WorkFlowF
-     *
-     * @return R
      */
-    void  TestJobCSS(WorkFlowF workFlowF);
+    void TestJobCSS(WorkFlowF workFlowF);
+
+    /**
+     * 申请单上传附件
+     *
+     * @param file MultipartFile
+     *
+     * @return fileName
+     */
+    String uploadToJT(MultipartFile file);
+
+    /**
+     * 回复集团上传附件
+     *
+     * @param file fileName
+     */
+    void uploadToJT(String file);
+
+    /**
+     * 获取上传校验文件
+     */
+    void getUploadCheckFile();
+
 
 }

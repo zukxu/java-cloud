@@ -16,15 +16,15 @@ import sun.security.util.SecurityConstants;
 @Service
 public class AsyncLogService {
 
-    @Autowired
+  /*  @Autowired
     private RemoteLogService remoteLogService;
 
-    /**
+    *//**
      * 保存系统日志记录
-     */
+     *//*
     @Async
     public void saveSysLog(SysOperLog sysOperLog)
     {
         remoteLogService.saveLog(sysOperLog, SecurityConstants.INNER);
-    }
+    }*/
 }

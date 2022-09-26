@@ -2,7 +2,12 @@ package com.zukxu.demoliteflow.controller.csvc;
 
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
+import com.zukxu.common.result.R;
+import com.zukxu.demoliteflow.constant.CSVC;
+import com.zukxu.demoliteflow.model.WorkFlowF;
+import com.zukxu.demoliteflow.model.common.*;
 import com.zukxu.demoliteflow.service.WorkFlowGZService;
+import com.zukxu.demoliteflow.utils.FileUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -38,106 +43,56 @@ public class WorkFlowGzController {
 
     /**
      * 工单回复
-     *
-     * @ R
      */
 
     @PostMapping("/ReplyCSS")
     public void ReplyCSS(@RequestBody Map<String, Object> paramMap) {
-        ReplyCSSDto replyCSSDto = JSON.parseObject(JSON.toJSONString(paramMap), ReplyCSSDto.class);
-        workFlowGZService.replyCSS(replyCSSDto);
+        workFlowGZService.replyCSS(JSON.parseObject(JSON.toJSONString(paramMap), CReply.class));
     }
 
     /**
      * 工单查询
-     *
-     * @ R
      */
 
     @PostMapping("/QueryCSS")
-    public void QueryCSS(@RequestBody QueryCSSDto queryCSS) {
-        workFlowGZService.queryCSS(queryCSS);
+    public void QueryCSS(@RequestBody CQuery cQuery) {
+        workFlowGZService.queryCSS(cQuery);
     }
 
     /**
      * 工单归档
-     *
-     * @ R
      */
 
     @PostMapping("/StatementCSS")
-    public void StatementCSS(@RequestBody StatementCSSDto statementCSS) {
-        workFlowGZService.statementCSS(statementCSS);
+    public void StatementCSS(@RequestBody CStatement cStatement) {
+        workFlowGZService.statementCSS(cStatement);
     }
 
     /**
      * 工单撤单
-     *
-     * @ R
      */
 
     @PostMapping("/WithdrawCSS")
-    public void WithdrawCSS(@RequestBody WithdrawCSSDto withdrawCSS) {
-        workFlowGZService.withdrawCSS(withdrawCSS);
+    public void WithdrawCSS(@RequestBody CWithdraw cWithdraw) {
+        workFlowGZService.withdrawCSS(cWithdraw);
     }
 
     /**
      * 工单再处理
-     *
-     * @ R
      */
 
     @PostMapping("/ReprocessCSS")
-    public void ReprocessCSS(@RequestBody ReprocessCSSDto reprocessCSSDto) {
-        workFlowGZService.reprocessCSS(reprocessCSSDto);
+    public void ReprocessCSS(@RequestBody CReprocess cReprocess) {
+        workFlowGZService.reprocessCSS(cReprocess);
     }
 
     /**
      * 工单催办
-     *
-     * @ R
      */
 
     @PostMapping("/UrgeCSS")
-    public void UrgeCSS(@RequestBody UrgeCSSDto urgeCSS) {
-        workFlowGZService.urgeCSS(urgeCSS);
-    }
-
-    /**
-     * 附件上传
-     *
-     * @ R
-     */
-
-    @PostMapping("/upload")
-    public void upload(MultipartFile file) throws Exception {
-        String fName = workFlowGZService.uploadToJT(file);
-        R.ok(fName);
-    }
-
-    /**
-     * 重新刷新拉取来自集团的附件
-     *
-     * @ R
-     */
-    @GetMapping("/download")
-    public void downloadFile(String path, @RequestParam(defaultValue = "2") String unit) throws Exception {
-        //只拉取集团附件
-        if(StrUtil.equals(CSVSConstant.UNIT_JT, unit)) {
-            FileUtil.download(path);
-        }
-        R.ok();
-    }
-
-    /**
-     * 获取附件上传校验文件
-     *
-     * @ R
-     */
-
-    @GetMapping("/getUploadCheckFile")
-    public void getUploadCheckFile() {
-        workFlowGZService.getUploadCheckFile();
+    public void UrgeCSS(@RequestBody CUrge cUrge) {
+        workFlowGZService.urgeCSS(cUrge);
     }
 
     /**
@@ -148,36 +103,58 @@ public class WorkFlowGzController {
      * @author xupu
      * @since 2022/3/31 11:22
      */
-
     @PostMapping("/CurrencyCSS")
-    public void CurrencyCSS(@RequestBody CurrentCSSDto currentCSS) {
-        workFlowGZService.currencyCSS(currentCSS);
+    public void CurrencyCSS(@RequestBody CCurrency cCurrency) {
+        workFlowGZService.currencyCSS(cCurrency);
     }
 
     /**
      * 数据同步 省内调用集团地址进行推送数据
-     *
-     * @param syncDataDto SyncDataDto
-     *
-     * @ R
      */
-
     @PostMapping("/SyncData")
-    public void SyncData(@RequestBody SyncDataDto syncDataDto) {
-        workFlowGZService.syncData(syncDataDto);
+    public void SyncData(@RequestBody CSyncData cSyncData) {
+        workFlowGZService.syncData(cSyncData);
     }
 
     /**
      * 测试工单同步删除接口
      *
      * @param workFlowF WorkFlowF
-     *
-     * @ R
      */
 
     @PostMapping("/TestjobCSS")
     public void TestJobCSS(@RequestBody WorkFlowF workFlowF) {
         workFlowGZService.TestJobCSS(workFlowF);
+    }
+
+    /**
+     * 附件上传到集团服务器
+     */
+    @PostMapping("/upload")
+    public void upload(MultipartFile file) {
+        R.ok(workFlowGZService.uploadToJT(file));
+    }
+
+    /**
+     * 重新刷新拉取来自集团的附件
+     */
+    @GetMapping("/download")
+    public void downloadFile(String path, @RequestParam(defaultValue = CSVC.UNIT_SN) String unit) throws Exception {
+        //拉取集团附件，集团附件可能需要从集团服务器刷新拉取
+        if(StrUtil.equals(CSVC.UNIT_JT, unit)) {
+            FileUtil.download(path);
+        } else {
+            //拉取本省生成的工单附件，直接在本省服务器上拉取
+        }
+        R.ok();
+    }
+
+    /**
+     * 获取附件上传校验文件
+     */
+    @GetMapping("/getUploadCheckFile")
+    public void getUploadCheckFile() {
+        workFlowGZService.getUploadCheckFile();
     }
 
 }

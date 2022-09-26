@@ -4,22 +4,24 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 /**
  * <p>
- * CSVC 请求/响应报文
+ *  ${END}
  * </p>
  *
  * @author xupu
- * @since 2022-09-25 00:03:28
+ * @since 2022-09-26 11:51:24
  */
 
+/**
+ * CSVC 请求/响应报文
+ */
 @Data
 @Builder
 @AllArgsConstructor
@@ -137,7 +139,6 @@ public class CsvcReqRespMessage {
 
     /**
      * 1:工单派发,2：工单回复,3：工单归档,4：工单撤单,5：工单查询,6：工单再处理,7：工单催办,8：工单通用接口,9：工单信息同步,10：测试工单同步删除
-     * {@link com.zukxu.demoliteflow.enums.OpType}
      */
     @TableField(value = "op_type")
     private Integer opType;

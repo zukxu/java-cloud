@@ -1,4 +1,4 @@
-package com.zukxu.demoliteflow.constant;
+package com.zukxu.demoliteflow.enums;
 
 import lombok.Getter;
 

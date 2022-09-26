@@ -1,7 +1,7 @@
 package com.zukxu.demoliteflow.model.csvc.request;
 
 import com.zukxu.demoliteflow.constant.CSVC;
-import com.zukxu.demoliteflow.constant.RespCode;
+import com.zukxu.demoliteflow.enums.RespCode;
 import com.zukxu.demoliteflow.model.csvc.CsvcReqRespMessage;
 import lombok.Data;
 import lombok.experimental.Accessors;

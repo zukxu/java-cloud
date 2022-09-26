@@ -9,9 +9,7 @@ import com.zukxu.demoliteflow.model.csvc.CsvcReqRespMessage;
  * </p>
  *
  * @author xupu
- * @since 2022-09-25 00:03:28
+ * @since 2022-09-26 11:51:24
  */
 public interface CsvcReqRespMessageMapper extends BaseMapper<CsvcReqRespMessage> {
-
-
 }
