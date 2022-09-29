@@ -1,4 +1,4 @@
-package com.zukxu.demoliteflow.cmp;
+package com.zukxu.demoliteflow.cmp.csvc;
 
 import com.yomahub.liteflow.annotation.LiteflowComponent;
 import com.yomahub.liteflow.core.NodeComponent;
@@ -7,20 +7,20 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * <p>
- * 工单再处理组件
+ * 工单初审处理组件
  * </p>
  *
  * @author xupu
  * @since 2022/7/28 14:33:15
  */
-@LiteflowComponent(id = "Reprocess", name = "工单再处理")
+@LiteflowComponent(id = "TrialWorkFlowCmp", name = "工单处理组件")
 @Slf4j
-public class ReprocessCSSCmp extends NodeComponent {
+public class TrialWorkFlowCmp extends NodeComponent {
 
     @Override
     public void process() {
         //do your business
-        log.info("执行 ReprocessCSSCmp 组件 …………");
+        log.info("执行 TrialWorkFlowCmp 组件 …………");
     }
 
     @Override

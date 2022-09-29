@@ -2,7 +2,7 @@
 <flow>
     <chain name="sn_dis">
         //参考wf1.png
-        JT=THEN(SWITCH(IfDis).to(
+        JT=THEN(SWITCH(IfDisNow).to(
         THEN(Dispatch,SWITCH(IfSync).to(SyncData,NoHandler)).id("jt")
         ,BindProcess)
         ).id("jt");

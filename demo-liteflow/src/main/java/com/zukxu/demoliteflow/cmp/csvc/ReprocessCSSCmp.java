@@ -1,4 +1,4 @@
-package com.zukxu.demoliteflow.cmp;
+package com.zukxu.demoliteflow.cmp.csvc;
 
 import com.yomahub.liteflow.annotation.LiteflowComponent;
 import com.yomahub.liteflow.core.NodeComponent;
@@ -7,20 +7,20 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * <p>
- * 撤单组件
+ * 工单再处理组件
  * </p>
  *
  * @author xupu
  * @since 2022/7/28 14:33:15
  */
-@LiteflowComponent(id = "Withdraw", name = "工单撤单")
+@LiteflowComponent(id = "Reprocess", name = "工单再处理")
 @Slf4j
-public class WithdrawCSSCmp extends NodeComponent {
+public class ReprocessCSSCmp extends NodeComponent {
 
     @Override
     public void process() {
         //do your business
-        log.info("执行 WithdrawCSSCmp 组件 …………");
+        log.info("执行 ReprocessCSSCmp 组件 …………");
     }
 
     @Override

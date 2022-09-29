@@ -1,5 +1,7 @@
 package com.zukxu.demoliteflow.context;
 
+import com.zukxu.demoliteflow.model.WorkFlowF;
+
 import java.util.Map;
 
 /**
@@ -13,17 +15,26 @@ import java.util.Map;
 public class WorkFlowContext {
 
     //@formatter:off
-    private Map<String, Object> workFlow;
     private String status;
+    private WorkFlowF workFlowF;
+    private Map<String, Object> variables;
     //@formatter:on
 
 
-    public Map<String, Object> getWorkFlow() {
-        return workFlow;
+    public WorkFlowF getWorkFlowF() {
+        return workFlowF;
     }
 
-    public void setWorkFlow(Map<String, Object> workFlow) {
-        this.workFlow = workFlow;
+    public void setWorkFlowF(WorkFlowF workFlowF) {
+        this.workFlowF = workFlowF;
+    }
+
+    public Map<String, Object> getVariables() {
+        return variables;
+    }
+
+    public void setVariables(Map<String, Object> variables) {
+        this.variables = variables;
     }
 
     public String getStatus() {

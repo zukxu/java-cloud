@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 
 /**
@@ -20,6 +21,7 @@ import lombok.experimental.SuperBuilder;
  */
 @ApiModel("派发接口公共参数")
 @SuperBuilder
+@Accessors(chain = true)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

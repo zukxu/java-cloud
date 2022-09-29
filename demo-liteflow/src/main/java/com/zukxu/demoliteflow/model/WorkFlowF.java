@@ -4,8 +4,13 @@ import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import com.zukxu.demoliteflow.model.common.CDisPatch;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
@@ -21,6 +26,7 @@ import java.util.Map;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
+@Accessors(chain = true)
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -118,17 +124,10 @@ public class WorkFlowF extends CDisPatch implements Serializable {
     private String ReplyAttachList;
 
     @TableField(exist = false)
-    @JsonProperty(value = "UserId")
-    @JSONField(name = "UserId")
-    private String UserId;
+    @JsonProperty(value = "IsDispatchNow")
+    @JSONField(name = "IsDispatchNow")
+    private Boolean IsDispatchNow;
 
-    /**
-     * 当前处理人
-     */
-    @JsonProperty(value = "TaskAssignee")
-    @JSONField(name = "TaskAssignee")
-    @TableField(exist = false)
-    private String TaskAssignee;
 
     @TableField(exist = false)
     private Map<String, Object> variables;

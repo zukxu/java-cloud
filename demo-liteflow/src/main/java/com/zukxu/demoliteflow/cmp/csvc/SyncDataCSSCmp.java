@@ -1,4 +1,4 @@
-package com.zukxu.demoliteflow.cmp;
+package com.zukxu.demoliteflow.cmp.csvc;
 
 import com.yomahub.liteflow.annotation.LiteflowComponent;
 import com.yomahub.liteflow.core.NodeComponent;
@@ -7,20 +7,20 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * <p>
- * 催办组件
+ * 工单信息同步组件
  * </p>
  *
  * @author xupu
  * @since 2022/7/28 14:33:15
  */
-@LiteflowComponent(id = "Reply", name = "工单查询")
+@LiteflowComponent(id = "SyncData", name = "工单信息同步")
 @Slf4j
-public class ReplyCSSCmp extends NodeComponent {
+public class SyncDataCSSCmp extends NodeComponent {
 
     @Override
     public void process() {
         //do your business
-        log.info("执行 ReplyCSSCmp 组件 …………");
+        log.info("执行 SyncDataCSSCmp 组件 …………");
     }
 
     @Override

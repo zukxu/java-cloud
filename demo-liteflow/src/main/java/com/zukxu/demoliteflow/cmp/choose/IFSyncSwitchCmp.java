@@ -1,4 +1,4 @@
-package com.zukxu.demoliteflow.cmp.chose;
+package com.zukxu.demoliteflow.cmp.choose;
 
 import com.yomahub.liteflow.annotation.LiteflowComponent;
 import com.yomahub.liteflow.core.NodeSwitchComponent;

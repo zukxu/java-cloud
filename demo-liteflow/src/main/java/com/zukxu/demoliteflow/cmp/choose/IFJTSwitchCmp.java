@@ -1,4 +1,4 @@
-package com.zukxu.demoliteflow.cmp.chose;
+package com.zukxu.demoliteflow.cmp.choose;
 
 import com.yomahub.liteflow.annotation.LiteflowComponent;
 import com.yomahub.liteflow.core.NodeSwitchComponent;
@@ -23,7 +23,7 @@ public class IFJTSwitchCmp extends NodeSwitchComponent {
     public String processSwitch() throws Exception {
         WorkFlowContext context = this.getFirstContextBean();
         Map<String, Object> data = this.getRequestData();
-        context.setWorkFlow(data);
+        //context.setWorkFlow(data);
         System.out.println(this.getNodeId());
         System.out.println(this.getName());
         System.out.println(this.getChainName());

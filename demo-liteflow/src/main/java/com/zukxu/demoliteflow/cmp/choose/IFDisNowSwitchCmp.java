@@ -1,4 +1,4 @@
-package com.zukxu.demoliteflow.cmp.chose;
+package com.zukxu.demoliteflow.cmp.choose;
 
 import com.yomahub.liteflow.annotation.LiteflowComponent;
 import com.yomahub.liteflow.core.NodeSwitchComponent;
@@ -13,7 +13,7 @@ import java.util.Random;
  * @author xupu
  * @since 2022/8/17 15:21:43
  */
-@LiteflowComponent(id = "IfDis", name = "是否立即派发")
+@LiteflowComponent(id = "IfDisNow", name = "是否立即派发")
 public class IFDisNowSwitchCmp extends NodeSwitchComponent {
 
     @Override

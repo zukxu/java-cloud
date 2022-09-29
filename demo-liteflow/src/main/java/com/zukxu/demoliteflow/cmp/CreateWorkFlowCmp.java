@@ -1,8 +1,11 @@
 package com.zukxu.demoliteflow.cmp;
 
+import com.alibaba.fastjson.JSON;
 import com.yomahub.liteflow.annotation.LiteflowComponent;
 import com.yomahub.liteflow.core.NodeComponent;
 import com.yomahub.liteflow.slot.Slot;
+import com.zukxu.demoliteflow.context.WorkFlowContext;
+import com.zukxu.demoliteflow.model.WorkFlowF;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -21,6 +24,11 @@ public class CreateWorkFlowCmp extends NodeComponent {
     public void process() {
         //do your business
         log.info("执行 CreateWorkFlowCmp 组件 …………");
+        WorkFlowContext context = this.getContextBean(WorkFlowContext.class);
+        WorkFlowF workFlowF = JSON.parseObject(JSON.toJSONString(this.getRequestData()), WorkFlowF.class);
+        context.setVariables(workFlowF.getVariables());
+        context.setWorkFlowF(workFlowF);
+
         log.info("执行工单创建操作");
     }
 
