@@ -15,11 +15,11 @@ import lombok.experimental.Accessors;
  * @author xupu
  * @since 2022-09-28 20:57:22
  */
-@Data
-@Accessors(chain = true)
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
+//@Data
+//@Accessors(chain = true)
+//@Builder
+//@AllArgsConstructor
+//@NoArgsConstructor
 public class CosmicDTO {
     /*
 
