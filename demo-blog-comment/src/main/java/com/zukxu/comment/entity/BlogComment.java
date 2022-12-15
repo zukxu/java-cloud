@@ -10,6 +10,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.io.Serializable;
+
 /**
  * Description:
  *
@@ -20,7 +22,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @TableName("blog_comment")
 @ApiModel(value = "BlogComment对象")
-public class BlogComment extends BaseModel {
+public class BlogComment extends BaseModel implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

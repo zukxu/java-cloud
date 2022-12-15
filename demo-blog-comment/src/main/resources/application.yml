@@ -1,3 +1,7 @@
+server:
+  port: 31001
+  servlet:
+    context-path: /comment
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -8,9 +12,4 @@ spring:
 mybatis-plus:
   # xml扫描路径
   mapperLocations: classpath:mapper/*Mapper.xml
-  typeEnumsPackage: com.zukxu.comment.entity
 
-server:
-  port: 31001
-  servlet:
-    context-path: /comment
