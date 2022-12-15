@@ -11,6 +11,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,13 +39,14 @@ public class ItemService {
 
 		try {
 			in = this.getClass().getClassLoader().getResourceAsStream("items.json");
-			inr = new InputStreamReader(in, "utf-8");
+			assert in != null;
+			inr = new InputStreamReader(in, StandardCharsets.UTF_8);
 			buf = new BufferedReader(inr);
 
 			int ch;
 			StringBuilder sb = new StringBuilder();
-			while ((ch = buf.read()) != -1) {
-				sb.append((char)ch);
+			while((ch = buf.read()) != -1) {
+				sb.append((char) ch);
 			}
 			return sb.toString();
 		} catch (IOException e) {

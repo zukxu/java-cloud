@@ -34,6 +34,7 @@ public class SearchController {
 			e.printStackTrace();
 		}
 
+		assert hits != null;
 		return hits.toString();
 	}
 }
