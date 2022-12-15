@@ -1,4 +1,4 @@
-package com.zukxu.design.test1;
+package com.zukxu.design.strategy.test1;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

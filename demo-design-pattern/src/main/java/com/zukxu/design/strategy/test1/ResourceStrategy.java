@@ -1,4 +1,4 @@
-package com.zukxu.design.test1;
+package com.zukxu.design.strategy.test1;
 
 /**
  * <p>
