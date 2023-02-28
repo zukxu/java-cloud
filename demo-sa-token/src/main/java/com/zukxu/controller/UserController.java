@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/user")
 public class UserController {
-
     // 测试登录
     @PostMapping("/login")
     public String doLogin(@PostSingleParam String username, @PostSingleParam String password) {
