@@ -28,10 +28,11 @@ import java.time.LocalDateTime;
 @Controller
 @RequestMapping("/file")
 public class FileController {
+
     @Resource
     private FileConfigProperties fileConfigProperties;
 
-    @PostMapping({"/upload"})
+    @PostMapping({ "/upload" })
     @ResponseBody
     public R<?> uploadFiles(MultipartFile file) {
         //上传至指定文件夹
@@ -41,10 +42,10 @@ public class FileController {
         String newFileName = FileConst.FILE_NAME_PREFIX + LocalDateTimeUtil.format(LocalDateTime.now(), "yyyyMMddHHmmss") + suffix;
         log.info("重命名文件：===>{}", newFileName);
         //设置文件存储路径，可以存放在你想要指定的路径里面
-        String filePath =fileConfigProperties.getUploadPath() + File.separator + newFileName;
+        String filePath = fileConfigProperties.getUploadPath() + File.separator + newFileName;
         File newFile = new File(filePath);
         //判断目标文件所在目录是否存在
-        if (!newFile.getParentFile().exists()) {
+        if(!newFile.getParentFile().exists()) {
             //如果目标文件所在的目录不存在，则创建父目录
             boolean mkdirs = newFile.getParentFile().mkdirs();
         }
@@ -54,14 +55,14 @@ public class FileController {
             //使用此方法保存必须要绝对路径且文件夹必须已存在,否则报错
             file.transferTo(newFile);
             log.info("文件上传完毕===>{}", newFile.getAbsolutePath());
-        } catch (IOException e) {
+        } catch(IOException e) {
             e.printStackTrace();
             log.info("文件上传失败");
         }
 
         DKAttachment dkAttachment = new DKAttachment();
         dkAttachment.setOriginName(originalFilename)
-                .setUrl(fileConfigProperties.getReturnPath() + "/" + newFileName);
+                    .setUrl(fileConfigProperties.getReturnPath() + "/" + newFileName);
         return R.ok(dkAttachment);
     }
 
@@ -76,7 +77,7 @@ public class FileController {
     }
 
     /**
-     * 删除
+     * 下载
      *
      * @param name
      */
@@ -84,4 +85,42 @@ public class FileController {
     public void download(HttpServletRequest request, HttpServletResponse response, String name) {
         FileUtils.downloadFile(fileConfigProperties.getUploadPath(), name, request, response);
     }
+
+    /**
+     * 断点上传
+     */
+    @PostMapping({ "/breakPoint/upload" })
+    @ResponseBody
+    public R<?> breakPointUploadFiles(MultipartFile file) {
+        //上传至指定文件夹
+        String originalFilename = file.getOriginalFilename();
+        //文件新名称
+        String suffix = FileUtil.getSuffix(originalFilename);
+        String newFileName = FileConst.FILE_NAME_PREFIX + LocalDateTimeUtil.format(LocalDateTime.now(), "yyyyMMddHHmmss") + suffix;
+        log.info("重命名文件：===>{}", newFileName);
+        //设置文件存储路径，可以存放在你想要指定的路径里面
+        String filePath = fileConfigProperties.getUploadPath() + File.separator + newFileName;
+        File newFile = new File(filePath);
+        //判断目标文件所在目录是否存在
+        if(!newFile.getParentFile().exists()) {
+            //如果目标文件所在的目录不存在，则创建父目录
+            boolean mkdirs = newFile.getParentFile().mkdirs();
+        }
+
+        //将内存中的数据写入磁盘
+        try {
+            //使用此方法保存必须要绝对路径且文件夹必须已存在,否则报错
+            file.transferTo(newFile);
+            log.info("文件上传完毕===>{}", newFile.getAbsolutePath());
+        } catch(IOException e) {
+            e.printStackTrace();
+            log.info("文件上传失败");
+        }
+
+        DKAttachment dkAttachment = new DKAttachment();
+        dkAttachment.setOriginName(originalFilename)
+                    .setUrl(fileConfigProperties.getReturnPath() + "/" + newFileName);
+        return R.ok(dkAttachment);
+    }
+
 }

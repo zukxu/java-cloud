@@ -2,8 +2,8 @@ server:
   port: 30001
 spring:
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://112.74.175.76:3306/res_db?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://112.74.175.76:3306/java_cloud?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true
     username: root
     password: 123456
   # IO文件上传配置
@@ -16,3 +16,8 @@ spring:
 file:
   uploadPath: E:/temp/res
   returnPath: /res
+upload:
+  chunkSize: 2
+  thread.maxSize: 25
+  queue.maxSize: 100
+  queue.dir: D:\\temp\\big
