@@ -1,5 +1,6 @@
 package com.zukxu.img;
 
+
 import com.sun.image.codec.jpeg.JPEGCodec;
 import com.sun.image.codec.jpeg.JPEGEncodeParam;
 import com.sun.image.codec.jpeg.JPEGImageEncoder;
@@ -18,12 +19,14 @@ import java.io.IOException;
  * @Date 2021-09-17 11:16
  */
 public class ImgAPI {
+
     /**
      * JAVA 图像等比缩放
      *
      * @param srcImageFile  缩放的图片
      * @param destImageFile 缩放后的图片
      * @param scale         缩放比例
+     *
      * @return bool
      */
     public static boolean scale(File srcImageFile, File destImageFile, float scale) {
@@ -48,7 +51,7 @@ public class ImgAPI {
             String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
             //使用ImageIO的write方法进行输出
             ImageIO.write(image, formatName, destImageFile);
-        } catch (IOException e) {
+        } catch(IOException e) {
             e.printStackTrace();
             return false;
         }
@@ -64,6 +67,7 @@ public class ImgAPI {
      * @param width         裁剪后的图片宽度
      * @param height        裁剪后的图片高度
      * @param destImageFile 裁剪后的图片
+     *
      * @return bool
      */
     public static boolean cut(File srcImageFile, int x, int y, int width, int height, File destImageFile) {
@@ -77,7 +81,7 @@ public class ImgAPI {
             String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
             //使用ImageIO的write方法进行输出
             ImageIO.write(image, formatName, destImageFile);
-        } catch (IOException e) {
+        } catch(IOException e) {
             e.printStackTrace();
             return false;
         }
@@ -90,6 +94,7 @@ public class ImgAPI {
      * @param srcImageFile  目标图片
      * @param destImageFile 结果图片
      * @param text          文字内容
+     *
      * @return bool
      */
     public static boolean watermarkText(File srcImageFile, File destImageFile, String text) {
@@ -112,7 +117,7 @@ public class ImgAPI {
             String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
             //使用ImageIO的write方法进行输出
             ImageIO.write(read, formatName, destImageFile);
-        } catch (IOException e) {
+        } catch(IOException e) {
             e.printStackTrace();
         }
         return true;
@@ -126,6 +131,7 @@ public class ImgAPI {
      * @param waterImage    水印图片
      * @param x             水印x坐标
      * @param y             水印y坐标
+     *
      * @return boolean
      */
     public static boolean watermarkImage(File srcImageFile, File destImageFile, File waterImage, int x, int y) {
@@ -145,13 +151,13 @@ public class ImgAPI {
             String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
             //使用ImageIO的write方法进行输出
             ImageIO.write(read, formatName, destImageFile);
-        } catch (IOException e) {
+        } catch(IOException e) {
             e.printStackTrace();
         }
         return true;
     }
 
-    /**给jpg添加文字*/
+    /** 给jpg添加文字 */
     public static boolean createStringMark(String origin, String text, String outPath) {
         ImageIcon imgIcon = new ImageIcon(origin);
         Image theImg = imgIcon.getImage();
@@ -177,7 +183,7 @@ public class ImgAPI {
             param.setQuality(100, true);  //
             encoder.encode(bimage, param);
             out.close();
-        } catch (Exception e) {
+        } catch(Exception e) {
             return false;
         }
         return true;

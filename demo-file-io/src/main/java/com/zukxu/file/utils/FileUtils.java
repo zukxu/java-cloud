@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
@@ -165,19 +166,24 @@ public class FileUtils {
         try {
             outStr = response.getOutputStream();
             buff = new BufferedOutputStream(outStr);
-            buff.write(text.getBytes("UTF-8"));
+            buff.write(text.getBytes(StandardCharsets.UTF_8));
             buff.flush();
             buff.close();
         } catch(Exception e) {
             //LOGGER.error("导出文件文件出错:{}",e);
         } finally {
             try {
+                assert buff != null;
                 buff.close();
                 outStr.close();
             } catch(Exception e) {
                 //LOGGER.error("关闭流对象出错 e:{}",e);
             }
         }
+    }
+
+    private String genAttachmentFileName(String name, String code) {
+        return name + code;
     }
 
 }
