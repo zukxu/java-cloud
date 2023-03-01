@@ -1,7 +1,7 @@
 package com.zukxu.upload_big_file.annotation;
 
 
-import com.example.upload_big_file.enu.UploadModeEnum;
+import com.zukxu.upload_big_file.enu.UploadModeEnum;
 import org.springframework.stereotype.Component;
 
 import java.lang.annotation.*;

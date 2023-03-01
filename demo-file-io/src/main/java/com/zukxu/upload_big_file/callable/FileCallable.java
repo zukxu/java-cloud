@@ -1,10 +1,10 @@
 package com.zukxu.upload_big_file.callable;
 
 
-import com.example.upload_big_file.context.UploadContext;
-import com.example.upload_big_file.enu.UploadModeEnum;
-import com.example.upload_big_file.po.FileUpload;
-import com.example.upload_big_file.po.FileUploadRequest;
+import com.zukxu.upload_big_file.context.UploadContext;
+import com.zukxu.upload_big_file.enu.UploadModeEnum;
+import com.zukxu.upload_big_file.po.FileUpload;
+import com.zukxu.upload_big_file.po.FileUploadRequest;
 
 import java.util.concurrent.Callable;
 
@@ -22,10 +22,8 @@ public class FileCallable implements Callable<FileUpload> {
     }
 
     @Override
-    public FileUpload call() throws Exception {
-
-        FileUpload fileUploadDTO = UploadContext.INSTANCE.getInstance(mode).sliceUpload(param);
-        return fileUploadDTO;
+    public FileUpload call() {
+        return UploadContext.INSTANCE.getInstance(mode).sliceUpload(param);
     }
 
 }

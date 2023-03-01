@@ -1,16 +1,16 @@
 package com.zukxu.upload_big_file.controller;
 
-import com.example.upload_big_file.po.FileDownloadRequest;
-import com.example.upload_big_file.po.FileUpload;
-import com.example.upload_big_file.po.FileUploadRequest;
-import com.example.upload_big_file.po.Result;
-import com.example.upload_big_file.service.FileService;
-import com.example.upload_big_file.util.FileUtil;
+import cn.hutool.core.date.StopWatch;
+import com.zukxu.upload_big_file.po.FileDownloadRequest;
+import com.zukxu.upload_big_file.po.FileUpload;
+import com.zukxu.upload_big_file.po.FileUploadRequest;
+import com.zukxu.upload_big_file.po.Result;
+import com.zukxu.upload_big_file.service.FileService;
+import com.zukxu.upload_big_file.util.FileUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StopWatch;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -41,7 +41,7 @@ public class FileController {
     public Result<FileUpload> upload(FileUploadRequest fileUploadRequestDTO) throws IOException {
 
         boolean isMultipart = ServletFileUpload.isMultipartContent(request);
-        FileUpload fileUploadDTO = null;
+        FileUpload fileUploadDTO;
         if(isMultipart) {
 
             StopWatch stopWatch = new StopWatch();

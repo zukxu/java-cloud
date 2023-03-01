@@ -1,13 +1,14 @@
 package com.zukxu.upload_big_file.service.impl;
 
-import com.example.upload_big_file.callable.FileCallable;
-import com.example.upload_big_file.constant.FileConstant;
-import com.example.upload_big_file.enu.FileCheckMd5Status;
-import com.example.upload_big_file.enu.UploadModeEnum;
-import com.example.upload_big_file.po.FileUpload;
-import com.example.upload_big_file.po.FileUploadRequest;
-import com.example.upload_big_file.service.FileService;
-import com.example.upload_big_file.util.*;
+
+import com.zukxu.upload_big_file.callable.FileCallable;
+import com.zukxu.upload_big_file.constant.FileConstant;
+import com.zukxu.upload_big_file.enu.FileCheckMd5Status;
+import com.zukxu.upload_big_file.enu.UploadModeEnum;
+import com.zukxu.upload_big_file.po.FileUpload;
+import com.zukxu.upload_big_file.po.FileUploadRequest;
+import com.zukxu.upload_big_file.service.FileService;
+import com.zukxu.upload_big_file.util.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;

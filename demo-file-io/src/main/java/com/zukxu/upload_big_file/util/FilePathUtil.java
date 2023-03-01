@@ -1,7 +1,8 @@
 package com.zukxu.upload_big_file.util;
 
-import com.example.upload_big_file.constant.FileConstant;
-import com.example.upload_big_file.po.FileUploadRequest;
+
+import com.zukxu.upload_big_file.constant.FileConstant;
+import com.zukxu.upload_big_file.po.FileUploadRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
@@ -51,8 +52,7 @@ public class FilePathUtil implements ApplicationRunner {
 
 
     public String getPath(FileUploadRequest param) {
-        String path = this.getBasePath() + FileConstant.FILE_SEPARATORCHAR + param.getPath() + FileConstant.FILE_SEPARATORCHAR + param.getMd5();
-        return path;
+        return this.getBasePath() + FileConstant.FILE_SEPARATORCHAR + param.getPath() + FileConstant.FILE_SEPARATORCHAR + param.getMd5();
     }
 
 

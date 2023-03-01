@@ -1,8 +1,6 @@
 package com.zukxu.upload_big_file.util;
 
-
-import com.example.upload_big_file.constant.FileConstant;
-import jdk.internal.ref.Cleaner;
+import com.zukxu.upload_big_file.constant.FileConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -10,18 +8,20 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import sun.misc.Cleaner;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.lang.reflect.Method;
 import java.nio.MappedByteBuffer;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
-
 
 @Slf4j
 @Component
@@ -426,7 +426,7 @@ public class FileUtil extends FileUtils {
         byte[] first3Bytes = new byte[3];
         try {
             boolean checked = false;
-            BufferedInputStream bis = new BufferedInputStream(new FileInputStream(path));
+            BufferedInputStream bis = new BufferedInputStream(Files.newInputStream(Paths.get(path)));
             bis.mark(0); // 读者注： bis.mark(0);修改为 bis.mark(100);我用过这段代码，需要修改上面标出的地方。
             // Wagsn注：不过暂时使用正常，遂不改之
             int read = bis.read(first3Bytes, 0, 3);
@@ -494,7 +494,6 @@ public class FileUtil extends FileUtils {
 
     @Value("${upload.window.root}")
     public void setUploadWindowRoot(String windowRoot) {
-
         uploadWindowRoot = windowRoot;
     }
 

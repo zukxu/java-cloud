@@ -1,11 +1,11 @@
 package com.zukxu.upload_big_file.context;
 
 
-import com.example.upload_big_file.annotation.UploadMode;
-import com.example.upload_big_file.enu.UploadModeEnum;
-import com.example.upload_big_file.strategy.SliceUploadStrategy;
-import com.example.upload_big_file.util.SpringContextHolder;
-import org.apache.commons.collections4.CollectionUtils;
+import cn.hutool.core.collection.CollectionUtil;
+import com.zukxu.upload_big_file.annotation.UploadMode;
+import com.zukxu.upload_big_file.enu.UploadModeEnum;
+import com.zukxu.upload_big_file.strategy.SliceUploadStrategy;
+import com.zukxu.upload_big_file.util.SpringContextHolder;
 import org.reflections.Reflections;
 import org.springframework.util.Assert;
 
@@ -18,13 +18,13 @@ public enum UploadContext {
 
     private static final String PACKAGE_NAME = "com.github.lybgeek.upload.strategy.impl";
 
-    private Map<UploadModeEnum, Class<SliceUploadStrategy>> uploadStrategyMap = new ConcurrentHashMap<>();
+    private final Map<UploadModeEnum, Class<SliceUploadStrategy>> uploadStrategyMap = new ConcurrentHashMap<>();
 
 
     public void init() {
         Reflections reflections = new Reflections(PACKAGE_NAME);
         Set<Class<?>> clzSet = reflections.getTypesAnnotatedWith(UploadMode.class);
-        if(CollectionUtils.isNotEmpty(clzSet)) {
+        if(CollectionUtil.isNotEmpty(clzSet)) {
             for(Class<?> clz : clzSet) {
                 UploadMode uploadMode = clz.getAnnotation(UploadMode.class);
                 uploadStrategyMap.put(uploadMode.mode(), (Class<SliceUploadStrategy>) clz);

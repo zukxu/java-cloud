@@ -1,9 +1,10 @@
 package com.zukxu.upload_big_file.service.impl;
 
-import com.example.upload_big_file.po.FileUploadRequest;
-import com.example.upload_big_file.template.SliceUploadTemplate;
-import com.example.upload_big_file.util.FilePathUtil;
-import com.example.upload_big_file.util.FileUtil;
+
+import com.zukxu.upload_big_file.po.FileUploadRequest;
+import com.zukxu.upload_big_file.template.SliceUploadTemplate;
+import com.zukxu.upload_big_file.util.FilePathUtil;
+import com.zukxu.upload_big_file.util.FileUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -44,8 +45,7 @@ public class MappedByteBufferUploadStrategy extends SliceUploadTemplate {
             mappedByteBuffer = fileChannel
                     .map(FileChannel.MapMode.READ_WRITE, offset, fileData.length);
             mappedByteBuffer.put(fileData);
-            boolean isOk = super.checkAndSetUploadProgress(param, uploadDirPath);
-            return isOk;
+            return super.checkAndSetUploadProgress(param, uploadDirPath);
 
         } catch(IOException e) {
             log.error(e.getMessage(), e);

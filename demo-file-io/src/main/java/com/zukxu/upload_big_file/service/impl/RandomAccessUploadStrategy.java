@@ -1,9 +1,9 @@
 package com.zukxu.upload_big_file.service.impl;
 
-import com.example.upload_big_file.po.FileUploadRequest;
-import com.example.upload_big_file.template.SliceUploadTemplate;
-import com.example.upload_big_file.util.FilePathUtil;
-import com.example.upload_big_file.util.FileUtil;
+import com.zukxu.upload_big_file.po.FileUploadRequest;
+import com.zukxu.upload_big_file.template.SliceUploadTemplate;
+import com.zukxu.upload_big_file.util.FilePathUtil;
+import com.zukxu.upload_big_file.util.FileUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,8 +37,7 @@ public class RandomAccessUploadStrategy extends SliceUploadTemplate {
             accessTmpFile.seek(offset);
             //写入该分片数据
             accessTmpFile.write(param.getFile().getBytes());
-            boolean isOk = super.checkAndSetUploadProgress(param, uploadDirPath);
-            return isOk;
+            return super.checkAndSetUploadProgress(param, uploadDirPath);
         } catch(IOException e) {
             log.error(e.getMessage(), e);
         } finally {

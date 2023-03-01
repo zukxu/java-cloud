@@ -1,9 +1,9 @@
 package com.zukxu.upload_big_file.util;
 
-import com.example.upload_big_file.enu.DateType;
+import cn.hutool.core.date.format.FastDateFormat;
+import com.zukxu.upload_big_file.enu.DateType;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.FastDateFormat;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -50,7 +50,6 @@ public class DateUtil {
 
     public static Integer dateToTimestamp(Date time) {
         Timestamp ts = new Timestamp(time.getTime());
-
         return (int) ((ts.getTime()) / 1000);
     }
 

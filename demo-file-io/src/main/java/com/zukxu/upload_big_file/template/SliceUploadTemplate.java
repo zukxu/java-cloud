@@ -1,10 +1,10 @@
 package com.zukxu.upload_big_file.template;
 
-import com.example.upload_big_file.constant.FileConstant;
-import com.example.upload_big_file.po.FileUpload;
-import com.example.upload_big_file.po.FileUploadRequest;
-import com.example.upload_big_file.strategy.SliceUploadStrategy;
-import com.example.upload_big_file.util.*;
+import com.zukxu.upload_big_file.constant.FileConstant;
+import com.zukxu.upload_big_file.po.FileUpload;
+import com.zukxu.upload_big_file.po.FileUploadRequest;
+import com.zukxu.upload_big_file.strategy.SliceUploadStrategy;
+import com.zukxu.upload_big_file.util.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 
