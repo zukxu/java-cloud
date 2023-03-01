@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,9 +21,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 @Controller
-@RequestMapping(value = "/")
+@RequestMapping(value = "/big")
 @Slf4j
-public class FileController {
+public class BigFileController {
 
 
     @Autowired
@@ -61,7 +60,7 @@ public class FileController {
 
     }
 
-    @RequestMapping(value = "checkFileMd5", method = RequestMethod.POST)
+    @PostMapping("checkFileMd5")
     @ResponseBody
     public Result<FileUpload> checkFileMd5(String md5, String path) throws IOException {
 

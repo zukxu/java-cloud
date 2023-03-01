@@ -38,7 +38,7 @@ public class FileServiceImpl implements FileService {
 
 
     private final ExecutorService executorService = Executors.newFixedThreadPool(
-            Integer.valueOf(YmlUtil.getValue("upload.thread.maxSize").toString()), (r) -> {
+            Integer.parseInt(YmlUtil.getValue("upload.thread.maxSize").toString()), (r) -> {
                 String threadName = "uploadPool-" + atomicInteger.getAndIncrement();
                 Thread thread = new Thread(r);
                 thread.setName(threadName);
