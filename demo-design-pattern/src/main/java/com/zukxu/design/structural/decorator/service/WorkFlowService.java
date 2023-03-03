@@ -1,4 +1,4 @@
-package com.zukxu.design.decorator.service;
+package com.zukxu.design.structural.decorator.service;
 
 
 import java.util.HashMap;

@@ -1,6 +1,6 @@
-package com.zukxu.design.decorator.service.impl;
+package com.zukxu.design.structural.decorator.service.impl;
 
-import com.zukxu.design.decorator.service.WorkFlowService;
+import com.zukxu.design.structural.decorator.service.WorkFlowService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,15 +17,15 @@ import java.util.HashMap;
  * @since 2022-03-31 11:47
  */
 @Slf4j
-@Service("CSVCService")
+@Service("SNService")
 @RequiredArgsConstructor
-public class WorkFlowCSVCServiceImpl implements WorkFlowService {
+public class WorkFlowSNServiceImpl implements WorkFlowService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public String dispatchCSS(HashMap<String, Object> param) {
-        log.info("集团===>省分-派发:{}", param);
-        return "集团===>省分-派发";
+        log.info("省分===>集团/三方-派发:{}", param);
+        return "省分===>集团/三方-派发";
     }
 
 }

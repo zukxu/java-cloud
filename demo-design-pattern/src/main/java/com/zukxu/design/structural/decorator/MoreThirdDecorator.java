@@ -1,6 +1,6 @@
-package com.zukxu.design.decorator;
+package com.zukxu.design.structural.decorator;
 
-import com.zukxu.design.decorator.service.WorkFlowService;
+import com.zukxu.design.structural.decorator.service.WorkFlowService;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
