@@ -18,7 +18,7 @@ import com.zukxu.design.creation.abstract_factory.service.AbstractProductB;
  * @since 2023/3/3 15:56:19
  */
 // 测试代码
-public class Client {
+public class AbstractFactoryPatternDemo {
 
     public static void main(String[] args) {
         // 创建具体工厂实例

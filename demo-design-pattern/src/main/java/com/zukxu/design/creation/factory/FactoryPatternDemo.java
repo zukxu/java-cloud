@@ -16,7 +16,7 @@ import com.zukxu.design.creation.factory.service.Product;
  * @author xupu
  * @since 2023/3/3 15:42:27
  */
-public class TestFactory {
+public class FactoryPatternDemo {
 
     public static void main(String[] args) {
         // 创建工厂A

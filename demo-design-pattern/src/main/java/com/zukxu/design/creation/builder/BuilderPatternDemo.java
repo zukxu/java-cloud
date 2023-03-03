@@ -8,7 +8,7 @@ package com.zukxu.design.creation.builder;
  * @author xupu
  * @since 2023/3/3 16:02:26
  */
-public class TestBuilder {
+public class BuilderPatternDemo {
 
     public static void main(String[] args) {
         User.Builder builder = new User.Builder("zuk", "xu");
