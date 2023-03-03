@@ -10,16 +10,15 @@ package com.zukxu.design.structural.flyweight;
  */
 public class ConcreteFlyweight implements Flyweight {
 
-        private int intrinsicState; // 内部状态
+    private int intrinsicState; // 内部状态
 
-        public ConcreteFlyweight(int intrinsicState) {
-                this.intrinsicState = intrinsicState;
-        }
+    public ConcreteFlyweight(int intrinsicState) {
+        this.intrinsicState = intrinsicState;
+    }
 
-        @Override
-        public void operation(int extrinsicState) {
-                System.out.println("Intrinsic state: " + intrinsicState +
-                                   ", Extrinsic state: " + extrinsicState);
-        }
+    @Override
+    public void operation(int extrinsicState) {
+        System.out.println("Intrinsic state: " + intrinsicState + ", Extrinsic state: " + extrinsicState);
+    }
 
 }
