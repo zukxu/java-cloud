@@ -1,4 +1,4 @@
-package com.zukxu.design.behavioral.templateMethod;
+package com.zukxu.design.behavioral.templateMethod.demo1;
 
 /**
  * <p>
