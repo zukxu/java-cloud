@@ -1,5 +1,8 @@
 package com.zukxu.design.behavioral.visitor.demo1;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * <p>
  *
@@ -11,18 +14,18 @@ package com.zukxu.design.behavioral.visitor.demo1;
 // 定义图形接口
 interface Shape {
 
-    public void accept(Visitor visitor);
+    void accept(Visitor visitor);
 
 }
 
 // 定义访问者接口
 interface Visitor {
 
-    public void visit(Circle circle);
+    void visit(Circle circle);
 
-    public void visit(Rectangle rectangle);
+    void visit(Rectangle rectangle);
 
-    public void visit(Triangle triangle);
+    void visit(Triangle triangle);
 
 }
 
@@ -107,6 +110,27 @@ class Triangle implements Shape {
 
 }
 
+// 对象结构类
+class ShapeCollection {
+
+    private List<Shape> shapes = new ArrayList<>();
+
+    public void addShape(Shape shape) {
+        shapes.add(shape);
+    }
+
+    public void removeShape(Shape shape) {
+        shapes.remove(shape);
+    }
+
+    public void accept(Visitor visitor) {
+        for(Shape shape : shapes) {
+            shape.accept(visitor);
+        }
+    }
+
+}
+
 // 实现计算面积的访问者
 class AreaVisitor implements Visitor {
 
@@ -168,6 +192,20 @@ class PerimeterVisitor implements Visitor {
 
     public double getTotalArea() {
         return totalPerimeter;
+    }
+
+    public static void main(String[] args) {
+        List<Shape> shapes = new ArrayList<>();
+        shapes.add(new Circle(3));
+        shapes.add(new Rectangle(4, 5));
+        shapes.add(new Triangle(3, 4, 5));
+
+        Visitor areaVisitor = new AreaVisitor();
+        Visitor perimeterVisitor = new PerimeterVisitor();
+        for(Shape shape : shapes) {
+            shape.accept(areaVisitor);
+            shape.accept(perimeterVisitor);
+        }
     }
 
 }
