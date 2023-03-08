@@ -1,4 +1,6 @@
-package com.zukxu.design.behavioral.command;
+package com.zukxu.design.behavioral.command.demo1;
+
+import com.zukxu.design.behavioral.command.Command;
 
 /**
  * <p>

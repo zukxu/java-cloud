@@ -1,24 +1,24 @@
-package com.zukxu.design.behavioral.command.entity;
+package com.zukxu.design.behavioral.command.demo1.entity;
 
 /**
  * <p>
- * 灯光
+ * 风扇
  * </p>
  *
  * @author xupu
- * @since 2023/3/8 15:05:34
+ * @since 2023/3/8 15:14:23
  */
-public class Light {
+public class Fan {
 
     private boolean on;
 
     public void switchOn() {
-        System.out.println("Light is on");
+        System.out.println("Fan is on");
         on = true;
     }
 
     public void switchOff() {
-        System.out.println("Light is off");
+        System.out.println("Fan is off");
         on = false;
     }
 

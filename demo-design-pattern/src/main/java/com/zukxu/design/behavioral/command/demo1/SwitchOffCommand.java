@@ -1,7 +1,8 @@
-package com.zukxu.design.behavioral.command;
+package com.zukxu.design.behavioral.command.demo1;
 
-import com.zukxu.design.behavioral.command.entity.Fan;
-import com.zukxu.design.behavioral.command.entity.Light;
+import com.zukxu.design.behavioral.command.Command;
+import com.zukxu.design.behavioral.command.demo1.entity.Fan;
+import com.zukxu.design.behavioral.command.demo1.entity.Light;
 
 /**
  * <p>
