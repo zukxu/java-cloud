@@ -193,6 +193,9 @@ class PerimeterVisitor implements Visitor {
     public double getTotalArea() {
         return totalPerimeter;
     }
+}
+
+public class Demo1 {
 
     public static void main(String[] args) {
         List<Shape> shapes = new ArrayList<>();
@@ -207,5 +210,4 @@ class PerimeterVisitor implements Visitor {
             shape.accept(perimeterVisitor);
         }
     }
-
 }
