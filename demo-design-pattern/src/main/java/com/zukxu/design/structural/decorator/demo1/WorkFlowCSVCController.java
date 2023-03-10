@@ -1,7 +1,7 @@
-package com.zukxu.design.structural.decorator;
+package com.zukxu.design.structural.decorator.demo1;
 
 
-import com.zukxu.design.structural.decorator.service.WorkFlowService;
+import com.zukxu.design.structural.decorator.demo1.service.WorkFlowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.PostMapping;
