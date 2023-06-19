@@ -12,4 +12,4 @@
 
 ## mybatis-plus 批量插入
 
- 
+## mybatis-plus 通用枚举类

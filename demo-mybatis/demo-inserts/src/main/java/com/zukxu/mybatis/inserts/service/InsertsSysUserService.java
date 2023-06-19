@@ -17,5 +17,6 @@ import java.util.List;
 public interface InsertsSysUserService extends IService<SysUser> {
 
     List<SysUser> list(Integer limit) throws IOException;
+
     void export(SysUser demoMybatisInserts) throws IOException;
 }
