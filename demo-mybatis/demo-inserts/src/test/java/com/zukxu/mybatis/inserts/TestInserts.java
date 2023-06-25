@@ -37,7 +37,7 @@ public class TestInserts {
 
     @Autowired
     private SqlSessionFactory sqlSessionFactory;
-    
+
     private final int batchCount = 1000;// 每批commit的个数
     private List<SysUser> list = new ArrayList<>();
     private final String pwd = DigestUtil.md5Hex("123456");
@@ -123,13 +123,11 @@ public class TestInserts {
         // 一般按经验来说，一次性插20~50行数量是比较合适的，时间消耗也能接受
         //参考：https://mybatis.org/mybatis-dynamic-sql/docs/insert.html#batch-insert-support
         //基本思想是将 MyBatis session 的 executor type 设为 Batch ，然后多次执行插入语句
-        int result = 1;
         List<SysUser> list = new ArrayList<>();
         LocalDateTime now = LocalDateTime.now();
         StopWatch sw = new StopWatch();
         try (SqlSession batchSqlSession = sqlSessionFactory.openSession(ExecutorType.BATCH, false)) {
             SysUserMapper mapper = batchSqlSession.getMapper(SysUserMapper.class);
-            int batchLastIndex = batchCount;// 每批最后一个的下标
             for (int i = 200001; i < 300001; i++) {
                 if (i % batchCount == 0) {
                     sw.start(String.valueOf(i));
@@ -152,18 +150,9 @@ public class TestInserts {
                                 .crmAccount("crm" + i)
                                 .build());
                 if (i % batchCount == 0) {
-                    for (int index = 0; index < list.size(); ) {
-                        if (batchLastIndex >= list.size()) {
-                            batchLastIndex = list.size();
-                            result = result * mapper.insertBatch(list.subList(index, batchLastIndex));
-                            break;// 数据插入完毕，退出循环
-                        } else {
-                            result = result * mapper.insertBatch(list.subList(index, batchLastIndex));
-                            batchSqlSession.commit();
-                            index = batchLastIndex;// 设置下一批下标
-                            batchLastIndex = index + (batchCount - 1);
-                        }
-                    }
+                    mapper.insertBatch(list);
+                    batchSqlSession.commit();
+                    list.clear();
                     sw.stop();
                 }
             }
