@@ -1,6 +1,7 @@
 package com.zukxu.mybatis.enums.enums;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 
 @Getter
@@ -17,6 +18,7 @@ public enum LevelEnum {
     }
 
     @EnumValue
+    @JsonValue
     private final String code;
     private final String desc;
 
