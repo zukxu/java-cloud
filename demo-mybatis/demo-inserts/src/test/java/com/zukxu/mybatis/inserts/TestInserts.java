@@ -128,7 +128,7 @@ public class TestInserts {
         StopWatch sw = new StopWatch();
         try (SqlSession batchSqlSession = sqlSessionFactory.openSession(ExecutorType.BATCH, false)) {
             SysUserMapper mapper = batchSqlSession.getMapper(SysUserMapper.class);
-            for (int i = 200001; i < 300001; i++) {
+            for (int i = 300001; i < 3000001; i++) {
                 if (i % batchCount == 0) {
                     sw.start(String.valueOf(i));
                 }
