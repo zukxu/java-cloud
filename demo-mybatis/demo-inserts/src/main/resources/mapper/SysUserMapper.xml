@@ -85,4 +85,53 @@
             </if>
         </foreach>
     </insert>
+
+    <select id="selectByExample" resultMap="BaseResultMap">
+        select id,
+               dept_id,
+               login_name,
+               user_name,
+               password,
+               sex,
+               email,
+               phone,
+               status,
+               del_flag,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               remark,
+               level,
+               yd4a_account,
+               oa_account,
+               crm_account
+        from sys_user
+
+    </select>
+
+    <select id="streamByExample" resultMap="BaseResultMap">
+        select id,
+               dept_id,
+               login_name,
+               user_name,
+               password,
+               sex,
+               email,
+               phone,
+               status,
+               del_flag,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               remark,
+               level,
+               yd4a_account,
+               oa_account,
+               crm_account
+        from sys_user
+
+    </select>
+
 </mapper>

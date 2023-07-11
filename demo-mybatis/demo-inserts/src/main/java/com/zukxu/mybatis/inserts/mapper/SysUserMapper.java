@@ -40,4 +40,12 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
 
     void scanMapper(@Param(Constants.WRAPPER) QueryWrapper<SysUser> wrapper, ResultHandler<SysUser> handler);
 
+    /**
+     * 查询导出 常用方法
+     */
+    List<SysUser> selectByExample(SysUser user);
+    /**
+     * 查询导出 流式查询
+     */
+    List<SysUser> streamByExample(SysUser user); //以stream形式从mysql获取数据
 }

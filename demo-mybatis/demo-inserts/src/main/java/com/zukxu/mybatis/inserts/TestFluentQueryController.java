@@ -1,6 +1,7 @@
 package com.zukxu.mybatis.inserts;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.zukxu.mybatis.inserts.model.SysUser;
 import com.zukxu.mybatis.inserts.service.InsertsSysUserService;
 import jakarta.annotation.Resource;
@@ -9,6 +10,8 @@ import lombok.SneakyThrows;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.io.IOException;
 
 /**
  * <p>
@@ -26,9 +29,24 @@ public class TestFluentQueryController {
     private InsertsSysUserService insertsSysUserService;
 
     @SneakyThrows
+    @GetMapping("/list")
+    public String list() {
+        return String.valueOf(insertsSysUserService.list(new LambdaQueryWrapper<>(SysUser.class).last("limit 10")));
+    }
+
+    @SneakyThrows
     @GetMapping("/export")
     public void export(HttpServletResponse response) {
         insertsSysUserService.export(new SysUser());
     }
 
+    @GetMapping("streamDownload")
+    public void streamDownload(HttpServletResponse response) throws IOException {
+        insertsSysUserService.streamDownload(response);
+    }
+
+    @GetMapping("traditionDownload")
+    public void traditionDownload(HttpServletResponse response) throws IOException {
+        insertsSysUserService.traditionDownload(response);
+    }
 }

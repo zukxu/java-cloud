@@ -140,4 +140,8 @@ public class SysUser {
     @TableField(value = "crm_account")
     private String crmAccount;
 
+    @Override
+    public String toString() {
+        return id + "," + deptId + "," + loginName + "," + userName + "," + password + "," + sex + "," + email + "," + phone + "," + status + "," + delFlag + "," + createBy + "," + createTime + "," + updateBy + "," + updateTime + "," + remark + "," + level + "," + yd4aAccount + "," + oaAccount + "," + crmAccount;
+    }
 }
