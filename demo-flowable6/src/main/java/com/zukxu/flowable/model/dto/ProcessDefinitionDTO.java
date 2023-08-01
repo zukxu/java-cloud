@@ -1,6 +1,5 @@
 package com.zukxu.flowable.model.dto;
 
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.zukxu.flowable.common.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;

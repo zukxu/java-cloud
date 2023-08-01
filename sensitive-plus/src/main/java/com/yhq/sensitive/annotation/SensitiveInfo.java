@@ -12,6 +12,7 @@ import java.lang.annotation.RetentionPolicy;
 
 /**
  * 脱敏信息
+ *
  * @author yhq
  * @date 2021年9月6日 09点57分
  */
@@ -23,6 +24,7 @@ public @interface SensitiveInfo {
 
     /**
      * 脱敏策略
+     *
      * @return
      */
     Class<? extends IStrategy> strategy() default DefaultSensitiveStrategy.class;
@@ -43,12 +45,14 @@ public @interface SensitiveInfo {
 
     /**
      * 开始显示几位
+     *
      * @return
      */
     int begin() default 0;
 
     /**
      * 结束显示几位
+     *
      * @return
      */
     int end() default 0;

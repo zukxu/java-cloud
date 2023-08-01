@@ -11,18 +11,23 @@ import java.util.Map;
  * @Date 2021-09-08 9:37
  */
 public class TestStringJoin {
-    private static String lineSplit = "\\|";
     private static final String GZ_PROV = "851";
+    private static String lineSplit = "\\|";
     private static Map<String, String> eciMap_sw = new HashMap<>();
     private static Map<String, String> phone_provMap = new HashMap<>();
 
     private static SimpleDateFormat formatter1 = new SimpleDateFormat("yyyyMMddHHmm");
     private static SimpleDateFormat formatter2 = new SimpleDateFormat("yyyyMMdd");
 
-
     public static void main(String[] args) {
         String city = "851";
-        String dataConfig = "test02|1-28863105,1-28836993,...|0|null|100,200,270" + "~" + "test01|1-28863105,1-28836993,...|0|851,854,852|null" + "~" + "test03|1-28863105,1-28836993,...|0|851,854,852|100.200.270" + "~" + "test04|1-28863105,1-28836993,...|0|null|null";
+        String dataConfig = "test02|1-28863105,1-28836993,...|0|null|100,200,270" +
+                            "~" +
+                            "test01|1-28863105,1-28836993,...|0|851,854,852|null" +
+                            "~" +
+                            "test03|1-28863105,1-28836993,...|0|851,854,852|100.200.270" +
+                            "~" +
+                            "test04|1-28863105,1-28836993,...|0|null|null";
 
         String[] dataArray = dataConfig.split("~", -1);
         for (String data : dataArray) {
@@ -100,7 +105,21 @@ public class TestStringJoin {
 
     private static void readSwConfigs() {
         //1-28863105,1-28836993,1-168703107,1-29132930,1-168744578,1-168738434,1-168738433,1-168694658,1-168694657,1-29124739,1-93727618,1-93747587,1-28861313,34266-8011,34266-8012,34193-48371,34193-1538,34193-48382,34266-28051,34266-57121,33937-61881,33937-61882,33937-61883,33937-5328,33937-5329
-        String swconfigs = "test02" + "|" + "1-28863105,1-28836993,1-168703107" + "|" + "0" + "|" + "" + "~" + "test03" + "|" + "1-28863105,1-28836993,1-168703107,1-29132930,1-168744578,1-168738434,1-168738433,1-168694658,1-168694657,1-29124739" + "|" + "0" + "|" + "200,270,660";
+        String swconfigs = "test02" +
+                           "|" +
+                           "1-28863105,1-28836993,1-168703107" +
+                           "|" +
+                           "0" +
+                           "|" +
+                           "" +
+                           "~" +
+                           "test03" +
+                           "|" +
+                           "1-28863105,1-28836993,1-168703107,1-29132930,1-168744578,1-168738434,1-168738433,1-168694658,1-168694657,1-29124739" +
+                           "|" +
+                           "0" +
+                           "|" +
+                           "200,270,660";
         String[] swconfig = swconfigs.split("~");
         for (String swc : swconfig) {
             String[] conf_data = swc.split("\\|", -1);

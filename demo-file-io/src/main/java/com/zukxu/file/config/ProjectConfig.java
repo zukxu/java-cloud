@@ -18,7 +18,6 @@ public class ProjectConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler(fileConfigProperties.getReturnPath() + "/**")
-                .addResourceLocations("file:/" + fileConfigProperties.getUploadPath() + "/");
+        registry.addResourceHandler(fileConfigProperties.getReturnPath() + "/**").addResourceLocations("file:/" + fileConfigProperties.getUploadPath() + "/");
     }
 }

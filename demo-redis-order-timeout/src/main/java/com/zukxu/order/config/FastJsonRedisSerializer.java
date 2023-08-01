@@ -14,12 +14,12 @@ import org.springframework.data.redis.serializer.SerializationException;
  * @Date 2021-09-23 14:35
  */
 public class FastJsonRedisSerializer<T> implements RedisSerializer<T> {
-    private ObjectMapper objectMapper = new ObjectMapper();
-    private Class<T> clazz;
-
     static {
         ParserConfig.getGlobalInstance().setAutoTypeSupport(true);
     }
+
+    private ObjectMapper objectMapper = new ObjectMapper();
+    private Class<T> clazz;
 
     public FastJsonRedisSerializer(Class<T> clazz) {
         super();

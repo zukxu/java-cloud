@@ -19,7 +19,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.TreeMap;
 
-
 @Controller
 @RequestMapping(value = "cardPlus")
 public class CardPlusController extends BaseController {
@@ -177,8 +176,7 @@ public class CardPlusController extends BaseController {
      * 答题卡识别优化
      */
     @RequestMapping(value = "answerSheet")
-    public void answerSheet(HttpServletResponse response, String imageFile, Integer binary_thresh,
-                            String blue_red_thresh) {
+    public void answerSheet(HttpServletResponse response, String imageFile, Integer binary_thresh, String blue_red_thresh) {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         logger.info("\n 完整答题卡识别");
 
@@ -240,7 +238,6 @@ public class CardPlusController extends BaseController {
         // 获取x坐标点，返回的是竖向的柱状图集合
         List<Rect> listX = getBlockRect(matBottom, 0, 0);
 
-
         // 高阶处理：增加HSV颜色查找，查找红色像素点
         Mat matRed = findColorByHSV(sourceMat, 156, 180);
         destPath = Constants.PATH + Constants.DEST_IMAGE_PATH + "dtk9.png";
@@ -285,8 +282,7 @@ public class CardPlusController extends BaseController {
             Rect rectX = listX.get(no);
             for (int an = 0; an < listY.size(); an++) {
                 Rect rectY = listY.get(an);
-                Mat selectDst = new Mat(dstNoRed, new Range(rectY.y, rectY.y + rectY.height), new Range(rectX.x,
-                        rectX.x + rectX.width));
+                Mat selectDst = new Mat(dstNoRed, new Range(rectY.y, rectY.y + rectY.height), new Range(rectX.x, rectX.x + rectX.width));
                 // 本来是在每个区域内进行二值化，后来挪至了14步，整体进行二值化，因此注释掉此处2行
 
                 double p100 = Core.countNonZero(selectDst) * 100 / (selectDst.size().area());
@@ -296,36 +292,27 @@ public class CardPlusController extends BaseController {
                 System.out.println(que_answer + ":			" + p100);
 
                 if (p100 >= Integer.parseInt(blueValue)) {// 蓝色
-                    Imgproc.rectangle(sourceMat, new Point(rectX.x, rectY.y), new Point(rectX.x + rectX.width,
-                                    rectY.y + rectY.height),
-                            new Scalar(255, 0, 0), 2);
+                    Imgproc.rectangle(sourceMat, new Point(rectX.x, rectY.y), new Point(rectX.x + rectX.width, rectY.y + rectY.height), new Scalar(255, 0, 0), 2);
                     if (StrUtil.isNotEmpty(resultMap.get(que))) {
                         resultMap.put(que, resultMap.get(que) + "," + answer);
                     } else {
                         resultMap.put(que, answer);
                     }
                 } else if (p100 > Integer.parseInt(redValue) && p100 < Integer.parseInt(blueValue)) {// 红色
-                    Imgproc.rectangle(sourceMat, new Point(rectX.x, rectY.y), new Point(rectX.x + rectX.width,
-                                    rectY.y + rectY.height),
-                            new Scalar(0, 0, 255), 2);
+                    Imgproc.rectangle(sourceMat, new Point(rectX.x, rectY.y), new Point(rectX.x + rectX.width, rectY.y + rectY.height), new Scalar(0, 0, 255), 2);
                     if (StrUtil.isNotEmpty(resultMap.get(que))) {
                         resultMap.put(que, resultMap.get(que) + ",(" + answer + ")");
                     } else {
                         resultMap.put(que, "(" + answer + ")");
                     }
                 } else {// 绿色
-                    Imgproc.rectangle(sourceMat, new Point(rectX.x, rectY.y), new Point(rectX.x + rectX.width,
-                                    rectY.y + rectY.height),
-                            new Scalar(0, 255, 0), 1);
+                    Imgproc.rectangle(sourceMat, new Point(rectX.x, rectY.y), new Point(rectX.x + rectX.width, rectY.y + rectY.height), new Scalar(0, 255, 0), 1);
                 }
             }
         }
 
         for (int i = 1; i <= 100; i++) {
-            resultValue.append("  ")
-                    .append(i)
-                    .append("=")
-                    .append(StrUtil.isEmpty(resultMap.get(i)) ? "未填写" : resultMap.get(i));
+            resultValue.append("  ").append(i).append("=").append(StrUtil.isEmpty(resultMap.get(i)) ? "未填写" : resultMap.get(i));
             if (i % 5 == 0) {
                 resultValue.append("<br>");
             }
@@ -363,7 +350,6 @@ public class CardPlusController extends BaseController {
         int colStep = (int) Math.floor(histImgCols / histSize.get(0, 0)[0]);// 舍去小数，不能四舍五入，有可能列宽不够
         Mat histImg = new Mat(histImgRows, histImgCols, CvType.CV_8UC3, new Scalar(255, 255, 255)); // 重新建一张图片，绘制直方图
 
-
         int max = (int) minmaxLoc.maxVal;
         System.out.println("--------" + max);
         double bin_u = (double) (histImgRows - 20) / max; // max: 最高条的像素个数，则 bin_u 为单个像素的高度，因为画直方图的时候上移了20像素，要减去
@@ -374,17 +360,19 @@ public class CardPlusController extends BaseController {
             Imgproc.putText(histImg, keDu + "", new Point(0, histImgRows - keDu * bin_u), 1, 1, new Scalar(0, 0, 0));
         }
 
-
         for (int i = 0; i < histSize.get(0, 0)[0]; i++) { // 画出每一个灰度级分量的比例，注意OpenCV将Mat最左上角的点作为坐标原点
-            Imgproc.rectangle(histImg, new Point(colStep * i, histImgRows - 20), new Point(colStep * (i + 1),
-                    histImgRows - bin_u * Math.round(histogramOfGray.get(i, 0)[0]) - 20), new Scalar(0, 0, 0), 1, 8, 0);
+            Imgproc.rectangle(histImg,
+                              new Point(colStep * i, histImgRows - 20),
+                              new Point(colStep * (i + 1), histImgRows - bin_u * Math.round(histogramOfGray.get(i, 0)[0]) - 20),
+                              new Scalar(0, 0, 0),
+                              1,
+                              8,
+                              0
+                             );
             keDu = i * 10;
             // 每隔10画一下刻度
-            Imgproc.rectangle(histImg, new Point(colStep * keDu, histImgRows - 20), new Point(colStep * (keDu + 1),
-                            histImgRows - 20),
-                    new Scalar(255, 0, 0), 2, 8, 0);
-            Imgproc.putText(histImg, keDu + "", new Point(colStep * keDu, histImgRows - 5), 1, 1, new Scalar(255, 0,
-                    0)); //
+            Imgproc.rectangle(histImg, new Point(colStep * keDu, histImgRows - 20), new Point(colStep * (keDu + 1), histImgRows - 20), new Scalar(255, 0, 0), 2, 8, 0);
+            Imgproc.putText(histImg, keDu + "", new Point(colStep * keDu, histImgRows - 5), 1, 1, new Scalar(255, 0, 0)); //
             // 附上x轴刻度
         }
 

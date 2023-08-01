@@ -1,6 +1,7 @@
 # 数据库文档生成
 
 ## 添加依赖
+
 ```xml
 <dependency>
     <groupId>org.freemarker</groupId>
@@ -14,7 +15,9 @@
     <version>1.0.5</version>
 </dependency>
 ```
+
 ## 配置数据库信息在配置文件之中
+
 ```yml
 spring:
   datasource:
@@ -25,6 +28,7 @@ spring:
 ```
 
 ## 测试类
+
 ```java
 @SpringBootTest
 class ScrewApplicationTests {

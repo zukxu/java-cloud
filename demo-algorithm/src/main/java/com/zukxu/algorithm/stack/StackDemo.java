@@ -12,7 +12,7 @@ import java.util.Stack;
 public class StackDemo {
 
     public static void main(String[] args) {
-        int[] myArray = { 23, 93, 56, 92, 39 };
+        int[] myArray = {23, 93, 56, 92, 39};
         reverseArrayByStack(myArray);
 
     }
@@ -20,13 +20,13 @@ public class StackDemo {
     /** 使用Stack反转数组 */
     private static void reverseArrayByStack(int[] myArray) {
         Stack<Integer> stack = new Stack<>();
-        for(int j : myArray) {
+        for (int j : myArray) {
             stack.push(j);
         }
 
         int[] reverseArray = new int[myArray.length];
         int size = stack.size();
-        for(int i = 0; i < size; i++) {
+        for (int i = 0; i < size; i++) {
             reverseArray[i] = stack.pop();
         }
 

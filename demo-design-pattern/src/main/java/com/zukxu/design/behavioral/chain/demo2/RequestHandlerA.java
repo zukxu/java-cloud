@@ -22,7 +22,7 @@ public class RequestHandlerA extends AbstractRequestHandler {
     public boolean handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
         // 处理请求
         int num = RandomUtil.getRandom().nextInt();
-        if(num % 3 == 1) {
+        if (num % 3 == 1) {
             return true;
         } else {
             // 请求未被处理，调用下一个请求处理器

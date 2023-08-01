@@ -15,7 +15,7 @@ public class DemoWriter1 {
 
     public static void main(String[] args) throws IOException {
         //D:\temp\workFile\io\outputStream2.txt
-        FileWriter writer = new FileWriter("D:\\temp\\workFile\\io\\outputStream2.txt",true);
+        FileWriter writer = new FileWriter("D:\\temp\\workFile\\io\\outputStream2.txt", true);
         String str = "124asdasd按你说的静安寺都不会那我们你能不能那你";
         char[] c = new char[1024];
 

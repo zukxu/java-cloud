@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class MyBean1 {
     @PostConstruct
     public void init() {
-        System.out.println("MyBean1初始化了"+ LocalDateTime.now());
+        System.out.println("MyBean1初始化了" + LocalDateTime.now());
     }
 
     public void hello() {

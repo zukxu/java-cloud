@@ -46,8 +46,7 @@ public class DynamicDataSourceConfig {
     }
 
     @Bean(name = "dynamicDataSource")
-    public DynamicDataSource DataSource(@Qualifier("PrimaryDataSource") DataSource primaryDataSource,
-                                        @Qualifier("SecondaryDataSource") DataSource secondaryDataSource) {
+    public DynamicDataSource DataSource(@Qualifier("PrimaryDataSource") DataSource primaryDataSource, @Qualifier("SecondaryDataSource") DataSource secondaryDataSource) {
         //这个地方是比较核心的, targetDataSource集合是我们数据库和名字之间的映射
         Map<Object, Object> targetDataSource = new HashMap<>();
         targetDataSource.put(DataSourceType.DataBaseType.Primary, primaryDataSource);
@@ -57,7 +56,6 @@ public class DynamicDataSourceConfig {
         dataSource.setDefaultTargetDataSource(primaryDataSource);//设置默认对象
         return dataSource;
     }
-
 
     @Bean(name = "SqlSessionFactory")
     public SqlSessionFactory SqlSessionFactory(@Qualifier("dynamicDataSource") DataSource dynamicDataSource) throws Exception {

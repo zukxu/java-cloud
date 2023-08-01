@@ -24,6 +24,13 @@ import java.util.Map;
 @Service
 public class TemplateBuildService {
 
+    public static void main(String[] args) {
+        TemplateBuildService templateBuildService = new TemplateBuildService();
+        templateBuildService.htmlExport(null);
+        //templateBuildService.freemarkerExport(null);
+
+    }
+
     /**
      * 已有html文件导出
      * 不强制放在resources下
@@ -52,17 +59,17 @@ public class TemplateBuildService {
     @SneakyThrows
     public void freemarkerExport(HttpServletResponse response) {
         Map<String, Object> dataMap = DataInitUtils.getProductDataMap();
-        try(ExcelBuilder excelBuilder = new FreemarkerExcelBuilder()) {
+        try (ExcelBuilder excelBuilder = new FreemarkerExcelBuilder()) {
             Workbook workbook = excelBuilder
                     // fileTemplate(dirPath,fileName)
-                    .classpathTemplate("/templates/freemarkerToExcelExample.ftl")
-                    .build(dataMap);
+                    .classpathTemplate("/templates/freemarkerToExcelExample.ftl").build(dataMap);
 
             //AttachmentExportUtil.export(workbook, "freemarker_excel", response);
             FileExportUtil.export(workbook, new File("E:\\temp\\myexcel\\freemarker_excel.xlsx"));
         }
 
     }
+
     /**
      * 斜线绘制
      * 1、模板
@@ -74,8 +81,7 @@ public class TemplateBuildService {
     public void solidExport() {
         Workbook workbook = new FreemarkerExcelBuilder()
                 // fileTemplate(dirPath,fileName)
-                .classpathTemplate("/templates/freemarkerToExcelExample.ftl")
-                .build(DataInitUtils.getProductDataMap());
+                .classpathTemplate("/templates/freemarkerToExcelExample.ftl").build(DataInitUtils.getProductDataMap());
         FileExportUtil.export(workbook, new File("E:\\temp\\myexcel\\solid_excel"));
     }
 
@@ -87,16 +93,8 @@ public class TemplateBuildService {
     public void commentExport() {
         Workbook workbook = new FreemarkerExcelBuilder()
                 // fileTemplate(dirPath,fileName)
-                .classpathTemplate("/templates/freemarkerToExcelExample.ftl")
-                .build(DataInitUtils.getProductDataMap());
+                .classpathTemplate("/templates/freemarkerToExcelExample.ftl").build(DataInitUtils.getProductDataMap());
         FileExportUtil.export(workbook, new File("E:\\temp\\myexcel\\comment_excel"));
-    }
-
-    public static void main(String[] args) {
-        TemplateBuildService templateBuildService = new TemplateBuildService();
-        templateBuildService.htmlExport(null);
-        //templateBuildService.freemarkerExport(null);
-
     }
 
 }

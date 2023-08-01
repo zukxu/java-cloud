@@ -624,7 +624,8 @@ public class LoginController {
 
 ##### 6.1.2 验证是否登录
 
-![](https://cdn.nlark.com/yuque/0/2021/png/2687219/1619085158420-40a06272-a52f-4663-a1da-51f8392fe916.png#align=left&display=inline&height=382&margin=%5Bobject%20Object%5D&originHeight=382&originWidth=817&size=0&status=done&style=none&width=817)6.1.3
+![](https://cdn.nlark.com/yuque/0/2021/png/2687219/1619085158420-40a06272-a52f-4663-a1da-51f8392fe916.png#align=left&display=inline&height=382&margin=%5Bobject%20Object%5D&originHeight=382&originWidth=817&size=0&status=done&style=none&width=817)
+6.1.3
 测试角色权限
 
 ![](https://cdn.nlark.com/yuque/0/2021/png/2687219/1619085158364-8302109a-b67c-4a1d-9e12-395de5be4090.png#align=left&display=inline&height=419&margin=%5Bobject%20Object%5D&originHeight=419&originWidth=623&size=0&status=done&style=none&width=623)

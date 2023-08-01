@@ -1,6 +1,5 @@
 package com.zukxu.idem.anno;
 
-
 import java.lang.annotation.*;
 
 /**
@@ -11,7 +10,7 @@ import java.lang.annotation.*;
  * @author xupu
  * @since 2022/12/14 20:40:39
  */
-@Target({ ElementType.METHOD })
+@Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface IdempotenceRequired {

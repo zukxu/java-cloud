@@ -1,6 +1,5 @@
 package com.zukxu.mybatis.inserts;
 
-
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.zukxu.mybatis.inserts.model.SysUser;
 import com.zukxu.mybatis.inserts.service.InsertsSysUserService;

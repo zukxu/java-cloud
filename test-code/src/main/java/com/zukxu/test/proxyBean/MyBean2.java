@@ -15,16 +15,16 @@ public class MyBean2 {
 
     public MyBean1 myBean1;
 
-    public MyBean2(MyBean1 myBean1){
-        this.myBean1=myBean1;
+    public MyBean2(MyBean1 myBean1) {
+        this.myBean1 = myBean1;
     }
 
     @PostConstruct
-    public void init(){
-        System.out.println("MyBean2初始化了"+ LocalDateTime.now());
+    public void init() {
+        System.out.println("MyBean2初始化了" + LocalDateTime.now());
     }
 
-    public void hello(){
+    public void hello() {
         System.out.println("MyBean2 hello");
     }
 }

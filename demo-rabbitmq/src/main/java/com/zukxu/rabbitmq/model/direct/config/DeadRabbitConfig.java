@@ -14,20 +14,20 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class DeadRabbitConfig {
-	//	声明注册direct模式的交换机
-	@Bean
-	public DirectExchange deadExchange() {
-		return new DirectExchange("dead_direct_exchange", true, false);
-	}
+    //	声明注册direct模式的交换机
+    @Bean
+    public DirectExchange deadExchange() {
+        return new DirectExchange("dead_direct_exchange", true, false);
+    }
 
-	//	设置死信队列
-	@Bean
-	public Queue deadQueue() {
-		return new Queue("dead_direct_queue", true);
-	}
+    //	设置死信队列
+    @Bean
+    public Queue deadQueue() {
+        return new Queue("dead_direct_queue", true);
+    }
 
-	@Bean
-	public Binding deadBinding() {
-		return BindingBuilder.bind(deadQueue()).to(deadExchange()).with("dead");
-	}
+    @Bean
+    public Binding deadBinding() {
+        return BindingBuilder.bind(deadQueue()).to(deadExchange()).with("dead");
+    }
 }

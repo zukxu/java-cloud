@@ -1,6 +1,5 @@
 package com.zukxu.cv.common.utils;
 
-
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.ResourceBundle;

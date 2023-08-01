@@ -10,10 +10,10 @@ import lombok.experimental.Accessors;
 @Data
 @Accessors(chain = true)
 public class Record {
-	private Integer mid;
-	private String title;
-	private String url;
-	private String img;
-	private String description;
-	private Boolean isHot;
+    private Integer mid;
+    private String title;
+    private String url;
+    private String img;
+    private String description;
+    private Boolean isHot;
 }

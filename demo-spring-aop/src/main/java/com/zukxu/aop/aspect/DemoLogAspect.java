@@ -23,10 +23,10 @@ public class DemoLogAspect {
     //@Pointcut("@annotation(org.springframework.web.bind.annotation.GetMapping)")
     // 定义一个切点：所有满足此表达式的类都会织入advice
     @Pointcut("execution(* com.zukxu.aop.controller..*.*(String))")
-    private void DemoLogAspectPoint(){}
+    private void DemoLogAspectPoint() {}
 
     @Before("DemoLogAspectPoint()")
-    private void logAdvice(){
+    private void logAdvice() {
         log.info("get请求的advice触发了");
     }
 }

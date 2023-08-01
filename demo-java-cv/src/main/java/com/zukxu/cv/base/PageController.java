@@ -1,6 +1,5 @@
 package com.zukxu.cv.base;
 
-
 import com.zukxu.cv.common.utils.Constants;
 import com.zukxu.cv.common.utils.OpenCVUtil;
 import com.zukxu.cv.common.web.BaseController;
@@ -118,9 +117,7 @@ public class PageController extends BaseController {
             System.out.println("轮廓面积：" + contArea);
             if (contArea > 1200) {// 此处是根据轮廓面积
                 // 红线画出识别的轮廓
-                Imgproc.rectangle(image, new Point(r.x, r.y), new Point(r.x + r.width, r.y + r.height), new Scalar(0,
-                        0,
-                        255), 2);
+                Imgproc.rectangle(image, new Point(r.x, r.y), new Point(r.x + r.width, r.y + r.height), new Scalar(0, 0, 255), 2);
                 pageSize++;
             }
         }
@@ -164,8 +161,7 @@ public class PageController extends BaseController {
         Core.normalize(destination, destination, 0, 255, Core.NORM_MINMAX, -1, new Mat());
         Core.MinMaxLocResult minmaxLoc = Core.minMaxLoc(destination);
         Point matchLoc = minmaxLoc.maxLoc;
-        Imgproc.rectangle(pageImage, matchLoc, new Point(matchLoc.x + matchTemp.cols(), matchLoc.y + matchTemp.rows())
-                , new Scalar(0), 2);
+        Imgproc.rectangle(pageImage, matchLoc, new Point(matchLoc.x + matchTemp.cols(), matchLoc.y + matchTemp.rows()), new Scalar(0), 2);
         System.out.println(matchLoc.x + "   " + matchLoc.y);
         pageSize = getPage(matchLoc.x) + "";
         String destPath = Constants.PATH + Constants.DEST_IMAGE_PATH + "page1.png";

@@ -1,6 +1,5 @@
 package com.zukxu.gencode.generator.service;
 
-
 import com.zukxu.gencode.generator.domain.GenTableColumn;
 
 import java.util.List;

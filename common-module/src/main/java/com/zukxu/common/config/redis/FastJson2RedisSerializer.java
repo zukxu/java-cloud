@@ -43,13 +43,15 @@ public class FastJson2RedisSerializer<T> implements RedisSerializer<T> {
 
     @Override
     public byte[] serialize(T t) throws SerializationException {
-        if(t == null) return new byte[0];
+        if (t == null)
+            return new byte[0];
         return JSON.toJSONString(t, SerializerFeature.WriteClassName).getBytes(StandardCharsets.UTF_8);
     }
 
     @Override
     public T deserialize(byte[] bytes) throws SerializationException {
-        if(bytes == null || bytes.length <= 0) return null;
+        if (bytes == null || bytes.length <= 0)
+            return null;
         String s = new String(bytes, StandardCharsets.UTF_8);
         return JSON.parseObject(s, clazz);
     }

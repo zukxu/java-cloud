@@ -28,7 +28,7 @@ public class TestFileController {
         System.out.println("getPrefix:" + FileUtil.getPrefix(file));
         System.out.println("getSuffix:" + FileUtil.getSuffix(file));
         String path = parentPath + mFile.getOriginalFilename();
-        System.out.println("touch:"+FileUtil.touch(new File(path)));
+        System.out.println("touch:" + FileUtil.touch(new File(path)));
     }
 
 }

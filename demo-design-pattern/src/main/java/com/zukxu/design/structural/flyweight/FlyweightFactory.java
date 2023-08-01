@@ -17,7 +17,7 @@ public class FlyweightFactory {
 
     public Flyweight getFlyweight(int intrinsicState) {
         Flyweight flyweight = flyweights.get(intrinsicState);
-        if(flyweight == null) {
+        if (flyweight == null) {
             flyweight = new ConcreteFlyweight(intrinsicState);
             flyweights.put(intrinsicState, flyweight);
         }

@@ -1,6 +1,7 @@
 # Mybatis-Plus 代码生成器
 
 ## 依赖
+
 ```xml
 <dependency>
     <groupId>com.baomidou</groupId>
@@ -16,8 +17,11 @@
 ```
 
 ## 生成方法
+
 ### 1、快速生成
+
 核心代码
+
 ```java
 FastAutoGenerator.create("url", "username", "password")
 	.globalConfig(builder -> {
@@ -38,7 +42,9 @@ FastAutoGenerator.create("url", "username", "password")
 	.templateEngine(new FreemarkerTemplateEngine()) // 使用Freemarker引擎模板，默认的是Velocity引擎模板
 	.execute();
 ```
+
 ### 2、交互式生成
+
 ```java
 FastAutoGenerator.create("url", "username", "password")
         .globalConfig(builder -> {

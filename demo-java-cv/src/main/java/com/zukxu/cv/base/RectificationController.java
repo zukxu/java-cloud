@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Controller
 @RequestMapping(value = "rect")
 public class RectificationController extends BaseController {
@@ -34,8 +33,7 @@ public class RectificationController extends BaseController {
      * @param anchor03
      * @param anchor04
      */
-    public static void fetchAnchorPoints1(String sourcePath, String matchPath, Point anchor01, Point anchor02,
-                                          Point anchor03, Point anchor04) {
+    public static void fetchAnchorPoints1(String sourcePath, String matchPath, Point anchor01, Point anchor02, Point anchor03, Point anchor04) {
         Mat imageMatch = new Mat();
         Mat colorImage = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_ANYCOLOR);
         Point maxLoc01, maxLoc02, maxLoc03, maxLoc04;
@@ -100,8 +98,7 @@ public class RectificationController extends BaseController {
      * @param anchor03
      * @param anchor04
      */
-    public static void fetchAnchorPoints2(String sourcePath, Point anchor01, Point anchor02, Point anchor03,
-                                          Point anchor04) {
+    public static void fetchAnchorPoints2(String sourcePath, Point anchor01, Point anchor02, Point anchor03, Point anchor04) {
         Mat src = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_GRAYSCALE);
         Mat colorImage = Imgcodecs.imread(sourcePath, Imgcodecs.IMREAD_ANYCOLOR);
         int srcRows = src.rows();
@@ -233,8 +230,7 @@ public class RectificationController extends BaseController {
 
         Mat dst = new Mat(source1.rows(), source1.cols(), source1.type());
         System.out.println(source1.rows() + " " + source1.cols());
-        Imgproc.warpPerspective(source1, dst, warpMatrix, dst.size(), Imgproc.INTER_LINEAR, 0, new Scalar(255, 255,
-                255));
+        Imgproc.warpPerspective(source1, dst, warpMatrix, dst.size(), Imgproc.INTER_LINEAR, 0, new Scalar(255, 255, 255));
         destPath = Constants.PATH + Constants.DEST_IMAGE_PATH + "rect2.png";
         Imgcodecs.imwrite(destPath, dst);
         try {

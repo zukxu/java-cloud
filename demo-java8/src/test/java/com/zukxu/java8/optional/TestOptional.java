@@ -51,10 +51,12 @@ public class TestOptional {
     void testIfPresent() {
         OptionalSimpleDemo.testIfPresent();
     }
+
     @Test
     void testFilter() {
         OptionalSimpleDemo.testFilter();
     }
+
     @Test
     void testFilterCollections() {
         OptionalSimpleDemo.testFilterCollections();

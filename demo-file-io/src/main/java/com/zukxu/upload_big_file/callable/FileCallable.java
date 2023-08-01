@@ -1,6 +1,5 @@
 package com.zukxu.upload_big_file.callable;
 
-
 import com.zukxu.upload_big_file.context.UploadContext;
 import com.zukxu.upload_big_file.enu.UploadModeEnum;
 import com.zukxu.upload_big_file.po.FileUpload;
@@ -14,8 +13,7 @@ public class FileCallable implements Callable<FileUpload> {
 
     private FileUploadRequest param;
 
-    public FileCallable(UploadModeEnum mode,
-                        FileUploadRequest param) {
+    public FileCallable(UploadModeEnum mode, FileUploadRequest param) {
 
         this.mode = mode;
         this.param = param;

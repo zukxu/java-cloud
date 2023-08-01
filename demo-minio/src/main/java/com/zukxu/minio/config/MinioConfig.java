@@ -17,11 +17,11 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class MinioConfig {
-	@Autowired
-	private MinioProperties minio;
+    @Autowired
+    private MinioProperties minio;
 
-	@Bean
-	public MinioClient minioClient() throws InvalidPortException, InvalidEndpointException {
-		return new MinioClient(minio.getEndpoint(), minio.getAccessKey(), minio.getSecretKey());
-	}
+    @Bean
+    public MinioClient minioClient() throws InvalidPortException, InvalidEndpointException {
+        return new MinioClient(minio.getEndpoint(), minio.getAccessKey(), minio.getSecretKey());
+    }
 }

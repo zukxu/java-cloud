@@ -11,11 +11,9 @@ public enum FileCheckMd5Status {
 
     FILE_UPLOAD_SOME(206, "该文件上传了一部分。");
 
-
     private final int value;
 
     private final String reasonPhrase;
-
 
     FileCheckMd5Status(int value, String reasonPhrase) {
         this.value = value;

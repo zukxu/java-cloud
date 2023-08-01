@@ -12,6 +12,7 @@ import java.io.IOException;
  * 可以直接使用公共示例JsonMapper.INSTANCE, 也可以使用不同的builder函数创建实例，封装不同的输出风格,
  * 不要使用GSON, 在对象稍大时非常缓慢.
  * 注意: 需要参考本模块的POM文件，显式引用jackson.
+ *
  * @author yhq
  * @date 2021年9月6日 14点02分
  */
@@ -37,6 +38,7 @@ public class JsonMapper {
 
     /**
      * 创建只输出非Null的属性到Json字符串的Mapper.
+     *
      * @return jsonMapper
      */
     public static JsonMapper nonNullMapper() {
@@ -45,6 +47,7 @@ public class JsonMapper {
 
     /**
      * Object可以是POJO，也可以是Collection或数组。 如果对象为Null, 返回"null". 如果集合为空集合, 返回"[]".
+     *
      * @param object pojo对象
      * @return jsonString
      */
@@ -57,6 +60,5 @@ public class JsonMapper {
             return null;
         }
     }
-
 
 }

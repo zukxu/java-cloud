@@ -9,7 +9,6 @@ import lombok.experimental.Accessors;
 import java.io.Serializable;
 import java.util.Date;
 
-
 /**
  * <p>
  * 流程定义DTO实体 ACT_PROC_DEF 数据表相关实体
@@ -59,7 +58,17 @@ public class ActProcDefDTO implements Serializable {
     public ActProcDefDTO() {
     }
 
-    public ActProcDefDTO(String id, String name, String key, String category, String formId, String formName, int version, String deploymentId, int suspensionState, Date deploymentTime) {
+    public ActProcDefDTO(String id,
+                         String name,
+                         String key,
+                         String category,
+                         String formId,
+                         String formName,
+                         int version,
+                         String deploymentId,
+                         int suspensionState,
+                         Date deploymentTime
+                        ) {
         this.id = id;
         this.name = name;
         this.key = key;

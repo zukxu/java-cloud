@@ -7,7 +7,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class School{
+public class School {
 
     @ExcelColumn(title = "学校名称")
     String schoolName;

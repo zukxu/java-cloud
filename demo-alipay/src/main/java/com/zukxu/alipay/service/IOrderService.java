@@ -12,5 +12,5 @@ import com.zukxu.alipay.entity.AlipayEntity;
  */
 public interface IOrderService {
 
-	AlipayEntity findByOutTradeNo(String outTradeNo);
+    AlipayEntity findByOutTradeNo(String outTradeNo);
 }

@@ -26,7 +26,7 @@ public class Composite implements Component {
     @Override
     public void operation() {
         System.out.println("执行组合组件操作");
-        for(Component component : components) {
+        for (Component component : components) {
             component.operation();
         }
     }

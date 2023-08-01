@@ -30,7 +30,7 @@ public class JsonIncludeDemo {
 
     public static void main(String[] args) throws JsonProcessingException {
         Class<TestJsonInclude> clazz = TestJsonInclude.class;
-        if(clazz.isAnnotationPresent(JsonInclude.class)) {
+        if (clazz.isAnnotationPresent(JsonInclude.class)) {
             // 获取 "类" 上的注解
             JsonInclude getAnnotation = clazz.getAnnotation(JsonInclude.class);
             testInclude(String.valueOf(getAnnotation.value()));
@@ -46,7 +46,7 @@ public class JsonIncludeDemo {
 
     private static void testInclude(String type) throws JsonProcessingException {
         System.out.println("//@JsonInclude(JsonInclude.Include." + type);
-        if("NonAbsent".equals(type)) {
+        if ("NonAbsent".equals(type)) {
             mapper.registerModule(new Jdk8Module());
         }
         TestJsonInclude test = new TestJsonInclude().setId(1L)

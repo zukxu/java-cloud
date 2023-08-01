@@ -1,6 +1,5 @@
 package com.zukxu.upload_big_file.context;
 
-
 import cn.hutool.core.collection.CollectionUtil;
 import com.zukxu.upload_big_file.annotation.UploadMode;
 import com.zukxu.upload_big_file.enu.UploadModeEnum;
@@ -20,12 +19,11 @@ public enum UploadContext {
 
     private final Map<UploadModeEnum, Class<SliceUploadStrategy>> uploadStrategyMap = new ConcurrentHashMap<>();
 
-
     public void init() {
         Reflections reflections = new Reflections(PACKAGE_NAME);
         Set<Class<?>> clzSet = reflections.getTypesAnnotatedWith(UploadMode.class);
-        if(CollectionUtil.isNotEmpty(clzSet)) {
-            for(Class<?> clz : clzSet) {
+        if (CollectionUtil.isNotEmpty(clzSet)) {
+            for (Class<?> clz : clzSet) {
                 UploadMode uploadMode = clz.getAnnotation(UploadMode.class);
                 uploadStrategyMap.put(uploadMode.mode(), (Class<SliceUploadStrategy>) clz);
             }
@@ -36,7 +34,6 @@ public enum UploadContext {
         return this.getStrategyByType(mode);
 
     }
-
 
     private SliceUploadStrategy getStrategyByType(UploadModeEnum mode) {
         Class<SliceUploadStrategy> clz = uploadStrategyMap.get(mode);

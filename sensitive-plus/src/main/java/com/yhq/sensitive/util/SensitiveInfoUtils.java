@@ -5,6 +5,7 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * 数据脱敏的工具类
+ *
  * @author yhq
  * @date 2021年9月6日 14点02分
  **/
@@ -17,7 +18,7 @@ public class SensitiveInfoUtils {
         if (StringUtils.isBlank(fullName)) {
             return "";
         }
-        if(StringUtils.length(fullName) <= showLength){
+        if (StringUtils.length(fullName) <= showLength) {
             return fullName;
         }
         final String name = StringUtils.left(fullName, showLength);
@@ -26,6 +27,7 @@ public class SensitiveInfoUtils {
 
     /**
      * 密码脱敏，只显示 6 个  *
+     *
      * @param password 密码
      * @return 脱敏后的数据
      */
@@ -43,9 +45,7 @@ public class SensitiveInfoUtils {
         if (StringUtils.isBlank(idCard)) {
             return "";
         }
-        return StringUtils.left(idCard, begin).concat(StringUtils.removeStart(
-                StringUtils.leftPad(StringUtils.right(idCard, end), StringUtils.length(idCard), "*"),
-                "******"));
+        return StringUtils.left(idCard, begin).concat(StringUtils.removeStart(StringUtils.leftPad(StringUtils.right(idCard, end), StringUtils.length(idCard), "*"), "******"));
     }
 
     /**
@@ -68,8 +68,7 @@ public class SensitiveInfoUtils {
         /*return StringUtils.left(mobile, begin).concat(StringUtils
                 .removeStart(StringUtils.leftPad(StringUtils.right(mobile, end), StringUtils.length(mobile), "*"),
                         "***"));*/
-        return StringUtils.left(mobile, begin).concat(
-                StringUtils.leftPad(StringUtils.right(mobile, end), StringUtils.length(mobile) - begin, "*"));
+        return StringUtils.left(mobile, begin).concat(StringUtils.leftPad(StringUtils.right(mobile, end), StringUtils.length(mobile) - begin, "*"));
 
     }
 
@@ -99,59 +98,59 @@ public class SensitiveInfoUtils {
         if (index <= begin) {
             return email;
         } else {
-            return StringUtils.rightPad(StringUtils.left(email, begin), index, "*")
-                    .concat(StringUtils.mid(email, index, StringUtils.length(email)));
+            return StringUtils.rightPad(StringUtils.left(email, begin), index, "*").concat(StringUtils.mid(email, index, StringUtils.length(email)));
         }
     }
 
     /**
      * [银行卡号] 前六位，后四位，其他用星号隐藏每位1个星号<例子:6222600**********1234>
      */
-    public static String bankCard(final String cardNum, int begin , int end) {
+    public static String bankCard(final String cardNum, int begin, int end) {
         if (StringUtils.isBlank(cardNum)) {
             return "";
         }
-        if(getSensitive(cardNum,begin,end)){
+        if (getSensitive(cardNum, begin, end)) {
             begin = SensitiveDefaultLengthEnum.BANKCARD.getBegin();
             end = SensitiveDefaultLengthEnum.BANKCARD.getEnd();
         }
-        return StringUtils.left(cardNum, begin).concat(StringUtils.removeStart(
-                StringUtils.leftPad(StringUtils.right(cardNum, end), StringUtils.length(cardNum), "*"),
-                "******"));
+        return StringUtils.left(cardNum, begin).concat(StringUtils.removeStart(StringUtils.leftPad(StringUtils.right(cardNum, end), StringUtils.length(cardNum), "*"), "******"));
     }
 
     /**
      * 根据正则脱敏
-     * @param context 内容
-     * @param pattern 正则
+     *
+     * @param context     内容
+     * @param pattern     正则
      * @param replaceChar 替换后的字符
      * @return 脱敏后的数据
      */
-    public static String patternReplace(final String context,String pattern, String replaceChar) {
+    public static String patternReplace(final String context, String pattern, String replaceChar) {
         return context.replaceAll(pattern, replaceChar);
     }
 
     /**
      * 获取总的长度
+     *
      * @param begin 开始显示的长度
-     * @param end 结尾显示的长度
+     * @param end   结尾显示的长度
      * @return 总要显示的长度
      */
-    private static int getAllLength(int begin ,int end){
+    private static int getAllLength(int begin, int end) {
         return begin + end;
     }
 
     /**
      * 判断前端传来的长度，是否比 当前字符的长度大
-     * @param address 地址
+     *
+     * @param address            地址
      * @param sensitiveBeginSize 开始长度
-     * @param sensitiveEndSize  结尾长度
+     * @param sensitiveEndSize   结尾长度
      * @return
      */
-    private static boolean getSensitive(final String address, final int sensitiveBeginSize, final int sensitiveEndSize){
-        int showLength = getAllLength(sensitiveBeginSize ,sensitiveEndSize);
+    private static boolean getSensitive(final String address, final int sensitiveBeginSize, final int sensitiveEndSize) {
+        int showLength = getAllLength(sensitiveBeginSize, sensitiveEndSize);
         int length = StringUtils.length(address);
-        if(showLength> length){
+        if (showLength > length) {
             return false;
         }
         return true;
@@ -159,13 +158,14 @@ public class SensitiveInfoUtils {
 
     /**
      * 显示多少个 *
+     *
      * @param length 显示的长度
      * @return 返回组装后的长度
      */
-    private static String getSensitiveInfo(int length){
+    private static String getSensitiveInfo(int length) {
         StringBuilder senBuffer = new StringBuilder();
         senBuffer.append("*");
-        while (StringUtils.length(senBuffer.toString()) < length){
+        while (StringUtils.length(senBuffer.toString()) < length) {
             senBuffer.append("*");
         }
         return senBuffer.toString();

@@ -29,18 +29,42 @@ import java.util.List;
 @SpringBootTest
 public class TestInserts {
 
+    private final int batchCount = 1000;// 每批commit的个数
+    private final String pwd = DigestUtil.md5Hex("123456");
     @Autowired
     private JdbcTemplate jdbcTemplate;
-
     @Autowired
     private InsertsSysUserService insertsService;
-
     @Autowired
     private SqlSessionFactory sqlSessionFactory;
-
-    private final int batchCount = 1000;// 每批commit的个数
     private List<SysUser> list = new ArrayList<>();
-    private final String pwd = DigestUtil.md5Hex("123456");
+
+    public static void insertExcelBatch(SqlSessionFactory sqlSessionFactory, List<String[]> dataList, String tableName, List<String> paramsList) {
+        int result = 1;
+        try (SqlSession batchSqlSession = sqlSessionFactory.openSession(ExecutorType.BATCH, false)) {
+            SysUserMapper reportMapper = batchSqlSession.getMapper(SysUserMapper.class);
+            StopWatch sw = new StopWatch();
+            sw.start();
+            int batchCount = 1000;// 每批commit的个数
+            int batchLastIndex = batchCount;// 每批最后一个的下标
+            for (int index = 0; index < dataList.size(); ) {
+                if (batchLastIndex >= dataList.size()) {
+                    batchLastIndex = dataList.size();
+                    result = result * reportMapper.insertExcelBatch(dataList.subList(index, batchLastIndex), tableName, paramsList);
+                    break;// 数据插入完毕，退出循环
+                } else {
+                    result = result * reportMapper.insertExcelBatch(dataList.subList(index, batchLastIndex), tableName, paramsList);
+                    batchSqlSession.commit();
+                    index = batchLastIndex;// 设置下一批下标
+                    batchLastIndex = index + (batchCount - 1);
+                }
+            }
+            batchSqlSession.commit();
+
+            sw.stop();
+            System.out.println("总共耗时：" + sw.getTotalTimeMillis() + "ms");
+        }
+    }
 
     @Test
     void testMybatisPlusInsert() {
@@ -88,22 +112,11 @@ public class TestInserts {
             if (i % batchCount == 0) {
                 sw.start(String.valueOf(i));
             }
-            list.add(new Object[]{
-                    String.valueOf(i)
-                    , 1000528 + i % 5
-                    , "test" + i
-                    , "test" + i
-                    , pwd
-                    , i % 3
-                    , "test" + i + "@163.com"
-                    , "15815422158"
-                    , "1"
-                    , "admin"
-                    , now
-                    , i % 3
-                    , "yd4a" + i
-                    , "oa" + i
-                    , "crm" + i});
+            list.add(new Object[]{String.valueOf(i), 1000528 + i % 5, "test" + i, "test" + i, pwd, i % 3, "test" + i + "@163.com", "15815422158", "1", "admin", now, i % 3, "yd4a" +
+                                                                                                                                                                            i, "oa" +
+                                                                                                                                                                               i,
+                    "crm" +
+                    i});
             if (i % batchCount == 0) {
                 //执行插入
                 jdbcTemplate.batchUpdate(insertSql, list);
@@ -168,33 +181,6 @@ public class TestInserts {
         List<String> params = new ArrayList<>();
         String tableName = "";
         //insertExcelBatch(sqlSessionFactory, dataList, tableName, params);
-    }
-
-    public static void insertExcelBatch(SqlSessionFactory sqlSessionFactory, List<String[]> dataList, String tableName, List<String> paramsList) {
-        int result = 1;
-        try (SqlSession batchSqlSession = sqlSessionFactory.openSession(ExecutorType.BATCH, false)) {
-            SysUserMapper reportMapper = batchSqlSession.getMapper(SysUserMapper.class);
-            StopWatch sw = new StopWatch();
-            sw.start();
-            int batchCount = 1000;// 每批commit的个数
-            int batchLastIndex = batchCount;// 每批最后一个的下标
-            for (int index = 0; index < dataList.size(); ) {
-                if (batchLastIndex >= dataList.size()) {
-                    batchLastIndex = dataList.size();
-                    result = result * reportMapper.insertExcelBatch(dataList.subList(index, batchLastIndex), tableName, paramsList);
-                    break;// 数据插入完毕，退出循环
-                } else {
-                    result = result * reportMapper.insertExcelBatch(dataList.subList(index, batchLastIndex), tableName, paramsList);
-                    batchSqlSession.commit();
-                    index = batchLastIndex;// 设置下一批下标
-                    batchLastIndex = index + (batchCount - 1);
-                }
-            }
-            batchSqlSession.commit();
-
-            sw.stop();
-            System.out.println("总共耗时：" + sw.getTotalTimeMillis() + "ms");
-        }
     }
 
 }

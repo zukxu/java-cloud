@@ -40,9 +40,9 @@ public class DataSourceAspect {
         Method method = ((MethodSignature) joinPoint.getSignature()).getMethod();
         DataSource dataSource = method.getAnnotation(DataSource.class);
         String value = dataSource.value();
-        if(DataSourceType.DataBaseType.Primary.name().equalsIgnoreCase(value)) {
+        if (DataSourceType.DataBaseType.Primary.name().equalsIgnoreCase(value)) {
             DataSourceType.setDataBaseType(DataSourceType.DataBaseType.Primary);
-        } else if(DataSourceType.DataBaseType.Secondary.name().equalsIgnoreCase(value)) {
+        } else if (DataSourceType.DataBaseType.Secondary.name().equalsIgnoreCase(value)) {
             DataSourceType.setDataBaseType(DataSourceType.DataBaseType.Secondary);
         } else {
             DataSourceType.setDataBaseType(DataSourceType.DataBaseType.Primary);

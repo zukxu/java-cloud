@@ -19,7 +19,9 @@
     </dependency>
 </dependencies>
 ```
+
 ## 消息模式
+
 ### fanout
 
 ### direct

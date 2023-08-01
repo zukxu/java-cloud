@@ -47,8 +47,8 @@ public class JacksonApiDemo {
     private static List generateData(int n, int ch) {
         List<TestEntity> objList = new ArrayList<>();
         List<Map> mapList = new ArrayList<>();
-        if(ch == 1) {
-            for(int i = 0; i < n; i++) {
+        if (ch == 1) {
+            for (int i = 0; i < n; i++) {
                 Map<String, Object> addr = new HashMap<>();
                 addr.put("city", "贵阳" + i);
                 addr.put("street", "金融路" + i);
@@ -68,8 +68,8 @@ public class JacksonApiDemo {
             }
             return mapList;
         }
-        if(ch == 2) {
-            for(int i = 0; i < n; i++) {
+        if (ch == 2) {
+            for (int i = 0; i < n; i++) {
                 TestEntity entity = new TestEntity().setId((12345L * i)).setText("Jackson测试json序列化和反序列化" + i).setCreateTime(LocalDateTime.now());
                 objList.add(entity);
             }
@@ -81,7 +81,7 @@ public class JacksonApiDemo {
     private static void toList() throws IOException {
         String jsonArrStr = "[{\"id\":0,\"text\":\"Jackson测试json序列化和反序列化0\",\"createTime\":\"2022-05-26T15:19:16.191\"},{\"id\":12345,\"text\":\"Jackson测试json序列化和反序列化1\",\"createTime\":\"2022-05-26T15:19:16.191\"},{\"id\":24690,\"text\":\"Jackson测试json序列化和反序列化2\",\"createTime\":\"2022-05-26T15:19:16.191\"},{\"id\":37035,\"text\":\"Jackson测试json序列化和反序列化3\",\"createTime\":\"2022-05-26T15:19:16.191\"},{\"id\":49380,\"text\":\"Jackson测试json序列化和反序列化4\",\"createTime\":\"2022-05-26T15:19:16.191\"}]";
         List<TestEntity> entityList = mapper.readValue(jsonArrStr, new TypeReference<List<TestEntity>>() {});
-        for(TestEntity entity : entityList) {
+        for (TestEntity entity : entityList) {
             System.out.println(entity.toString());
         }
     }
@@ -89,7 +89,7 @@ public class JacksonApiDemo {
     private static void toArray() throws IOException {
         String jsonArrStr = "[{\"id\":0,\"text\":\"Jackson测试json序列化和反序列化0\",\"createTime\":\"2022-05-26T15:19:16.191\"},{\"id\":12345,\"text\":\"Jackson测试json序列化和反序列化1\",\"createTime\":\"2022-05-26T15:19:16.191\"},{\"id\":24690,\"text\":\"Jackson测试json序列化和反序列化2\",\"createTime\":\"2022-05-26T15:19:16.191\"},{\"id\":37035,\"text\":\"Jackson测试json序列化和反序列化3\",\"createTime\":\"2022-05-26T15:19:16.191\"},{\"id\":49380,\"text\":\"Jackson测试json序列化和反序列化4\",\"createTime\":\"2022-05-26T15:19:16.191\"}]";
         TestEntity[] entityArr = mapper.readValue(jsonArrStr, TestEntity[].class);
-        for(TestEntity entity : entityArr) {
+        for (TestEntity entity : entityArr) {
             System.out.println(entity.toString());
         }
     }

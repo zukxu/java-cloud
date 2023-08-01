@@ -18,13 +18,13 @@ import org.springframework.web.bind.annotation.*;
 public class DemoAspectController {
 
     @GetMapping("/get")
-    public String getLog(@RequestParam String content){
+    public String getLog(@RequestParam String content) {
         return "输入参数：" + content;
     }
 
     @Perms
     @PostMapping("/permCheck")
-    public JSONObject getLog(@RequestBody JSONObject request){
+    public JSONObject getLog(@RequestBody JSONObject request) {
         return JSON.parseObject("{\"message\":\"SUCCESS\",\"code\":200}");
     }
 }

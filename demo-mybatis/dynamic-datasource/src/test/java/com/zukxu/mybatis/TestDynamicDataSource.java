@@ -25,7 +25,6 @@ public class TestDynamicDataSource {
     @Autowired
     private SysUserMapper2 sysUserMapper2;
 
-
     @Test
     void testDynamic() {
         List<SysUser> listUser1 = sysUserMapper.listUser1();

@@ -9,11 +9,7 @@ import lombok.Getter;
  */
 @Getter
 public enum RStatus {
-    OK(200, "成功" ),
-    FAIL(500, "失败" ),
-    UNKNOWN_ERROR(5001, "未知错误" ),
-    PARAM_ERROR(5002, "参数错误" ),
-    SYSTEM_INNER_ERROR(5003, "系统内部错误" ),
+    OK(200, "成功"), FAIL(500, "失败"), UNKNOWN_ERROR(5001, "未知错误"), PARAM_ERROR(5002, "参数错误"), SYSTEM_INNER_ERROR(5003, "系统内部错误"),
     ;
     // 响应状态码
     private Integer code;

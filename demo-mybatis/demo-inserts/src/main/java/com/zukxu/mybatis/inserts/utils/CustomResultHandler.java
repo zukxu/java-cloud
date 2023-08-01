@@ -16,8 +16,7 @@ public class CustomResultHandler implements ResultHandler {
 
     private final DownloadProcessor downloadProcessor;
 
-    public CustomResultHandler(
-            DownloadProcessor downloadProcessor) {
+    public CustomResultHandler(DownloadProcessor downloadProcessor) {
         super();
         this.downloadProcessor = downloadProcessor;
     }

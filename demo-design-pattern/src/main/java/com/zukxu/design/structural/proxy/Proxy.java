@@ -14,7 +14,7 @@ public class Proxy implements Subject {
 
     @Override
     public void request() {
-        if(realSubject == null) {
+        if (realSubject == null) {
             realSubject = new RealSubject();
         }
         System.out.println("Proxy's request() method is called.");

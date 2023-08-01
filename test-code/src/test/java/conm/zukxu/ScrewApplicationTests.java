@@ -44,18 +44,18 @@ public class ScrewApplicationTests {
         List<String> ignoreSuffix = Arrays.asList("_test", "czb_");
 
         return ProcessConfig.builder()
-                //根据名称指定表生成
-                .designatedTableName(new ArrayList<>())
-                //根据表前缀生成
-                .designatedTablePrefix(new ArrayList<>())
-                //根据表后缀生成
-                .designatedTableSuffix(new ArrayList<>())
-                //忽略表名
-                .ignoreTableName(ignoreTableName)
-                //忽略表前缀
-                .ignoreTablePrefix(ignorePrefix)
-                //忽略表后缀
-                .ignoreTableSuffix(ignoreSuffix).build();
+                            //根据名称指定表生成
+                            .designatedTableName(new ArrayList<>())
+                            //根据表前缀生成
+                            .designatedTablePrefix(new ArrayList<>())
+                            //根据表后缀生成
+                            .designatedTableSuffix(new ArrayList<>())
+                            //忽略表名
+                            .ignoreTableName(ignoreTableName)
+                            //忽略表前缀
+                            .ignoreTablePrefix(ignorePrefix)
+                            //忽略表后缀
+                            .ignoreTableSuffix(ignoreSuffix).build();
     }
 
     @Test
@@ -64,23 +64,23 @@ public class ScrewApplicationTests {
 
         // 生成文件配置
         EngineConfig engineConfig = EngineConfig.builder()
-                // 生成文件路径，自己mac本地的地址，这里需要自己更换下路径
-                .fileOutputDir("C:\\Users\\17747\\Desktop\\Document")
-                // 打开目录
-                .openOutputDir(false)
-                // 文件类型
-                .fileType(EngineFileType.HTML)
-                // 生成模板实现
-                .produceType(EngineTemplateType.freemarker).build();
+                                                // 生成文件路径，自己mac本地的地址，这里需要自己更换下路径
+                                                .fileOutputDir("C:\\Users\\17747\\Desktop\\Document")
+                                                // 打开目录
+                                                .openOutputDir(false)
+                                                // 文件类型
+                                                .fileType(EngineFileType.HTML)
+                                                // 生成模板实现
+                                                .produceType(EngineTemplateType.freemarker).build();
 
         // 生成文档配置（包含以下自定义版本号、描述等配置连接）
         Configuration config = Configuration.builder()
-                .version("1.0.5")
-                .description("生成文档信息描述")
-                .dataSource(dataSourceMysql)
-                .engineConfig(engineConfig)
-                .produceConfig(getProcessConfig())
-                .build();
+                                            .version("1.0.5")
+                                            .description("生成文档信息描述")
+                                            .dataSource(dataSourceMysql)
+                                            .engineConfig(engineConfig)
+                                            .produceConfig(getProcessConfig())
+                                            .build();
 
         // 执行生成
         new DocumentationExecute(config).execute();

@@ -1,6 +1,5 @@
 package com.zukxu.gencode.generator.domain;
 
-
 import cn.hutool.core.util.StrUtil;
 import com.zukxu.gencode.common.core.base.BaseEntity;
 
@@ -111,7 +110,8 @@ public class GenTableColumn extends BaseEntity {
                                            // BaseEntity
                                            "createBy", "createTime", "updateBy", "updateTime", "remark",
                                            // TreeEntity
-                                           "parentName", "parentId", "orderNum", "ancestors");
+                                           "parentName", "parentId", "orderNum", "ancestors"
+                                          );
     }
 
     public static boolean isUsableColumn(String javaField) {
@@ -334,9 +334,9 @@ public class GenTableColumn extends BaseEntity {
     public String readConverterExp() {
         String remarks = StrUtil.subBetween(this.columnComment, "（", "）");
         StringBuffer sb = new StringBuffer();
-        if(StrUtil.isNotEmpty(remarks)) {
-            for(String value : remarks.split(" ")) {
-                if(StrUtil.isNotEmpty(value)) {
+        if (StrUtil.isNotEmpty(remarks)) {
+            for (String value : remarks.split(" ")) {
+                if (StrUtil.isNotEmpty(value)) {
                     Object startStr = value.subSequence(0, 1);
                     String endStr = value.substring(1);
                     sb.append(startStr).append("=").append(endStr).append(",");

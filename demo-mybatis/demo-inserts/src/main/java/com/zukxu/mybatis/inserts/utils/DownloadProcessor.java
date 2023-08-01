@@ -17,7 +17,7 @@ public class DownloadProcessor {
 
     public DownloadProcessor(HttpServletResponse response) {
         this.response = response;
-        String fileName = "FD"+System.currentTimeMillis() + ".csv";
+        String fileName = "FD" + System.currentTimeMillis() + ".csv";
         this.response.addHeader("Content-Type", "application/csv");
         this.response.addHeader("Content-Disposition", "attachment; filename=" + fileName);
         this.response.setCharacterEncoding("UTF-8");

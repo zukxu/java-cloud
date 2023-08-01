@@ -30,7 +30,6 @@ public interface FlowTaskService {
      */
     void taskReject(FlowTaskVo flowTaskVo);
 
-
     /**
      * 退回任务
      *
@@ -74,7 +73,6 @@ public interface FlowTaskService {
      */
     void delegateTask(FlowTaskVo flowTaskVo);
 
-
     /**
      * 转办任务
      *
@@ -107,7 +105,6 @@ public interface FlowTaskService {
      */
     R<?> revokeProcess(FlowTaskVo flowTaskVo);
 
-
     /**
      * 代办任务列表
      *
@@ -116,7 +113,6 @@ public interface FlowTaskService {
      * @return
      */
     R<?> todoList(Integer pageNum, Integer pageSize);
-
 
     /**
      * 已办任务列表

@@ -12,9 +12,9 @@ import java.time.LocalDateTime;
 @Data
 @Accessors(chain = true)
 public class UserEntity {
-	private String uuid;
-	private String userId;
-	private LocalDateTime loginTime;
-	private LocalDateTime createTime;
-	private int state;
+    private String uuid;
+    private String userId;
+    private LocalDateTime loginTime;
+    private LocalDateTime createTime;
+    private int state;
 }

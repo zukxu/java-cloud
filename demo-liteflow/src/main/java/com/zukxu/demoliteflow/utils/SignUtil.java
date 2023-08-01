@@ -28,13 +28,11 @@ public class SignUtil {
         return checkMD5(originalString);
     }
 
-    static String checkMD5(String originalString)
-            throws UnsupportedEncodingException, NoSuchAlgorithmException, IllegalArgumentException {
+    static String checkMD5(String originalString) throws UnsupportedEncodingException, NoSuchAlgorithmException, IllegalArgumentException {
         byte[] signedOriginalStringBytes = MessageDigest.getInstance("MD5").digest(originalString.getBytes("UTF-8"));
         String signedOriginalString = new HexBinaryAdapter().marshal(signedOriginalStringBytes);
         return signedOriginalString;
     }
-
 
     protected static String getRequestRelatedStrings(Map<String, String> parameterMap) {
         Set<String> parameterMapKeySet = parameterMap.keySet();

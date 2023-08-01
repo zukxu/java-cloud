@@ -14,7 +14,7 @@ import java.util.List;
  */
 @Data
 @Accessors(chain = true)
-public class TreeMenu implements Serializable{
+public class TreeMenu implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

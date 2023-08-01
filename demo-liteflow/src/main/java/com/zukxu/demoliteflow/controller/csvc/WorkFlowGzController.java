@@ -40,7 +40,6 @@ public class WorkFlowGzController {
         workFlowGZService.dispatchCSS(paramMap);
     }
 
-
     /**
      * 工单回复
      */
@@ -141,7 +140,7 @@ public class WorkFlowGzController {
     @GetMapping("/download")
     public void downloadFile(String path, @RequestParam(defaultValue = CSVC.UNIT_SN) String unit) throws Exception {
         //拉取集团附件，集团附件可能需要从集团服务器刷新拉取
-        if(StrUtil.equals(CSVC.UNIT_JT, unit)) {
+        if (StrUtil.equals(CSVC.UNIT_JT, unit)) {
             FileUtil.download(path);
         } else {
             //拉取本省生成的工单附件，直接在本省服务器上拉取

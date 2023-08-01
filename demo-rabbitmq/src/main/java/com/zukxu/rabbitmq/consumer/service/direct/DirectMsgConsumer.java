@@ -11,9 +11,9 @@ import org.springframework.stereotype.Component;
 @Component
 @RabbitListener(queues = {"direct_msg_queue"})
 public class DirectMsgConsumer {
-	@RabbitHandler
-	public void receiveMsg(String message) {
-		System.out.println("direct ：direct_msg_queue---->" + message);
-	}
+    @RabbitHandler
+    public void receiveMsg(String message) {
+        System.out.println("direct ：direct_msg_queue---->" + message);
+    }
 
 }

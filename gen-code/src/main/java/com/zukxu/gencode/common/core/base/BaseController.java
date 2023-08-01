@@ -1,6 +1,5 @@
 package com.zukxu.gencode.common.core.base;
 
-
 import com.github.pagehelper.PageHelper;
 
 /**

@@ -21,9 +21,9 @@ public class ConcreteRequestHandler1 implements RequestHandler {
     }
 
     public void handleRequest(Request request) {
-        if(request.getRequestType() == RequestType.TYPE1) {
+        if (request.getRequestType() == RequestType.TYPE1) {
             System.out.println("Handling request of type 1 by handler 1.");
-        } else if(nextHandler != null) {
+        } else if (nextHandler != null) {
             nextHandler.handleRequest(request);
         } else {
             System.out.println("Can't handle request of type " + request.getRequestType());

@@ -12,8 +12,8 @@ import java.time.LocalDateTime;
 @Data
 @Accessors(chain = true)
 public class StockOrder {
-	private Integer id;
-	private Integer sid;
-	private String name;
-	private LocalDateTime createTime;
+    private Integer id;
+    private Integer sid;
+    private String name;
+    private LocalDateTime createTime;
 }

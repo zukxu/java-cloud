@@ -38,7 +38,8 @@ public class FlowTaskController {
     @ApiOperation(value = "我发起的流程", response = FlowTaskDTO.class)
     @GetMapping(value = "/myProcess")
     public R<?> myProcess(@ApiParam(value = "当前页码", required = true) @RequestParam Integer pageNum,
-                          @ApiParam(value = "每页条数", required = true) @RequestParam Integer pageSize) {
+                          @ApiParam(value = "每页条数", required = true) @RequestParam Integer pageSize
+                         ) {
         return flowTaskService.myProcess(pageNum, pageSize);
     }
 
@@ -57,17 +58,18 @@ public class FlowTaskController {
     @ApiOperation(value = "获取待办列表", response = FlowTaskDTO.class)
     @GetMapping(value = "/todoList")
     public R<?> todoList(@ApiParam(value = "当前页码", required = true) @RequestParam Integer pageNum,
-                         @ApiParam(value = "每页条数", required = true) @RequestParam Integer pageSize) {
+                         @ApiParam(value = "每页条数", required = true) @RequestParam Integer pageSize
+                        ) {
         return flowTaskService.todoList(pageNum, pageSize);
     }
 
     @ApiOperation(value = "获取已办任务", response = FlowTaskDTO.class)
     @GetMapping(value = "/finishedList")
     public R<?> finishedList(@ApiParam(value = "当前页码", required = true) @RequestParam Integer pageNum,
-                             @ApiParam(value = "每页条数", required = true) @RequestParam Integer pageSize) {
+                             @ApiParam(value = "每页条数", required = true) @RequestParam Integer pageSize
+                            ) {
         return flowTaskService.finishedList(pageNum, pageSize);
     }
-
 
     @ApiOperation(value = "流程历史流转记录", response = FlowTaskDTO.class)
     @GetMapping(value = "/flowRecord")
@@ -154,8 +156,7 @@ public class FlowTaskController {
      * @param processId 任务ID
      */
     @RequestMapping("/diagram/{processId}")
-    public void genProcessDiagram(HttpServletResponse response,
-                                  @PathVariable("processId") String processId) {
+    public void genProcessDiagram(HttpServletResponse response, @PathVariable("processId") String processId) {
         InputStream inputStream = flowTaskService.diagram(processId);
         OutputStream os = null;
         BufferedImage image = null;

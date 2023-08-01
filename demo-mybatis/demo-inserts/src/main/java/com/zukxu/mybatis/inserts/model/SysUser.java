@@ -142,6 +142,42 @@ public class SysUser {
 
     @Override
     public String toString() {
-        return id + "," + deptId + "," + loginName + "," + userName + "," + password + "," + sex + "," + email + "," + phone + "," + status + "," + delFlag + "," + createBy + "," + createTime + "," + updateBy + "," + updateTime + "," + remark + "," + level + "," + yd4aAccount + "," + oaAccount + "," + crmAccount;
+        return id +
+               "," +
+               deptId +
+               "," +
+               loginName +
+               "," +
+               userName +
+               "," +
+               password +
+               "," +
+               sex +
+               "," +
+               email +
+               "," +
+               phone +
+               "," +
+               status +
+               "," +
+               delFlag +
+               "," +
+               createBy +
+               "," +
+               createTime +
+               "," +
+               updateBy +
+               "," +
+               updateTime +
+               "," +
+               remark +
+               "," +
+               level +
+               "," +
+               yd4aAccount +
+               "," +
+               oaAccount +
+               "," +
+               crmAccount;
     }
 }

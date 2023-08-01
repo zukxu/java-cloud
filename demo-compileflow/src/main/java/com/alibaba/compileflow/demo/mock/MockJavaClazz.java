@@ -16,5 +16,5 @@ public class MockJavaClazz {
     public double sqrt(double a) {
         return Math.sqrt(a);
     }
-    
+
 }

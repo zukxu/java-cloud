@@ -14,20 +14,20 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "minio")
 public class MinioProperties {
-	/**
-	 * minio 服务地址 http://ip:port
-	 */
-	private String endpoint;
-	/**
-	 * 用户名
-	 */
-	private String accessKey;
-	/**
-	 * 密码
-	 */
-	private String secretKey;
-	/**
-	 * 桶名称
-	 */
-	private String bucketName;
+    /**
+     * minio 服务地址 http://ip:port
+     */
+    private String endpoint;
+    /**
+     * 用户名
+     */
+    private String accessKey;
+    /**
+     * 密码
+     */
+    private String secretKey;
+    /**
+     * 桶名称
+     */
+    private String bucketName;
 }

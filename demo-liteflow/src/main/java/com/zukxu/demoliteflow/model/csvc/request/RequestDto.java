@@ -115,7 +115,6 @@ public class RequestDto implements Serializable {
      */
     private String busType = CSVC.BUS_TYPE;
 
-
     public static RequestDto buildRequestDTO(String envFlag) {
         RequestDto requestDto = new RequestDto();
         LocalDateTime now = LocalDateTime.now();

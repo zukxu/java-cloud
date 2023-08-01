@@ -15,11 +15,11 @@ import org.springframework.context.ConfigurableApplicationContext;
  */
 @SpringBootApplication
 public class ElegantDowntimeApplication {
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
-		/* method 4: exit this application using static method */
-		ConfigurableApplicationContext ctx = SpringApplication.run(ElegantDowntimeApplication.class, args);
-		exitApplication(ctx);
+        /* method 4: exit this application using static method */
+        ConfigurableApplicationContext ctx = SpringApplication.run(ElegantDowntimeApplication.class, args);
+        exitApplication(ctx);
 
 		/* method 3 : generate a pid in a specified path, while use command to shutdown pid :
             'cat /Users/demo/app.pid | xargs kill' */
@@ -27,7 +27,7 @@ public class ElegantDowntimeApplication {
 		application.addListeners(new ApplicationPidFileWriter("/Users/demo/app.pid"));
 		application.run();*/
 
-		//method2
+        //method2
 		/*ConfigurableApplicationContext ctx = SpringApplication.run(ElegantDowntimeApplication.class, args);
 
 		try {
@@ -39,13 +39,13 @@ public class ElegantDowntimeApplication {
 		}
 		ctx.close();*/
 
-		//method1
-		// SpringApplication.run(ElegantDowntimeApplication.class);
-	}
+        //method1
+        // SpringApplication.run(ElegantDowntimeApplication.class);
+    }
 
-	public static void exitApplication(ConfigurableApplicationContext context) {
-		int exitCode = SpringApplication.exit(context, (ExitCodeGenerator) () -> 0);
+    public static void exitApplication(ConfigurableApplicationContext context) {
+        int exitCode = SpringApplication.exit(context, (ExitCodeGenerator) () -> 0);
 
-		System.exit(exitCode);
-	}
+        System.exit(exitCode);
+    }
 }

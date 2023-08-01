@@ -66,8 +66,7 @@ public class StreamExportService {
         //1、配置导出
         DefaultStreamExcelBuilder<ArtCrowd> streamExport = DefaultStreamExcelBuilder
                 //如果已存在导出实体模板类
-                .of(ArtCrowd.class)
-                .threadPool(Executors.newFixedThreadPool(10))//构建线程池
+                .of(ArtCrowd.class).threadPool(Executors.newFixedThreadPool(10))//构建线程池
                 .templateHandler(FreemarkerTemplateHandler.class)//追加模板数据
                 .capacity(10000)//容量设定，在数据量达到设置的值时，会自动生成新的excel
                 .start();
@@ -92,8 +91,7 @@ public class StreamExportService {
         //1、配置导出
         DefaultStreamExcelBuilder<ArtCrowd> streamExport = DefaultStreamExcelBuilder
                 //如果已存在导出实体模板类
-                .of(ArtCrowd.class)
-                .threadPool(Executors.newFixedThreadPool(10))//构建线程池
+                .of(ArtCrowd.class).threadPool(Executors.newFixedThreadPool(10))//构建线程池
                 .templateHandler(FreemarkerTemplateHandler.class)//追加模板数据
                 .capacity(10000)//容量设定，在数据量达到设置的值时，会自动生成新的excel
                 .start();

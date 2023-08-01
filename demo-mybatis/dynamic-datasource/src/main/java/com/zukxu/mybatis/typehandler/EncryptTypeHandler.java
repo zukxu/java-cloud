@@ -36,7 +36,7 @@ public class EncryptTypeHandler extends BaseTypeHandler<Encrypt> {
      */
     @Override
     public void setNonNullParameter(PreparedStatement ps, int i, Encrypt parameter, JdbcType jdbcType) throws SQLException {
-        if(parameter == null || parameter.getValue() == null) {
+        if (parameter == null || parameter.getValue() == null) {
             ps.setString(i, null);
             return;
         }
@@ -70,7 +70,7 @@ public class EncryptTypeHandler extends BaseTypeHandler<Encrypt> {
     }
 
     public Encrypt decrypt(String value) {
-        if(null == value) {
+        if (null == value) {
             return null;
         }
         return new Encrypt(SecureUtil.aes(KEYS).decryptStr(value));

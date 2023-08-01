@@ -1,6 +1,5 @@
 package com.zukxu.design.structural.decorator.demo1;
 
-
 import com.zukxu.design.structural.decorator.demo1.service.WorkFlowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -15,7 +14,7 @@ import java.util.HashMap;
  * 集团调用我们的省分大音平台
  */
 @RestController
-@RequestMapping({ "/sync/CSVC" })
+@RequestMapping({"/sync/CSVC"})
 public class WorkFlowCSVCController {
 
     @Autowired
@@ -30,13 +29,12 @@ public class WorkFlowCSVCController {
     @Qualifier("CSVCService")
     private WorkFlowService csvcService;
 
-
     /**
      * 集团调用省分 派单入库省分
      *
      * @param param map
      */
-    @PostMapping({ "/DispatchCSS" })
+    @PostMapping({"/DispatchCSS"})
     public String DispatchCSS(@RequestBody HashMap<String, Object> param) {
         String s = csvcService.dispatchCSS(param);
         snService.dispatchCSS(param);
@@ -46,6 +44,5 @@ public class WorkFlowCSVCController {
         moreThirdDecorator.dispatchCSS(param);
         return s;
     }
-
 
 }

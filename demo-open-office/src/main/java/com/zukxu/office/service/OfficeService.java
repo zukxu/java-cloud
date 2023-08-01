@@ -27,8 +27,13 @@ public class OfficeService {
             throw new Exception("文件格式不正确");
         }
         String suffix = str.get(str.size() - 1);
-        if (!suffix.equals("txt") && !suffix.equals("doc") && !suffix.equals("docx") && !suffix.equals("xls")
-                && !suffix.equals("xlsx") && !suffix.equals("ppt") && !suffix.equals("pptx")) {
+        if (!suffix.equals("txt") &&
+            !suffix.equals("doc") &&
+            !suffix.equals("docx") &&
+            !suffix.equals("xls") &&
+            !suffix.equals("xlsx") &&
+            !suffix.equals("ppt") &&
+            !suffix.equals("pptx")) {
             throw new Exception("文件格式不支持预览");
         }
         InputStream in = FileConvertUtil.convertNetFile(url, suffix);

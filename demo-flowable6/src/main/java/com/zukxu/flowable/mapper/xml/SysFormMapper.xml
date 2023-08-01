@@ -15,7 +15,14 @@
     </resultMap>
 
     <sql id="selectSysFormVo">
-        select form_id, form_name, form_content, create_time, update_time, create_by, update_by, remark
+        select form_id,
+               form_name,
+               form_content,
+               create_time,
+               update_time,
+               create_by,
+               update_by,
+               remark
         from sys_form
     </sql>
 

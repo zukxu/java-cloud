@@ -43,20 +43,18 @@ public class TestFluentQuery {
     void testFluentQuery() {
         List<SysUser> list = new ArrayList<>();
         //1、SqlSession
-        try(
-                SqlSession sqlSession = sqlSessionFactory.openSession();
-                Cursor<SysUser> cursor = sqlSession.getMapper(SysUserMapper.class).scan(10)
+        try (SqlSession sqlSession = sqlSessionFactory.openSession(); Cursor<SysUser> cursor = sqlSession.getMapper(SysUserMapper.class).scan(10)
         ) {
             cursor.forEach(list::add);
-        } catch(Exception e) {
+        } catch (Exception e) {
             log.error(e.getMessage());
         }
         //2、TransactionManager管理事务
         TransactionTemplate transactionTemplate = new TransactionTemplate(transactionManager);
         transactionTemplate.execute(status -> {
-            try(Cursor<SysUser> cursor = sysUserMapper.scan(10)) {
+            try (Cursor<SysUser> cursor = sysUserMapper.scan(10)) {
                 cursor.forEach(list::add);
-            } catch(IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
             return null;
@@ -75,7 +73,7 @@ public class TestFluentQuery {
 
         List<SysUser> list = new ArrayList<>();
         sysUserMapper.scanHandler(wrapper, resultContext -> {
-            if(resultContext.getResultCount() < pageSize) {
+            if (resultContext.getResultCount() < pageSize) {
                 SysUser object = resultContext.getResultObject();
                 list.add(object);
             }

@@ -28,7 +28,7 @@ public abstract class SliceUploadTemplate implements SliceUploadStrategy {
         String tempFileName = fileName + "_tmp";
         File tmpDir = new File(uploadDirPath);
         File tmpFile = new File(uploadDirPath, tempFileName);
-        if(!tmpDir.exists()) {
+        if (!tmpDir.exists()) {
             tmpDir.mkdirs();
         }
         return tmpFile;
@@ -38,7 +38,7 @@ public abstract class SliceUploadTemplate implements SliceUploadStrategy {
     public FileUpload sliceUpload(FileUploadRequest param) {
 
         boolean isOk = this.upload(param);
-        if(isOk) {
+        if (isOk) {
             File tmpFile = this.createTmpFile(param);
             FileUpload fileUploadDTO = this.saveAndFileUploadDTO(param.getFile().getOriginalFilename(), tmpFile);
             return fileUploadDTO;
@@ -71,13 +71,13 @@ public abstract class SliceUploadTemplate implements SliceUploadStrategy {
             //completeList 检查是否全部完成,如果数组里是否全部都是127(全部分片都成功上传)
             byte[] completeList = FileUtils.readFileToByteArray(confFile);
             isComplete = Byte.MAX_VALUE;
-            for(int i = 0; i < completeList.length && isComplete == Byte.MAX_VALUE; i++) {
+            for (int i = 0; i < completeList.length && isComplete == Byte.MAX_VALUE; i++) {
                 //与运算, 如果有部分没有完成则 isComplete 不是 Byte.MAX_VALUE
                 isComplete = (byte) (isComplete & completeList[i]);
                 System.out.println("check part " + i + " complete?:" + completeList[i]);
             }
 
-        } catch(IOException e) {
+        } catch (IOException e) {
             log.error(e.getMessage(), e);
         } finally {
             FileUtil.close(accessConfFile);
@@ -89,20 +89,18 @@ public abstract class SliceUploadTemplate implements SliceUploadStrategy {
     /**
      * 把上传进度信息存进redis
      */
-    private boolean setUploadProgress2Redis(FileUploadRequest param, String uploadDirPath,
-                                            String fileName, File confFile, byte isComplete) {
+    private boolean setUploadProgress2Redis(FileUploadRequest param, String uploadDirPath, String fileName, File confFile, byte isComplete) {
 
         RedisUtil redisUtil = SpringContextHolder.getBean(RedisUtil.class);
-        if(isComplete == Byte.MAX_VALUE) {
+        if (isComplete == Byte.MAX_VALUE) {
             redisUtil.hset(FileConstant.FILE_UPLOAD_STATUS, param.getMd5(), "true");
             redisUtil.del(FileConstant.FILE_MD5_KEY + param.getMd5());
             confFile.delete();
             return true;
         } else {
-            if(!redisUtil.hHasKey(FileConstant.FILE_UPLOAD_STATUS, param.getMd5())) {
+            if (!redisUtil.hHasKey(FileConstant.FILE_UPLOAD_STATUS, param.getMd5())) {
                 redisUtil.hset(FileConstant.FILE_UPLOAD_STATUS, param.getMd5(), "false");
-                redisUtil.set(FileConstant.FILE_MD5_KEY + param.getMd5(),
-                              uploadDirPath + FileConstant.FILE_SEPARATORCHAR + fileName + ".conf");
+                redisUtil.set(FileConstant.FILE_MD5_KEY + param.getMd5(), uploadDirPath + FileConstant.FILE_SEPARATORCHAR + fileName + ".conf");
             }
 
             return false;
@@ -119,14 +117,13 @@ public abstract class SliceUploadTemplate implements SliceUploadStrategy {
         try {
 
             fileUploadDTO = renameFile(tmpFile, fileName);
-            if(fileUploadDTO.isUploadComplete()) {
-                System.out
-                        .println("upload complete !!" + fileUploadDTO.isUploadComplete() + " name=" + fileName);
+            if (fileUploadDTO.isUploadComplete()) {
+                System.out.println("upload complete !!" + fileUploadDTO.isUploadComplete() + " name=" + fileName);
                 //TODO 保存文件信息到数据库
 
             }
 
-        } catch(Exception e) {
+        } catch (Exception e) {
             log.error(e.getMessage(), e);
         } finally {
 
@@ -143,7 +140,7 @@ public abstract class SliceUploadTemplate implements SliceUploadStrategy {
     private FileUpload renameFile(File toBeRenamed, String toFileNewName) {
         //检查要重命名的文件是否存在，是否是文件
         FileUpload fileUploadDTO = new FileUpload();
-        if(!toBeRenamed.exists() || toBeRenamed.isDirectory()) {
+        if (!toBeRenamed.exists() || toBeRenamed.isDirectory()) {
             log.info("File does not exist: {}", toBeRenamed.getName());
             fileUploadDTO.setUploadComplete(false);
             return fileUploadDTO;

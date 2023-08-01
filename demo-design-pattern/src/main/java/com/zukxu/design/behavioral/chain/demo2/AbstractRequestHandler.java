@@ -22,7 +22,7 @@ public abstract class AbstractRequestHandler implements RequestHandler2 {
     }
 
     protected boolean handleNext(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        if(nextHandler != null) {
+        if (nextHandler != null) {
             return nextHandler.handleRequest(request, response);
         } else {
             return true;

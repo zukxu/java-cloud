@@ -31,13 +31,12 @@ public class SysUser {
     /**
      * 原生枚举： 默认使用枚举值顺序： 0：NORMAL， 1：DELETED
      */
-//    private DelEnum delFlag;
+    //    private DelEnum delFlag;
 
     /**
      * 原生枚举（带{@link com.baomidou.mybatisplus.annotation.EnumValue}):
      * 数据库的值对应该注解对应的属性
      */
     private LevelEnum level;
-
 
 }

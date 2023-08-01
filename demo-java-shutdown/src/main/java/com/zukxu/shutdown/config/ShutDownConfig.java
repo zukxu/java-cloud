@@ -14,8 +14,8 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class ShutDownConfig {
-	@Bean
-	public TerminateBean getTerminateBean() {
-		return new TerminateBean();
-	}
+    @Bean
+    public TerminateBean getTerminateBean() {
+        return new TerminateBean();
+    }
 }

@@ -38,9 +38,8 @@ public class Para {
 
     public static Para[] buildParaList(Map map) {
         List<Para> list = new ArrayList<>();
-        for(Object s : map.keySet()) {
-            Para para = new Para().setParaID(String.valueOf(s))
-                                  .setParaVal(ObjectUtil.isNotEmpty(map.get(s)) ? String.valueOf(map.get(s)) : "");
+        for (Object s : map.keySet()) {
+            Para para = new Para().setParaID(String.valueOf(s)).setParaVal(ObjectUtil.isNotEmpty(map.get(s)) ? String.valueOf(map.get(s)) : "");
             list.add(para);
         }
         return list.toArray(new Para[0]);

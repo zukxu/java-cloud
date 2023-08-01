@@ -48,5 +48,4 @@ public class SysUser extends BaseEntity {
     @Size(max = 30, message = "登录名长度不能超过30个字符")
     private String loginName;
 
-
 }

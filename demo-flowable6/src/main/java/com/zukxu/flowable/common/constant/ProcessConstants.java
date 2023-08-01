@@ -20,12 +20,10 @@ public interface ProcessConstants {
      */
     String USER_TYPE_ASSIGNEE = "assignee";
 
-
     /**
      * 候选人
      */
     String USER_TYPE_USERS = "candidateUsers";
-
 
     /**
      * 审批组
@@ -66,7 +64,6 @@ public interface ProcessConstants {
      * 初始化人员
      */
     String PROCESS_INITIATOR = "INITIATOR";
-
 
     /**
      * 流程跳过

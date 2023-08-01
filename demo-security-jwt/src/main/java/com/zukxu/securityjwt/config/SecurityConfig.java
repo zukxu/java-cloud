@@ -21,12 +21,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * @Date 2021-10-13 15:56
  */
 @Configuration
-@EnableGlobalMethodSecurity(prePostEnabled = true,securedEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private LoginUserService userService;
-
 
     @Bean
     public JwtAuthenticationTokenFilter authenticationTokenFilterBean() {
@@ -63,7 +62,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .authenticated()
                     .antMatchers(HttpMethod.GET)
                     .authenticated();
-
 
         httpSecurity.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
 

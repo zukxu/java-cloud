@@ -32,7 +32,7 @@ public class DemoProperties1 {
         pt1.load(new FileReader("D:\\temp\\workFile\\io\\config.properties"));
         Set<String> name = pt1.stringPropertyNames();//返回key名集合
 
-        for(String n : name) {
+        for (String n : name) {
             System.out.println(n + "||" + pt1.getProperty(n));////通过key获取value 可以设置默认值
         }
     }
@@ -46,7 +46,7 @@ public class DemoProperties1 {
         pt1.setProperty("sex", "女");
         Set<String> name = pt1.stringPropertyNames();//返回key名集合
 
-        for(String n : name) {
+        for (String n : name) {
             System.out.println(n + "||" + pt1.getProperty(n));////通过key获取value 可以设置默认值
         }
         //D:\\temp\\workFile\\io\\config.properties

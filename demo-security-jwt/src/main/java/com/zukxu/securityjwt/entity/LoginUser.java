@@ -17,7 +17,6 @@ import java.util.List;
 @Data
 public class LoginUser implements UserDetails {
 
-
     private static final long serialVersionUID = 5132986105246554357L;
 
     /**
@@ -66,7 +65,7 @@ public class LoginUser implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
-        for(SysRole role : roles) {
+        for (SysRole role : roles) {
             authorities.add(new SimpleGrantedAuthority(role.getName()));
         }
         return authorities;

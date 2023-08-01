@@ -11,9 +11,9 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface UserMapper {
 
-	void addQRC(@Param("u") UserEntity user);
+    void addQRC(@Param("u") UserEntity user);
 
-	UserEntity selectOne(Integer userId, String token);
+    UserEntity selectOne(Integer userId, String token);
 
-	int updateById(UserEntity user);
+    int updateById(UserEntity user);
 }

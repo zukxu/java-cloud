@@ -53,7 +53,7 @@ public class NoModelDataListener extends AnalysisEventListener<Map<Integer, Stri
         rowDataList.add(rowData);
         // 达到BATCH_COUNT了，需要去存储一次数据库，防止数据几万条数据在内存，容易OOM
         if (rowDataList.size() >= BATCH_COUNT) {
-            reportService.saveData(head2FieldMap, rowDataList,entityClassName);
+            reportService.saveData(head2FieldMap, rowDataList, entityClassName);
             // 存储完成清理 list
             rowDataList = new ArrayList<>(BATCH_COUNT);
         }
@@ -68,10 +68,9 @@ public class NoModelDataListener extends AnalysisEventListener<Map<Integer, Stri
     @Override
     public void doAfterAllAnalysed(AnalysisContext context) {
         //所有行都解析完成
-        reportService.saveData(head2FieldMap, rowDataList,entityClassName);
+        reportService.saveData(head2FieldMap, rowDataList, entityClassName);
         log.info("所有数据解析完成！");
     }
-
 
     /**
      * 某行的数据解析失败
@@ -85,6 +84,5 @@ public class NoModelDataListener extends AnalysisEventListener<Map<Integer, Stri
             log.error("第{}行，第{}列解析异常", dataConvertException.getRowIndex(), dataConvertException.getColumnIndex());
         }
     }
-
 
 }

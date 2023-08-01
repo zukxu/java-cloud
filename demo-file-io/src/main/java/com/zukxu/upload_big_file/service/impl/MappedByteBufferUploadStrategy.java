@@ -1,6 +1,5 @@
 package com.zukxu.upload_big_file.service.impl;
 
-
 import com.zukxu.upload_big_file.po.FileUploadRequest;
 import com.zukxu.upload_big_file.template.SliceUploadTemplate;
 import com.zukxu.upload_big_file.util.FilePathUtil;
@@ -37,17 +36,15 @@ public class MappedByteBufferUploadStrategy extends SliceUploadTemplate {
             tempRaf = new RandomAccessFile(tmpFile, "rw");
             fileChannel = tempRaf.getChannel();
 
-            long chunkSize = Objects.isNull(param.getChunkSize()) ? defaultChunkSize * 1024 * 1024
-                    : param.getChunkSize();
+            long chunkSize = Objects.isNull(param.getChunkSize()) ? defaultChunkSize * 1024 * 1024 : param.getChunkSize();
             //写入该分片数据
             long offset = chunkSize * param.getChunk();
             byte[] fileData = param.getFile().getBytes();
-            mappedByteBuffer = fileChannel
-                    .map(FileChannel.MapMode.READ_WRITE, offset, fileData.length);
+            mappedByteBuffer = fileChannel.map(FileChannel.MapMode.READ_WRITE, offset, fileData.length);
             mappedByteBuffer.put(fileData);
             return super.checkAndSetUploadProgress(param, uploadDirPath);
 
-        } catch(IOException e) {
+        } catch (IOException e) {
             log.error(e.getMessage(), e);
         } finally {
 

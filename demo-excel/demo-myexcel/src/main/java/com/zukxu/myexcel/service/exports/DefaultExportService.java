@@ -23,6 +23,11 @@ import java.util.List;
 @Service
 public class DefaultExportService {
 
+    public static void main(String[] args) {
+        DefaultExportService defaultExportService = new DefaultExportService();
+        defaultExportService.multiColumnExport();
+    }
+
     /**
      * 默认导出 浏览器下载
      * 采用普通的List<Class<T> 的方式导出，适合小数据量的情况，如果数据量>10W 建议使用DefaultStreamBuilder进行导出，避免内存占用过多
@@ -37,17 +42,13 @@ public class DefaultExportService {
     public void defaultExport(HttpServletResponse response) {
 
         List<ArtCrowd> dataList = DataInitUtils.getArtCrowdDataList();
-        Workbook workbook = DefaultExcelBuilder.of(ArtCrowd.class)
-                                               .sheetName("sheet1")
-                                               .widthStrategy(WidthStrategy.AUTO_WIDTH)
-                                               .build(dataList);
+        Workbook workbook = DefaultExcelBuilder.of(ArtCrowd.class).sheetName("sheet1").widthStrategy(WidthStrategy.AUTO_WIDTH).build(dataList);
         AttachmentExportUtil.export(workbook, "defaultExport", response);
         //FileExportUtil.export(workbook, new File("E:\\temp\\myexcel\\defaultExport_excel"));
         //加密导出
         AttachmentExportUtil.encryptExport(workbook, "defaultExport", response, "password");
         //FileExportUtil.encryptExport(workbook, new File("E:\\temp\\myexcel\\defaultExport_excel"),"password");
     }
-
 
     /**
      * 多个sheet导出
@@ -56,15 +57,9 @@ public class DefaultExportService {
      */
     @SneakyThrows
     public void multiSheetExport() {
-        Workbook workbook = DefaultExcelBuilder.of(ArtCrowd.class)
-                                               .sheetName("sheet1")
-                                               .widthStrategy(WidthStrategy.AUTO_WIDTH)
-                                               .build(DataInitUtils.getArtCrowdDataList());
+        Workbook workbook = DefaultExcelBuilder.of(ArtCrowd.class).sheetName("sheet1").widthStrategy(WidthStrategy.AUTO_WIDTH).build(DataInitUtils.getArtCrowdDataList());
         //新建sheet，跟在上一个之后
-        workbook = DefaultExcelBuilder.of(People.class, workbook)
-                                      .sheetName("sheet2")
-                                      .widthStrategy(WidthStrategy.AUTO_WIDTH)
-                                      .build(DataInitUtils.getPeopleDataList());
+        workbook = DefaultExcelBuilder.of(People.class, workbook).sheetName("sheet2").widthStrategy(WidthStrategy.AUTO_WIDTH).build(DataInitUtils.getPeopleDataList());
         FileExportUtil.export(workbook, new File("E:\\temp\\myexcel\\multiSheet_excel"));
         //加密导出
         FileExportUtil.encryptExport(workbook, new File("E:\\temp\\myexcel\\multiSheet_excel"), "password");
@@ -79,10 +74,7 @@ public class DefaultExportService {
      */
     @SneakyThrows
     public void multiColumnExport() {
-        Workbook workbook = DefaultExcelBuilder.of(School.class)
-                                               .sheetName("sheet1")
-                                               .widthStrategy(WidthStrategy.AUTO_WIDTH)
-                                               .build(DataInitUtils.getSchoolDataList());
+        Workbook workbook = DefaultExcelBuilder.of(School.class).sheetName("sheet1").widthStrategy(WidthStrategy.AUTO_WIDTH).build(DataInitUtils.getSchoolDataList());
 
         FileExportUtil.export(workbook, new File("E:\\temp\\myexcel\\multiColumn_excel"));
         //加密导出
@@ -124,8 +116,7 @@ public class DefaultExportService {
      */
     @SneakyThrows
     public void multiTitlesExport() {
-        Workbook workbook = DefaultExcelBuilder.of(ArtCrowd.class)
-                                               .build(DataInitUtils.getArtCrowdDataList());
+        Workbook workbook = DefaultExcelBuilder.of(ArtCrowd.class).build(DataInitUtils.getArtCrowdDataList());
 
         FileExportUtil.export(workbook, new File("E:\\temp\\myexcel\\multiTitles_excel"));
     }
@@ -136,8 +127,7 @@ public class DefaultExportService {
      */
     @SneakyThrows
     public void imageExport() {
-        Workbook workbook = DefaultExcelBuilder.of(ArtCrowd.class)
-                                               .build(DataInitUtils.getArtCrowdDataList());
+        Workbook workbook = DefaultExcelBuilder.of(ArtCrowd.class).build(DataInitUtils.getArtCrowdDataList());
 
         FileExportUtil.export(workbook, new File("E:\\temp\\myexcel\\image_excel"));
     }
@@ -156,8 +146,7 @@ public class DefaultExportService {
      */
     @SneakyThrows
     public void hyperlinkExport() {
-        Workbook workbook = DefaultExcelBuilder.of(ArtCrowd.class)
-                                               .build(DataInitUtils.getArtCrowdDataList());
+        Workbook workbook = DefaultExcelBuilder.of(ArtCrowd.class).build(DataInitUtils.getArtCrowdDataList());
 
         FileExportUtil.export(workbook, new File("E:\\temp\\myexcel\\hyperlink_excel"));
     }
@@ -172,8 +161,7 @@ public class DefaultExportService {
      */
     @SneakyThrows
     public void dropDownListExport() {
-        Workbook workbook = DefaultExcelBuilder.of(ArtCrowd.class)
-                                               .build(DataInitUtils.getArtCrowdDataList());
+        Workbook workbook = DefaultExcelBuilder.of(ArtCrowd.class).build(DataInitUtils.getArtCrowdDataList());
 
         FileExportUtil.export(workbook, new File("E:\\temp\\myexcel\\dropDownList_excel"));
     }
@@ -195,8 +183,7 @@ public class DefaultExportService {
      */
     @SneakyThrows
     public void customConvertExport() {
-        Workbook workbook = DefaultExcelBuilder.of(ArtCrowd.class)
-                                               .build(DataInitUtils.getArtCrowdDataList());
+        Workbook workbook = DefaultExcelBuilder.of(ArtCrowd.class).build(DataInitUtils.getArtCrowdDataList());
 
         FileExportUtil.export(workbook, new File("E:\\temp\\myexcel\\customConvert_excel"));
     }
@@ -207,8 +194,7 @@ public class DefaultExportService {
      */
     @SneakyThrows
     public void formulaExport() {
-        Workbook workbook = DefaultExcelBuilder.of(ArtCrowd.class)
-                                               .build(DataInitUtils.getArtCrowdDataList());
+        Workbook workbook = DefaultExcelBuilder.of(ArtCrowd.class).build(DataInitUtils.getArtCrowdDataList());
 
         FileExportUtil.export(workbook, new File("E:\\temp\\myexcel\\formula_excel"));
     }
@@ -228,8 +214,7 @@ public class DefaultExportService {
      */
     @SneakyThrows
     public void cellTypeExport() {
-        Workbook workbook = DefaultExcelBuilder.of(ArtCrowd.class)
-                                               .build(DataInitUtils.getArtCrowdDataList());
+        Workbook workbook = DefaultExcelBuilder.of(ArtCrowd.class).build(DataInitUtils.getArtCrowdDataList());
 
         FileExportUtil.export(workbook, new File("E:\\temp\\myexcel\\cellType_excel"));
     }
@@ -242,8 +227,7 @@ public class DefaultExportService {
      */
     @SneakyThrows
     public void freezeTitleExport() {
-        Workbook workbook = DefaultExcelBuilder.of(ArtCrowd.class)
-                                               .fixedTitles()
+        Workbook workbook = DefaultExcelBuilder.of(ArtCrowd.class).fixedTitles()
                                                //.freezePane(new FreezePane(1, 2))// 一行，两列
                                                .build(DataInitUtils.getArtCrowdDataList());
         FileExportUtil.export(workbook, new File("E:\\temp\\myexcel\\freezeTitle_excel"));
@@ -255,8 +239,7 @@ public class DefaultExportService {
      */
     @SneakyThrows
     public void promptExport() {
-        Workbook workbook = DefaultExcelBuilder.of(ArtCrowd.class)
-                                               .build(DataInitUtils.getArtCrowdDataList());
+        Workbook workbook = DefaultExcelBuilder.of(ArtCrowd.class).build(DataInitUtils.getArtCrowdDataList());
         FileExportUtil.export(workbook, new File("E:\\temp\\myexcel\\prompt_excel"));
     }
 
@@ -266,16 +249,10 @@ public class DefaultExportService {
      */
     @SneakyThrows
     public void waterMarkExport() {
-        Workbook workbook = DefaultExcelBuilder.of(ArtCrowd.class)
-                                               .build(DataInitUtils.getArtCrowdDataList());
+        Workbook workbook = DefaultExcelBuilder.of(ArtCrowd.class).build(DataInitUtils.getArtCrowdDataList());
         //使用工具生成水印
-        WatermarkUtil.addWatermark(workbook,"MyExcel学习");
+        WatermarkUtil.addWatermark(workbook, "MyExcel学习");
         FileExportUtil.export(workbook, new File("E:\\temp\\myexcel\\waterMark_excel"));
-    }
-
-    public static void main(String[] args) {
-        DefaultExportService defaultExportService = new DefaultExportService();
-        defaultExportService.multiColumnExport();
     }
 
 }

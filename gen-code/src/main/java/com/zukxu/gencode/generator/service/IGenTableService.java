@@ -81,13 +81,13 @@ public interface IGenTableService {
      */
     Map<String, String> previewCode(Long tableId);
 
-
     /**
      * 同步数据库
      *
      * @param tableName 表名称
      */
     void syncDb(String tableName);
+
     /**
      * 生成代码（自定义路径）
      *

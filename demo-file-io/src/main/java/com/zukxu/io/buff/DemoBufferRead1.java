@@ -19,7 +19,7 @@ public class DemoBufferRead1 {
         BufferedReader bfr = new BufferedReader(fr1);
         //bfr.readLine() 通过换行符回车符 或者回车换行符作为终止符号
         String line;
-        while((line = bfr.readLine()) != null) {
+        while ((line = bfr.readLine()) != null) {
             System.out.println(line);
         }
         fr1.close();

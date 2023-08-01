@@ -47,24 +47,25 @@ public class CsvExportService {
      */
     public void attachCSVExport(HttpServletResponse response) {
         CsvBuilder<People> csvBuilder = CsvBuilder.of(People.class);
-        for(int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++) {
             csvBuilder.append(DataInitUtils.getPeopleDataList());
         }
         Csv csv = csvBuilder.build();
         AttachmentExportUtil.export(csv.getFilePath(), "attachCSV.csv", response);
         //FileExportUtil.export(csv.getFilePath(),new File(""));
     }
+
     /**
      * 二次文件追加方式 导出
      */
     public void attachTwoCSVExport(HttpServletResponse response) {
         CsvBuilder<People> csvBuilder = CsvBuilder.of(People.class).noTitles();
-        for(int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++) {
             csvBuilder.append(DataInitUtils.getPeopleDataList());
         }
         Csv csv = csvBuilder.build();
         //会在原文件的后面追加内容，不会覆盖
-        csv.write(Paths.get("E:\\temp\\myexcel\\attachCSV.csv"),true);
+        csv.write(Paths.get("E:\\temp\\myexcel\\attachCSV.csv"), true);
     }
 
 }

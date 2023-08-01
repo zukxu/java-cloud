@@ -1,21 +1,21 @@
 import axios from 'axios'
 
 const mimeMap = {
-  xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-  zip: 'application/zip'
+    xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    zip: 'application/zip'
 }
 
 const baseUrl = process.env.VUE_APP_BASE_API
 
 export function downLoadZip(str, filename) {
-  const url = baseUrl + str;
-  axios({
-    method: 'get',
-    url: url,
-    responseType: 'blob',
-  }).then(res => {
-    resolveBlob(res, mimeMap.zip)
-  })
+    const url = baseUrl + str;
+    axios({
+        method: 'get',
+        url: url,
+        responseType: 'blob',
+    }).then(res => {
+        resolveBlob(res, mimeMap.zip)
+    })
 }
 
 /**
@@ -24,16 +24,16 @@ export function downLoadZip(str, filename) {
  * @param {String} mimeType MIME类型
  */
 export function resolveBlob(res, mimeType) {
-  const aLink = document.createElement('a')
-  const blob = new Blob([res.data], {type: mimeType});
-  // //从response的headers中获取filename, 后端response.setHeader("Content-disposition", "attachment; filename=xxxx.docx") 设置的文件名;
-  var patt = new RegExp('filename=([^;]+\\.[^\\.;]+);*')
-  var contentDisposition = decodeURI(res.headers['content-disposition'])
+    const aLink = document.createElement('a')
+    const blob = new Blob([res.data], {type: mimeType});
+    // //从response的headers中获取filename, 后端response.setHeader("Content-disposition", "attachment; filename=xxxx.docx") 设置的文件名;
+    var patt = new RegExp('filename=([^;]+\\.[^\\.;]+);*')
+    var contentDisposition = decodeURI(res.headers['content-disposition'])
 
-  var fileName = patt.exec(contentDisposition)[1].replace(/\"/g, '')
-  aLink.href = URL.createObjectURL(blob)
-  aLink.setAttribute('download', fileName) // 设置下载文件名称
-  document.body.appendChild(aLink)
-  aLink.click()
-  document.body.appendChild(aLink)
+    var fileName = patt.exec(contentDisposition)[1].replace(/\"/g, '')
+    aLink.href = URL.createObjectURL(blob)
+    aLink.setAttribute('download', fileName) // 设置下载文件名称
+    document.body.appendChild(aLink)
+    aLink.click()
+    document.body.appendChild(aLink)
 }

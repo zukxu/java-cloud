@@ -31,28 +31,23 @@ public class DateUtil {
     public static final String DATE_TIME_START_PATTERN = "yyyy-MM-dd 00:00:00";
 
     public static final String DATE_TIME_END_PATTERN = "yyyy-MM-dd 23:59:59";
-
-
+    /**
+     * 一周有几天
+     */
+    public static final int wholeDayOfWeek = 7;
     /**
      * 设置一周的第一天是什么; 例如美国的是SUNDAY，中国的是MONDAY。
      */
     private static final int firstDayOfWeek = Calendar.MONDAY;
 
-    /**
-     * 一周有几天
-     */
-    public static final int wholeDayOfWeek = 7;
-
     public static void main(String[] args) {
 
     }
-
 
     public static Integer dateToTimestamp(Date time) {
         Timestamp ts = new Timestamp(time.getTime());
         return (int) ((ts.getTime()) / 1000);
     }
-
 
     public static Integer getCurrentTimeStamp() {
         Timestamp ts = new Timestamp(new Date().getTime());
@@ -65,7 +60,6 @@ public class DateUtil {
 
         return (int) ((ts.getTime()) / 1000);
     }
-
 
     public static String getDateStr(Date date) {
         return FastDateFormat.getInstance(DATE_PATTERN).format(date);
@@ -98,7 +92,6 @@ public class DateUtil {
      * 日期转字符串
      *
      * @param date
-     *
      * @return
      */
     public static String dateToStr(Date date) {
@@ -110,12 +103,11 @@ public class DateUtil {
      *
      * @param date
      * @param pattern
-     *
      * @return
      */
     public static String dateToStr(Date date, String pattern) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-        if(pattern != null) {
+        if (pattern != null) {
             sdf.applyPattern(pattern);
         }
         return sdf.format(date);
@@ -126,7 +118,6 @@ public class DateUtil {
      *
      * @param dateStr
      * @param pattern
-     *
      * @return
      */
     public static Date strToDate(String dateStr, String pattern) {
@@ -134,7 +125,7 @@ public class DateUtil {
         SimpleDateFormat sdf = new SimpleDateFormat(pattern);
         try {
             date = sdf.parse(dateStr);
-        } catch(ParseException e) {
+        } catch (ParseException e) {
             log.error(e.getMessage(), e);
         }
         return date;
@@ -142,7 +133,7 @@ public class DateUtil {
 
     public static String dateToStrByType(Date date, DateType dateType) {
         String dateStr;
-        switch(dateType) {
+        switch (dateType) {
             case DAY:
                 dateStr = dateToStr(date, "yyyy-MM-dd");
                 break;
@@ -168,7 +159,7 @@ public class DateUtil {
     public static Date strToDateByType(String dateStr, DateType dateType) {
         Date date;
         Calendar c;
-        switch(dateType) {
+        switch (dateType) {
             case DAY:
                 date = strToDate(dateStr, "yyyy-MM-dd");
                 break;
@@ -187,7 +178,7 @@ public class DateUtil {
                 c.set(Calendar.WEEK_OF_YEAR, Integer.parseInt(arr[1]));
                 // 2012年1月1日为星期日，则Java某一周转换为日期后都会是星期日，所以依然会出现跨年周
                 // 如：2102|54周会转成2013年1月6日星期日，实际2012年12月31日星期一才是第54周。
-                if(c.get(Calendar.YEAR) > year) {
+                if (c.get(Calendar.YEAR) > year) {
                     c.setTime(strToDate(arr[0], "yyyy"));
                     c.set(Calendar.DAY_OF_YEAR, c.getActualMaximum(Calendar.DAY_OF_YEAR));
                 }
@@ -204,7 +195,7 @@ public class DateUtil {
                 c.set(Calendar.WEEK_OF_MONTH, Integer.parseInt(arr[1]));
                 // 2012年12月1日为星期六，则Java某一周转换为日期后都会是星期六，所以依然会出现跨月周
                 // 如：2102-12|6周会转成2013年1月5日星期六，实际2012年12月31日星期一才是第6周。
-                if(c.get(Calendar.YEAR) > year || c.get(Calendar.MONTH) + 1 > month) {
+                if (c.get(Calendar.YEAR) > year || c.get(Calendar.MONTH) + 1 > month) {
                     c.setTime(strToDate(arr[0], "yyyy-MM"));
                     c.set(Calendar.DAY_OF_MONTH, c.getActualMaximum(Calendar.DAY_OF_MONTH));
                 }
@@ -222,7 +213,6 @@ public class DateUtil {
      *
      * @param date
      * @param dateType
-     *
      * @return
      */
     public static Date getStartDate(Date date, DateType dateType) {
@@ -235,7 +225,6 @@ public class DateUtil {
      * @param date
      * @param dateType
      * @param interval
-     *
      * @return
      */
     public static Date getStartDate(Date date, DateType dateType, int interval) {
@@ -243,7 +232,7 @@ public class DateUtil {
         c.setFirstDayOfWeek(firstDayOfWeek);
         c.setTime(date);
         Calendar temp;
-        switch(dateType) {
+        switch (dateType) {
             case DAY:
                 c.add(Calendar.DAY_OF_MONTH, interval);
                 break;
@@ -263,10 +252,10 @@ public class DateUtil {
                 // 设置周的起始时间
                 c.set(Calendar.DAY_OF_WEEK, firstDayOfWeek);
                 // 跨年周处理
-                if(c.get(Calendar.YEAR) != tempYear) {
+                if (c.get(Calendar.YEAR) != tempYear) {
                     temp = (Calendar) c.clone();
                     temp.add(Calendar.DAY_OF_WEEK, wholeDayOfWeek - 1);
-                    if(c.get(Calendar.YEAR) < temp.get(Calendar.YEAR)) {
+                    if (c.get(Calendar.YEAR) < temp.get(Calendar.YEAR)) {
                         c = temp;
                         c.set(Calendar.DAY_OF_YEAR, c.getActualMinimum(Calendar.DAY_OF_YEAR));
                     }
@@ -280,32 +269,32 @@ public class DateUtil {
                 // 设置周的起始时间
                 c.set(Calendar.DAY_OF_WEEK, firstDayOfWeek);
                 // 跨月周处理
-                if(c.get(Calendar.YEAR) != tempYear || c.get(Calendar.MONTH) != tempMonth) {
+                if (c.get(Calendar.YEAR) != tempYear || c.get(Calendar.MONTH) != tempMonth) {
                     temp = (Calendar) c.clone();
                     temp.add(Calendar.DAY_OF_WEEK, wholeDayOfWeek - 1);
-                    if(c.get(Calendar.YEAR) < temp.get(Calendar.YEAR) || c.get(Calendar.MONTH) < temp.get(Calendar.MONTH)) {
+                    if (c.get(Calendar.YEAR) < temp.get(Calendar.YEAR) || c.get(Calendar.MONTH) < temp.get(Calendar.MONTH)) {
                         c = temp;
                         c.set(Calendar.DAY_OF_MONTH, c.getActualMinimum(Calendar.DAY_OF_MONTH));
                     }
                 }
                 break;
             case UP_DAY_FOR_YEAR:
-                if(interval != 0) {
+                if (interval != 0) {
                     date = getStartDate(date, DateType.DAY, interval);
                 }
                 return getStartDate(date, DateType.YEAR);
             case UP_MONTH_FOR_YEAR:
-                if(interval != 0) {
+                if (interval != 0) {
                     date = getStartDate(date, DateType.MONTH, interval);
                 }
                 return getStartDate(date, DateType.YEAR);
             case UP_YEAR_WEEK_FOR_YEAR:
-                if(interval != 0) {
+                if (interval != 0) {
                     date = getStartDate(date, DateType.YEAR_WEEK, interval);
                 }
                 return getStartDate(date, DateType.YEAR);
             case UP_MONTH_WEEK_FOR_YEAR:
-                if(interval != 0) {
+                if (interval != 0) {
                     date = getStartDate(date, DateType.MONTH_WEEK, interval);
                 }
                 return getStartDate(date, DateType.YEAR);
@@ -324,7 +313,6 @@ public class DateUtil {
      *
      * @param date
      * @param dateType
-     *
      * @return
      */
     public static Date getEndDate(Date date, DateType dateType) {
@@ -337,7 +325,6 @@ public class DateUtil {
      * @param date
      * @param dateType
      * @param interval
-     *
      * @return
      */
     public static Date getEndDate(Date date, DateType dateType, int interval) {
@@ -345,7 +332,7 @@ public class DateUtil {
         c.setFirstDayOfWeek(firstDayOfWeek);
         c.setTime(date);
         Calendar temp;
-        switch(dateType) {
+        switch (dateType) {
             case DAY:
             case UP_DAY_FOR_YEAR:
                 c.add(Calendar.DAY_OF_MONTH, interval);
@@ -372,10 +359,10 @@ public class DateUtil {
                 c.set(Calendar.DAY_OF_WEEK, firstDayOfWeek);
                 c.add(Calendar.DAY_OF_WEEK, wholeDayOfWeek - 1);
                 // 跨年周处理
-                if(c.get(Calendar.YEAR) != tempYear) {
+                if (c.get(Calendar.YEAR) != tempYear) {
                     temp = (Calendar) c.clone();
                     temp.set(Calendar.DAY_OF_WEEK, firstDayOfWeek);
-                    if(c.get(Calendar.YEAR) > temp.get(Calendar.YEAR)) {
+                    if (c.get(Calendar.YEAR) > temp.get(Calendar.YEAR)) {
                         c = temp;
                         c.set(Calendar.DAY_OF_YEAR, c.getActualMaximum(Calendar.DAY_OF_YEAR));
                     }
@@ -391,10 +378,10 @@ public class DateUtil {
                 c.set(Calendar.DAY_OF_WEEK, firstDayOfWeek);
                 c.add(Calendar.DAY_OF_WEEK, wholeDayOfWeek - 1);
                 // 跨月周处理
-                if(c.get(Calendar.YEAR) != tempYear || c.get(Calendar.MONTH) != tempMonth) {
+                if (c.get(Calendar.YEAR) != tempYear || c.get(Calendar.MONTH) != tempMonth) {
                     temp = (Calendar) c.clone();
                     temp.set(Calendar.DAY_OF_WEEK, firstDayOfWeek);
-                    if(c.get(Calendar.YEAR) > temp.get(Calendar.YEAR) || c.get(Calendar.MONTH) > temp.get(Calendar.MONTH)) {
+                    if (c.get(Calendar.YEAR) > temp.get(Calendar.YEAR) || c.get(Calendar.MONTH) > temp.get(Calendar.MONTH)) {
                         c = temp;
                         c.set(Calendar.DAY_OF_MONTH, c.getActualMaximum(Calendar.DAY_OF_MONTH));
                     }
@@ -415,7 +402,6 @@ public class DateUtil {
      *
      * @param startDate
      * @param endDate
-     *
      * @return
      */
     public static int getIntervalDays(Date startDate, Date endDate) {
@@ -441,7 +427,6 @@ public class DateUtil {
      * 获取某个日期所在月份的每一天
      *
      * @param date
-     *
      * @return
      */
     public static List<Date> listDateOfMonth(Date date) {
@@ -450,12 +435,10 @@ public class DateUtil {
         return listDateOfInterval(startDate, endDate);
     }
 
-
     /**
      * 获取某个日期所在周的每一天
      *
      * @param date
-     *
      * @return
      */
     public static List<Date> listDateOfWeek(Date date) {
@@ -464,20 +447,18 @@ public class DateUtil {
         return listDateOfInterval(startDate, endDate);
     }
 
-
     /**
      * 获取某段时间的每一天
      *
      * @param startDate
      * @param endDate
-     *
      * @return
      */
     public static List<Date> listDateOfInterval(Date startDate, Date endDate) {
         List<Date> days = new ArrayList<>();
         Calendar c = Calendar.getInstance();
         c.setTime(startDate);
-        while(c.getTimeInMillis() <= endDate.getTime()) {
+        while (c.getTimeInMillis() <= endDate.getTime()) {
             days.add(c.getTime());
             c.add(Calendar.DAY_OF_MONTH, 1);
         }
@@ -490,23 +471,22 @@ public class DateUtil {
      * @param startDate
      * @param endDate
      * @param dateType
-     *
      * @return
      */
     public static List<String> listFormatDate(Date startDate, Date endDate, DateType dateType) {
         List<String> dates = new ArrayList<>();
         endDate = DateUtil.getStartDate(endDate, dateType);
         int interval = 0;
-        while(true) {
+        while (true) {
             Date tempDate = DateUtil.getStartDate(startDate, dateType, interval);
             String tempDateStr = dateToStrByType(tempDate, dateType);
             dates.add(tempDateStr);
             // 中断条件
-            if(tempDate.getTime() == endDate.getTime()) {
+            if (tempDate.getTime() == endDate.getTime()) {
                 break;
-            } else if(tempDate.getTime() > endDate.getTime()) {
+            } else if (tempDate.getTime() > endDate.getTime()) {
                 interval--;
-            } else if(tempDate.getTime() < endDate.getTime()) {
+            } else if (tempDate.getTime() < endDate.getTime()) {
                 interval++;
             }
         }
@@ -518,11 +498,10 @@ public class DateUtil {
      *
      * @param date
      * @param interval
-     *
      * @return
      */
     public static Date getYearWeekDateByInterval(Date date, int interval) {
-        if(interval < 0) {
+        if (interval < 0) {
             int minWeekOfYear = 1;
 
             Calendar c = Calendar.getInstance();
@@ -530,18 +509,18 @@ public class DateUtil {
             c.setTime(date);
             int weekOfYear = (int) Math.ceil((c.get(Calendar.DAY_OF_YEAR) + wholeDayOfWeek - getDayOfWeek(c.getTime())) / (double) wholeDayOfWeek);
             int tempInterval = (weekOfYear + interval) - minWeekOfYear;
-            if(tempInterval < 0) {
+            if (tempInterval < 0) {
                 c.add(Calendar.YEAR, -1);
                 c.set(Calendar.DAY_OF_YEAR, c.getActualMaximum(Calendar.DAY_OF_YEAR));
                 date = getYearWeekDateByInterval(c.getTime(), tempInterval + 1);
-            } else if(tempInterval > 0) {
+            } else if (tempInterval > 0) {
                 c.add(Calendar.WEEK_OF_YEAR, interval);
                 date = c.getTime();
             } else {
                 c.set(Calendar.DAY_OF_YEAR, c.getActualMinimum(Calendar.DAY_OF_YEAR));
                 date = c.getTime();
             }
-        } else if(interval > 0) {
+        } else if (interval > 0) {
             Calendar temp = Calendar.getInstance();
             temp.setFirstDayOfWeek(firstDayOfWeek);
             temp.setTime(date);
@@ -553,11 +532,11 @@ public class DateUtil {
             c.setTime(date);
             int weekOfYear = (int) Math.ceil((c.get(Calendar.DAY_OF_YEAR) + wholeDayOfWeek - getDayOfWeek(c.getTime())) / (double) wholeDayOfWeek);
             int tempInterval = (weekOfYear + interval) - maxWeekOfYear;
-            if(tempInterval > 0) {
+            if (tempInterval > 0) {
                 c.add(Calendar.YEAR, 1);
                 c.set(Calendar.DAY_OF_YEAR, c.getActualMinimum(Calendar.DAY_OF_YEAR));
                 date = getYearWeekDateByInterval(c.getTime(), tempInterval - 1);
-            } else if(tempInterval < 0) {
+            } else if (tempInterval < 0) {
                 c.add(Calendar.WEEK_OF_YEAR, interval);
                 date = c.getTime();
             } else {
@@ -573,40 +552,39 @@ public class DateUtil {
      *
      * @param date
      * @param interval
-     *
      * @return
      */
     public static Date getMonthWeekDateByInterval(Date date, int interval) {
-        if(interval < 0) {
+        if (interval < 0) {
             Calendar c = Calendar.getInstance();
             c.setFirstDayOfWeek(firstDayOfWeek);
             c.setTime(date);
             int minWeekOfMonth = 1;
             int weekOfMonth = c.get(Calendar.WEEK_OF_MONTH);
             int tempInterval = (weekOfMonth + interval) - minWeekOfMonth;
-            if(tempInterval < 0) {
+            if (tempInterval < 0) {
                 c.add(Calendar.MONTH, -1);
                 c.set(Calendar.DAY_OF_MONTH, c.getActualMaximum(Calendar.DAY_OF_MONTH));
                 date = getMonthWeekDateByInterval(c.getTime(), tempInterval + 1);
-            } else if(tempInterval > 0) {
+            } else if (tempInterval > 0) {
                 c.add(Calendar.WEEK_OF_MONTH, interval);
                 date = c.getTime();
             } else {
                 c.set(Calendar.DAY_OF_MONTH, c.getActualMinimum(Calendar.DAY_OF_MONTH));
                 date = c.getTime();
             }
-        } else if(interval > 0) {
+        } else if (interval > 0) {
             Calendar c = Calendar.getInstance();
             c.setFirstDayOfWeek(firstDayOfWeek);
             c.setTime(date);
             int maxWeekOfMonth = c.getActualMaximum(Calendar.WEEK_OF_MONTH);
             int weekOfMonth = c.get(Calendar.WEEK_OF_MONTH);
             int tempInterval = (weekOfMonth + interval) - maxWeekOfMonth;
-            if(tempInterval > 0) {
+            if (tempInterval > 0) {
                 c.add(Calendar.MONTH, 1);
                 c.set(Calendar.DAY_OF_MONTH, c.getActualMinimum(Calendar.DAY_OF_MONTH));
                 date = getMonthWeekDateByInterval(c.getTime(), tempInterval - 1);
-            } else if(tempInterval < 0) {
+            } else if (tempInterval < 0) {
                 c.add(Calendar.WEEK_OF_MONTH, interval);
                 date = c.getTime();
             } else {
@@ -621,7 +599,6 @@ public class DateUtil {
      * 获取当前日期为年的第几周
      *
      * @param date
-     *
      * @return
      */
     public static int getWhichWeekOfYear(Date date) {
@@ -637,7 +614,6 @@ public class DateUtil {
      * 获取一年共有几周
      *
      * @param date
-     *
      * @return
      */
     public static int getWholeWeekOfYear(Date date) {
@@ -649,7 +625,6 @@ public class DateUtil {
      * 获取当前日期为月的第几周
      *
      * @param date
-     *
      * @return
      */
     public static int getWhichWeekOfMonth(Date date) {
@@ -664,7 +639,6 @@ public class DateUtil {
      * 获取一个月共有几周
      *
      * @param date
-     *
      * @return
      */
     public static int getWholeWeekOfMonth(Date date) {
@@ -676,14 +650,13 @@ public class DateUtil {
      * 获取当前日期为一周的第几天
      *
      * @param date
-     *
      * @return
      */
     public static int getDayOfWeek(Date date) {
         Calendar c = Calendar.getInstance();
         c.setTime(date);
         int dayOfWeek = c.get(Calendar.DAY_OF_WEEK) - firstDayOfWeek + 1;
-        if(dayOfWeek <= 0) {
+        if (dayOfWeek <= 0) {
             dayOfWeek += wholeDayOfWeek;
         }
         return dayOfWeek;
@@ -695,7 +668,6 @@ public class DateUtil {
      * @param year
      * @param month
      * @param week
-     *
      * @return
      */
     public static int getWholeDayOfMonthWeek(int year, int month, int week) {
@@ -709,7 +681,7 @@ public class DateUtil {
          */
         c.setTime(strToDate(dateStr, "yyyy-M"));
         c.set(Calendar.WEEK_OF_MONTH, week);
-        if(c.get(Calendar.YEAR) > year || c.get(Calendar.MONTH) + 1 > month) {
+        if (c.get(Calendar.YEAR) > year || c.get(Calendar.MONTH) + 1 > month) {
             /*
              * c.set(Calendar.DAY_OF_MONTH, c.getActualMinimum(Calendar.DAY_OF_MONTH)); c.set(Calendar.MONTH, month - 1); c.set(Calendar.YEAR, year);
              */
@@ -728,25 +700,23 @@ public class DateUtil {
      *
      * @param date
      * @param dateType
-     *
      * @return
      */
     public static String getBackupMonth(Date date, DateType dateType) {
         date = getEndDate(date, dateType);
         Date currentMonth = DateUtil.getStartDate(new Date(), DateType.MONTH);
         String dateStr = DateUtil.dateToStr(date, "yyyy-MM");
-        if(date.compareTo(currentMonth) >= 0) {
+        if (date.compareTo(currentMonth) >= 0) {
             dateStr = "";
         }
         return dateStr;
     }
 
-
     public static String getDateStrByDate(Date d, SimpleDateFormat sf) {
         String str = null;
         try {
             str = sf.format(d);
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return str;
@@ -767,7 +737,7 @@ public class DateUtil {
         Date d = null;
         try {
             d = yyyy_mm_ddFormat.parse(str);
-        } catch(ParseException e) {
+        } catch (ParseException e) {
             e.printStackTrace();
         }
         return d;
@@ -793,7 +763,7 @@ public class DateUtil {
         calendar.setTime(date);
         calendar.add(Calendar.DATE, -1);// 把日期往前减少一天，若想把日期向后推一天则将负数改为正数
         date = calendar.getTime();
-        if(sd == null)
+        if (sd == null)
             sd = new SimpleDateFormat("yyyy-MM-dd");
         String dateStr = sd.format(date);
         // System.out.println("*******得到明天的日期*******" + dateStr);
@@ -805,7 +775,6 @@ public class DateUtil {
      *
      * @param d
      * @param day
-     *
      * @return
      */
     public static Date getDateBefore(Date d, int day) {
@@ -820,7 +789,6 @@ public class DateUtil {
      *
      * @param d
      * @param day
-     *
      * @return
      */
     public static Date getDateAfter(Date d, int day) {
@@ -835,7 +803,6 @@ public class DateUtil {
      *
      * @param d
      * @param month
-     *
      * @return
      */
     public static Date getDateBeforeMonth(Date d, int month) {
@@ -851,7 +818,6 @@ public class DateUtil {
      *
      * @param d
      * @param month
-     *
      * @return
      */
     public static Date getDateAfterMonth(Date d, int month) {
@@ -863,7 +829,7 @@ public class DateUtil {
     }
 
     public static String getFirstDayOfMonth(int year, int month, SimpleDateFormat sd) {
-        if(sd == null)
+        if (sd == null)
             sd = new SimpleDateFormat("yyyy-MM-dd");
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, year);
@@ -879,7 +845,7 @@ public class DateUtil {
     }
 
     public static Date getDateFirstDayOfMonth(int year, int month, SimpleDateFormat sd) {
-        if(sd == null)
+        if (sd == null)
             sd = new SimpleDateFormat("yyyy-MM-dd");
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, year);
@@ -925,7 +891,7 @@ public class DateUtil {
             String time = dateStr.replaceAll("/", "-");
             SimpleDateFormat sdf = new SimpleDateFormat(pattern);
             return sdf.parse(time);
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -937,7 +903,6 @@ public class DateUtil {
      *
      * @param past
      * @param customDate
-     *
      * @return
      */
     public static String getPastDateStr(int past, String customDate) {
@@ -956,13 +921,11 @@ public class DateUtil {
      *
      * @param past
      * @param customDate
-     *
      * @return
      */
     public static String getMaxPastDateStr(int past, String customDate) {
         String endTime = getPastDateStr(past, customDate) + " 23:59:59";
         return endTime;
     }
-
 
 }

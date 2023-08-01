@@ -53,7 +53,7 @@ public class TestSecurity {
     @WithMockUser(username = "zukxu")
     void testPreFilter() {
         List<SysUser> users = new ArrayList<>();
-        for(int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++) {
             users.add(new SysUser(i, "zukxu :" + i));
         }
         helloService.addUsers(users, 99);

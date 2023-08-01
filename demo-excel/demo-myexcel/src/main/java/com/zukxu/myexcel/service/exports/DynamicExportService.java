@@ -27,6 +27,11 @@ import java.util.Map;
 @Service
 public class DynamicExportService {
 
+    public static void main(String[] rgs) {
+        DynamicExportService service = new DynamicExportService();
+        service.mapExport(null);
+    }
+
     /**
      * 动态导出 动态指定标题
      */
@@ -45,10 +50,7 @@ public class DynamicExportService {
         //1、配置导出
         Workbook workbook = DefaultExcelBuilder
                 //如果已存在导出实体模板类
-                .of(People.class)
-                .titles(titles)
-                .fieldDisplayOrder(order)
-                .build(dataList);
+                .of(People.class).titles(titles).fieldDisplayOrder(order).build(dataList);
 
         AttachmentExportUtil.export(workbook, "dynamicTitleExport", response);
 
@@ -62,10 +64,10 @@ public class DynamicExportService {
     @SneakyThrows
     public void fieldGroupExport(HttpServletResponse response) {
         //使用注解属性标识@ExcelColumn(title="姓名",groups={People.class})
-         DefaultExcelBuilder
+        DefaultExcelBuilder
                 //如果已存在导出实体模板类
                 .of(ArtCrowd.class);
-                //.build(People.class);
+        //.build(People.class);
 
     }
 
@@ -98,17 +100,7 @@ public class DynamicExportService {
 
         List<String> titles = new ArrayList(headerMap.values());
         List<String> orders = new ArrayList(headerMap.keySet());
-        Workbook workbook = DefaultExcelBuilder.of(Map.class)
-                                               .sheetName("sheet1")
-                                               .titles(titles)
-                                               .widths(10,20)
-                                               .fieldDisplayOrder(orders)
-                                               .build(dataMapList);
+        Workbook workbook = DefaultExcelBuilder.of(Map.class).sheetName("sheet1").titles(titles).widths(10, 20).fieldDisplayOrder(orders).build(dataMapList);
         FileExportUtil.export(workbook, new File("E:\\temp\\myexcel\\dynamicMap_excel.xlsx"));
-    }
-
-    public static void main(String[] rgs) {
-        DynamicExportService service = new DynamicExportService();
-        service.mapExport(null);
     }
 }

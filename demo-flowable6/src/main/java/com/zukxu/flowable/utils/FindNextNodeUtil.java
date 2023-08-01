@@ -27,7 +27,7 @@ public class FindNextNodeUtil {
      * 获取下一步骤的用户任务
      *
      * @param repositoryService repo
-     * @param map map
+     * @param map               map
      * @return list
      */
     public static List<UserTask> getNextUserTasks(RepositoryService repositoryService, org.flowable.task.api.Task task, Map<String, Object> map) {
@@ -69,10 +69,7 @@ public class FindNextNodeUtil {
                 //1.有表达式，且为true
                 //2.无表达式
                 String expression = sequenceFlow.getConditionExpression();
-                if (expression == null ||
-                        Boolean.parseBoolean(
-                                String.valueOf(
-                                        result(map, expression.substring(expression.lastIndexOf("{") + 1, expression.lastIndexOf("}")))))) {
+                if (expression == null || Boolean.parseBoolean(String.valueOf(result(map, expression.substring(expression.lastIndexOf("{") + 1, expression.lastIndexOf("}")))))) {
                     //出线的下一节点
                     String nextFlowElementID = sequenceFlow.getTargetRef();
                     if (checkSubProcess(nextFlowElementID, flowElements, nextUser)) {
@@ -171,7 +168,6 @@ public class FindNextNodeUtil {
         }
         return null;
     }
-
 
     /**
      * 根据ID查询流程节点对象, 如果是子任务，则返回子任务的开始节点

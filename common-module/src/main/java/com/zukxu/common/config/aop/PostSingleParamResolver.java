@@ -29,7 +29,6 @@ import java.util.Objects;
 @Slf4j
 public class PostSingleParamResolver implements HandlerMethodArgumentResolver {
 
-
     private static final String POST = "post";
 
     private static final String APPLICATION_JSON = "application/json";
@@ -44,12 +43,12 @@ public class PostSingleParamResolver implements HandlerMethodArgumentResolver {
         HttpServletRequest servletRequest = webRequest.getNativeRequest(HttpServletRequest.class);
         String contentType = Objects.requireNonNull(servletRequest).getContentType();
 
-        if(StrUtil.isEmpty(contentType) || !StrUtil.contains(contentType, APPLICATION_JSON)) {
+        if (StrUtil.isEmpty(contentType) || !StrUtil.contains(contentType, APPLICATION_JSON)) {
             log.error("PostSingleParam contentType需为【{}】", APPLICATION_JSON);
             throw new RuntimeException("PostSingleParam contentType需为application/json");
         }
 
-        if(!StrUtil.equalsIgnoreCase(POST, servletRequest.getMethod())) {
+        if (!StrUtil.equalsIgnoreCase(POST, servletRequest.getMethod())) {
             log.error("PostSingleParam 请求类型必须为post");
             throw new RuntimeException("PostSingleParam 请求类型必须为post");
         }
@@ -62,22 +61,20 @@ public class PostSingleParamResolver implements HandlerMethodArgumentResolver {
         String requestBody;
         try {
             requestBody = ServletUtils.getRequestBody(servletRequest);
-        } catch(IOException e) {
+        } catch (IOException e) {
             log.error("PostSingleParam 读取流异常", e);
             throw new RuntimeException("PostSingleParam 读取流异常");
         }
         Map paramObj = JSONObject.parseObject(requestBody, Map.class);
-        if(ObjectUtil.isNull(paramObj)) {
+        if (ObjectUtil.isNull(paramObj)) {
             paramObj = new JSONObject();
         }
 
-        String parameterName = StringUtils.isBlank(PostSingleParam.value())
-                ? parameter.getParameterName()
-                : PostSingleParam.value();
+        String parameterName = StringUtils.isBlank(PostSingleParam.value()) ? parameter.getParameterName() : PostSingleParam.value();
         Object value = paramObj.get(parameterName);
 
-        if(PostSingleParam.required()) {
-            if(ObjectUtil.isNull(value)) {
+        if (PostSingleParam.required()) {
+            if (ObjectUtil.isNull(value)) {
                 log.error("PostSingleParam require=true,参数【{}】不能为空!", parameterName);
                 throw new RuntimeException("《PostSingleParam》 " + parameterName + "不能为空!");
             }

@@ -9,10 +9,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
 @Service
 public class SysFormServiceImpl extends ServiceImpl<SysFormMapper, SysForm> implements SysFormService {
-
 
     @Autowired
     private SysFormMapper sysFormMapper;
@@ -38,8 +36,6 @@ public class SysFormServiceImpl extends ServiceImpl<SysFormMapper, SysForm> impl
     public List<SysForm> selectSysFormList(String formName) {
         return sysFormMapper.selectSysFormList(formName);
     }
-
-
 
     @Override
     public boolean isBindTask(String[] formIds) {

@@ -1,6 +1,5 @@
 package com.zukxu.demoliteflow.service.impl;
 
-
 import com.alibaba.fastjson.JSON;
 import com.yomahub.liteflow.core.FlowExecutor;
 import com.yomahub.liteflow.flow.LiteflowResponse;
@@ -39,7 +38,7 @@ public class WorkFlowGZServiceImpl implements WorkFlowGZService {
     @Override
     public void dispatchCSS(Map<String, Object> param) {
         LiteflowResponse resp = flowExecutor.execute2Resp(Chain.SN_DIS, param, WorkFlowContext.class);
-        if(resp.isSuccess()) {
+        if (resp.isSuccess()) {
             log.info("SUCCESS");
         } else {
             log.error("ERROR");

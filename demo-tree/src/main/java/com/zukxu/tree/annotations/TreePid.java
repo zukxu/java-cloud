@@ -14,5 +14,4 @@ import static java.lang.annotation.ElementType.FIELD;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(FIELD)
-public @interface TreePid {
-}
+public @interface TreePid {}

@@ -49,7 +49,6 @@ public abstract class BaseController {
         redirectAttributes.addFlashAttribute("message", sb.toString());
     }
 
-
     /**
      * 客户端返回JSON字符串
      *

@@ -41,17 +41,17 @@ public class WebConfig implements WebMvcConfigurer {
                 如果handleRequest方法返回true，则preHandle方法继续调用下一个请求处理器的handleRequest方法，
                 直到所有请求处理器都处理完毕，preHandle方法才返回true，表示请求处理成功*/
                 boolean handled = requestHandlerA.handleRequest(request, response);
-                if(!handled) {
+                if (!handled) {
                     return false;
                 }
 
                 handled = requestHandlerB.handleRequest(request, response);
-                if(!handled) {
+                if (!handled) {
                     return false;
                 }
 
                 handled = requestHandlerC.handleRequest(request, response);
-                if(!handled) {
+                if (!handled) {
                     return false;
                 }
 

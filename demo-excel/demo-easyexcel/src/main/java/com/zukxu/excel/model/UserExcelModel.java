@@ -20,13 +20,13 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class UserExcelModel implements Serializable {
 
-	private static final long serialVersionUID = 2723059827514336242L;
-	@ExcelProperty(value = "用户名", index = 0)
-	private String name;
-	@ExcelProperty(value = "年龄", index = 1)
-	private Integer age;
-	@ExcelProperty(value = "性别", index = 2)
-	private String sex;
-	@ExcelProperty(value = "手机号", index = 3)
-	private String mobile;
+    private static final long serialVersionUID = 2723059827514336242L;
+    @ExcelProperty(value = "用户名", index = 0)
+    private String name;
+    @ExcelProperty(value = "年龄", index = 1)
+    private Integer age;
+    @ExcelProperty(value = "性别", index = 2)
+    private String sex;
+    @ExcelProperty(value = "手机号", index = 3)
+    private String mobile;
 }

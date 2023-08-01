@@ -12,8 +12,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 public class MinioApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(MinioApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(MinioApplication.class, args);
+    }
 
 }

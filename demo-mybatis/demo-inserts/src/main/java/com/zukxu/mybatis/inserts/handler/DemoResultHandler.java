@@ -21,10 +21,10 @@ public class DemoResultHandler implements ResultHandler<SysUser> {
     //@formatter:off
     // 这是每批处理的大小
     private final static int BATCH_SIZE = 1000;
+    private final List<SysUser> list;
     private int size;
     // 存储每批数据的临时容器
     private Set<String> temp;
-    private final List<SysUser> list;
     //@formatter:on
 
     public DemoResultHandler() {
@@ -39,12 +39,11 @@ public class DemoResultHandler implements ResultHandler<SysUser> {
         resultObject.setUserName(resultObject.getUserName() + "HANDLER");
         list.add(resultObject);
         size++;
-        if(size == BATCH_SIZE) {
+        if (size == BATCH_SIZE) {
             temp.add("a");
             handle();
         }
     }
-
 
     private void handle() {
         try {

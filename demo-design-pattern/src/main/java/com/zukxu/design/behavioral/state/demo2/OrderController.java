@@ -1,7 +1,5 @@
 package com.zukxu.design.behavioral.state.demo2;
 
-import org.springframework.web.bind.annotation.*;
-
 import javax.annotation.Resource;
 import java.util.Optional;
 
@@ -26,7 +24,7 @@ public class OrderController {
     @PostMapping
     public void createOrder(@RequestBody Order order) {
         User user = userRepository.findById(order.getUserId()).orElse(null);
-        if(user == null) {
+        if (user == null) {
             throw new RuntimeException("用户不存在。");
         }
 
@@ -37,18 +35,18 @@ public class OrderController {
     @PutMapping("/{id}")
     public void updateOrder(@PathVariable Long id, @RequestBody Order order) {
         User user = userRepository.findById(order.getUserId()).orElse(null);
-        if(user == null) {
+        if (user == null) {
             throw new RuntimeException("用户不存在。");
         }
 
         Order existingOrder = getOrderById(id);
-        if(existingOrder == null) {
+        if (existingOrder == null) {
             throw new RuntimeException("订单不存在。");
         }
 
         existingOrder.setUser(user);
 
-        if(order.getState() instanceof State) {
+        if (order.getState() instanceof State) {
             existingOrder.setState(new CompletedState());
         }
 
@@ -57,7 +55,7 @@ public class OrderController {
 
     public Order getOrderById(Long id) {
         Optional<Order> optionalOrder = orderRepository.findById(id);
-        if(!optionalOrder.isPresent()) {
+        if (!optionalOrder.isPresent()) {
             return null;
         }
         return optionalOrder.get();

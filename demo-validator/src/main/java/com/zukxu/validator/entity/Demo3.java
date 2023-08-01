@@ -17,10 +17,10 @@ import java.util.List;
  */
 @Data
 public class Demo3 {
-	@Size(min = 3,max = 5,message = "list的Size在[3,5]")
-	private List<String> list;
+    @Size(min = 3, max = 5, message = "list的Size在[3,5]")
+    private List<String> list;
 
-	@NotNull
-	@Valid
-	private Demo2 demo2;
+    @NotNull
+    @Valid
+    private Demo2 demo2;
 }

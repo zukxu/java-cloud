@@ -31,7 +31,7 @@ import com.ruoyi.common.core.page.TableDataInfo;
  * @date ${datetime}
  */
 @RestController
-@RequestMapping("/${moduleName}/${businessName}" )
+@RequestMapping("/${moduleName}/${businessName}")
 public class ${ClassName}Controller extends BaseController {
 
     @Autowired
@@ -40,47 +40,44 @@ public class ${ClassName}Controller extends BaseController {
 /**
  * 查询${functionName}列表
  */
-@PreAuthorize("@ss.hasPermi('${permissionPrefix}:list')" )
-@GetMapping("/list" )
+@PreAuthorize("@ss.hasPermi('${permissionPrefix}:list')")
+@GetMapping("/list")
     #if($table.crud || $table.sub)
     public TableDataInfo list(${ClassName} ${className}) {
         startPage();
-        List<${ClassName}> list = ${className}Service.select${ClassName}List(${className});
-        return getDataTable(list);
+        List<${ClassName}> list = ${className}Service.select${ClassName}List(${className}); return getDataTable(list);
     }
     #elseif($table.tree)
         public AjaxResult list(${ClassName} ${className}) {
-            List<${ClassName}> list = ${className}Service.select${ClassName}List(${className});
-            return AjaxResult.success(list);
+            List<${ClassName}> list = ${className}Service.select${ClassName}List(${className}); return AjaxResult.success(list);
         }
     #end
 
     /**
      * 导出${functionName}列表
      */
-    @PreAuthorize("@ss.hasPermi('${permissionPrefix}:export')" )
-    @Log(title = "${functionName}" , businessType = BusinessType.EXPORT)
-    @GetMapping("/export" )
+    @PreAuthorize("@ss.hasPermi('${permissionPrefix}:export')")
+    @Log(title = "${functionName}", businessType = BusinessType.EXPORT)
+    @GetMapping("/export")
     public AjaxResult export(${ClassName} ${className}) {
-        List<${ClassName}> list = ${className}Service.select${ClassName}List(${className});
-        ExcelUtil<${ClassName}> util = new ExcelUtil<${ClassName}>(${ClassName}. class);
-        return util.exportExcel(list, "${businessName}" );
+        List<${ClassName}> list = ${className}Service.select${ClassName}List(${className}); ExcelUtil<${ClassName}> util = new ExcelUtil<${ClassName}>(${ClassName}. class);
+        return util.exportExcel(list, "${businessName}");
     }
 
     /**
      * 获取${functionName}详细信息
      */
-    @PreAuthorize("@ss.hasPermi('${permissionPrefix}:query')" )
-    @GetMapping(value = "/{${pkColumn.javaField}}" )
-    public AjaxResult getInfo(@PathVariable("${pkColumn.javaField}" ) ${pkColumn.javaType} ${pkColumn.javaField}) {
+    @PreAuthorize("@ss.hasPermi('${permissionPrefix}:query')")
+    @GetMapping(value = "/{${pkColumn.javaField}}")
+    public AjaxResult getInfo(@PathVariable("${pkColumn.javaField}") ${pkColumn.javaType} ${pkColumn.javaField}) {
         return AjaxResult.success(${className}Service.select${ClassName}ById(${pkColumn.javaField}));
     }
 
     /**
      * 新增${functionName}
      */
-    @PreAuthorize("@ss.hasPermi('${permissionPrefix}:add')" )
-    @Log(title = "${functionName}" , businessType = BusinessType.INSERT)
+    @PreAuthorize("@ss.hasPermi('${permissionPrefix}:add')")
+    @Log(title = "${functionName}", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody ${ClassName} ${className}) {
         return toAjax(${className}Service.insert${ClassName}(${className}));
@@ -89,8 +86,8 @@ public class ${ClassName}Controller extends BaseController {
     /**
      * 修改${functionName}
      */
-    @PreAuthorize("@ss.hasPermi('${permissionPrefix}:edit')" )
-    @Log(title = "${functionName}" , businessType = BusinessType.UPDATE)
+    @PreAuthorize("@ss.hasPermi('${permissionPrefix}:edit')")
+    @Log(title = "${functionName}", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody ${ClassName} ${className}) {
         return toAjax(${className}Service.update${ClassName}(${className}));
@@ -99,9 +96,9 @@ public class ${ClassName}Controller extends BaseController {
     /**
      * 删除${functionName}
      */
-    @PreAuthorize("@ss.hasPermi('${permissionPrefix}:remove')" )
-    @Log(title = "${functionName}" , businessType = BusinessType.DELETE)
-    @DeleteMapping("/{${pkColumn.javaField}s}" )
+    @PreAuthorize("@ss.hasPermi('${permissionPrefix}:remove')")
+    @Log(title = "${functionName}", businessType = BusinessType.DELETE)
+    @DeleteMapping("/{${pkColumn.javaField}s}")
     public AjaxResult remove(@PathVariable ${pkColumn.javaType}[] ${pkColumn.javaField}s) {
         return toAjax(${className}Service.delete${ClassName}ByIds(${pkColumn.javaField}s));
     }

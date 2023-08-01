@@ -55,20 +55,22 @@ public class GenController extends BaseController {
         PageInfo<GenTable> pageInfo = new PageInfo<>(list);
         return R.ok(pageInfo);
     }
+
     /**
      * 查询编辑的数据表相关信息
      */
-    @GetMapping(value = "/{tableId}" )
+    @GetMapping(value = "/{tableId}")
     public R<?> getInfo(@PathVariable Long tableId) {
         GenTable table = genTableService.selectGenTableById(tableId);
         List<GenTable> tables = genTableService.selectGenTableAll();
         List<GenTableColumn> list = genTableColumnService.selectGenTableColumnListByTableId(tableId);
         Map<String, Object> map = new HashMap<>();
-        map.put("info" , table);
-        map.put("rows" , list);
-        map.put("tables" , tables);
+        map.put("info", table);
+        map.put("rows", list);
+        map.put("tables", tables);
         return R.ok(map);
     }
+
     /**
      * 查询数据表字段列表
      */
@@ -120,12 +122,11 @@ public class GenController extends BaseController {
         return R.ok(dataMap);
     }
 
-
     /**
      * 同步数据库
      */
-    @GetMapping("/syncDb/{tableName}" )
-    public R<?> syncDb(@PathVariable("tableName" ) String tableName) {
+    @GetMapping("/syncDb/{tableName}")
+    public R<?> syncDb(@PathVariable("tableName") String tableName) {
         genTableService.syncDb(tableName);
         return R.ok();
     }
@@ -133,8 +134,8 @@ public class GenController extends BaseController {
     /**
      * 生成代码（自定义路径）
      */
-    @GetMapping("/genCode/{tableName}" )
-    public R<?> genCode(@PathVariable("tableName" ) String tableName) {
+    @GetMapping("/genCode/{tableName}")
+    public R<?> genCode(@PathVariable("tableName") String tableName) {
         genTableService.genCodeByCustomPath(tableName);
         return R.ok();
     }
@@ -142,7 +143,7 @@ public class GenController extends BaseController {
     /**
      * 批量生成代码
      */
-    @GetMapping("/batchGenCode" )
+    @GetMapping("/batchGenCode")
     public void batchGenCode(HttpServletResponse response, String tables) throws IOException {
         String[] tableNames = Convert.toStrArray(tables);
         byte[] data = genTableService.downloadCode(tableNames);
@@ -150,17 +151,18 @@ public class GenController extends BaseController {
     }
 
     /*=========================================private method========================================================*/
+
     /**
      * 生成zip文件
      */
     private void genCode(HttpServletResponse response, byte[] data) throws IOException {
         response.reset();
-        response.addHeader("Access-Control-Allow-Origin" , "*" );
-        response.addHeader("Access-Control-Expose-Headers" , "Content-Disposition" );
-        response.setHeader("Content-Disposition" , "attachment; filename=\"code.zip\"" );
-        response.addHeader("Content-Length" , "" + data.length);
-        response.setContentType("application/octet-stream; charset=UTF-8" );
-        IoUtil.write(response.getOutputStream(),true,data);
+        response.addHeader("Access-Control-Allow-Origin", "*");
+        response.addHeader("Access-Control-Expose-Headers", "Content-Disposition");
+        response.setHeader("Content-Disposition", "attachment; filename=\"code.zip\"");
+        response.addHeader("Content-Length", "" + data.length);
+        response.setContentType("application/octet-stream; charset=UTF-8");
+        IoUtil.write(response.getOutputStream(), true, data);
         //FileUtil.writeBytes(data, s);
     }
 

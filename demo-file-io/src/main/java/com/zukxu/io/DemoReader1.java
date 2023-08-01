@@ -18,7 +18,7 @@ public class DemoReader1 {
         FileReader fr = new FileReader("D:\\temp\\workFile\\io\\outputStream2.txt");
         char[] buf = new char[10240];
         int len;
-        while((len = fr.read(buf)) != -1) {
+        while ((len = fr.read(buf)) != -1) {
             System.out.println(new String(buf, 0, len));
         }
         fr.close();

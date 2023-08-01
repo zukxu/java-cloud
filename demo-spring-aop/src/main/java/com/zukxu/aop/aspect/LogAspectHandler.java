@@ -51,8 +51,10 @@ public class LogAspectHandler {
         String ip = request.getRemoteAddr();
         log.info("用户请求的url为：{}，ip地址为：{}", url, ip);
     }
+
     /**
      * 在上面定义的切面方法之后执行该方法
+     *
      * @param joinPoint jointPoint
      */
     @After("pointCut()")
@@ -65,8 +67,9 @@ public class LogAspectHandler {
 
     /**
      * 在@AfterReturning 注解 中，属性 returning 的值必须要和参数保持一致，否则会检测不到
+     *
      * @param joinPoint
-     * @param result 被切方法的返回值
+     * @param result    被切方法的返回值
      */
     @AfterReturning(pointcut = "pointCut()", returning = "result")
     public void doAfterReturning(JoinPoint joinPoint, Object result) {
@@ -79,9 +82,10 @@ public class LogAspectHandler {
     }
 
     /**
-     *  throwing 属性的值必须要和参数一致，否则会报错
+     * throwing 属性的值必须要和参数一致，否则会报错
+     *
      * @param joinPoint
-     * @param ex 抛出的异常
+     * @param ex        抛出的异常
      */
     @AfterThrowing(pointcut = "pointCut()", throwing = "ex")
     public void afterThrowing(JoinPoint joinPoint, Throwable ex) {

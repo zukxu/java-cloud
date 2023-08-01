@@ -36,7 +36,7 @@ public class BTreeTraversal {
     }
 
     public static void preOrderRecur(Node head) {
-        if(head == null) {
+        if (head == null) {
             return;
         }
         System.out.print(head.value + " ");
@@ -45,7 +45,7 @@ public class BTreeTraversal {
     }
 
     public static void inOrderRecur(Node head) {
-        if(head == null) {
+        if (head == null) {
             return;
         }
         inOrderRecur(head.left);
@@ -54,7 +54,7 @@ public class BTreeTraversal {
     }
 
     public static void backOrderRecur(Node head) {
-        if(head == null) {
+        if (head == null) {
             return;
         }
         backOrderRecur(head.left);

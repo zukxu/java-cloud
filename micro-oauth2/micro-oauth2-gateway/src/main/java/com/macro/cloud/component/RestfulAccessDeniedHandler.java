@@ -15,7 +15,6 @@ import reactor.core.publisher.Mono;
 
 import java.nio.charset.Charset;
 
-
 /**
  * 自定义返回结果：没有权限访问时
  * Created by macro on 2018/4/26.
@@ -27,8 +26,8 @@ public class RestfulAccessDeniedHandler implements ServerAccessDeniedHandler {
         ServerHttpResponse response = exchange.getResponse();
         response.setStatusCode(HttpStatus.OK);
         response.getHeaders().add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
-        String body= JSONUtil.toJsonStr(CommonResult.forbidden(denied.getMessage()));
-        DataBuffer buffer =  response.bufferFactory().wrap(body.getBytes(Charset.forName("UTF-8")));
+        String body = JSONUtil.toJsonStr(CommonResult.forbidden(denied.getMessage()));
+        DataBuffer buffer = response.bufferFactory().wrap(body.getBytes(Charset.forName("UTF-8")));
         return response.writeWith(Mono.just(buffer));
     }
 }

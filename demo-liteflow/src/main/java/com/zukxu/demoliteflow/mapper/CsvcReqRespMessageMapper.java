@@ -11,5 +11,4 @@ import com.zukxu.demoliteflow.model.csvc.CsvcReqRespMessage;
  * @author xupu
  * @since 2022-09-26 11:51:24
  */
-public interface CsvcReqRespMessageMapper extends BaseMapper<CsvcReqRespMessage> {
-}
+public interface CsvcReqRespMessageMapper extends BaseMapper<CsvcReqRespMessage> {}

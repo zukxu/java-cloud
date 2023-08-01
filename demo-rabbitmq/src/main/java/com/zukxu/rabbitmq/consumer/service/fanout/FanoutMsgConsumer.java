@@ -11,9 +11,9 @@ import org.springframework.stereotype.Component;
 @Component
 @RabbitListener(queues = {"fanout_msg_queue"})
 public class FanoutMsgConsumer {
-	@RabbitHandler
-	public void receiveMsg(String message) {
-		System.out.println("fanout ：fanout_msg_queue---->" + message);
-	}
+    @RabbitHandler
+    public void receiveMsg(String message) {
+        System.out.println("fanout ：fanout_msg_queue---->" + message);
+    }
 
 }

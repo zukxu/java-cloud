@@ -32,10 +32,10 @@ public class FileMD5Util {
             md5.update(byteBuffer);
             BigInteger bi = new BigInteger(1, md5.digest());
             value = bi.toString(16);
-            if(value.length() < 32) {
+            if (value.length() < 32) {
                 value = "0" + value;
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             FileUtil.close(in, byteBuffer);
@@ -51,14 +51,13 @@ public class FileMD5Util {
             byte[] digest = md5.digest(uploadBytes);
             String hashString = new BigInteger(1, digest).toString(16);
             return hashString;
-        } catch(IOException e) {
+        } catch (IOException e) {
             logger.error("get file md5 error!!!", e);
-        } catch(NoSuchAlgorithmException e) {
+        } catch (NoSuchAlgorithmException e) {
             logger.error("get file md5 error!!!", e);
         }
         return null;
     }
-
 
     public static void main(String[] args) throws Exception {
 

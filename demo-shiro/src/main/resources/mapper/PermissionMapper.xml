@@ -8,16 +8,16 @@
         <result column="desc" jdbcType="VARCHAR" property="desc"/>
     </resultMap>
     <sql id="Base_Column_List">
-        id,
-        permission,
-        `desc`
+            id,
+            permission,
+            `desc`
     </sql>
     <select id="findByRoleIds" resultType="java.lang.String">
         select r.permission
         from shiro_permission r,
-             shiro_role_permission rp
-                where rp.permission_id = p.id
-                  and rp.role_id in
+        shiro_role_permission rp
+        where rp.permission_id = p.id
+        and rp.role_id in
         <foreach close=")" collection="roleIds" item="id" open="(" separator=",">
             #{id}
         </foreach>

@@ -3,7 +3,6 @@ package com.zukxu.test.apifox;
 import com.zukxu.test.apifox.dto.PhoneDTO;
 import com.zukxu.test.apifox.dto.UserDTO;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -34,7 +33,6 @@ public class GetController {
      * get query请求
      *
      * @param url
-     *
      * @return
      */
     @GetMapping("/query/{url}")
@@ -47,7 +45,6 @@ public class GetController {
      * 参数可以为空
      *
      * @param text
-     *
      * @return
      */
     @GetMapping("/params")
@@ -60,7 +57,6 @@ public class GetController {
      * 将传递的name参数赋给变量text
      *
      * @param text
-     *
      * @return
      */
     @GetMapping("/requiredParams")
@@ -72,7 +68,6 @@ public class GetController {
      * get Map接收参数
      *
      * @param params
-     *
      * @return
      */
     @GetMapping("/map")
@@ -84,7 +79,6 @@ public class GetController {
      * Get 请求接受一个数组
      *
      * @param name
-     *
      * @return
      */
     @GetMapping("/array")
@@ -96,7 +90,6 @@ public class GetController {
      * Get 请求 对象接收参数
      *
      * @param dto
-     *
      * @return
      */
     @GetMapping("/object")
@@ -108,7 +101,6 @@ public class GetController {
      * Get 请求 对象接收参数 自定义前缀
      *
      * @param dto
-     *
      * @return
      */
     @GetMapping("/object/prefix")
@@ -120,15 +112,15 @@ public class GetController {
     private void initBinder(WebDataBinder binder) {
         binder.setFieldDefaultPrefix("u.");
     }
+
     /**
      * Get 多个对象传参
      *
      * @param dto
-     *
      * @return
      */
     @GetMapping("/object/multi")
     public String objectMulti(UserDTO dto, PhoneDTO phoneDTO) {
-        return "get 多个对象接收参数: " + "传递的参数为: " + dto.toString()+phoneDTO.toString();
+        return "get 多个对象接收参数: " + "传递的参数为: " + dto.toString() + phoneDTO.toString();
     }
 }

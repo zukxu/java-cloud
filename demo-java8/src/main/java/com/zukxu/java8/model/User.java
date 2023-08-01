@@ -21,12 +21,12 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class User {
 
-	private String id;
-	private String name;
-	private Integer age;
-	private LocalDate birthday;
+    private String id;
+    private String name;
+    private Integer age;
+    private LocalDate birthday;
 
-	public User(String name) {
-		this.name = name;
-	}
+    public User(String name) {
+        this.name = name;
+    }
 }

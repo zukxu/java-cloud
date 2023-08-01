@@ -10,7 +10,7 @@
         select *
         from user_token
         where uuid = #{param2}
-          and user_id = #{param1}
+        and user_id = #{param1}
     </select>
 
     <update id="updateById">

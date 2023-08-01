@@ -18,22 +18,22 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class ShutDownController implements ApplicationContextAware {
-	private ApplicationContext context;
+    private ApplicationContext context;
 
-	@PostMapping("/shutDownContext")
-	public String shutDownContext() {
-		ConfigurableApplicationContext ctx = (ConfigurableApplicationContext) context;
-		ctx.close();
-		return "context is shutdown";
-	}
+    @PostMapping("/shutDownContext")
+    public String shutDownContext() {
+        ConfigurableApplicationContext ctx = (ConfigurableApplicationContext) context;
+        ctx.close();
+        return "context is shutdown";
+    }
 
-	@GetMapping("/")
-	public String getIndex() {
-		return "OK";
-	}
+    @GetMapping("/")
+    public String getIndex() {
+        return "OK";
+    }
 
-	@Override
-	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-		context = applicationContext;
-	}
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        context = applicationContext;
+    }
 }

@@ -21,7 +21,8 @@ public class R<T> implements Serializable {
 
     private T data;
 
-    private R() {}
+    private R() {
+    }
 
     /**
      * 通用返回成功
@@ -35,7 +36,6 @@ public class R<T> implements Serializable {
     /**
      * @param data data
      * @param <T>  T
-     *
      * @return R<T>
      */
     public static <T> R<T> ok(T data) {
@@ -46,7 +46,6 @@ public class R<T> implements Serializable {
      * @param msg  消息
      * @param data 数据
      * @param <T>  T
-     *
      * @return R<T>
      */
     public static <T> R<T> ok(String msg, T data) {
@@ -65,7 +64,6 @@ public class R<T> implements Serializable {
     /**
      * @param msg msg
      * @param <T> <T>
-     *
      * @return R
      */
     public static <T> R<T> fail(String msg) {
@@ -75,7 +73,6 @@ public class R<T> implements Serializable {
     /**
      * @param msg  msg
      * @param data data
-     *
      * @return R<T>
      */
     public static <T> R<T> fail(String msg, T data) {
@@ -86,7 +83,6 @@ public class R<T> implements Serializable {
      * @param code code int
      * @param msg  msg String
      * @param <T>  T
-     *
      * @return R
      */
     public static <T> R<T> fail(int code, String msg) {
@@ -97,7 +93,6 @@ public class R<T> implements Serializable {
      * @param status RStatus
      * @param data   T data
      * @param <T>    T
-     *
      * @return R
      */
     public static <T> R<T> fail(RStatus status, T data) {
@@ -108,7 +103,6 @@ public class R<T> implements Serializable {
      * @param status RStatus
      * @param data   data
      * @param <T>    T
-     *
      * @return R
      */
     private static <T> R<T> genResult(RStatus status, T data) {
@@ -126,7 +120,6 @@ public class R<T> implements Serializable {
      * @param msg  msg
      * @param data data
      * @param <T>  <T>
-     *
      * @return R
      */
     private static <T> R<T> genResult(int code, String msg, T data) {

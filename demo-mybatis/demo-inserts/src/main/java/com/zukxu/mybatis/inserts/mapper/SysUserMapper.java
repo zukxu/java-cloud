@@ -44,6 +44,7 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
      * 查询导出 常用方法
      */
     List<SysUser> selectByExample(SysUser user);
+
     /**
      * 查询导出 流式查询
      */

@@ -43,8 +43,18 @@ public class MyProcessDiagramCanvas extends DefaultProcessDiagramCanvas {
     protected static java.awt.Color HIGHLIGHT_COLOR = java.awt.Color.GREEN;
 
     protected static java.awt.Color HIGHLIGHT_COLOR1 = java.awt.Color.RED;
+    protected static java.awt.Color EVENT_COLOR = new java.awt.Color(255, 255, 255);
 
-    public MyProcessDiagramCanvas(int width, int height, int minX, int minY, String imageType, String activityFontName, String labelFontName, String annotationFontName, ClassLoader customClassLoader) {
+    public MyProcessDiagramCanvas(int width,
+                                  int height,
+                                  int minX,
+                                  int minY,
+                                  String imageType,
+                                  String activityFontName,
+                                  String labelFontName,
+                                  String annotationFontName,
+                                  ClassLoader customClassLoader
+                                 ) {
         super(width, height, minX, minY, imageType, activityFontName, labelFontName, annotationFontName, customClassLoader);
     }
 
@@ -52,27 +62,33 @@ public class MyProcessDiagramCanvas extends DefaultProcessDiagramCanvas {
         super(width, height, minX, minY, imageType);
     }
 
-
     /**
      * 画线颜色设置
      */
     @Override
-    public void drawConnection(int[] xPoints, int[] yPoints, boolean conditional, boolean isDefault, String connectionType,
-                               AssociationDirection associationDirection, boolean highLighted, double scaleFactor) {
+    public void drawConnection(int[] xPoints,
+                               int[] yPoints,
+                               boolean conditional,
+                               boolean isDefault,
+                               String connectionType,
+                               AssociationDirection associationDirection,
+                               boolean highLighted,
+                               double scaleFactor
+                              ) {
 
         Paint originalPaint = g.getPaint();
         Stroke originalStroke = g.getStroke();
 
         g.setPaint(CONNECTION_COLOR);
-        if(connectionType.equals("association")) {
+        if (connectionType.equals("association")) {
             g.setStroke(ASSOCIATION_STROKE);
-        } else if(highLighted) {
+        } else if (highLighted) {
             //设置线的颜色
             g.setPaint(originalPaint);
             g.setStroke(HIGHLIGHT_FLOW_STROKE);
         }
 
-        for(int i = 1; i < xPoints.length; i++) {
+        for (int i = 1; i < xPoints.length; i++) {
             int sourceX = xPoints[i - 1];
             int sourceY = yPoints[i - 1];
             int targetX = xPoints[i];
@@ -81,32 +97,27 @@ public class MyProcessDiagramCanvas extends DefaultProcessDiagramCanvas {
             g.draw(line);
         }
 
-        if(isDefault) {
+        if (isDefault) {
             Line2D.Double line = new Line2D.Double(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);
             drawDefaultSequenceFlowIndicator(line, scaleFactor);
         }
 
-        if(conditional) {
+        if (conditional) {
             Line2D.Double line = new Line2D.Double(xPoints[0], yPoints[0], xPoints[1], yPoints[1]);
             drawConditionalSequenceFlowIndicator(line, scaleFactor);
         }
 
-        if(associationDirection == AssociationDirection.ONE || associationDirection == AssociationDirection.BOTH) {
-            Line2D.Double line = new Line2D.Double(xPoints[xPoints.length - 2],
-                                                   yPoints[xPoints.length - 2],
-                                                   xPoints[xPoints.length - 1],
-                                                   yPoints[xPoints.length - 1]);
+        if (associationDirection == AssociationDirection.ONE || associationDirection == AssociationDirection.BOTH) {
+            Line2D.Double line = new Line2D.Double(xPoints[xPoints.length - 2], yPoints[xPoints.length - 2], xPoints[xPoints.length - 1], yPoints[xPoints.length - 1]);
             drawArrowHead(line, scaleFactor);
         }
-        if(associationDirection == AssociationDirection.BOTH) {
+        if (associationDirection == AssociationDirection.BOTH) {
             Line2D.Double line = new Line2D.Double(xPoints[1], yPoints[1], xPoints[0], yPoints[0]);
             drawArrowHead(line, scaleFactor);
         }
         g.setPaint(originalPaint);
         g.setStroke(originalStroke);
     }
-
-    protected static java.awt.Color EVENT_COLOR = new java.awt.Color(255, 255, 255);
 
     /**
      * 设置字体大小图标颜色
@@ -115,14 +126,14 @@ public class MyProcessDiagramCanvas extends DefaultProcessDiagramCanvas {
      */
     @Override
     public void initialize(String imageType) {
-        if("png".equalsIgnoreCase(imageType)) {
+        if ("png".equalsIgnoreCase(imageType)) {
             this.processDiagram = new BufferedImage(this.canvasWidth, this.canvasHeight, 2);
         } else {
             this.processDiagram = new BufferedImage(this.canvasWidth, this.canvasHeight, 1);
         }
 
         this.g = this.processDiagram.createGraphics();
-        if(!"png".equalsIgnoreCase(imageType)) {
+        if (!"png".equalsIgnoreCase(imageType)) {
             this.g.setBackground(new java.awt.Color(255, 255, 255, 0));
             this.g.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
         }
@@ -159,7 +170,7 @@ public class MyProcessDiagramCanvas extends DefaultProcessDiagramCanvas {
             MESSAGE_CATCH_IMAGE = ImageIO.read(ReflectUtil.getResource("org/flowable/icons/message.png", this.customClassLoader));
             SIGNAL_THROW_IMAGE = ImageIO.read(ReflectUtil.getResource("org/flowable/icons/signal-throw.png", this.customClassLoader));
             SIGNAL_CATCH_IMAGE = ImageIO.read(ReflectUtil.getResource("org/flowable/icons/signal.png", this.customClassLoader));
-        } catch(IOException var4) {
+        } catch (IOException var4) {
             LOGGER.warn("Could not load image for process diagram creation: {}", var4.getMessage());
         }
 
@@ -195,7 +206,7 @@ public class MyProcessDiagramCanvas extends DefaultProcessDiagramCanvas {
         float interline = 1.0f;
 
         // text
-        if(text != null && text.length() > 0) {
+        if (text != null && text.length() > 0) {
             Paint originalPaint = g.getPaint();
             Font originalFont = g.getFont();
 
@@ -213,14 +224,14 @@ public class MyProcessDiagramCanvas extends DefaultProcessDiagramCanvas {
             FontRenderContext frc = new FontRenderContext(null, true, false);
             LineBreakMeasurer lbm = new LineBreakMeasurer(aci, frc);
 
-            while(lbm.getPosition() < text.length()) {
+            while (lbm.getPosition() < text.length()) {
                 TextLayout tl = lbm.nextLayout(wrapWidth);
                 textY += tl.getAscent();
 
                 Rectangle2D bb = tl.getBounds();
                 double tX = graphicInfo.getX();
 
-                if(centered) {
+                if (centered) {
                     tX += (int) (graphicInfo.getWidth() / 2 - bb.getWidth() / 2);
                 }
                 tl.draw(g, (float) tX, textY);
@@ -288,18 +299,16 @@ public class MyProcessDiagramCanvas extends DefaultProcessDiagramCanvas {
     public void drawStartEvent(GraphicInfo graphicInfo, BufferedImage image, double scaleFactor) {
         Paint originalPaint = g.getPaint();
         g.setPaint(EVENT_COLOR);
-        Ellipse2D circle = new Ellipse2D.Double(graphicInfo.getX(), graphicInfo.getY(),
-                                                graphicInfo.getWidth(), graphicInfo.getHeight());
+        Ellipse2D circle = new Ellipse2D.Double(graphicInfo.getX(), graphicInfo.getY(), graphicInfo.getWidth(), graphicInfo.getHeight());
         g.fill(circle);
         g.setPaint(EVENT_BORDER_COLOR);
         g.draw(circle);
         g.setPaint(originalPaint);
-        if(image != null) {
+        if (image != null) {
             // calculate coordinates to center image
             int imageX = (int) Math.round(graphicInfo.getX() + (graphicInfo.getWidth() / 2) - (image.getWidth() / (2 * scaleFactor)));
             int imageY = (int) Math.round(graphicInfo.getY() + (graphicInfo.getHeight() / 2) - (image.getHeight() / (2 * scaleFactor)));
-            g.drawImage(image, imageX, imageY,
-                        (int) (image.getWidth() / scaleFactor), (int) (image.getHeight() / scaleFactor), null);
+            g.drawImage(image, imageX, imageY, (int) (image.getWidth() / scaleFactor), (int) (image.getHeight() / scaleFactor), null);
         }
 
     }
@@ -315,12 +324,11 @@ public class MyProcessDiagramCanvas extends DefaultProcessDiagramCanvas {
         Paint originalPaint = g.getPaint();
         Stroke originalStroke = g.getStroke();
         g.setPaint(EVENT_COLOR);
-        Ellipse2D circle = new Ellipse2D.Double(graphicInfo.getX(), graphicInfo.getY(),
-                                                graphicInfo.getWidth(), graphicInfo.getHeight());
+        Ellipse2D circle = new Ellipse2D.Double(graphicInfo.getX(), graphicInfo.getY(), graphicInfo.getWidth(), graphicInfo.getHeight());
         g.fill(circle);
         g.setPaint(EVENT_BORDER_COLOR);
         //        g.setPaint(HIGHLIGHT_COLOR);
-        if(scaleFactor == 1.0) {
+        if (scaleFactor == 1.0) {
             g.setStroke(END_EVENT_STROKE);
         } else {
             g.setStroke(new BasicStroke(2.0f));

@@ -9,8 +9,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  */
 @SpringBootApplication
 @EnableDiscoveryClient
-public class SkywalkingGateway1003Application
-{
+public class SkywalkingGateway1003Application {
     public static void main(String[] args) {
         SpringApplication.run(SkywalkingGateway1003Application.class, args);
     }

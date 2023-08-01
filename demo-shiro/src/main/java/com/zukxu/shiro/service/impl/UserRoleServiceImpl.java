@@ -7,13 +7,12 @@ import com.zukxu.shiro.service.UserRoleService;
 import org.springframework.stereotype.Service;
 
 /**
-  * ${END}
-  *
-  * @author zukxu
-  * CreateTime: 2021/4/22 0022 17:17
-  * 
+ * ${END}
+ *
+ * @author zukxu
+ * CreateTime: 2021/4/22 0022 17:17
  */
 @Service
-public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRole> implements UserRoleService{
+public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRole> implements UserRoleService {
 
 }

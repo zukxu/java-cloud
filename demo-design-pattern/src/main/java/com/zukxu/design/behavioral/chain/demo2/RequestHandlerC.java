@@ -20,7 +20,7 @@ public class RequestHandlerC extends AbstractRequestHandler {
     @Override
     public boolean handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
         int num = RandomUtil.getRandom().nextInt();
-        if(num % 3 == 1) {
+        if (num % 3 == 1) {
             return true;
         } else {
             // 请求未被处理，调用下一个请求处理器

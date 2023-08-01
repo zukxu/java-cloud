@@ -10,19 +10,18 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
-  * ${END}
-  *
-  * @author zukxu
-  * CreateTime: 2021/4/22 0022 17:17
-  * 
+ * ${END}
+ *
+ * @author zukxu
+ * CreateTime: 2021/4/22 0022 17:17
  */
 @Service
-public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements RoleService{
-	@Autowired
-	private RoleMapper roleMapper;
+public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements RoleService {
+    @Autowired
+    private RoleMapper roleMapper;
 
-	@Override
-	public List<Role> findRoleByUserId(Integer id) {
-		return roleMapper.findRoleByUserId(id);
-	}
+    @Override
+    public List<Role> findRoleByUserId(Integer id) {
+        return roleMapper.findRoleByUserId(id);
+    }
 }

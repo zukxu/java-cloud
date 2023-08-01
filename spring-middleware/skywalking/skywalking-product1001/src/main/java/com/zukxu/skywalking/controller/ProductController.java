@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public class ProductController {
 
     @PostMapping("/list")
-    public List<Product> listByIds(@RequestBody List<Long> ids){
-        return ids.stream().map(id-> new Product(id,"码猿技术专栏_"+id,1000L,1000L)).collect(Collectors.toList());
+    public List<Product> listByIds(@RequestBody List<Long> ids) {
+        return ids.stream().map(id -> new Product(id, "码猿技术专栏_" + id, 1000L, 1000L)).collect(Collectors.toList());
     }
 }

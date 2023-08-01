@@ -8,5 +8,4 @@ package com.zukxu.test.screw;
  * @author xupu
  * @since 2022-02-09 16:24
  */
-public class TestScrew {
-}
+public class TestScrew {}

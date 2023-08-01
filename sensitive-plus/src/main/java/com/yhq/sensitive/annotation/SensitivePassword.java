@@ -9,12 +9,13 @@ import java.lang.annotation.Target;
 
 /**
  * 密码脱敏
+ *
  * @author yhq
  * @date 2021年9月7日 08点51分
  **/
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-@SensitiveInfo(strategy = com.yhq.sensitive.strategy.SensitivePassword.class,pattern = "(?<=).",replaceChar = "*")
+@SensitiveInfo(strategy = com.yhq.sensitive.strategy.SensitivePassword.class, pattern = "(?<=).", replaceChar = "*")
 @JacksonAnnotationsInside
 public @interface SensitivePassword {
 

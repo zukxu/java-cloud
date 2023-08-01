@@ -8,8 +8,8 @@ import java.time.LocalDateTime;
 
 /**
  * @author xupu
- *  基础类
- * @since  2021-09-15 17:08
+ * 基础类
+ * @since 2021-09-15 17:08
  */
 @Data
 public class BaseEntity implements Serializable {
@@ -41,7 +41,6 @@ public class BaseEntity implements Serializable {
      * 备注
      */
     private String remark;
-
 
     //@TableField(exist = false)
     //private Map<String, Object> queryParams;

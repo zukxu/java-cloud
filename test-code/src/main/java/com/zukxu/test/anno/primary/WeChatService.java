@@ -11,9 +11,9 @@ import org.springframework.stereotype.Service;
  * @since 2022-04-06 9:56
  */
 @Service
-public class WeChatService implements MessageService{
+public class WeChatService implements MessageService {
     @Override
     public String sendMessage(String msg) {
-        return "微信消息："+msg;
+        return "微信消息：" + msg;
     }
 }

@@ -30,7 +30,7 @@ public class YmlUtil {
      */
     public static void loadYml(String fileName) {
         nowFileName.set(fileName);
-        if(!ymls.containsKey(fileName)) {
+        if (!ymls.containsKey(fileName)) {
             ymls.put(fileName, new Yaml().loadAs(YmlUtil.class.getResourceAsStream("/" + fileName), LinkedHashMap.class));
         }
     }
@@ -41,11 +41,11 @@ public class YmlUtil {
 
         // 将配置文件进行复制
         Map ymlInfo = (Map) ymls.get(nowFileName.get()).clone();
-        for(int i = 0; i < keys.length; i++) {
+        for (int i = 0; i < keys.length; i++) {
             Object value = ymlInfo.get(keys[i]);
-            if(i < keys.length - 1) {
+            if (i < keys.length - 1) {
                 ymlInfo = (Map) value;
-            } else if(value == null) {
+            } else if (value == null) {
                 throw new RuntimeException("key is no found");
             } else {
                 return value;
@@ -60,7 +60,6 @@ public class YmlUtil {
         loadYml(fileName);
         return getValue(key);
     }
-
 
     public static void main(String[] args) {
         System.out.println(getValue("hello.desc"));

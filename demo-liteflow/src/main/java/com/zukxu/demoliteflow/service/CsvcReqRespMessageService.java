@@ -13,6 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface CsvcReqRespMessageService extends IService<CsvcReqRespMessage> {
 
-
 }
 

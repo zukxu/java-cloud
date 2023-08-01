@@ -7,13 +7,12 @@ import java.util.List;
 import java.util.Set;
 
 /**
-  * ${END}
-  *
-  * @author zukxu
-  * CreateTime: 2021/4/22 0022 17:17
-  * 
+ * ${END}
+ *
+ * @author zukxu
+ * CreateTime: 2021/4/22 0022 17:17
  */
-public interface PermissionService extends IService<Permission>{
+public interface PermissionService extends IService<Permission> {
 
-	public Set<String> findByRoleIds(List<Integer> roleIds);
+    public Set<String> findByRoleIds(List<Integer> roleIds);
 }

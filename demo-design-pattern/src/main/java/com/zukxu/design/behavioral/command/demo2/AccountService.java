@@ -29,7 +29,7 @@ public class AccountService {
         double fromBalance = accounts.get(from);
         double toBalance = accounts.get(to);
 
-        if(fromBalance < amount) {
+        if (fromBalance < amount) {
             throw new RuntimeException("Insufficient funds in " + from + " account");
         }
 

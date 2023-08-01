@@ -41,25 +41,21 @@ public class FileUtil extends FileUtils {
 
     private static String uploadWindowRoot;
 
-
     public static void moveFiles(String oldPath, String newPath) throws IOException {
 
         String[] filePaths = new File(oldPath).list();
 
-        if(filePaths != null && filePaths.length > 0) {
-            if(!new File(newPath).exists()) {
+        if (filePaths != null && filePaths.length > 0) {
+            if (!new File(newPath).exists()) {
                 new File(newPath).mkdirs();
             }
 
-            for(int i = 0; i < filePaths.length; i++) {
-                if(new File(oldPath + File.separator + filePaths[i]).isDirectory()) {
-                    moveFiles(oldPath + File.separator + filePaths[i],
-                              newPath + File.separator + filePaths[i]);
-                } else if(new File(oldPath + File.separator + filePaths[i]).isFile()) {
-                    copyFile(oldPath + File.separator + filePaths[i],
-                             newPath + File.separator + filePaths[i]);
-                    new File(oldPath + File.separator + filePaths[i])
-                            .renameTo(new File(newPath + File.separator + filePaths[i]));
+            for (int i = 0; i < filePaths.length; i++) {
+                if (new File(oldPath + File.separator + filePaths[i]).isDirectory()) {
+                    moveFiles(oldPath + File.separator + filePaths[i], newPath + File.separator + filePaths[i]);
+                } else if (new File(oldPath + File.separator + filePaths[i]).isFile()) {
+                    copyFile(oldPath + File.separator + filePaths[i], newPath + File.separator + filePaths[i]);
+                    new File(oldPath + File.separator + filePaths[i]).renameTo(new File(newPath + File.separator + filePaths[i]));
                 }
             }
         }
@@ -74,10 +70,10 @@ public class FileUtil extends FileUtils {
             FileOutputStream out = new FileOutputStream(file);
             byte[] buffer = new byte[2097152];
 
-            while((in.read(buffer)) != -1) {
+            while ((in.read(buffer)) != -1) {
                 out.write(buffer);
             }
-        } catch(IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException("复制文件错误", e);
         }
     }
@@ -88,16 +84,11 @@ public class FileUtil extends FileUtils {
     public static String getFileName(String fileName) {
 
         String name = "";
-        if(StringUtils.lastIndexOf(fileName, SLASH_ONE) >= StringUtils
-                .lastIndexOf(fileName, SLASH_TWO)) {
-            name = StringUtils
-                    .substring(fileName, StringUtils.lastIndexOf(fileName, SLASH_ONE) + 1,
-                               fileName.length());
+        if (StringUtils.lastIndexOf(fileName, SLASH_ONE) >= StringUtils.lastIndexOf(fileName, SLASH_TWO)) {
+            name = StringUtils.substring(fileName, StringUtils.lastIndexOf(fileName, SLASH_ONE) + 1, fileName.length());
 
         } else {
-            name = StringUtils
-                    .substring(fileName, StringUtils.lastIndexOf(fileName, SLASH_TWO) + 1,
-                               fileName.length());
+            name = StringUtils.substring(fileName, StringUtils.lastIndexOf(fileName, SLASH_TWO) + 1, fileName.length());
         }
         return StringUtils.trimToEmpty(name);
     }
@@ -107,8 +98,7 @@ public class FileUtil extends FileUtils {
      */
     public static String getWithoutExtension(String fileName) {
 
-        String ext = StringUtils.substring(fileName, 0,
-                                           StringUtils.lastIndexOf(fileName, DOT) == -1 ? fileName.length() : StringUtils.lastIndexOf(fileName, DOT));
+        String ext = StringUtils.substring(fileName, 0, StringUtils.lastIndexOf(fileName, DOT) == -1 ? fileName.length() : StringUtils.lastIndexOf(fileName, DOT));
         return StringUtils.trimToEmpty(ext);
     }
 
@@ -117,11 +107,10 @@ public class FileUtil extends FileUtils {
      */
     public static String getExtension(String fileName) {
 
-        if(StringUtils.INDEX_NOT_FOUND == StringUtils.indexOf(fileName, DOT)) {
+        if (StringUtils.INDEX_NOT_FOUND == StringUtils.indexOf(fileName, DOT)) {
             return StringUtils.EMPTY;
         }
-        String ext = StringUtils.substring(fileName,
-                                           StringUtils.lastIndexOf(fileName, DOT) + 1);
+        String ext = StringUtils.substring(fileName, StringUtils.lastIndexOf(fileName, DOT) + 1);
         return StringUtils.trimToEmpty(ext);
     }
 
@@ -156,10 +145,10 @@ public class FileUtil extends FileUtils {
 
         fileName = replacePath(fileName + DOT);
         ext = trimExtension(ext);
-        if(!hasExtension(fileName)) {
+        if (!hasExtension(fileName)) {
             return fileName + getExtension(ext);
         }
-        if(!isExtension(fileName, ext)) {
+        if (!isExtension(fileName, ext)) {
             return getWithoutExtension(fileName) + getExtension(ext);
         }
         return fileName;
@@ -183,8 +172,7 @@ public class FileUtil extends FileUtils {
 
     public static String replacePath(String path) {
 
-        return StringUtils.replace(StringUtils.trimToEmpty(path), SLASH_ONE,
-                                   SLASH_TWO);
+        return StringUtils.replace(StringUtils.trimToEmpty(path), SLASH_ONE, SLASH_TWO);
     }
 
     /**
@@ -192,12 +180,12 @@ public class FileUtil extends FileUtils {
      */
     public static String trimLeftPath(String path) {
 
-        if(isFile(path)) {
+        if (isFile(path)) {
             return path;
         }
         path = replacePath(path);
         String top = StringUtils.left(path, 1);
-        if(StringUtils.equalsIgnoreCase(SLASH_TWO, top)) {
+        if (StringUtils.equalsIgnoreCase(SLASH_TWO, top)) {
             return StringUtils.substring(path, 1);
         }
         return path;
@@ -208,12 +196,12 @@ public class FileUtil extends FileUtils {
      */
     public static String trimRightPath(String path) {
 
-        if(isFile(path)) {
+        if (isFile(path)) {
             return path;
         }
         path = replacePath(path);
         String bottom = StringUtils.right(path, 1);
-        if(StringUtils.equalsIgnoreCase(SLASH_TWO, bottom)) {
+        if (StringUtils.equalsIgnoreCase(SLASH_TWO, bottom)) {
             return StringUtils.substring(path, 0, path.length() - 2);
         }
         return path + SLASH_TWO;
@@ -224,8 +212,7 @@ public class FileUtil extends FileUtils {
      */
     public static String trimPath(String path) {
 
-        path = StringUtils.replace(StringUtils.trimToEmpty(path), SLASH_ONE,
-                                   SLASH_TWO);
+        path = StringUtils.replace(StringUtils.trimToEmpty(path), SLASH_ONE, SLASH_TWO);
         path = trimLeftPath(path);
         path = trimRightPath(path);
         return path;
@@ -237,7 +224,7 @@ public class FileUtil extends FileUtils {
     public static String bulidFullPath(String... paths) {
 
         StringBuffer sb = new StringBuffer();
-        for(String path : paths) {
+        for (String path : paths) {
             sb.append(trimPath(path));
         }
         return sb.toString();
@@ -252,14 +239,14 @@ public class FileUtil extends FileUtils {
         int end = 0;
         boolean existHeadDiagonal = path.startsWith(FileConstant.FILE_SEPARATORCHAR);
         boolean existTailDiagonal = path.endsWith(FileConstant.FILE_SEPARATORCHAR);
-        if(existHeadDiagonal && existTailDiagonal) {
+        if (existHeadDiagonal && existTailDiagonal) {
             start = StringUtils.indexOf(path, FileConstant.FILE_SEPARATORCHAR, 0) + 1;
             end = StringUtils.lastIndexOf(path, FileConstant.FILE_SEPARATORCHAR);
             return StringUtils.substring(path, start, end);
-        } else if(existHeadDiagonal && !existTailDiagonal) {
+        } else if (existHeadDiagonal && !existTailDiagonal) {
             start = StringUtils.indexOf(path, FileConstant.FILE_SEPARATORCHAR, 0) + 1;
             return StringUtils.substring(path, start);
-        } else if(!existHeadDiagonal && existTailDiagonal) {
+        } else if (!existHeadDiagonal && existTailDiagonal) {
             end = StringUtils.lastIndexOf(path, FileConstant.FILE_SEPARATORCHAR);
             return StringUtils.substring(path, 0, end);
         }
@@ -269,13 +256,13 @@ public class FileUtil extends FileUtils {
     public static void delFile(String filepath) {
 
         File f = new File(filepath);//定义文件路径
-        if(f.exists() && f.isDirectory()) {//判断是文件还是目录
-            if(f.listFiles().length != 0) {
+        if (f.exists() && f.isDirectory()) {//判断是文件还是目录
+            if (f.listFiles().length != 0) {
                 //若有则把文件放进数组，并判断是否有下级目录
                 File delFile[] = f.listFiles();
                 int i = f.listFiles().length;
-                for(int j = 0; j < i; j++) {
-                    if(delFile[j].isDirectory()) {
+                for (int j = 0; j < i; j++) {
+                    if (delFile[j].isDirectory()) {
                         delFile(delFile[j].getAbsolutePath());//递归调用del方法并取得子目录路径
                     }
                     delFile[j].delete();//删除文件
@@ -287,7 +274,7 @@ public class FileUtil extends FileUtils {
 
     public static void delFileList(List<String> filePaths) {
 
-        for(String filePath : filePaths) {
+        for (String filePath : filePaths) {
             delFile(filePath);
         }
     }
@@ -295,10 +282,10 @@ public class FileUtil extends FileUtils {
     public static List<String> splitPath(String filePath) {
 
         List<String> pathList = new ArrayList<>();
-        if(filePath.contains(FileConstant.FILE_SEPARATORCHAR)) {
+        if (filePath.contains(FileConstant.FILE_SEPARATORCHAR)) {
             String[] arrPath = StringUtils.split(filePath, FileConstant.FILE_SEPARATORCHAR);
             StringBuilder sbPath = new StringBuilder();
-            for(int i = 0; i < arrPath.length - 1; i++) {
+            for (int i = 0; i < arrPath.length - 1; i++) {
                 sbPath.append(FileConstant.FILE_SEPARATORCHAR).append(arrPath[i]);
                 pathList.add(sbPath.toString());
             }
@@ -314,11 +301,10 @@ public class FileUtil extends FileUtils {
 
     public static String getParentPath(String filePath) {
 
-        if(StringUtils.lastIndexOf(filePath, SLASH_ONE) == 0) {
+        if (StringUtils.lastIndexOf(filePath, SLASH_ONE) == 0) {
             return SLASH_ONE;
         } else {
-            String path = StringUtils.substring(filePath, 0,
-                                                StringUtils.lastIndexOf(filePath, SLASH_ONE));
+            String path = StringUtils.substring(filePath, 0, StringUtils.lastIndexOf(filePath, SLASH_ONE));
             return path;
         }
     }
@@ -333,13 +319,13 @@ public class FileUtil extends FileUtils {
 
         List<String> list = new ArrayList<String>();
         File baseFile = new File(directoryPath);
-        if(baseFile.isFile() || !baseFile.exists()) {
+        if (baseFile.isFile() || !baseFile.exists()) {
             return list;
         }
         File[] files = baseFile.listFiles();
-        for(File file : files) {
-            if(file.isDirectory()) {
-                if(isAddDirectory) {
+        for (File file : files) {
+            if (file.isDirectory()) {
+                if (isAddDirectory) {
                     list.add(file.getAbsolutePath());
                 }
                 list.addAll(getAllFile(file.getAbsolutePath(), isAddDirectory));
@@ -350,12 +336,10 @@ public class FileUtil extends FileUtils {
         return list;
     }
 
-
-    public static void downloadFile(String name, String path, HttpServletRequest request,
-                                    HttpServletResponse response) throws FileNotFoundException {
+    public static void downloadFile(String name, String path, HttpServletRequest request, HttpServletResponse response) throws FileNotFoundException {
         File downloadFile = new File(path);
         String fileName = name;
-        if(StringUtils.isBlank(fileName)) {
+        if (StringUtils.isBlank(fileName)) {
             fileName = downloadFile.getName();
         }
         String headerValue = String.format("attachment; filename=\"%s\"", fileName);
@@ -364,7 +348,7 @@ public class FileUtil extends FileUtils {
         //获取文件大小
         long downloadSize = downloadFile.length();
         long fromPos = 0, toPos = 0;
-        if(request.getHeader("Range") == null) {
+        if (request.getHeader("Range") == null) {
             response.addHeader(HttpHeaders.CONTENT_LENGTH, downloadSize + "");
         } else {
             log.info("range:{}", response.getHeader("Range"));
@@ -375,11 +359,11 @@ public class FileUtil extends FileUtils {
             String[] ary = bytes.split("-");
             fromPos = Long.parseLong(ary[0]);
             log.info("fronPos:{}", fromPos);
-            if(ary.length == 2) {
+            if (ary.length == 2) {
                 toPos = Long.parseLong(ary[1]);
             }
             int size;
-            if(toPos > fromPos) {
+            if (toPos > fromPos) {
                 size = (int) (toPos - fromPos);
             } else {
                 size = (int) (downloadSize - fromPos);
@@ -388,9 +372,8 @@ public class FileUtil extends FileUtils {
             downloadSize = size;
         }
 
-        try(RandomAccessFile in = new RandomAccessFile(downloadFile, "rw");
-            OutputStream out = response.getOutputStream()) {
-            if(fromPos > 0) {
+        try (RandomAccessFile in = new RandomAccessFile(downloadFile, "rw"); OutputStream out = response.getOutputStream()) {
+            if (fromPos > 0) {
                 in.seek(fromPos);
             }
             int bufLen = (int) (downloadSize < 2048 ? downloadSize : 2048);
@@ -398,24 +381,23 @@ public class FileUtil extends FileUtils {
             int num;
             //当前写入客户端大小
             int count = 0;
-            while((num = in.read(buffer)) != -1) {
+            while ((num = in.read(buffer)) != -1) {
                 out.write(buffer, 0, num);
                 count += num;
-                if(downloadSize - count < bufLen) {
+                if (downloadSize - count < bufLen) {
                     bufLen = (int) (downloadSize - count);
-                    if(bufLen == 0) {
+                    if (bufLen == 0) {
                         break;
                     }
                     buffer = new byte[bufLen];
                 }
             }
             response.flushBuffer();
-        } catch(IOException e) {
+        } catch (IOException e) {
             log.error("download error:" + e.getMessage(), e);
             throw new RuntimeException("文件下载失败", e);
         }
     }
-
 
     /**
      * 不确定是否能准确，待测试 判断文本文件的字符集，文件开头三个字节表明编码格式。 <a href="http://blog.163.com/wf_shunqiziran/blog/static/176307209201258102217810/">参考的博客地址</a>
@@ -430,44 +412,43 @@ public class FileUtil extends FileUtils {
             bis.mark(0); // 读者注： bis.mark(0);修改为 bis.mark(100);我用过这段代码，需要修改上面标出的地方。
             // Wagsn注：不过暂时使用正常，遂不改之
             int read = bis.read(first3Bytes, 0, 3);
-            if(read == -1) {
+            if (read == -1) {
                 bis.close();
                 return charset; // 文件编码为 ANSI
-            } else if(first3Bytes[0] == (byte) 0xFF && first3Bytes[1] == (byte) 0xFE) {
+            } else if (first3Bytes[0] == (byte) 0xFF && first3Bytes[1] == (byte) 0xFE) {
                 charset = "UTF-16LE"; // 文件编码为 Unicode
                 checked = true;
-            } else if(first3Bytes[0] == (byte) 0xFE && first3Bytes[1] == (byte) 0xFF) {
+            } else if (first3Bytes[0] == (byte) 0xFE && first3Bytes[1] == (byte) 0xFF) {
                 charset = "UTF-16BE"; // 文件编码为 Unicode big endian
                 checked = true;
-            } else if(first3Bytes[0] == (byte) 0xEF && first3Bytes[1] == (byte) 0xBB
-                      && first3Bytes[2] == (byte) 0xBF) {
+            } else if (first3Bytes[0] == (byte) 0xEF && first3Bytes[1] == (byte) 0xBB && first3Bytes[2] == (byte) 0xBF) {
                 charset = "UTF-8"; // 文件编码为 UTF-8
                 checked = true;
             }
             bis.reset();
-            if(!checked) {
-                while((read = bis.read()) != -1) {
-                    if(read >= 0xF0) {
+            if (!checked) {
+                while ((read = bis.read()) != -1) {
+                    if (read >= 0xF0) {
                         break;
                     }
-                    if(0x80 <= read && read <= 0xBF) // 单独出现BF以下的，也算是GBK
+                    if (0x80 <= read && read <= 0xBF) // 单独出现BF以下的，也算是GBK
                     {
                         break;
                     }
-                    if(0xC0 <= read && read <= 0xDF) {
+                    if (0xC0 <= read && read <= 0xDF) {
                         read = bis.read();
-                        if(0x80 <= read && read <= 0xBF) // 双字节 (0xC0 - 0xDF)
+                        if (0x80 <= read && read <= 0xBF) // 双字节 (0xC0 - 0xDF)
                         // (0x80 - 0xBF),也可能在GB编码内
                         {
                             continue;
                         } else {
                             break;
                         }
-                    } else if(0xE0 <= read && read <= 0xEF) { // 也有可能出错，但是几率较小
+                    } else if (0xE0 <= read && read <= 0xEF) { // 也有可能出错，但是几率较小
                         read = bis.read();
-                        if(0x80 <= read && read <= 0xBF) {
+                        if (0x80 <= read && read <= 0xBF) {
                             read = bis.read();
-                            if(0x80 <= read && read <= 0xBF) {
+                            if (0x80 <= read && read <= 0xBF) {
                                 charset = "UTF-8";
                                 break;
                             } else {
@@ -480,7 +461,7 @@ public class FileUtil extends FileUtils {
                 }
             }
             bis.close();
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return charset;
@@ -492,16 +473,11 @@ public class FileUtil extends FileUtils {
         return Pattern.matches(base64Pattern, str);
     }
 
-    @Value("${upload.window.root}")
-    public void setUploadWindowRoot(String windowRoot) {
-        uploadWindowRoot = windowRoot;
-    }
-
     public static void close(final Closeable closeable) {
-        if(closeable != null) {
+        if (closeable != null) {
             try {
                 closeable.close();
-            } catch(IOException e) {
+            } catch (IOException e) {
                 log.error("close fail:" + e.getMessage(), e);
             } finally {
             }
@@ -514,7 +490,7 @@ public class FileUtil extends FileUtils {
     public static void freedMappedByteBuffer(final MappedByteBuffer mappedByteBuffer) {
 
         try {
-            if(mappedByteBuffer == null) {
+            if (mappedByteBuffer == null) {
                 return;
             }
 
@@ -526,10 +502,9 @@ public class FileUtil extends FileUtils {
                     try {
                         Method getCleanerMethod = mappedByteBuffer.getClass().getMethod("cleaner", new Class[0]);
                         getCleanerMethod.setAccessible(true);
-                        Cleaner cleaner = (Cleaner) getCleanerMethod.invoke(mappedByteBuffer,
-                                                                            new Object[0]);
+                        Cleaner cleaner = (Cleaner) getCleanerMethod.invoke(mappedByteBuffer, new Object[0]);
                         cleaner.clean();
-                    } catch(Exception e) {
+                    } catch (Exception e) {
                         log.error("clean MappedByteBuffer error!!!", e);
                     }
                     log.info("clean MappedByteBuffer completed!!!");
@@ -537,7 +512,7 @@ public class FileUtil extends FileUtils {
                 }
             });
 
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -552,7 +527,7 @@ public class FileUtil extends FileUtils {
                     getCleanerMethod.setAccessible(true);
                     Cleaner cleaner = (Cleaner) getCleanerMethod.invoke(buffer, new Object[0]);
                     cleaner.clean();
-                } catch(Exception e) {
+                } catch (Exception e) {
                     log.error("clean fail :" + e.getMessage(), e);
                 }
                 return null;
@@ -563,17 +538,22 @@ public class FileUtil extends FileUtils {
 
     public static void close(FileInputStream in, MappedByteBuffer byteBuffer) {
 
-        if(null != in) {
+        if (null != in) {
             try {
                 in.getChannel().close();
                 in.close();
-            } catch(IOException e) {
+            } catch (IOException e) {
                 log.error("close error:" + e.getMessage(), e);
             }
         }
-        if(null != byteBuffer) {
+        if (null != byteBuffer) {
             freedMappedByteBuffer(byteBuffer);
         }
+    }
+
+    @Value("${upload.window.root}")
+    public void setUploadWindowRoot(String windowRoot) {
+        uploadWindowRoot = windowRoot;
     }
 
 }

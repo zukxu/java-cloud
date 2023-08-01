@@ -8,7 +8,6 @@ import com.github.liaochong.myexcel.core.converter.CustomWriteConverter;
  */
 public class MyConverter implements CustomWriteConverter<Object, Object> {
 
-
     @Override
     public Object convert(Object originalData, CustomWriteContext customWriteContext) {
         return originalData;

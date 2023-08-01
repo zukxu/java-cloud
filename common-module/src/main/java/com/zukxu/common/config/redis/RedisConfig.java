@@ -31,7 +31,6 @@ public class RedisConfig<T> extends CachingConfigurerSupport {
      * 监听器
      *
      * @param connectionFactory 连接工厂
-     *
      * @return 监听器
      */
     @Bean
@@ -42,7 +41,7 @@ public class RedisConfig<T> extends CachingConfigurerSupport {
     }
 
     @Bean
-    @SuppressWarnings(value = { "unchecked", "rawtypes" })
+    @SuppressWarnings(value = {"unchecked", "rawtypes"})
     public RedisTemplate<String, T> redisTemplate(LettuceConnectionFactory connectionFactory) {
         RedisTemplate<String, T> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(connectionFactory);
@@ -50,9 +49,7 @@ public class RedisConfig<T> extends CachingConfigurerSupport {
         FastJson2RedisSerializer jsonRedisSerializer = new FastJson2RedisSerializer(Object.class);
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-        mapper.activateDefaultTyping(LaissezFaireSubTypeValidator.instance,
-                                     ObjectMapper.DefaultTyping.NON_FINAL,
-                                     JsonTypeInfo.As.PROPERTY);
+        mapper.activateDefaultTyping(LaissezFaireSubTypeValidator.instance, ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
         jsonRedisSerializer.setObjectMapper(mapper);
         //配置redis数据类型的转换器
         redisTemplate.setKeySerializer(new StringRedisSerializer());

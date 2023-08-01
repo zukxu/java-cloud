@@ -54,7 +54,6 @@ public class SysRole extends BaseEntity {
      */
     private Integer sort;
 
-
     /**
      * 角色状态（0正常 1停用）
      */

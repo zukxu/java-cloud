@@ -31,7 +31,7 @@ public class Sn5GListener implements ReadListener<Map> {
      */
     private List<Map> cachedDataList = ListUtils.newArrayListWithExpectedSize(BATCH_COUNT);
     private Set<String> headField = new LinkedHashSet<>();
-    private Map<String,Object> reqMap = new HashMap<>();
+    private Map<String, Object> reqMap = new HashMap<>();
     /**
      * 假设这个是一个DAO，当然有业务逻辑这个也可以是一个service。当然如果不用存储这个对象没用。
      */
@@ -47,7 +47,7 @@ public class Sn5GListener implements ReadListener<Map> {
      *
      * @param reportService
      */
-    public Sn5GListener(ReportService reportService,Map<String,Object> map) {
+    public Sn5GListener(ReportService reportService, Map<String, Object> map) {
         this.reportService = reportService;
         this.reqMap = map;
     }

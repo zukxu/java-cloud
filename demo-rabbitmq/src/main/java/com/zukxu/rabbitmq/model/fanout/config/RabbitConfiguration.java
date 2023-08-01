@@ -15,41 +15,41 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class RabbitConfiguration {
-	//	声明注册fanout模式的交换机
-	@Bean
-	public FanoutExchange fanoutExchange() {
-		return new FanoutExchange("fanout_order_exchange", true, false);
-	}
+    //	声明注册fanout模式的交换机
+    @Bean
+    public FanoutExchange fanoutExchange() {
+        return new FanoutExchange("fanout_order_exchange", true, false);
+    }
 
-	//	声明所要用到的队列：sms msg emile
-	@Bean
-	public Queue smsQueue() {
-		return new Queue("fanout_sms_queue");
-	}
+    //	声明所要用到的队列：sms msg emile
+    @Bean
+    public Queue smsQueue() {
+        return new Queue("fanout_sms_queue");
+    }
 
-	@Bean
-	public Queue msgQueue() {
-		return new Queue("fanout_msg_queue");
-	}
+    @Bean
+    public Queue msgQueue() {
+        return new Queue("fanout_msg_queue");
+    }
 
-	@Bean
-	public Queue emailQueue() {
-		return new Queue("fanout_email_queue");
-	}
+    @Bean
+    public Queue emailQueue() {
+        return new Queue("fanout_email_queue");
+    }
 
-	//	完成交换机和队列的绑定
-	@Bean
-	public Binding smsBinding() {
-		return BindingBuilder.bind(smsQueue()).to(fanoutExchange());
-	}
+    //	完成交换机和队列的绑定
+    @Bean
+    public Binding smsBinding() {
+        return BindingBuilder.bind(smsQueue()).to(fanoutExchange());
+    }
 
-	@Bean
-	public Binding msgBinding() {
-		return BindingBuilder.bind(msgQueue()).to(fanoutExchange());
-	}
+    @Bean
+    public Binding msgBinding() {
+        return BindingBuilder.bind(msgQueue()).to(fanoutExchange());
+    }
 
-	@Bean
-	public Binding emailBinding() {
-		return BindingBuilder.bind(emailQueue()).to(fanoutExchange());
-	}
+    @Bean
+    public Binding emailBinding() {
+        return BindingBuilder.bind(emailQueue()).to(fanoutExchange());
+    }
 }

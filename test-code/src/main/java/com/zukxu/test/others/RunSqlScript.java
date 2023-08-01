@@ -4,18 +4,13 @@ import cn.hutool.core.io.FileUtil;
 import com.zukxu.common.model.JDBCProperties;
 import com.zukxu.common.result.R;
 import com.zukxu.common.utils.JDBCUtil;
-import lombok.Data;
 import org.apache.ibatis.jdbc.ScriptRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
 
-import java.io.File;
 import java.io.FileReader;
 import java.io.Reader;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.locks.Lock;
@@ -38,7 +33,7 @@ public class RunSqlScript {
         Lock lock = new ReentrantLock();
         boolean lockSuccess = lock.tryLock();
         List<String> result = new ArrayList<>();
-        if(lockSuccess) {
+        if (lockSuccess) {
             // 建立连接
             Connection conn = null;
             Reader initReader = null;
@@ -64,12 +59,12 @@ public class RunSqlScript {
                 System.out.println("====== SUCCESS ======");
                 log.info("数据库脚本执行成功");
                 conn.commit();
-            } catch(Exception e) {
+            } catch (Exception e) {
                 try {
                     assert conn != null;
                     conn.rollback();
                     log.error("数据回滚成功");
-                } catch(Exception e1) {
+                } catch (Exception e1) {
                     log.error("数据回滚失败");
                 }
                 log.error("数据库脚本执行失败");
@@ -77,9 +72,9 @@ public class RunSqlScript {
                 //释放锁
                 lock.unlock();
                 try {
-                    if(initReader != null) {initReader.close();}
-                    if(conn != null) {conn.close();}
-                } catch(Exception e1) {
+                    if (initReader != null) {initReader.close();}
+                    if (conn != null) {conn.close();}
+                } catch (Exception e1) {
                     log.error(e1.getMessage(), e1);
                 }
             }
@@ -87,7 +82,5 @@ public class RunSqlScript {
         }
         return R.ok(result);
     }
-
-
 
 }

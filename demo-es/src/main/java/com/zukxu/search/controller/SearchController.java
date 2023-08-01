@@ -20,21 +20,21 @@ import java.io.IOException;
 @RestController
 @RequestMapping("/search")
 public class SearchController {
-	@Autowired
-	RestHighLevelClientService service;
+    @Autowired
+    RestHighLevelClientService service;
 
-	@RequestMapping("/search")
-	public String search() {
-		SearchHits hits = null;
-		try {
-			SearchResponse search = service.search("name", "s", "idx_s");
-			hits = search.getHits();
-			Object[] collapseValues = hits.getCollapseValues();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+    @RequestMapping("/search")
+    public String search() {
+        SearchHits hits = null;
+        try {
+            SearchResponse search = service.search("name", "s", "idx_s");
+            hits = search.getHits();
+            Object[] collapseValues = hits.getCollapseValues();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-		assert hits != null;
-		return hits.toString();
-	}
+        assert hits != null;
+        return hits.toString();
+    }
 }

@@ -7,7 +7,6 @@ import lombok.Data;
 import java.util.List;
 import java.util.Map;
 
-
 /**
  * <p>
  * 工作流任务相关--请求参数

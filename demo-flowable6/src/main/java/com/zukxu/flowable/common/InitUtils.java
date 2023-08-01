@@ -40,7 +40,6 @@ public class InitUtils {
         return null;
     }
 
-
     public static List<SysRole> getRoleList() {
         List<SysRole> list = new ArrayList<>();
         list.add(new SysRole().setRoleName("超级管理员").setRoleCode("superManager").setId("1"));
@@ -49,7 +48,6 @@ public class InitUtils {
         list.add(new SysRole().setRoleName("二级经理").setRoleCode("secondManager").setId("4"));
         return list;
     }
-
 
     public static SysRole getRoleById(String roleId) {
         List<SysRole> roleList = getRoleList();

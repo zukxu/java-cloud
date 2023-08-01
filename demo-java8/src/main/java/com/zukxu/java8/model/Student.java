@@ -35,7 +35,8 @@ public class Student implements Cloneable, Serializable {
         this.name = name;
         this.sex = sex;
     }
-    public Student(String name, String sex,Integer age) {
+
+    public Student(String name, String sex, Integer age) {
         this.id = id;
         this.name = name;
         this.sex = sex;

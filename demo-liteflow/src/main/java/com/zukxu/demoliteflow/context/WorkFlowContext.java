@@ -20,7 +20,6 @@ public class WorkFlowContext {
     private Map<String, Object> variables;
     //@formatter:on
 
-
     public WorkFlowF getWorkFlowF() {
         return workFlowF;
     }

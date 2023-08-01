@@ -30,7 +30,6 @@ public class WFUtil {
 
     /**
      * @param dateTime LocalDateTime
-     *
      * @return YYYYMMDDHHMMSS
      */
     public static String timeFormat(LocalDateTime dateTime) {
@@ -39,7 +38,6 @@ public class WFUtil {
 
     /**
      * @param dateTime String
-     *
      * @return yyyy-MM-dd HH:mm:ss
      */
     public static LocalDateTime timeParse(String dateTime) {
@@ -48,7 +46,6 @@ public class WFUtil {
 
     /**
      * @param dateTime LocalDateTime
-     *
      * @return YYYYMMDD
      */
     public static String dateFormat(LocalDateTime dateTime) {
@@ -57,11 +54,10 @@ public class WFUtil {
 
     /**
      * @param dateTime String YYYYMMDDHHMMSS
-     *
      * @return yyyy-MM-dd
      */
     public static LocalDate dateParse(String dateTime) {
-        if(dateTime.length() > 8) {
+        if (dateTime.length() > 8) {
             return LocalDateTimeUtil.parseDate(dateTime, DatePattern.PURE_DATETIME_PATTERN);
         } else {
             return LocalDateTimeUtil.parseDate(dateTime, DatePattern.PURE_DATE_PATTERN);

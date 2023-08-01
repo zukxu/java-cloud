@@ -11,8 +11,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableFeignClients
-public class SkyWalkingOrder1002Application
-{
+public class SkyWalkingOrder1002Application {
     public static void main(String[] args) {
         SpringApplication.run(SkyWalkingOrder1002Application.class, args);
     }

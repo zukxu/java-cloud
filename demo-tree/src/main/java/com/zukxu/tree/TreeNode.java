@@ -40,8 +40,7 @@ public class TreeNode<T> {
     public List<TreeNode<T>> childrenNode(List<T> dataList, String idName, String pidName) {
         ConvertTree<T> convertTree = new ConvertTree<>();
         String idValue = convertTree.getFieldValue(rootNode, idName);
-        List<T> collect = dataList.stream()
-                .filter(t -> idValue.equals(convertTree.getFieldValue(rootNode, pidName))).collect(Collectors.toList());
+        List<T> collect = dataList.stream().filter(t -> idValue.equals(convertTree.getFieldValue(rootNode, pidName))).collect(Collectors.toList());
         dataList.removeAll(collect);
         collect.forEach(t -> {
             TreeNode<T> treeNode = new TreeNode<>();
@@ -50,6 +49,5 @@ public class TreeNode<T> {
         });
         return childrenNode;
     }
-
 
 }

@@ -1,6 +1,5 @@
 package com.zukxu.flowable.service.impl;
 
-
 import com.zukxu.common.result.R;
 import com.zukxu.flowable.model.vo.FlowTaskVo;
 import com.zukxu.flowable.factory.FlowFactory;
@@ -25,7 +24,6 @@ import java.util.Objects;
 @Service
 @Slf4j
 public class FlowInstanceServiceImpl extends FlowFactory implements FlowInstanceService {
-
 
     @Override
     public List<Task> queryListByInstanceId(String instanceId) {
@@ -92,8 +90,7 @@ public class FlowInstanceServiceImpl extends FlowFactory implements FlowInstance
      */
     @Override
     public HistoricProcessInstance getHistoricProcessInstanceById(String processInstanceId) {
-        HistoricProcessInstance historicProcessInstance =
-                historyService.createHistoricProcessInstanceQuery().processInstanceId(processInstanceId).singleResult();
+        HistoricProcessInstance historicProcessInstance = historyService.createHistoricProcessInstanceQuery().processInstanceId(processInstanceId).singleResult();
         if (Objects.isNull(historicProcessInstance)) {
             throw new FlowableObjectNotFoundException("流程实例不存在: " + processInstanceId);
         }
@@ -113,7 +110,7 @@ public class FlowInstanceServiceImpl extends FlowFactory implements FlowInstance
         try {
             // 设置流程发起人Id到流程中
             String userId = "1";
-//            identityService.setAuthenticatedUserId(userId.toString());
+            //            identityService.setAuthenticatedUserId(userId.toString());
             variables.put("initiator", userId);
             variables.put("_FLOWABLE_SKIP_EXPRESSION_ENABLED", true);
             runtimeService.startProcessInstanceById(procDefId, variables);

@@ -30,7 +30,6 @@ public class TreeSelect implements Serializable {
      */
     private String value;
 
-
     /**
      * 子节点
      */
@@ -41,12 +40,8 @@ public class TreeSelect implements Serializable {
     public TreeSelect(ReFnEntity rf) {
         this.id = rf.getId();
         this.value = rf.getTitle();
-        if(CollectionUtil.isNotEmpty(rf.getChildren())) {
-            this.children = rf.getChildren()
-                              .stream()
-                              .filter(ObjectUtil::isNotNull)
-                              .map(TreeSelect::new)
-                              .collect(Collectors.toList());
+        if (CollectionUtil.isNotEmpty(rf.getChildren())) {
+            this.children = rf.getChildren().stream().filter(ObjectUtil::isNotNull).map(TreeSelect::new).collect(Collectors.toList());
         } else {
             this.children = CollectionUtil.newArrayList();
         }

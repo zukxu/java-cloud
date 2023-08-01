@@ -1,6 +1,5 @@
 package com.zukxu.mybatis.enums.mapper;
 
-
 import com.zukxu.mybatis.enums.entity.SysUser;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;

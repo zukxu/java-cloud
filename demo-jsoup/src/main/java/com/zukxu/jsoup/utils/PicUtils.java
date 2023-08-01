@@ -28,7 +28,8 @@ public class PicUtils {
             DataInputStream dataInputStream = new DataInputStream(url.openStream());
             File file = new File(path);
             if (!file.exists()) {
-                if (!file.mkdirs()) log.error("文件创建失败");
+                if (!file.mkdirs())
+                    log.error("文件创建失败");
             }
             file = new File(file + "/" + name);
             FileOutputStream fileOutputStream = new FileOutputStream(file);

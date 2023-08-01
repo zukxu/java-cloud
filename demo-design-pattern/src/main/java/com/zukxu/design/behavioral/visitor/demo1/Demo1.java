@@ -124,7 +124,7 @@ class ShapeCollection {
     }
 
     public void accept(Visitor visitor) {
-        for(Shape shape : shapes) {
+        for (Shape shape : shapes) {
             shape.accept(visitor);
         }
     }
@@ -205,7 +205,7 @@ public class Demo1 {
 
         Visitor areaVisitor = new AreaVisitor();
         Visitor perimeterVisitor = new PerimeterVisitor();
-        for(Shape shape : shapes) {
+        for (Shape shape : shapes) {
             shape.accept(areaVisitor);
             shape.accept(perimeterVisitor);
         }

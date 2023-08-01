@@ -33,12 +33,11 @@ import java.util.Map;
 @TableName(value = "work_flow")
 public class WorkFlowF extends CDisPatch implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     @TableField(exist = false)
     @JsonProperty(value = "IdentyDetailName")
     @JSONField(name = "IdentyDetailName")
     private String IdentyDetailName;
-
-
     /**
      * 工单状态
      * {@link com.zukxu.demoliteflow.enums.State}
@@ -47,17 +46,14 @@ public class WorkFlowF extends CDisPatch implements Serializable {
     @JsonProperty(value = "WorkFlowStatus")
     @JSONField(name = "WorkFlowStatus")
     private String WorkFlowStatus;
-
     @TableField(exist = false)
     @JsonProperty(value = "OriginUnitName")
     @JSONField(name = "OriginUnitName")
     private String OriginUnitName;
-
     @TableField(exist = false)
     @JsonProperty(value = "ReceiverUnitName")
     @JSONField(name = "ReceiverUnitName")
     private String ReceiverUnitName;
-
     /**
      * 1-发起方是集团，2-发起方是省分
      */
@@ -65,7 +61,6 @@ public class WorkFlowF extends CDisPatch implements Serializable {
     @JsonProperty(value = "Unit")
     @JSONField(name = "Unit")
     private String Unit;
-
     /**
      * 流程id
      */
@@ -73,7 +68,6 @@ public class WorkFlowF extends CDisPatch implements Serializable {
     @JsonProperty(value = "ProcessId")
     @JSONField(name = "ProcessId")
     private String ProcessId;
-
     /**
      * 工单归档意见00满意01一般02不满意
      */
@@ -81,7 +75,6 @@ public class WorkFlowF extends CDisPatch implements Serializable {
     @JsonProperty(value = "FilingOpinion")
     @JSONField(name = "FilingOpinion")
     private String FilingOpinion;
-
     /**
      * 撤单时间
      */
@@ -89,7 +82,6 @@ public class WorkFlowF extends CDisPatch implements Serializable {
     @JsonProperty(value = "WithdrawTime")
     @JSONField(name = "WithdrawTime")
     private String WithdrawTime;
-
     /**
      * 撤单原因
      */
@@ -97,7 +89,6 @@ public class WorkFlowF extends CDisPatch implements Serializable {
     @JsonProperty(value = "WithdrawReason")
     @JSONField(name = "WithdrawReason")
     private String WithdrawReason;
-
     /**
      * 催办时间
      */
@@ -105,7 +96,6 @@ public class WorkFlowF extends CDisPatch implements Serializable {
     @JsonProperty(value = "UrgeTime")
     @JSONField(name = "UrgeTime")
     private String UrgeTime;
-
     /**
      * 催办原因
      */
@@ -113,8 +103,6 @@ public class WorkFlowF extends CDisPatch implements Serializable {
     @JsonProperty(value = "UrgeReason")
     @JSONField(name = "UrgeReason")
     private String UrgeReason;
-
-
     /**
      * 回复时上传的附件,多个用|分开
      */
@@ -122,17 +110,11 @@ public class WorkFlowF extends CDisPatch implements Serializable {
     @JsonProperty(value = "ReplyAttachList")
     @JSONField(name = "ReplyAttachList")
     private String ReplyAttachList;
-
     @TableField(exist = false)
     @JsonProperty(value = "IsDispatchNow")
     @JSONField(name = "IsDispatchNow")
     private Boolean IsDispatchNow;
-
-
     @TableField(exist = false)
     private Map<String, Object> variables;
-
-
-    private static final long serialVersionUID = 1L;
 
 }

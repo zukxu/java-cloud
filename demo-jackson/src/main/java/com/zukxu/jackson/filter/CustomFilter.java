@@ -13,7 +13,7 @@ public class CustomFilter {
     @Override
     public boolean equals(Object obj) {
         // null，或者不是字符串就返回true，意味着不被序列化
-        if(null == obj || !(obj instanceof String)) {
+        if (null == obj || !(obj instanceof String)) {
             return true;
         }
 

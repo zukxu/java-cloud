@@ -1,9 +1,8 @@
 package com.zukxu.myexcel.utils;
 
+import com.sun.rowset.internal.Row;
 import com.zukxu.common.exception.BusinessException;
-import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.hssf.util.HSSFColor;
-import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -124,7 +123,7 @@ public class ExcelUtil {
                     //获得当前行的开始列
                     int firstCellNum = row.getFirstCellNum();
                     //获得当前行的列数
-//                    int lastCellNum = row.getPhysicalNumberOfCells();
+                    //                    int lastCellNum = row.getPhysicalNumberOfCells();
                     //取第表头的列数
                     if (count == 1) {
                         headerNum = row.getPhysicalNumberOfCells();
@@ -142,7 +141,6 @@ public class ExcelUtil {
         }
         return list;
     }
-
 
     /**
      * 解析txt/dat文件，统计业务数据，转存为excel文件

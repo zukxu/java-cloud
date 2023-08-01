@@ -59,8 +59,8 @@ public class FlowDefinitionServiceImpl extends FlowFactory implements FlowDefini
         PageInfo<ActProcDefDTO> pageInfo = new PageInfo<>();
         // 流程定义列表数据查询
         ProcessDefinitionQuery processDefinitionQuery = repositoryService.createProcessDefinitionQuery()
-                //.latestVersion()
-                .orderByProcessDefinitionKey().asc();
+                                                                         //.latestVersion()
+                                                                         .orderByProcessDefinitionKey().asc();
         pageInfo.setTotal(processDefinitionQuery.count());
 
         //获取流程定义列表
@@ -130,9 +130,7 @@ public class FlowDefinitionServiceImpl extends FlowFactory implements FlowDefini
             entity.setVersion(definition.getVersion());
             entity.setDescription(definition.getDescription());
             entity.setDeploymentId(definition.getDeploymentId());
-            Deployment deployment = repositoryService.createDeploymentQuery()
-                    .deploymentId(definition.getDeploymentId())
-                    .singleResult();
+            Deployment deployment = repositoryService.createDeploymentQuery().deploymentId(definition.getDeploymentId()).singleResult();
             entity.setDeploymentTime(deployment.getDeploymentTime());
             entity.setDiagramResourceName(definition.getDiagramResourceName());
             entity.setResourceName(definition.getResourceName());
@@ -170,8 +168,7 @@ public class FlowDefinitionServiceImpl extends FlowFactory implements FlowDefini
     @Override
     public String startProcessInstanceById(String procDefId, Map<String, Object> variables) {
         try {
-            ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().processDefinitionId(procDefId)
-                    .latestVersion().singleResult();
+            ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().processDefinitionId(procDefId).latestVersion().singleResult();
             if (Objects.nonNull(processDefinition) && processDefinition.isSuspended()) {
                 return "流程已被挂起,请先激活流程";
             }

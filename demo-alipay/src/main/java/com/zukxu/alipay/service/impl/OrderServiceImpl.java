@@ -18,15 +18,11 @@ import java.math.BigDecimal;
 @Service
 public class OrderServiceImpl implements IOrderService {
 
-	@Override
-	public AlipayEntity findByOutTradeNo(String outTradeNo) {
-		//模拟从数据库获取数据
-		AlipayEntity alipayEntity = new AlipayEntity();
-		alipayEntity.setOutTradeNo(outTradeNo)
-				  .setSubject("Java教程")
-				  .setBody("Java-0基础开发教程")
-				  .setTotalAmount(new BigDecimal("99.99"))
-				  .setPayment(Payment.Alipay);
-		return alipayEntity;
-	}
+    @Override
+    public AlipayEntity findByOutTradeNo(String outTradeNo) {
+        //模拟从数据库获取数据
+        AlipayEntity alipayEntity = new AlipayEntity();
+        alipayEntity.setOutTradeNo(outTradeNo).setSubject("Java教程").setBody("Java-0基础开发教程").setTotalAmount(new BigDecimal("99.99")).setPayment(Payment.Alipay);
+        return alipayEntity;
+    }
 }

@@ -25,14 +25,14 @@ public class ConvertTree<T> {
         //通过注解获取idName和pidName
         String idName = null;
         String pidName = null;
-        if(!dataList.isEmpty()) {
+        if (!dataList.isEmpty()) {
             //得到class
             Class<?> cls = dataList.get(0).getClass();
             //得到所有属性
             Field[] fields = cls.getDeclaredFields();
-            for(Field field : fields) {
+            for (Field field : fields) {
                 TreeId treeId = field.getAnnotation(TreeId.class);
-                if(treeId != null) {
+                if (treeId != null) {
                     idName = field.getName();
                 }
                 TreePid treeFid = field.getAnnotation(TreePid.class);
@@ -91,11 +91,11 @@ public class ConvertTree<T> {
     private void forChildren(List<T> dataList, String idName, String pidName, List<TreeNode<T>> childrenNodeList) {
         //遍历集合
         List<TreeNode<T>> needForList = new ArrayList<>();
-        for(TreeNode<T> tTreeNode : childrenNodeList) {
+        for (TreeNode<T> tTreeNode : childrenNodeList) {
             List<TreeNode<T>> treeNodes = tTreeNode.childrenNode(dataList, idName, pidName);
             needForList.addAll(treeNodes);
         }
-        if(!needForList.isEmpty()) {
+        if (!needForList.isEmpty()) {
             forChildren(dataList, idName, pidName, needForList);
         }
     }
@@ -106,11 +106,10 @@ public class ConvertTree<T> {
      * @param dataList
      * @param idName
      * @param pidName
-     *
      * @return
      */
     public TreeNode<T> getRootNode(List<T> dataList, String idName, String pidName) {
-        if(dataList.isEmpty()) {
+        if (dataList.isEmpty()) {
             return null;
         }
         T node = dataList.get(0);
@@ -129,19 +128,18 @@ public class ConvertTree<T> {
      * @param idName
      * @param pidName
      * @param node
-     *
      * @return
      */
     private T getRootNode(List<T> dataList, String idName, String pidName, T node) {
         T fNode = null;
         String fieldValue = getFieldValue(node, pidName);
-        for(T data : dataList) {
-            if(getFieldValue(data, idName).equals(fieldValue)) {
+        for (T data : dataList) {
+            if (getFieldValue(data, idName).equals(fieldValue)) {
                 fNode = data;
                 break;
             }
         }
-        if(ObjectUtil.isEmpty(fNode)) {
+        if (ObjectUtil.isEmpty(fNode)) {
             return node;
         } else {
             return getRootNode(dataList, idName, pidName, fNode);
@@ -154,26 +152,25 @@ public class ConvertTree<T> {
      *
      * @param obj
      * @param fieldName
-     *
      * @return
      */
     public String getFieldValue(T obj, String fieldName) {
         Class<?> cls = obj.getClass();
         //获取所有属性
         Field[] fields = cls.getDeclaredFields();
-        for(Field field : fields) {
+        for (Field field : fields) {
             try {
                 //打开私有访问，允许访问私有变量
                 field.setAccessible(true);
                 //获取属性
-                if(field.getName().equals(fieldName)) {
+                if (field.getName().equals(fieldName)) {
                     Object res = field.get(obj);
-                    if(ObjectUtil.isEmpty(res)) {
+                    if (ObjectUtil.isEmpty(res)) {
                         return null;
                     }
                     return res.toString();
                 }
-            } catch(IllegalAccessException e) {
+            } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
         }

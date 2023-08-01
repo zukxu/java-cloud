@@ -12,8 +12,7 @@ import lombok.Getter;
  */
 @Getter
 public enum InterfaceTypeEnum {
-    Refund("退单转派"),
-    HandlingComment("中途意见");
+    Refund("退单转派"), HandlingComment("中途意见");
 
     private String details;
 

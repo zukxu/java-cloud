@@ -2,7 +2,6 @@ package com.zukxu.test.apifox;
 
 import com.zukxu.common.config.aop.PostSingleParam;
 import com.zukxu.test.apifox.dto.UserDTO;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletInputStream;
@@ -35,7 +34,6 @@ public class PostController {
      * 可变长参数
      *
      * @param test
-     *
      * @return
      */
     @PostMapping("/length")
@@ -51,14 +49,14 @@ public class PostController {
      * @param isShow
      * @param num
      * @param code
-     *
      * @return
      */
     @PostMapping("/form")
     public String form(@RequestParam(value = "username", required = false) String username,
                        @RequestParam(value = "isShow", required = false) boolean isShow,
                        @RequestParam(value = "num", required = false, defaultValue = "0") int num,
-                       @RequestParam(value = "code", required = false,defaultValue = "0") double code) {
+                       @RequestParam(value = "code", required = false, defaultValue = "0") double code
+                      ) {
         System.out.println(username + isShow + num + code);
         return "表单数据: " + username + " | " + isShow + " | " + num + " | " + code;
     }
@@ -67,7 +65,6 @@ public class PostController {
      * post json请求
      *
      * @param user
-     *
      * @return
      */
     @PostMapping("/json")
@@ -78,7 +75,7 @@ public class PostController {
     @PostMapping("/jsonList")
     public String json(@RequestBody List<UserDTO> users) {
         String result = "";
-        for(UserDTO user : users) {
+        for (UserDTO user : users) {
             result += user.getUsername() + " " + user.getAge() + "\n";
         }
         return result;
@@ -88,7 +85,6 @@ public class PostController {
      * post file请求
      *
      * @param file
-     *
      * @return
      */
     @PostMapping("/file")
@@ -104,7 +100,6 @@ public class PostController {
      * post map接受参数
      *
      * @param map
-     *
      * @return
      */
     @PostMapping("/map")
@@ -116,7 +111,6 @@ public class PostController {
      * post 数组接受参数
      *
      * @param array
-     *
      * @return
      */
     @PostMapping("/array")
@@ -137,19 +131,19 @@ public class PostController {
             StringBuilder sb = new StringBuilder();
             byte[] buf = new byte[1024];
             int len = 0;
-            while((len = is.read(buf)) != -1) {
+            while ((len = is.read(buf)) != -1) {
                 sb.append(new String(buf, 0, len));
             }
             System.out.println(sb);
             return "获取到的文本内容为：" + sb;
-        } catch(IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         } finally {
             try {
-                if(is != null) {
+                if (is != null) {
                     is.close();
                 }
-            } catch(IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }

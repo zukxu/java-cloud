@@ -14,7 +14,6 @@ public interface Idempotence {
      * 检查是否存在幂等号
      *
      * @param idempotenceId 幂等号
-     *
      * @return 是否存在
      */
     boolean check(String idempotenceId);

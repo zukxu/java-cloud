@@ -68,8 +68,7 @@ public class OpenCVUtil {
 
     public static Mat eroding(Mat source, double erosion_size) {
         Mat resultMat = new Mat(source.rows(), source.cols(), source.type());
-        Mat element = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(2 * erosion_size + 1,
-                2 * erosion_size + 1));
+        Mat element = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(2 * erosion_size + 1, 2 * erosion_size + 1));
         Imgproc.erode(source, resultMat, element);
         return resultMat;
     }
@@ -98,8 +97,7 @@ public class OpenCVUtil {
      */
     public static Mat dilation(Mat source, double dilationSize) {
         Mat resultMat = new Mat(source.rows(), source.cols(), source.type());
-        Mat element = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(2 * dilationSize + 1,
-                2 * dilationSize + 1));
+        Mat element = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(2 * dilationSize + 1, 2 * dilationSize + 1));
         Imgproc.dilate(source, resultMat, element);
         return resultMat;
     }

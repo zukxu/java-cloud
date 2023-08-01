@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
 @Controller
 @RequestMapping(value = "card2")
 public class Card2Controller extends BaseController {
@@ -93,8 +92,7 @@ public class Card2Controller extends BaseController {
             if (approx.rows() == 4 && Math.abs(Imgproc.contourArea(approx)) > 40000 && Imgproc.isContourConvex(approxF1)) {
                 double maxCosine = 0;
                 for (int j = 2; j < 5; j++) {
-                    double cosine = Math.abs(getAngle(approxF1.toArray()[j % 4], approxF1.toArray()[j - 2],
-                            approxF1.toArray()[j - 1]));
+                    double cosine = Math.abs(getAngle(approxF1.toArray()[j % 4], approxF1.toArray()[j - 2], approxF1.toArray()[j - 1]));
                     maxCosine = Math.max(maxCosine, cosine);
                 }
                 // 考虑到图片倾斜等情况，角度大概72度
@@ -106,7 +104,6 @@ public class Card2Controller extends BaseController {
                 }
             }
         }
-
 
         // 找出外接矩形最大的四边形
         int index = findLargestSquare(squares);
@@ -126,7 +123,11 @@ public class Card2Controller extends BaseController {
         // 找到高精度拟合时得到的顶点中 距离小于低精度拟合得到的四个顶点maxL的顶点，排除部分顶点的干扰
         List<Point> points = largest_square.toList();
         for (Point p : approx.toArray()) {
-            if (!(getSpacePointToPoint(p, points.get(0)) > maxL && getSpacePointToPoint(p, points.get(1)) > maxL && getSpacePointToPoint(p, points.get(2)) > maxL && getSpacePointToPoint(p, points.get(3)) > maxL)) {
+            if (!(getSpacePointToPoint(p, points.get(0)) > maxL &&
+                  getSpacePointToPoint(p, points.get(1)) > maxL &&
+                  getSpacePointToPoint(p, points.get(2)) > maxL &&
+                  getSpacePointToPoint(p, points.get(3)) > maxL
+            )) {
                 newPointList.add(p);
             }
         }
@@ -192,9 +193,7 @@ public class Card2Controller extends BaseController {
         MatOfPoint2f cornerMat = new MatOfPoint2f(p0, p1, p2, p3);
 
         //quadMat目标图像的点设置，以之前取出的最长的长宽作为新图像的长宽，创建一个图层
-        MatOfPoint2f quadMat = new MatOfPoint2f(new Point(0, 0), new Point(imgWidth, 0), new Point(imgWidth,
-                imgHeight),
-                new Point(0, imgHeight));
+        MatOfPoint2f quadMat = new MatOfPoint2f(new Point(0, 0), new Point(imgWidth, 0), new Point(imgWidth, imgHeight), new Point(0, imgHeight));
 
         // 提取图像，使用warpPerspective做图像的透视变换
         Mat transMtx = Imgproc.getPerspectiveTransform(cornerMat, quadMat);
@@ -316,7 +315,10 @@ public class Card2Controller extends BaseController {
             Rect rect = Imgproc.boundingRect(mop);
             //一个填图区域大概占整个表格的w:80/2733 h:0/2804,，所以排除掉太小的轮廓和过大的轮廓
             //此处是为了排除杂点，较小或较大的轮廓都是非填图选项，可以排除，可以按实际情况灵活变动限制条件，最好输出出轮廓便于观察
-            if (rect.width > (temp.width() * 80 / 2693 - 20) && rect.height > (temp.height() * 80 / 2764 - 20) && rect.width < temp.width() * 0.05 && rect.height < temp.height() * 0.05) {
+            if (rect.width > (temp.width() * 80 / 2693 - 20) &&
+                rect.height > (temp.height() * 80 / 2764 - 20) &&
+                rect.width < temp.width() * 0.05 &&
+                rect.height < temp.height() * 0.05) {
                 answerList.add(mop);
 
             }
@@ -512,21 +514,16 @@ public class Card2Controller extends BaseController {
         Mat cut_gray1 = img_gray.submat(0, img_gray.rows(), 0, (int) (0.275 * img_gray.cols()));
 
         Mat cut2 = temp.submat(0, temp.rows(), (int) (0.275 * temp.cols()), (int) (0.518 * temp.cols()));
-        Mat cut_gray2 = img_gray.submat(0, img_gray.rows(), (int) (0.275 * img_gray.cols()),
-                (int) (0.518 * img_gray.cols()));
+        Mat cut_gray2 = img_gray.submat(0, img_gray.rows(), (int) (0.275 * img_gray.cols()), (int) (0.518 * img_gray.cols()));
 
         Mat cut3 = temp.submat(0, temp.rows(), (int) (0.518 * temp.cols()), (int) (0.743 * temp.cols()));
-        Mat cut_gray3 = img_gray.submat(0, img_gray.rows(), (int) (0.518 * img_gray.cols()),
-                (int) (0.743 * img_gray.cols()));
+        Mat cut_gray3 = img_gray.submat(0, img_gray.rows(), (int) (0.518 * img_gray.cols()), (int) (0.743 * img_gray.cols()));
 
         Mat cut4 = temp.submat((int) (0.387 * temp.rows()), temp.rows(), (int) (0.743 * temp.cols()), temp.cols());
-        Mat cut_gray4 = img_gray.submat((int) (0.387 * img_gray.rows()), img_gray.rows(),
-                (int) (0.743 * img_gray.cols()), img_gray.cols());
+        Mat cut_gray4 = img_gray.submat((int) (0.387 * img_gray.rows()), img_gray.rows(), (int) (0.743 * img_gray.cols()), img_gray.cols());
         //学号
         Mat cut5 = temp.submat(0, (int) (0.387 * temp.rows()), (int) (0.743 * temp.cols()), temp.cols());
-        Mat cut_gray5 = img_gray.submat(0, (int) (0.387 * img_gray.rows()), (int) (0.743 * img_gray.cols()),
-                img_gray.cols());
-
+        Mat cut_gray5 = img_gray.submat(0, (int) (0.387 * img_gray.rows()), (int) (0.743 * img_gray.cols()), img_gray.cols());
 
         List<String> resultList = new ArrayList<String>();
         //按列处理

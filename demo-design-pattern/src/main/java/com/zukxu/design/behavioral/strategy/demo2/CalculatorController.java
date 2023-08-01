@@ -20,10 +20,7 @@ public class CalculatorController {
     private CalculatorContext calculatorContext;
 
     @GetMapping("/calculate/{operator}/{num1}/{num2}")
-    public int calculate(
-            @PathVariable String operator,
-            @PathVariable int num1,
-            @PathVariable int num2) {
+    public int calculate(@PathVariable String operator, @PathVariable int num1, @PathVariable int num2) {
         return calculatorContext.executeStrategy(operator, num1, num2);
     }
 

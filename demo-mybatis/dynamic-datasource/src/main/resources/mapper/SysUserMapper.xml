@@ -54,6 +54,7 @@
     </sql>
 
     <select id="listUser1" resultMap="BaseResultMap">
-        select * from sys_user
+        select *
+        from sys_user
     </select>
 </mapper>

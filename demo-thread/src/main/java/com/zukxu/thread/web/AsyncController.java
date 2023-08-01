@@ -20,14 +20,14 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class AsyncController {
 
-	@Autowired
-	IAsyncService asyncService;
+    @Autowired
+    IAsyncService asyncService;
 
-	@GetMapping
-	public String test(String msg) {
-		log.info("主线程start*****************");
-		asyncService.sentMsg(msg);
-		log.info("主线程end*****************");
-		return "success";
-	}
+    @GetMapping
+    public String test(String msg) {
+        log.info("主线程start*****************");
+        asyncService.sentMsg(msg);
+        log.info("主线程end*****************");
+        return "success";
+    }
 }

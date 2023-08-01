@@ -8,7 +8,6 @@ import org.flowable.task.api.Task;
 import java.util.List;
 import java.util.Map;
 
-
 public interface FlowInstanceService {
 
     List<Task> queryListByInstanceId(String instanceId);
@@ -31,7 +30,7 @@ public interface FlowInstanceService {
     /**
      * 删除流程实例ID
      *
-     * @param instanceId   流程实例ID
+     * @param instanceId 流程实例ID
      */
     void delete(String instanceId);
 

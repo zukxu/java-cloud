@@ -23,7 +23,7 @@ public class OrderController {
     @GetMapping("/get/{id}")
     public Order listByIds(@PathVariable(value = "id") Long id) throws InterruptedException {
         //todo 未整合db层，造数据
-        return new Order(id,20201000L,"bccm",productService.listByIds(Lists.newArrayList(1L,2L,3L,4L)));
+        return new Order(id, 20201000L, "bccm", productService.listByIds(Lists.newArrayList(1L, 2L, 3L, 4L)));
     }
 
     @GetMapping("/list")
@@ -32,6 +32,6 @@ public class OrderController {
         Thread.sleep(2000);
 
         //todo 未整合db层，造数据
-        return LongStream.of(1,2,3).mapToObj(id-> new Order(id,20201000L,"bccm",productService.listByIds(Lists.newArrayList(1L,2L,3L,4L)))).collect(Collectors.toList());
+        return LongStream.of(1, 2, 3).mapToObj(id -> new Order(id, 20201000L, "bccm", productService.listByIds(Lists.newArrayList(1L, 2L, 3L, 4L)))).collect(Collectors.toList());
     }
 }

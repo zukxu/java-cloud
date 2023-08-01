@@ -26,6 +26,7 @@ public class JasyptController {
         System.out.println("加密：" + str);
         return encryptor.encrypt(str);
     }
+
     @PostMapping("/encrypt1")
     public String encrypt1(@RequestBody Content content) {
         System.out.println("加密：" + content.getContent());
@@ -33,7 +34,7 @@ public class JasyptController {
     }
 
     @GetMapping("decrypt")
-    public String decrypt(@RequestParam(value = "str")String str) {
+    public String decrypt(@RequestParam(value = "str") String str) {
         System.out.println("解密：" + str);
         return encryptor.decrypt(str);
     }

@@ -8,17 +8,17 @@
         <result column="desc" jdbcType="VARCHAR" property="desc"/>
     </resultMap>
     <sql id="Base_Column_List">
-        id,
-        `role`,
-        `desc`
+            id,
+            `role`,
+            `desc`
     </sql>
     <select id="findRoleByUserId" resultMap="BaseResultMap">
         select r.id, role
         from shiro_role r,
-             shiro_user u,
-             shiro_user_role ur
+        shiro_user u,
+        shiro_user_role ur
         where r.id = ur.role_id
-          and ur.user_id = u.id
-          and u.id = #{userId}
+        and ur.user_id = u.id
+        and u.id = #{userId}
     </select>
 </mapper>

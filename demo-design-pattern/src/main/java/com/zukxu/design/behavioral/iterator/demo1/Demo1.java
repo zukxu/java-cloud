@@ -42,7 +42,7 @@ class ArrayIterator<T> implements Iterator<T> {
     }
 
     public T next() {
-        if(!hasNext()) {
+        if (!hasNext()) {
             throw new NoSuchElementException();
         }
         return array[index++];
@@ -69,12 +69,12 @@ class ArrayAggregate<T> implements Aggregate<T> {
 public class Demo1 {
 
     public static void main(String[] args) {
-        String[] words = { "hello", "world", "java", "design", "pattern" };
+        String[] words = {"hello", "world", "java", "design", "pattern"};
 
         Aggregate<String> aggregate = new ArrayAggregate<String>(words);
         Iterator<String> iterator = aggregate.createIterator();
 
-        while(iterator.hasNext()) {
+        while (iterator.hasNext()) {
             System.out.println(iterator.next());
         }
     }

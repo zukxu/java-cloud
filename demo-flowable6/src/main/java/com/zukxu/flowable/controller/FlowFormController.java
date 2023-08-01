@@ -33,7 +33,6 @@ public class FlowFormController {
     @Autowired
     private SysFormService sysFormService;
 
-
     @ApiOperation("查询流程表单列表")
     @GetMapping("/list")
     public R<?> list(String formName) {
@@ -66,17 +65,14 @@ public class FlowFormController {
     @PostMapping
     public R<?> add(@RequestBody SysForm sysForm) {
         //校验保证表单名称唯一
-        SysForm one = sysFormService.getOne(new QueryWrapper<SysForm>().lambda()
-                                                                       .eq(SysForm::getFormName,
-                                                                           sysForm.getFormName()));
-        if(ObjectUtil.isNotEmpty(one)) {
+        SysForm one = sysFormService.getOne(new QueryWrapper<SysForm>().lambda().eq(SysForm::getFormName, sysForm.getFormName()));
+        if (ObjectUtil.isNotEmpty(one)) {
             return R.fail("表单名称已存在");
         }
         sysForm.setCreateBy("admin");
         sysForm.setCreateTime(LocalDateTime.now());
         return R.ok(sysFormService.save(sysForm));
     }
-
 
     //@PreAuthorize("@ss.hasPerm('flowable:form:edit')")
     @ApiOperation("更新流程表单")
@@ -86,12 +82,11 @@ public class FlowFormController {
         return R.ok(sysFormService.updateById(sysForm));
     }
 
-
     //@PreAuthorize("@ss.hasPerm('flowable:form:delete')")
     @ApiOperation("删除流程表单")
     @DeleteMapping("/{formIds}")
     public R<?> remove(@PathVariable String[] formIds) {
-        if(sysFormService.isBindTask(formIds)) {
+        if (sysFormService.isBindTask(formIds)) {
             return R.fail("存在已绑定表单,删除失败");
         }
         return R.ok(sysFormService.removeByIds(Arrays.asList(formIds)));

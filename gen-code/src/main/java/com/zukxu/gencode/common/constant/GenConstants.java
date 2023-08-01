@@ -35,34 +35,31 @@ public interface GenConstants {
     String PARENT_MENU_NAME = "parentMenuName";
 
     /** 数据库字符串类型 */
-    String[] COLUMNTYPE_STR = { "char", "varchar", "nvarchar", "varchar2" };
+    String[] COLUMNTYPE_STR = {"char", "varchar", "nvarchar", "varchar2"};
 
     /** 数据库文本类型 */
-    String[] COLUMNTYPE_TEXT = { "tinytext", "text", "mediumtext", "longtext" };
+    String[] COLUMNTYPE_TEXT = {"tinytext", "text", "mediumtext", "longtext"};
 
     /** 数据库时间类型 */
-    String[] COLUMNTYPE_TIME = { "datetime", "time", "date", "timestamp" };
+    String[] COLUMNTYPE_TIME = {"datetime", "time", "date", "timestamp"};
 
     /** 数据库数字类型 */
-    String[] COLUMNTYPE_NUMBER = { "tinyint", "smallint", "mediumint", "int", "number", "integer",
-                                   "bit", "bigint", "float", "double", "decimal" };
+    String[] COLUMNTYPE_NUMBER = {"tinyint", "smallint", "mediumint", "int", "number", "integer", "bit", "bigint", "float", "double", "decimal"};
 
     /** 页面不需要编辑字段 */
-    String[] COLUMNNAME_NOT_EDIT = { "id", "create_by", "create_time", "del_flag" };
+    String[] COLUMNNAME_NOT_EDIT = {"id", "create_by", "create_time", "del_flag"};
 
     /** 页面不需要显示的列表字段 */
-    String[] COLUMNNAME_NOT_LIST = { "id", "create_by", "create_time", "del_flag", "update_by",
-                                     "update_time" };
+    String[] COLUMNNAME_NOT_LIST = {"id", "create_by", "create_time", "del_flag", "update_by", "update_time"};
 
     /** 页面不需要查询字段 */
-    String[] COLUMNNAME_NOT_QUERY = { "id", "create_by", "create_time", "del_flag", "update_by",
-                                      "update_time", "remark" };
+    String[] COLUMNNAME_NOT_QUERY = {"id", "create_by", "create_time", "del_flag", "update_by", "update_time", "remark"};
 
     /** Entity基类字段 */
-    String[] BASE_ENTITY = { "createBy", "createTime", "updateBy", "updateTime", "remark" };
+    String[] BASE_ENTITY = {"createBy", "createTime", "updateBy", "updateTime", "remark"};
 
     /** Tree基类字段 */
-    String[] TREE_ENTITY = { "parentName", "parentId", "orderNum", "ancestors", "children" };
+    String[] TREE_ENTITY = {"parentName", "parentId", "orderNum", "ancestors", "children"};
 
     /** 文本框 */
     String HTML_INPUT = "input";

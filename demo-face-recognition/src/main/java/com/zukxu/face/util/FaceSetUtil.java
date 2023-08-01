@@ -101,5 +101,4 @@ public class FaceSetUtil {
         return StrUtil.isEmpty(String.valueOf(object.getJSONObject("error_message")));
     }
 
-
 }

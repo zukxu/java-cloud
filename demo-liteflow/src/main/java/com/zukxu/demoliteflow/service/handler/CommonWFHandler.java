@@ -1,6 +1,5 @@
 package com.zukxu.demoliteflow.service.handler;
 
-
 import cn.hutool.core.date.LocalDateTimeUtil;
 import com.alibaba.fastjson.JSON;
 import com.zukxu.demoliteflow.constant.CSVC;
@@ -30,7 +29,6 @@ public class CommonWFHandler {
      * 表单内容按照标准格式转换为派发实体
      *
      * @param param map
-     *
      * @return DispatchCSSDto
      */
     public WorkFlowF initDispatchCSS(Map<String, Object> param) {

@@ -19,7 +19,7 @@ public class DemoInputStream1 {
     public static void main(String[] args) {
         try {
             inputFromFile1();
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -32,7 +32,7 @@ public class DemoInputStream1 {
         FileOutputStream fos = new FileOutputStream("D:\\temp\\workFile\\io\\GZcopy.jpg");
         byte[] bytes = new byte[1024];
         int len;
-        while((len = fis.read(bytes)) != -1) {
+        while ((len = fis.read(bytes)) != -1) {
             fos.write(bytes, 0, len);
         }
         fis.close();

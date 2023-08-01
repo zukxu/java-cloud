@@ -1,6 +1,5 @@
 package com.zukxu.flowable.config;
 
-
 import org.flowable.bpmn.model.Process;
 import org.flowable.bpmn.model.*;
 import org.flowable.image.impl.DefaultProcessDiagramCanvas;
@@ -18,7 +17,13 @@ import java.util.List;
  * @since 2021/12/16 17:18
  */
 public class MyProcessDiagramGenerator extends DefaultProcessDiagramGenerator {
-    protected static DefaultProcessDiagramCanvas initProcessDiagramCanvas(BpmnModel bpmnModel, String imageType, String activityFontName, String labelFontName, String annotationFontName, ClassLoader customClassLoader) {
+    protected static DefaultProcessDiagramCanvas initProcessDiagramCanvas(BpmnModel bpmnModel,
+                                                                          String imageType,
+                                                                          String activityFontName,
+                                                                          String labelFontName,
+                                                                          String annotationFontName,
+                                                                          ClassLoader customClassLoader
+                                                                         ) {
         double minX = 1.7976931348623157E308D;
         double maxX = 0.0D;
         double minY = 1.7976931348623157E308D;
@@ -169,7 +174,16 @@ public class MyProcessDiagramGenerator extends DefaultProcessDiagramGenerator {
             minY = 0.0D;
         }
 
-        return new MyProcessDiagramCanvas((int) maxX + 10, (int) maxY + 10, (int) minX, (int) minY, imageType, activityFontName, labelFontName, annotationFontName, customClassLoader);
+        return new MyProcessDiagramCanvas((int) maxX + 10,
+                                          (int) maxY + 10,
+                                          (int) minX,
+                                          (int) minY,
+                                          imageType,
+                                          activityFontName,
+                                          labelFontName,
+                                          annotationFontName,
+                                          customClassLoader
+        );
     }
 
     private static void drawHighLight(DefaultProcessDiagramCanvas processDiagramCanvas, GraphicInfo graphicInfo) {
@@ -188,7 +202,17 @@ public class MyProcessDiagramGenerator extends DefaultProcessDiagramGenerator {
     }
 
     @Override
-    protected DefaultProcessDiagramCanvas generateProcessDiagram(BpmnModel bpmnModel, String imageType, List<String> highLightedActivities, List<String> highLightedFlows, String activityFontName, String labelFontName, String annotationFontName, ClassLoader customClassLoader, double scaleFactor, boolean drawSequenceFlowNameWithNoLabelDI) {
+    protected DefaultProcessDiagramCanvas generateProcessDiagram(BpmnModel bpmnModel,
+                                                                 String imageType,
+                                                                 List<String> highLightedActivities,
+                                                                 List<String> highLightedFlows,
+                                                                 String activityFontName,
+                                                                 String labelFontName,
+                                                                 String annotationFontName,
+                                                                 ClassLoader customClassLoader,
+                                                                 double scaleFactor,
+                                                                 boolean drawSequenceFlowNameWithNoLabelDI
+                                                                ) {
         this.prepareBpmnModel(bpmnModel);
         DefaultProcessDiagramCanvas processDiagramCanvas = initProcessDiagramCanvas(bpmnModel, imageType, activityFontName, labelFontName, annotationFontName, customClassLoader);
         Iterator var13 = bpmnModel.getPools().iterator();
@@ -273,8 +297,14 @@ public class MyProcessDiagramGenerator extends DefaultProcessDiagramGenerator {
     }
 
     @Override
-    protected void drawActivity(DefaultProcessDiagramCanvas processDiagramCanvas, BpmnModel bpmnModel,
-                                FlowNode flowNode, List<String> highLightedActivities, List<String> highLightedFlows, double scaleFactor, Boolean drawSequenceFlowNameWithNoLabelDI) {
+    protected void drawActivity(DefaultProcessDiagramCanvas processDiagramCanvas,
+                                BpmnModel bpmnModel,
+                                FlowNode flowNode,
+                                List<String> highLightedActivities,
+                                List<String> highLightedFlows,
+                                double scaleFactor,
+                                Boolean drawSequenceFlowNameWithNoLabelDI
+                               ) {
 
         ActivityDrawInstruction drawInstruction = activityDrawInstructions.get(flowNode.getClass());
         if (drawInstruction != null) {
@@ -304,15 +334,20 @@ public class MyProcessDiagramGenerator extends DefaultProcessDiagramGenerator {
 
             if (scaleFactor == 1.0) {
                 // Actually draw the markers
-                processDiagramCanvas.drawActivityMarkers((int) graphicInfo.getX(), (int) graphicInfo.getY(), (int) graphicInfo.getWidth(), (int) graphicInfo.getHeight(),
-                        multiInstanceSequential, multiInstanceParallel, collapsed);
+                processDiagramCanvas.drawActivityMarkers((int) graphicInfo.getX(),
+                                                         (int) graphicInfo.getY(),
+                                                         (int) graphicInfo.getWidth(),
+                                                         (int) graphicInfo.getHeight(),
+                                                         multiInstanceSequential,
+                                                         multiInstanceParallel,
+                                                         collapsed
+                                                        );
             }
 
             // Draw highlighted activities
             if (highLightedActivities.contains(flowNode.getId())) {
 
-                if (highLightedActivities.get(highLightedActivities.size() - 1).equals(flowNode.getId())
-                        && !"endenv".equals(flowNode.getId())) {
+                if (highLightedActivities.get(highLightedActivities.size() - 1).equals(flowNode.getId()) && !"endenv".equals(flowNode.getId())) {
                     if ((flowNode.getId().contains("Event_"))) {
                         drawHighLightEnd((MyProcessDiagramCanvas) processDiagramCanvas, bpmnModel.getGraphicInfo(flowNode.getId()));
                     } else {
@@ -321,7 +356,6 @@ public class MyProcessDiagramGenerator extends DefaultProcessDiagramGenerator {
                 } else {
                     drawHighLight(processDiagramCanvas, bpmnModel.getGraphicInfo(flowNode.getId()));
                 }
-
 
             }
 
@@ -368,7 +402,6 @@ public class MyProcessDiagramGenerator extends DefaultProcessDiagramGenerator {
 
                 processDiagramCanvas.drawSequenceflow(xPoints, yPoints, drawConditionalIndicator, isDefault, highLighted, scaleFactor);
 
-
                 // Draw sequenceflow label
                 GraphicInfo labelGraphicInfo = bpmnModel.getLabelGraphicInfo(sequenceFlow.getId());
                 if (labelGraphicInfo != null) {
@@ -387,8 +420,14 @@ public class MyProcessDiagramGenerator extends DefaultProcessDiagramGenerator {
         if (flowNode instanceof FlowElementsContainer) {
             for (FlowElement nestedFlowElement : ((FlowElementsContainer) flowNode).getFlowElements()) {
                 if (nestedFlowElement instanceof FlowNode && !isPartOfCollapsedSubProcess(nestedFlowElement, bpmnModel)) {
-                    drawActivity(processDiagramCanvas, bpmnModel, (FlowNode) nestedFlowElement,
-                            highLightedActivities, highLightedFlows, scaleFactor, drawSequenceFlowNameWithNoLabelDI);
+                    drawActivity(processDiagramCanvas,
+                                 bpmnModel,
+                                 (FlowNode) nestedFlowElement,
+                                 highLightedActivities,
+                                 highLightedFlows,
+                                 scaleFactor,
+                                 drawSequenceFlowNameWithNoLabelDI
+                                );
                 }
             }
         }

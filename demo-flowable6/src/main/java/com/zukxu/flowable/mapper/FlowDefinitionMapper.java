@@ -1,7 +1,5 @@
 package com.zukxu.flowable.mapper;
 
-
-
 import com.zukxu.flowable.model.dto.FlowCategoryDTO;
 
 import java.util.List;

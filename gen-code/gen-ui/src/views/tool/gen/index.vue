@@ -1,11 +1,11 @@
 <template>
   <div class="app-container">
-    <el-form :model="queryParams" ref="queryForm" :inline="true" v-show="showSearch" label-width="68px">
+    <el-form v-show="showSearch" ref="queryForm" :inline="true" :model="queryParams" label-width="68px">
       <el-form-item label="表名称" prop="tableName">
         <el-input
             v-model="queryParams.tableName"
-            placeholder="请输入表名称"
             clearable
+            placeholder="请输入表名称"
             size="small"
             @keyup.enter.native="handleQuery"
         />
@@ -13,8 +13,8 @@
       <el-form-item label="表描述" prop="tableComment">
         <el-input
             v-model="queryParams.tableComment"
-            placeholder="请输入表描述"
             clearable
+            placeholder="请输入表描述"
             size="small"
             @keyup.enter.native="handleQuery"
         />
@@ -22,17 +22,17 @@
       <el-form-item label="创建时间">
         <el-date-picker
             v-model="dateRange"
-            size="small"
-            style="width: 240px"
-            value-format="yyyy-MM-dd"
-            type="daterange"
-            range-separator="-"
-            start-placeholder="开始日期"
             end-placeholder="结束日期"
+            range-separator="-"
+            size="small"
+            start-placeholder="开始日期"
+            style="width: 240px"
+            type="daterange"
+            value-format="yyyy-MM-dd"
         ></el-date-picker>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
+        <el-button icon="el-icon-search" size="mini" type="primary" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
       </el-form-item>
     </el-form>
@@ -40,42 +40,42 @@
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
         <el-button
-            type="primary"
-            plain
             icon="el-icon-download"
+            plain
             size="mini"
+            type="primary"
             @click="handleGenTable"
         >生成
         </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
-            type="info"
-            plain
             icon="el-icon-upload"
+            plain
             size="mini"
+            type="info"
             @click="openImportTable"
         >导入
         </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
-            type="success"
-            plain
-            icon="el-icon-edit"
-            size="mini"
             :disabled="single"
+            icon="el-icon-edit"
+            plain
+            size="mini"
+            type="success"
             @click="handleEditTable"
         >修改
         </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
-            type="danger"
-            plain
-            icon="el-icon-delete"
-            size="mini"
             :disabled="multiple"
+            icon="el-icon-delete"
+            plain
+            size="mini"
+            type="danger"
             @click="handleDelete"
         >删除
         </el-button>
@@ -84,69 +84,69 @@
     </el-row>
 
     <el-table v-loading="loading" :data="tableList" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" align="center" width="55"></el-table-column>
-      <el-table-column label="序号" type="index" width="50" align="center">
+      <el-table-column align="center" type="selection" width="55"></el-table-column>
+      <el-table-column align="center" label="序号" type="index" width="50">
         <template slot-scope="scope">
           <span>{{ (queryParams.pageNum - 1) * queryParams.pageSize + scope.$index + 1 }}</span>
         </template>
       </el-table-column>
       <el-table-column
+          :show-overflow-tooltip="true"
+          align="center"
           label="表名称"
-          align="center"
           prop="tableName"
-          :show-overflow-tooltip="true"
           width="120"
       />
       <el-table-column
+          :show-overflow-tooltip="true"
+          align="center"
           label="表描述"
-          align="center"
           prop="tableComment"
-          :show-overflow-tooltip="true"
           width="120"
       />
       <el-table-column
-          label="实体"
-          align="center"
-          prop="className"
           :show-overflow-tooltip="true"
+          align="center"
+          label="实体"
+          prop="className"
           width="120"
       />
-      <el-table-column label="创建时间" align="center" prop="createTime" width="160"/>
-      <el-table-column label="更新时间" align="center" prop="updateTime" width="160"/>
-      <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+      <el-table-column align="center" label="创建时间" prop="createTime" width="160"/>
+      <el-table-column align="center" label="更新时间" prop="updateTime" width="160"/>
+      <el-table-column align="center" class-name="small-padding fixed-width" label="操作">
         <template slot-scope="scope">
           <el-button
-              type="text"
-              size="small"
               icon="el-icon-view"
+              size="small"
+              type="text"
               @click="handlePreview(scope.row)"
           >预览
           </el-button>
           <el-button
-              type="text"
-              size="small"
               icon="el-icon-edit"
+              size="small"
+              type="text"
               @click="handleEditTable(scope.row)"
           >编辑
           </el-button>
           <el-button
-              type="text"
-              size="small"
               icon="el-icon-delete"
+              size="small"
+              type="text"
               @click="handleDelete(scope.row)"
           >删除
           </el-button>
           <el-button
-              type="text"
-              size="small"
               icon="el-icon-refresh"
+              size="small"
+              type="text"
               @click="handleSyncDb(scope.row)"
           >同步
           </el-button>
           <el-button
-              type="text"
-              size="small"
               icon="el-icon-download"
+              size="small"
+              type="text"
               @click="handleGenTable(scope.row)"
           >生成代码
           </el-button>
@@ -155,19 +155,19 @@
     </el-table>
     <pagination
         v-show="total>0"
-        :total="total"
-        :page.sync="queryParams.pageNum"
         :limit.sync="queryParams.pageSize"
+        :page.sync="queryParams.pageNum"
+        :total="total"
         @pagination="getList"
     />
     <!-- 预览界面 -->
-    <el-dialog :title="preview.title" :visible.sync="preview.open" width="80%" top="5vh" append-to-body>
+    <el-dialog :title="preview.title" :visible.sync="preview.open" append-to-body top="5vh" width="80%">
       <el-tabs v-model="preview.activeName">
         <el-tab-pane
             v-for="(value, key) in preview.data"
+            :key="key"
             :label="key.substring(key.lastIndexOf('/')+1,key.indexOf('.vm'))"
             :name="key.substring(key.lastIndexOf('/')+1,key.indexOf('.vm'))"
-            :key="key"
         >
           <pre><code class="hljs" v-html="highlightedCode(value, key)"></code></pre>
         </el-tab-pane>

@@ -13,11 +13,11 @@ public class RequestHandlerChain {
     private RequestHandler chain;
 
     public void addHandler(RequestHandler handler) {
-        if(chain == null) {
+        if (chain == null) {
             chain = handler;
         } else {
             RequestHandler lastHandler = chain;
-            while(lastHandler.getNextHandler() != null) {
+            while (lastHandler.getNextHandler() != null) {
                 lastHandler = lastHandler.getNextHandler();
             }
             lastHandler.setNextHandler(handler);
@@ -25,7 +25,7 @@ public class RequestHandlerChain {
     }
 
     public void handleRequest(Request request) {
-        if(chain != null) {
+        if (chain != null) {
             chain.handleRequest(request);
         }
     }

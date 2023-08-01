@@ -18,10 +18,10 @@ public class UserService extends BaseUserService<User> {
     @Override
     protected void beforeSave(User user) {
         // 校验用户信息
-        if(StringUtils.isEmpty(user.getName())) {
+        if (StringUtils.isEmpty(user.getName())) {
             throw new RuntimeException("User name cannot be empty");
         }
-        if(StringUtils.isEmpty(user.getEmail())) {
+        if (StringUtils.isEmpty(user.getEmail())) {
             throw new RuntimeException("User email cannot be empty");
         }
     }
@@ -29,7 +29,7 @@ public class UserService extends BaseUserService<User> {
     @Override
     protected void beforeDelete(User user) {
         // 校验用户权限
-        if(!user.isAdmin()) {
+        if (!user.isAdmin()) {
             throw new RuntimeException("Only admin users can delete users");
         }
     }

@@ -36,6 +36,7 @@ public class ReFnController {
     private static final Logger log = LoggerFactory.getLogger(ReFnController.class);
 
     private final JDBCProperties jdbcProperties;
+
     @GetMapping
     public List<TreeSelect> list() {
         Connection conn = null;
@@ -49,20 +50,16 @@ public class ReFnController {
             stat = conn.prepareStatement("");
             res = stat.executeQuery(sql);
             List<ReFnEntity> list = new ArrayList<>();
-            while(res.next()) {
-                ReFnEntity build = ReFnEntity.builder()
-                                             .id(res.getString("id"))
-                                             .title(res.getString("title"))
-                                             .pId(res.getString("p_id"))
-                                             .build();
+            while (res.next()) {
+                ReFnEntity build = ReFnEntity.builder().id(res.getString("id")).title(res.getString("title")).pId(res.getString("p_id")).build();
                 list.add(build);
             }
             List<TreeSelect> treeSelects = this.buildTreeSelect(list);
             log.info(JSON.toJSONString(treeSelects));
             return treeSelects;
-        } catch(SQLException | ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         } finally {
             JDBCUtil.close(res, stat, conn);
@@ -78,17 +75,17 @@ public class ReFnController {
     public List<ReFnEntity> buildTree(List<ReFnEntity> tsList) {
         List<ReFnEntity> returnList = new ArrayList<>();
         List<String> idList = new ArrayList<>();
-        for(ReFnEntity reFn : tsList) {
+        for (ReFnEntity reFn : tsList) {
             idList.add(reFn.getId());
         }
-        for(ReFnEntity ts : tsList) {
+        for (ReFnEntity ts : tsList) {
             // 如果是顶级节点, 遍历该父节点的所有子节点
-            if(!idList.contains(ts.getPId())) {
+            if (!idList.contains(ts.getPId())) {
                 recursionFn(tsList, ts);
                 returnList.add(ts);
             }
         }
-        if(returnList.isEmpty()) {
+        if (returnList.isEmpty()) {
             returnList = tsList;
         }
         return returnList;
@@ -101,8 +98,8 @@ public class ReFnController {
         // 得到子节点列表
         List<ReFnEntity> childList = getChildList(list, t);
         t.setChildren(childList);
-        for(ReFnEntity tChild : childList) {
-            if(hasChild(list, tChild)) {
+        for (ReFnEntity tChild : childList) {
+            if (hasChild(list, tChild)) {
                 recursionFn(list, tChild);
             }
         }
@@ -119,10 +116,7 @@ public class ReFnController {
      * 得到子节点列表
      */
     private List<ReFnEntity> getChildList(List<ReFnEntity> list, ReFnEntity t) {
-        return list.stream()
-                   .filter(n -> ObjectUtil.isNotNull(n.getPId()) && StrUtil.contains(n.getPId(), t.getId()))
-                   .collect(Collectors.toList());
+        return list.stream().filter(n -> ObjectUtil.isNotNull(n.getPId()) && StrUtil.contains(n.getPId(), t.getId())).collect(Collectors.toList());
     }
-
 
 }

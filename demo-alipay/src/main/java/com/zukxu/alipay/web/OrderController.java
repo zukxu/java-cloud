@@ -21,15 +21,15 @@ import java.util.UUID;
 @Controller
 @RequestMapping("/order")
 public class OrderController {
-	@Autowired
-	IOrderService orderService;
+    @Autowired
+    IOrderService orderService;
 
-	@GetMapping("/list")
-	public String orderList(Model model) {
-		String outTradeNo = "ZUK" + UUID.randomUUID().toString().replace("-", "").toUpperCase();
-		AlipayEntity alipayEntity = orderService.findByOutTradeNo(outTradeNo);
-		model.addAttribute("alipayBean", alipayEntity);
-		return "order/list";
-	}
+    @GetMapping("/list")
+    public String orderList(Model model) {
+        String outTradeNo = "ZUK" + UUID.randomUUID().toString().replace("-", "").toUpperCase();
+        AlipayEntity alipayEntity = orderService.findByOutTradeNo(outTradeNo);
+        model.addAttribute("alipayBean", alipayEntity);
+        return "order/list";
+    }
 }
 

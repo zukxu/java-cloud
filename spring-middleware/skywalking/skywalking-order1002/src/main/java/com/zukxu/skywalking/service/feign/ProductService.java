@@ -12,6 +12,7 @@ public interface ProductService {
 
     /**
      * 获取列表
+     *
      * @param ids
      * @return
      */

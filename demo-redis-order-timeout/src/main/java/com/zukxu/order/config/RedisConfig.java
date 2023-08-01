@@ -24,43 +24,43 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
  */
 @Configuration
 public class RedisConfig {
-	/**
-	 * 监听器
-	 *
-	 * @param connectionFactory 连接工厂
-	 * @return 监听器
-	 */
-	@Bean
-	RedisMessageListenerContainer container(RedisConnectionFactory connectionFactory) {
+    /**
+     * 监听器
+     *
+     * @param connectionFactory 连接工厂
+     * @return 监听器
+     */
+    @Bean
+    RedisMessageListenerContainer container(RedisConnectionFactory connectionFactory) {
 
-		RedisMessageListenerContainer container = new RedisMessageListenerContainer();
-		container.setConnectionFactory(connectionFactory);
-		return container;
-	}
+        RedisMessageListenerContainer container = new RedisMessageListenerContainer();
+        container.setConnectionFactory(connectionFactory);
+        return container;
+    }
 
-	/**
-	 * 自定义redisTemplate
-	 */
-	@Bean
-	public RedisTemplate<String, Object> redisTemplate(LettuceConnectionFactory factory) {
-		RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
-		redisTemplate.setConnectionFactory(factory);
+    /**
+     * 自定义redisTemplate
+     */
+    @Bean
+    public RedisTemplate<String, Object> redisTemplate(LettuceConnectionFactory factory) {
+        RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
+        redisTemplate.setConnectionFactory(factory);
 
-		FastJsonRedisSerializer<Object> serializer = new FastJsonRedisSerializer<>(Object.class);
-		StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
+        FastJsonRedisSerializer<Object> serializer = new FastJsonRedisSerializer<>(Object.class);
+        StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
 
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-		mapper.activateDefaultTyping(LaissezFaireSubTypeValidator.instance, DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+        mapper.activateDefaultTyping(LaissezFaireSubTypeValidator.instance, DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
 
-		serializer.setObjectMapper(mapper);
-		//配置类型转换器
-		redisTemplate.setKeySerializer(stringRedisSerializer);
-		redisTemplate.setValueSerializer(serializer);
-		redisTemplate.setHashKeySerializer(stringRedisSerializer);
-		redisTemplate.setHashValueSerializer(serializer);
+        serializer.setObjectMapper(mapper);
+        //配置类型转换器
+        redisTemplate.setKeySerializer(stringRedisSerializer);
+        redisTemplate.setValueSerializer(serializer);
+        redisTemplate.setHashKeySerializer(stringRedisSerializer);
+        redisTemplate.setHashValueSerializer(serializer);
 
-		redisTemplate.afterPropertiesSet();
-		return redisTemplate;
-	}
+        redisTemplate.afterPropertiesSet();
+        return redisTemplate;
+    }
 }

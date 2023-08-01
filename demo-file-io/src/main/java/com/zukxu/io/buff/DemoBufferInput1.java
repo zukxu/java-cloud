@@ -23,7 +23,7 @@ public class DemoBufferInput1 {
         byte[] bytes = new byte[1024];
         BufferedInputStream bfis = new BufferedInputStream(new FileInputStream(("D:\\temp\\workFile\\io\\outputStream2.txt")));
         int len;
-        while((len = bfis.read(bytes)) != -1) {
+        while ((len = bfis.read(bytes)) != -1) {
             System.out.println(new String(bytes, 0, len));
         }
         bfis.close();

@@ -22,7 +22,9 @@ jasypt:
   encryptor:
     password: asdaszdsad
 ```
+
 ## 3、api调用
+
 ```java
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -43,7 +45,9 @@ public class Jasypt {
     }
 }
 ```
+
 ## 4、使用加密
+
 ```yaml
 spring:
   datasource:
@@ -53,6 +57,7 @@ spring:
 ```
 
 ## 5、自定义加密写法
+
 **ENC()**是默认的写法，我们可以进行定义并自定义格式
 
 ```yaml

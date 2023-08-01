@@ -66,6 +66,12 @@ public class ResponseDto implements Serializable {
         this.providePartyID = providePartyId;
     }
 
+    public static ResponseDto buildResponseDto(CsvcReqRespMessage reqRespMessage) {
+        ResponseDto vo = new ResponseDto(reqRespMessage.getCutOffDay(), reqRespMessage.getTransIDO(), CSVC.PROVIDE_PARTY_ID);
+        vo.setResponse(vo.new Response());
+        return vo;
+    }
+
     @Data
     public class Response implements Serializable {
 
@@ -99,11 +105,5 @@ public class ResponseDto implements Serializable {
             this.rspDesc = rspDesc;
         }
 
-    }
-
-    public static ResponseDto buildResponseDto(CsvcReqRespMessage reqRespMessage) {
-        ResponseDto vo = new ResponseDto(reqRespMessage.getCutOffDay(), reqRespMessage.getTransIDO(), CSVC.PROVIDE_PARTY_ID);
-        vo.setResponse(vo.new Response());
-        return vo;
     }
 }

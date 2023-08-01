@@ -19,18 +19,12 @@ public class Constants {
     public static final String SF_LINE_SEPARATOR = System.getProperty("line.separator");// 行分隔符
     public static final String SF_PATH_SEPARATOR = System.getProperty("path.separator");// 路径分隔符
 
-
-    public static final String PATH =
-            Objects.requireNonNull(Objects.requireNonNull(ContextLoader.getCurrentWebApplicationContext())
-                    .getServletContext()).getRealPath("/");
+    public static final String PATH = Objects.requireNonNull(Objects.requireNonNull(ContextLoader.getCurrentWebApplicationContext()).getServletContext()).getRealPath("/");
     /**
      * 文件
      */
-    public static final String SOURCE_IMAGE_PATH =
-            Constants.SF_FILE_SEPARATOR + "statics" + Constants.SF_FILE_SEPARATOR + "sourceimage" + Constants.SF_FILE_SEPARATOR;// 图片原地址
-    public static final String DEST_IMAGE_PATH =
-            Constants.SF_FILE_SEPARATOR + "statics" + Constants.SF_FILE_SEPARATOR + "destimage" + Constants.SF_FILE_SEPARATOR;// 图片生成地址
-
+    public static final String SOURCE_IMAGE_PATH = Constants.SF_FILE_SEPARATOR + "statics" + Constants.SF_FILE_SEPARATOR + "sourceimage" + Constants.SF_FILE_SEPARATOR;// 图片原地址
+    public static final String DEST_IMAGE_PATH = Constants.SF_FILE_SEPARATOR + "statics" + Constants.SF_FILE_SEPARATOR + "destimage" + Constants.SF_FILE_SEPARATOR;// 图片生成地址
 
     /**
      * 返回参数规范
@@ -75,7 +69,6 @@ public class Constants {
      * json文件缺失
      */
     public static final String NO_JSON_FILE = "-7";
-
 
     /**
      * 分页中可能用到的常量

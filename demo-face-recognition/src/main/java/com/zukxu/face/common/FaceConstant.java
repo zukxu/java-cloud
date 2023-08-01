@@ -34,10 +34,10 @@ public class FaceConstant {
 
     //PARAMS
     public static Map<Object, Object> paramsMap = MapUtil.builder()
-            .put("app_name", APP_NAME)
-            .put("api_key", API_KEY)
-            .put("api_secret", API_SECRET)
-            .put("display_name", DISPLAY_NAME)
-            .put("outer_id", OUTER_ID)
-            .build();
+                                                         .put("app_name", APP_NAME)
+                                                         .put("api_key", API_KEY)
+                                                         .put("api_secret", API_SECRET)
+                                                         .put("display_name", DISPLAY_NAME)
+                                                         .put("outer_id", OUTER_ID)
+                                                         .build();
 }

@@ -78,7 +78,7 @@ public class HelloService {
     @PostFilter("filterObject.id%2==0")
     public List<SysUser> listUser() {
         List<SysUser> users = new ArrayList<>();
-        for(int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++) {
             users.add(new SysUser(i, "zukxu:" + i));
         }
         return users;
@@ -87,7 +87,7 @@ public class HelloService {
     /**
      * 满足ADMIN 和 USER 角色的才能访问
      */
-    @Secured({ "ROLE_ADMIN", "ROLE_USER" })
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public SysUser getUserByUsername(String username) {
         log.info("username {}", username);
         return new SysUser(99, username);
@@ -96,7 +96,7 @@ public class HelloService {
     /**
      * 具备任一角色即可访问
      */
-    @RolesAllowed({ "ADMIN", "USER"})
+    @RolesAllowed({"ADMIN", "USER"})
     public String rolesAllowed() {
         return "Roles Allowed";
     }

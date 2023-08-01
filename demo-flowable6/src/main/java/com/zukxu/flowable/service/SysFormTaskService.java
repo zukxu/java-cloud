@@ -1,10 +1,8 @@
 package com.zukxu.flowable.service;
 
-
 import com.zukxu.flowable.model.entity.SysFormTask;
 
 import java.util.List;
-
 
 public interface SysFormTaskService {
     /**

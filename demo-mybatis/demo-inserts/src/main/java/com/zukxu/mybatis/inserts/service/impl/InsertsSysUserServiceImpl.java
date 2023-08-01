@@ -50,7 +50,6 @@ public class InsertsSysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUse
         sw.stop();
     }
 
-
     /**
      * stream读数据写文件方式
      */

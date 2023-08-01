@@ -58,8 +58,8 @@ public class CrawlMeinv {
                     //获取套图地址
                     String href = img.child(0).attr("href");
                     Connection subConnect = Jsoup.connect(baseUrl + href)
-                            .header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:49.0) Gecko/20100101 Firefox/49.0")
-                            .timeout(8000);
+                                                 .header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:49.0) Gecko/20100101 Firefox/49.0")
+                                                 .timeout(8000);
                     Document subDocument = subConnect.get();
                     //获取套图标题用于创建目录
                     String title = subDocument.body().getElementsByTag("h1").eq(1).html();

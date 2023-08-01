@@ -21,34 +21,31 @@ import java.util.Vector;
 
 public class FileUtil {
 
-    public static int num = 1;
-
-    final static Logger logger = LoggerFactory.getLogger(FileUtil.class);
-
     //@formatter:off
     public static final String JT_UPLOAD_DIR = "/incoming/csvc/";
     public static final String JT_DOWNLOAD_DIR = "/outgoing/csvc/";
     public static final String SN_UPLOAD_DIR = "/app/bonc/incoming/csvc/";
     public static final String SN_DOWNLOAD_DIR = "/app/bonc/outgoing/csvc/";
+    final static Logger logger = LoggerFactory.getLogger(FileUtil.class);
+    public static int num = 1;
     //@formatter:on
 
     /**
      * 创建随机新名称
      *
      * @param fileName 文件名
-     *
      * @return str
      */
     @SneakyThrows
     public static String getRandomFileName(String fileName) {
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
         //生成文件名称通用方法
-        if(num > 999) {
+        if (num > 999) {
             num = 1;
         }
-        if(num < 10) {
+        if (num < 10) {
             suffixName = "_00" + num + suffixName;
-        } else if(num < 100) {
+        } else if (num < 100) {
             suffixName = "_0" + num + suffixName;
         }
         num++;
@@ -76,15 +73,14 @@ public class FileUtil {
      *
      * @param uploadDir upd
      * @param fileName  fileName
-     *
      * @return File
      */
     public static File getAbsoluteFile(String uploadDir, String fileName) {
         File desc = new File(uploadDir, fileName);
         logger.info("文件是否存在：{}", desc.exists());
         logger.info("文件大小：{}", cn.hutool.core.io.FileUtil.readableFileSize(desc));
-        if(!desc.exists()) {
-            if(!desc.getParentFile().exists()) {
+        if (!desc.exists()) {
+            if (!desc.getParentFile().exists()) {
                 desc.getParentFile().mkdirs();
             }
         }
@@ -181,7 +177,7 @@ public class FileUtil {
             //中文乱码解决
             String type = req.getHeader("User-Agent").toLowerCase();
             // 字符编码格式
-            if(type.indexOf("firefox") > 0 || type.indexOf("chrome") > 0) {
+            if (type.indexOf("firefox") > 0 || type.indexOf("chrome") > 0) {
                 //浏览器 谷歌或火狐
                 fileName = new String(fileName.getBytes(StandardCharsets.UTF_8), StandardCharsets.ISO_8859_1);
             } else {
@@ -191,8 +187,8 @@ public class FileUtil {
             initResp(resp, fileName);
             resp.setContentLength((int) file.length());
             outStream(Files.newInputStream(file.toPath()), resp.getOutputStream());
-        } catch(Exception e) {
-            logger.error("执行downloadFile发生了异常：{}",e.getMessage());
+        } catch (Exception e) {
+            logger.error("执行downloadFile发生了异常：{}", e.getMessage());
         }
     }
 
@@ -205,10 +201,10 @@ public class FileUtil {
     public static void downloadData(HttpServletResponse resp, String data, String fileName) {
         initResp(resp, new String(fileName.getBytes(StandardCharsets.UTF_8), StandardCharsets.UTF_8));
         resp.setContentLength(data.length());
-        try(BufferedOutputStream buff = new BufferedOutputStream(resp.getOutputStream())) {
+        try (BufferedOutputStream buff = new BufferedOutputStream(resp.getOutputStream())) {
             buff.write(data.getBytes(StandardCharsets.UTF_8));
             buff.flush();
-        } catch(Exception e) {
+        } catch (Exception e) {
             logger.error("导出文件文件出错:{}", e.getMessage());
         }
 
@@ -220,21 +216,21 @@ public class FileUtil {
     private static String getFileContentType(String name) {
         String result = "";
         String fileType = name.toLowerCase();
-        if(fileType.endsWith(".png")) {
+        if (fileType.endsWith(".png")) {
             result = "image/png";
-        } else if(fileType.endsWith(".gif")) {
+        } else if (fileType.endsWith(".gif")) {
             result = "image/gif";
-        } else if(fileType.endsWith(".jpg") || fileType.endsWith(".jpeg")) {
+        } else if (fileType.endsWith(".jpg") || fileType.endsWith(".jpeg")) {
             result = "image/jpeg";
-        } else if(fileType.endsWith(".svg")) {
+        } else if (fileType.endsWith(".svg")) {
             result = "image/svg+xml";
-        } else if(fileType.endsWith(".doc")) {
+        } else if (fileType.endsWith(".doc")) {
             result = "application/msword";
-        } else if(fileType.endsWith(".xls")) {
+        } else if (fileType.endsWith(".xls")) {
             result = "application/x-excel";
-        } else if(fileType.endsWith(".zip")) {
+        } else if (fileType.endsWith(".zip")) {
             result = "application/zip";
-        } else if(fileType.endsWith(".pdf")) {
+        } else if (fileType.endsWith(".pdf")) {
             result = "application/pdf";
         } else {
             result = "application/octet-stream";
@@ -249,21 +245,21 @@ public class FileUtil {
         try {
             byte[] buffer = new byte[10240];
             int length = -1;
-            while((length = is.read(buffer)) != -1) {
+            while ((length = is.read(buffer)) != -1) {
                 os.write(buffer, 0, length);
                 os.flush();
             }
-        } catch(Exception e) {
-            logger.error("执行 outStream 发生了异常：{}",e.getMessage());
+        } catch (Exception e) {
+            logger.error("执行 outStream 发生了异常：{}", e.getMessage());
         } finally {
             try {
                 os.close();
-            } catch(IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
             try {
                 is.close();
-            } catch(IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }

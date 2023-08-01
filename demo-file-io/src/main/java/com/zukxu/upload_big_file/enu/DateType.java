@@ -41,13 +41,30 @@ public enum DateType {
 
     UP_DAY_FOR_YEAR("15", "yyyy-MM-dd");
 
-    private String code;
+    private static Map<String, DateType> enumMap = new HashMap<>();
 
+    static {
+        DateType[] enums = values();
+        for (DateType dateType : enums) {
+            enumMap.put(dateType.getCode(), dateType);
+        }
+    }
+
+    private String code;
     private String pattern;
 
     DateType(String code, String pattern) {
         this.code = code;
         this.pattern = pattern;
+    }
+
+    public static DateType getInstance(String name) {
+        return valueOf(name.toUpperCase());
+    }
+
+    @JsonCreator
+    public static DateType getInstanceByCode(String code) {
+        return enumMap.get(code);
     }
 
     @JsonValue
@@ -57,23 +74,5 @@ public enum DateType {
 
     public String getPattern() {
         return pattern;
-    }
-
-    public static DateType getInstance(String name) {
-        return valueOf(name.toUpperCase());
-    }
-
-    private static Map<String, DateType> enumMap = new HashMap<>();
-
-    static {
-        DateType[] enums = values();
-        for(DateType dateType : enums) {
-            enumMap.put(dateType.getCode(), dateType);
-        }
-    }
-
-    @JsonCreator
-    public static DateType getInstanceByCode(String code) {
-        return enumMap.get(code);
     }
 }

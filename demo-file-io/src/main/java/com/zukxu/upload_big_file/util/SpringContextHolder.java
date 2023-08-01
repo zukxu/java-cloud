@@ -28,6 +28,19 @@ public class SpringContextHolder implements ApplicationContextAware, DisposableB
     }
 
     /**
+     * 实现ApplicationContextAware接口, 注入Context到静态变量中.
+     */
+    public void setApplicationContext(ApplicationContext applicationContext) {
+        // logger.debug("注入ApplicationContext到SpringContextHolder:{}", applicationContext);
+
+        if (SpringContextHolder.applicationContext != null) {
+            logger.warn("SpringContextHolder中的ApplicationContext被覆盖, 原有ApplicationContext为:" + SpringContextHolder.applicationContext);
+        }
+
+        SpringContextHolder.applicationContext = applicationContext; // NOSONAR
+    }
+
+    /**
      * 从静态变量applicationContext中取得Bean, 自动转型为所赋值对象的类型.
      */
     @SuppressWarnings("unchecked")
@@ -56,17 +69,11 @@ public class SpringContextHolder implements ApplicationContextAware, DisposableB
     }
 
     /**
-     * 实现ApplicationContextAware接口, 注入Context到静态变量中.
+     * 检查ApplicationContext不为空.
      */
-    public void setApplicationContext(ApplicationContext applicationContext) {
-        // logger.debug("注入ApplicationContext到SpringContextHolder:{}", applicationContext);
+    private static void assertContextInjected() {
 
-        if(SpringContextHolder.applicationContext != null) {
-            logger.warn("SpringContextHolder中的ApplicationContext被覆盖, 原有ApplicationContext为:"
-                        + SpringContextHolder.applicationContext);
-        }
-
-        SpringContextHolder.applicationContext = applicationContext; // NOSONAR
+        Validate.validState(applicationContext != null, "applicaitonContext属性未注入, 请在applicationContext.xml中定义SpringContextHolder.");
     }
 
     /**
@@ -75,15 +82,6 @@ public class SpringContextHolder implements ApplicationContextAware, DisposableB
     public void destroy() throws Exception {
 
         SpringContextHolder.clearHolder();
-    }
-
-    /**
-     * 检查ApplicationContext不为空.
-     */
-    private static void assertContextInjected() {
-
-        Validate.validState(applicationContext != null,
-                            "applicaitonContext属性未注入, 请在applicationContext.xml中定义SpringContextHolder.");
     }
 
 }

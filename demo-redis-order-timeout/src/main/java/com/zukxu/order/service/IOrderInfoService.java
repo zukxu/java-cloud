@@ -16,32 +16,32 @@ import java.util.List;
  */
 public interface IOrderInfoService extends IService<OrderInfo> {
 
-	/**
-	 * 查询用户订单列表信息
-	 *
-	 * @param status  订单状态
-	 * @param name    商品名称
-	 * @param current 当前页
-	 * @param size    分页
-	 * @return list
-	 */
-	IPage<OrderInfo> pageInfo(Integer status, String name, Integer current, Integer size);
+    /**
+     * 查询用户订单列表信息
+     *
+     * @param status  订单状态
+     * @param name    商品名称
+     * @param current 当前页
+     * @param size    分页
+     * @return list
+     */
+    IPage<OrderInfo> pageInfo(Integer status, String name, Integer current, Integer size);
 
-	/**
-	 * 生成订单
-	 *
-	 * @param orderInfoList 订单信息
-	 * @return list
-	 * @throws Exception 异常
-	 */
-	List<OrderInfo> addOrderInfo(List<OrderInfo> orderInfoList) throws Exception;
+    /**
+     * 生成订单
+     *
+     * @param orderInfoList 订单信息
+     * @return list
+     * @throws Exception 异常
+     */
+    List<OrderInfo> addOrderInfo(List<OrderInfo> orderInfoList) throws Exception;
 
-	/**
-	 * 修改订单状态
-	 *
-	 * @param orderInfo 订单
-	 * @return 是否修改成功
-	 */
-	boolean updOrderStatus(OrderInfo orderInfo);
+    /**
+     * 修改订单状态
+     *
+     * @param orderInfo 订单
+     * @return 是否修改成功
+     */
+    boolean updOrderStatus(OrderInfo orderInfo);
 
 }

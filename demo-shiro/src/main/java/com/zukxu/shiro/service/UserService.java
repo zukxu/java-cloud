@@ -11,5 +11,5 @@ import com.zukxu.shiro.entity.User;
  */
 public interface UserService extends IService<User> {
 
-	public User findByUsername(String username);
+    public User findByUsername(String username);
 }

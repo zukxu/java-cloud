@@ -15,10 +15,10 @@ public class ArtCrowd extends People {
     @ExcelColumn(order = 3, index = 3)
     private String paintingLevel;
 
-    @ExcelColumn(order = 4, title = "是否会跳舞", groups = { People.class, String.class }, index = 4)
+    @ExcelColumn(order = 4, title = "是否会跳舞", groups = {People.class, String.class}, index = 4)
     private boolean dance;
 
-    @ExcelColumn(order = 5, title = "考核时间", groups = { People.class, String.class }, index = 5)
+    @ExcelColumn(order = 5, title = "考核时间", groups = {People.class, String.class}, index = 5)
     //多级表头设置
     //@ExcelColumn(title = "拓展信息->考核时间", index = 5)
     private LocalDateTime assessmentTime;

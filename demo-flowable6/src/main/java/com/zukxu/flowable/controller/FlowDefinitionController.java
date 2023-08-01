@@ -68,12 +68,9 @@ public class FlowDefinitionController {
         return R.ok(flowDefinitionService.list(pageNum, pageSize));
     }
 
-
     @ApiOperation(value = "导入流程文件")
     @PostMapping("/import")
-    public R<?> importFile(@RequestParam(required = false) String name,
-                           @RequestParam(required = false) String category,
-                           MultipartFile file) {
+    public R<?> importFile(@RequestParam(required = false) String name, @RequestParam(required = false) String category, MultipartFile file) {
         String originalFilename = file.getOriginalFilename();
         assert originalFilename != null;
         String suffix = originalFilename.substring(originalFilename.indexOf("."));
@@ -99,7 +96,6 @@ public class FlowDefinitionController {
 
         return R.ok("导入成功");
     }
-
 
     @ApiOperation(value = "导出")
     @GetMapping("/export")
@@ -188,7 +184,8 @@ public class FlowDefinitionController {
     @ApiOperation(value = "根据流程定义id启动流程实例")
     @PostMapping("/start/{procDefId}")
     public R<?> start(@ApiParam(value = "流程定义id") @PathVariable(value = "procDefId") String procDefId,
-                      @ApiParam(value = "变量集合,json对象") @RequestBody Map<String, Object> variables) {
+                      @ApiParam(value = "变量集合,json对象") @RequestBody Map<String, Object> variables
+                     ) {
         String message = flowDefinitionService.startProcessInstanceById(procDefId, variables);
         return StrUtil.equals(Const.SUCCESS, message) ? R.ok().message("流程实例启动成功") : R.fail(message);
     }
@@ -196,7 +193,8 @@ public class FlowDefinitionController {
     @ApiOperation(value = "激活或挂起流程定义")
     @PutMapping(value = "/updateState")
     public R<?> updateState(@ApiParam(value = "1:激活,2:挂起", required = true) @RequestParam Integer state,
-                            @ApiParam(value = "流程部署ID", required = true) @RequestParam String deployId) {
+                            @ApiParam(value = "流程部署ID", required = true) @RequestParam String deployId
+                           ) {
         flowDefinitionService.updateState(state, deployId);
         return R.ok();
     }

@@ -18,14 +18,14 @@ import org.springframework.stereotype.Component;
 @PropertySource("classpath:/config/alipay.properties")
 @ConfigurationProperties(prefix = "alipay")
 public class AlipayConfig {
-	private String appPrivateKey;
-	private String alipayPublicKey;
-	private String appId;
-	private String charset;
-	private String format;
-	private String signType;
-	private String prodCode;
-	private String gatewayUrl;
-	private String notifyUrl;
-	private String returnUrl;
+    private String appPrivateKey;
+    private String alipayPublicKey;
+    private String appId;
+    private String charset;
+    private String format;
+    private String signType;
+    private String prodCode;
+    private String gatewayUrl;
+    private String notifyUrl;
+    private String returnUrl;
 }

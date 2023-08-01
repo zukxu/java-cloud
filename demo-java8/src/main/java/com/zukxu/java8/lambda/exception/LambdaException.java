@@ -17,7 +17,7 @@ public class LambdaException {
         Function<BufferedReader, String> func1 = (BufferedReader reader) -> {
             try {
                 return reader.readLine();
-            } catch(IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
             return null;

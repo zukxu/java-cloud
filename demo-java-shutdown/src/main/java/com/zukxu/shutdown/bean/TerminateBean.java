@@ -11,8 +11,8 @@ import javax.annotation.PreDestroy;
  * CreateTime: 2021/4/16 0016 14:43
  */
 public class TerminateBean {
-	@PreDestroy
-	public void preDestroy() {
-		System.out.println("TerminalBean is destroyed");
-	}
+    @PreDestroy
+    public void preDestroy() {
+        System.out.println("TerminalBean is destroyed");
+    }
 }

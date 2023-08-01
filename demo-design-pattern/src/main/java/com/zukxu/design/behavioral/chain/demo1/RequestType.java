@@ -12,7 +12,5 @@ import lombok.Getter;
  */
 @Getter
 public enum RequestType {
-    TYPE1,
-    TYPE2,
-    TYPE3
+    TYPE1, TYPE2, TYPE3
 }

@@ -25,7 +25,7 @@ public class People {
      */
     private Integer age;
     /**
-     *  城市信息
+     * 城市信息
      */
     private City city;
 }

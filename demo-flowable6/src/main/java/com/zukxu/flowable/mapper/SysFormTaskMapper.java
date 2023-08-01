@@ -1,6 +1,5 @@
 package com.zukxu.flowable.mapper;
 
-
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zukxu.flowable.model.entity.SysFormTask;
 import org.apache.ibatis.annotations.Param;
@@ -43,7 +42,6 @@ public interface SysFormTaskMapper extends BaseMapper<SysFormTask> {
      * 修改流程任务关联单
      *
      * @param sysTaskForm 流程任务关联单
-     *
      * @return 结果
      */
     int updateSysFormTask(SysFormTask sysTaskForm);
@@ -52,7 +50,6 @@ public interface SysFormTaskMapper extends BaseMapper<SysFormTask> {
      * 删除流程任务关联单
      *
      * @param id 流程任务关联单ID
-     *
      * @return 结果
      */
     int deleteSysFormTaskById(String id);
@@ -61,7 +58,6 @@ public interface SysFormTaskMapper extends BaseMapper<SysFormTask> {
      * 批量删除流程任务关联单
      *
      * @param ids 需要删除的数据ID
-     *
      * @return 结果
      */
     int deleteSysFormTaskByIds(@Param("ids") String[] ids);

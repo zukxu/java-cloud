@@ -18,18 +18,18 @@ import javax.validation.ValidatorFactory;
  */
 @Configuration
 public class ValidatorConfig {
-	@Bean
-	public Validator validator() {
-		ValidatorFactory validatorFactory = Validation.byDefaultProvider().configure().addProperty("hibernate.validator.fail_fast", "true").buildValidatorFactory();
+    @Bean
+    public Validator validator() {
+        ValidatorFactory validatorFactory = Validation.byDefaultProvider().configure().addProperty("hibernate.validator.fail_fast", "true").buildValidatorFactory();
 
-		return validatorFactory.getValidator();
-	}
+        return validatorFactory.getValidator();
+    }
 
-	@Bean
-	public MethodValidationPostProcessor methodValidationPostProcessor() {
-		//默认是普通模式，会返回所有的验证不通过信息集合
-		MethodValidationPostProcessor processor = new MethodValidationPostProcessor();
-		processor.setValidator(validator());
-		return processor;
-	}
+    @Bean
+    public MethodValidationPostProcessor methodValidationPostProcessor() {
+        //默认是普通模式，会返回所有的验证不通过信息集合
+        MethodValidationPostProcessor processor = new MethodValidationPostProcessor();
+        processor.setValidator(validator());
+        return processor;
+    }
 }

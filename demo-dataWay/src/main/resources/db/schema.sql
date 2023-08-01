@@ -35,8 +35,8 @@ CREATE TABLE interface_release
     pub_option       mediumtext   NOT NULL COMMENT '扩展配置信息',
     pub_release_time varchar(32)  NOT NULL COMMENT '发布时间（下线不更新）',
     PRIMARY KEY (pub_id),
-    KEY idx_interface_release_api (pub_api_id),
-    KEY idx_interface_release_path (pub_path)
+    KEY              idx_interface_release_api (pub_api_id),
+    KEY              idx_interface_release_path (pub_path)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='Dataway API 发布历史。';
 

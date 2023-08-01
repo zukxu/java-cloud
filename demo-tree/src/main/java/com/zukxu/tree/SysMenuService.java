@@ -47,34 +47,34 @@ public class SysMenuService {
             stat = conn.createStatement();
             res = stat.executeQuery(sql);
             List<SysMenu> menuList = new ArrayList<>();
-            while(res.next()) {
+            while (res.next()) {
                 String id = res.getString("id");
                 String name = res.getString("name");
                 String pid = res.getString("pid");
                 menuList.add(new SysMenu().setId(id).setName(name).setPid(pid));
             }
             buildTree(menuList);
-        } catch(SQLException | ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         } finally {
-            if(res != null) {
+            if (res != null) {
                 try {
                     res.close();
-                } catch(SQLException e) {
+                } catch (SQLException e) {
                     e.printStackTrace();
                 }
             }
-            if(stat != null) {
+            if (stat != null) {
                 try {
                     stat.close();
-                } catch(SQLException e) {
+                } catch (SQLException e) {
                     e.printStackTrace();
                 }
             }
-            if(conn != null) {
+            if (conn != null) {
                 try {
                     conn.close();
-                } catch(SQLException e) {
+                } catch (SQLException e) {
                     e.printStackTrace();
                 }
             }

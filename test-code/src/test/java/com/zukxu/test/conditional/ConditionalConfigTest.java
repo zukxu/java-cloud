@@ -31,9 +31,9 @@ class ConditionalConfigTest {
 
     /**
      * 仍然取消注入City,但是在People初始化方法上添加@ConditionalOnBean注解
-     *  @ConditionalOnBean(City.class)
-     *  或者
-     *  @ConditionalOnBean(name = "city")
+     *
+     * @ConditionalOnBean(City.class) 或者
+     * @ConditionalOnBean(name = "city")
      */
     @Test
     void test3() {
@@ -51,6 +51,5 @@ class ConditionalConfigTest {
         System.out.println("people = " + people);
         System.out.println("= = = = = = = = = = = = = ");
     }
-
 
 }

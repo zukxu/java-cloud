@@ -25,7 +25,7 @@ public class CalculatorContext {
 
     public int executeStrategy(String operator, int num1, int num2) {
         CalculatorStrategy strategy = strategies.get(operator);
-        if(strategy == null) {
+        if (strategy == null) {
             throw new IllegalArgumentException("Invalid operator: " + operator);
         }
         return strategy.calculate(num1, num2);

@@ -20,23 +20,15 @@ import java.time.format.DateTimeFormatter;
  */
 public class JacksonBaseDemo {
 
-    private static final Logger logger = LoggerFactory.getLogger(JacksonBaseDemo.class);
-
-    JsonFactory jsonFactory = new JsonFactory();
-
     /**
      * 用来验证反序列化的JSON字符串
      */
-    final static String TEST_JSON_STR = "{\n" +
-                                        "    \"id\":151,\n" +
-                                        "    \"text\":\"我爱中国！\",\n" +
-                                        "    \"createTime\":\"2022-05-25T10:51:00\"\n" +
-                                        "}";
-
+    final static String TEST_JSON_STR = "{\n" + "    \"id\":151,\n" + "    \"text\":\"我爱中国！\",\n" + "    \"createTime\":\"2022-05-25T10:51:00\"\n" + "}";
     /**
      * 用来验证序列化的TestEntity实例
      */
     final static TestEntity TEST_ENTITY = new TestEntity();
+    private static final Logger logger = LoggerFactory.getLogger(JacksonBaseDemo.class);
 
     /**
      * 准备好TEST_OBJECT对象的各个参数
@@ -47,21 +39,35 @@ public class JacksonBaseDemo {
         TEST_ENTITY.setCreateTime(LocalDateTime.now());
     }
 
+    JsonFactory jsonFactory = new JsonFactory();
+
+    public static void main(String[] args) throws Exception {
+
+        JacksonBaseDemo streamingDemo = new JacksonBaseDemo();
+
+        // 执行一次对象转JSON操作
+        logger.info("********************执行一次对象转JSON操作********************");
+        String serializeResult = streamingDemo.serialize(TEST_ENTITY);
+        logger.info("序列化结果是JSON字符串 : \n{}\n\n", serializeResult);
+
+        // 用本地字符串执行一次JSON转对象操作
+        logger.info("********************执行一次本地JSON反序列化操作********************");
+        TestEntity deserializeResult = streamingDemo.deserializeJSONStr(TEST_JSON_STR);
+        logger.info("\n本地JSON反序列化结果是个java实例 : \n{}\n\n", deserializeResult);
+    }
 
     /**
      * 反序列化测试(JSON -> Object)，入参是JSON字符串
      *
      * @param json JSON字符串
-     *
      * @return
-     *
      * @throws IOException
      */
     public TestEntity deserializeJSONStr(String json) throws IOException {
 
         JsonParser jsonParser = jsonFactory.createParser(json);
 
-        if(jsonParser.nextToken() != JsonToken.START_OBJECT) {
+        if (jsonParser.nextToken() != JsonToken.START_OBJECT) {
             jsonParser.close();
             logger.error("起始位置没有大括号");
             throw new IOException("起始位置没有大括号");
@@ -71,7 +77,7 @@ public class JacksonBaseDemo {
 
         try {
             // Iterate over object fields:
-            while(jsonParser.nextToken() != JsonToken.END_OBJECT) {
+            while (jsonParser.nextToken() != JsonToken.END_OBJECT) {
 
                 String fieldName = jsonParser.getCurrentName();
 
@@ -80,7 +86,7 @@ public class JacksonBaseDemo {
                 // 解析下一个
                 jsonParser.nextToken();
 
-                switch(fieldName) {
+                switch (fieldName) {
                     case "id":
                         result.setId(jsonParser.getLongValue());
                         break;
@@ -95,7 +101,7 @@ public class JacksonBaseDemo {
                         throw new IOException("未知字段 '" + fieldName + "'");
                 }
             }
-        } catch(IOException e) {
+        } catch (IOException e) {
             logger.error("反序列化出现异常 :", e);
         } finally {
             jsonParser.close(); // important to close both parser and underlying File reader
@@ -108,7 +114,6 @@ public class JacksonBaseDemo {
      * 序列化测试(Object -> JSON)
      *
      * @param entity
-     *
      * @return 由对象序列化得到的JSON字符串
      */
     public String serialize(TestEntity entity) throws IOException {
@@ -124,7 +129,7 @@ public class JacksonBaseDemo {
             jsonGenerator.writeStringField("text", entity.getText());
             jsonGenerator.writeStringField("createTime", entity.getCreateTime().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
             jsonGenerator.writeEndObject();
-        } catch(IOException e) {
+        } catch (IOException e) {
             logger.error("序列化出现异常 :", e);
         } finally {
             jsonGenerator.close();
@@ -134,22 +139,6 @@ public class JacksonBaseDemo {
         rlt = byteArrayOutputStream.toString();
 
         return rlt;
-    }
-
-
-    public static void main(String[] args) throws Exception {
-
-        JacksonBaseDemo streamingDemo = new JacksonBaseDemo();
-
-        // 执行一次对象转JSON操作
-        logger.info("********************执行一次对象转JSON操作********************");
-        String serializeResult = streamingDemo.serialize(TEST_ENTITY);
-        logger.info("序列化结果是JSON字符串 : \n{}\n\n", serializeResult);
-
-        // 用本地字符串执行一次JSON转对象操作
-        logger.info("********************执行一次本地JSON反序列化操作********************");
-        TestEntity deserializeResult = streamingDemo.deserializeJSONStr(TEST_JSON_STR);
-        logger.info("\n本地JSON反序列化结果是个java实例 : \n{}\n\n", deserializeResult);
     }
 
 }

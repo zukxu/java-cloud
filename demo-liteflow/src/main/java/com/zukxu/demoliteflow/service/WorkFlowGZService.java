@@ -112,7 +112,6 @@ public interface WorkFlowGZService {
      * 申请单上传附件
      *
      * @param file MultipartFile
-     *
      * @return fileName
      */
     String uploadToJT(MultipartFile file);
@@ -128,6 +127,5 @@ public interface WorkFlowGZService {
      * 获取上传校验文件
      */
     void getUploadCheckFile();
-
 
 }

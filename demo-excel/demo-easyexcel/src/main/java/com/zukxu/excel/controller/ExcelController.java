@@ -39,7 +39,7 @@ public class ExcelController {
     @SneakyThrows
     private void mapReadExcel(MultipartFile file) {
         List<Map<Integer, String>> listMap = EasyExcel.read(file.getInputStream()).sheet().doReadSync();
-        for(Map<Integer, String> data : listMap) {
+        for (Map<Integer, String> data : listMap) {
             // 返回每条数据的键值对 分别表示所在的列和所在列的值
             log.info("读取到数据:{}", JSON.toJSONString(data));
         }
@@ -56,7 +56,7 @@ public class ExcelController {
             // 读取一个sheet
             excelReader.read(readSheet);
         } finally {
-            if(excelReader != null) {
+            if (excelReader != null) {
                 // 这里千万别忘记关闭，读的时候会创建临时文件，到时磁盘会崩的
                 excelReader.finish();
             }
@@ -86,7 +86,7 @@ public class ExcelController {
             @Override
             public void invoke(Map data, AnalysisContext context) {
                 cachedDataList.add(data);
-                if(cachedDataList.size() >= BATCH_COUNT) {
+                if (cachedDataList.size() >= BATCH_COUNT) {
                     saveData();
                     // 存储完成清理 list
                     cachedDataList = ListUtils.newArrayListWithExpectedSize(BATCH_COUNT);
@@ -116,7 +116,7 @@ public class ExcelController {
     @SneakyThrows
     private void simpleReadExcel(MultipartFile file) {
         EasyExcel.read(file.getInputStream(), Map.class, new PageReadListener<Map>(dataList -> {
-            for(Map demoData : dataList) {
+            for (Map demoData : dataList) {
                 log.info("读取到一条数据{}", JSON.toJSONString(demoData));
             }
         })).sheet().doRead();

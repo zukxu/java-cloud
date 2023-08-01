@@ -12,7 +12,6 @@ public class BusinessException extends RuntimeException {
     private String message;
     private String details;
 
-
     public BusinessException() {}
 
     public BusinessException(String message) {

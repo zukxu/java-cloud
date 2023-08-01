@@ -18,14 +18,15 @@ import java.util.List;
 @Component
 public class DemoConstruct {
     private List<String> list = new ArrayList<>();
+
     @PostConstruct
-    public void hello(){
+    public void hello() {
         list.add("Hello");
         list.add("World");
     }
 
     @PreDestroy
-    public void clean(){
+    public void clean() {
         list.clear();
     }
 }

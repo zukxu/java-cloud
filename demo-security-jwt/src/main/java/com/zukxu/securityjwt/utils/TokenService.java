@@ -28,7 +28,7 @@ public class TokenService {
         try {
             final Claims claims = getClaimsFromToken(token);
             username = claims.getSubject();
-        } catch(Exception e) {
+        } catch (Exception e) {
             username = null;
         }
         return username;
@@ -39,7 +39,7 @@ public class TokenService {
         try {
             final Claims claims = getClaimsFromToken(token);
             created = new Date((Long) claims.get(CLAIM_KEY_CREATED));
-        } catch(Exception e) {
+        } catch (Exception e) {
             created = null;
         }
         return created;
@@ -50,7 +50,7 @@ public class TokenService {
         try {
             final Claims claims = getClaimsFromToken(token);
             expiration = claims.getExpiration();
-        } catch(Exception e) {
+        } catch (Exception e) {
             expiration = null;
         }
         return expiration;
@@ -60,7 +60,7 @@ public class TokenService {
         Claims claims;
         try {
             claims = Jwts.parser().setSigningKey(Const.SECRET).parseClaimsJws(token).getBody();
-        } catch(Exception e) {
+        } catch (Exception e) {
             claims = null;
         }
         return claims;
@@ -100,7 +100,7 @@ public class TokenService {
             final Claims claims = getClaimsFromToken(token);
             claims.put(CLAIM_KEY_CREATED, new Date());
             refreshedToken = generateToken(claims);
-        } catch(Exception e) {
+        } catch (Exception e) {
             refreshedToken = null;
         }
         return refreshedToken;

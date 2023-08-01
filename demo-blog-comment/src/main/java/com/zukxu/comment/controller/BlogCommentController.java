@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-
 /**
  * Description:博客评论接口控制层
  *
@@ -28,7 +27,6 @@ import java.util.List;
 public class BlogCommentController {
     @Autowired
     private final IBlogCommentService BlogCommentService;
-
 
     @ApiOperation("分页查询评论数据")
     @GetMapping("/pageInfo")

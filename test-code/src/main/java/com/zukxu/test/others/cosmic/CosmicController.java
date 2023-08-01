@@ -1,13 +1,12 @@
 package com.zukxu.test.others.cosmic;
 
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
- *  cosmic接口类
+ * cosmic接口类
  * </p>
  *
  * @author xupu
@@ -164,7 +163,7 @@ public class CosmicController {
     }
 
         */
-/**
+    /**
      * 需求文档
      */    /*
 

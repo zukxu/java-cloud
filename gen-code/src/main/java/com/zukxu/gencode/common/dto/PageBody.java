@@ -14,17 +14,17 @@ import java.util.Map;
  * @Date 2021-11-01 14:33
  */
 @Data
-@ApiModel("分页相关实体" )
+@ApiModel("分页相关实体")
 @Accessors(chain = true)
 public class PageBody {
-    @ApiModelProperty("当前页" )
+    @ApiModelProperty("当前页")
     private Integer page = 1;
-    @ApiModelProperty("每页数量" )
+    @ApiModelProperty("每页数量")
     private Integer size = 10;
-    @ApiModelProperty("排序列" )
+    @ApiModelProperty("排序列")
     private String orderBy;
-    @ApiModelProperty("搜索值" )
+    @ApiModelProperty("搜索值")
     private String searchValue;
-    @ApiModelProperty("查询参数" )
+    @ApiModelProperty("查询参数")
     private Map<String, Object> queryParams;
 }

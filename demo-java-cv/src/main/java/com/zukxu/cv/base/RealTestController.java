@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
 
-
 @Controller
 @RequestMapping(value = "real")
 public class RealTestController extends BaseController {
@@ -33,8 +32,7 @@ public class RealTestController extends BaseController {
      * @param anchor03
      * @param anchor04
      */
-    public static void fetchAnchorPoints1(Mat grayImage, Mat matTmp, Point anchor01, Point anchor02, Point anchor03,
-                                          Point anchor04) {
+    public static void fetchAnchorPoints1(Mat grayImage, Mat matTmp, Point anchor01, Point anchor02, Point anchor03, Point anchor04) {
         long t1 = new Date().getTime();
         Mat imageMatch = new Mat();
         Point maxLoc01, maxLoc02, maxLoc03, maxLoc04;
@@ -126,8 +124,7 @@ public class RealTestController extends BaseController {
 
         Mat dst = new Mat(source1.rows(), source1.cols(), source1.type());
         System.out.println(source1.rows() + " " + source1.cols());
-        Imgproc.warpPerspective(source1, dst, warpMatrix, dst.size(), Imgproc.INTER_LINEAR, 0, new Scalar(255, 255,
-                255));
+        Imgproc.warpPerspective(source1, dst, warpMatrix, dst.size(), Imgproc.INTER_LINEAR, 0, new Scalar(255, 255, 255));
         long time2 = new Date().getTime();
         logger.info("耗时(ms)：==============" + (time2 - time1));
         try {
@@ -137,6 +134,5 @@ public class RealTestController extends BaseController {
             e.printStackTrace();
         }
     }
-
 
 }

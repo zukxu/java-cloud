@@ -25,7 +25,6 @@ import java.io.IOException;
 @Slf4j
 public class BigFileController {
 
-
     @Autowired
     private FileService fileService;
 
@@ -41,11 +40,11 @@ public class BigFileController {
 
         boolean isMultipart = ServletFileUpload.isMultipartContent(request);
         FileUpload fileUploadDTO;
-        if(isMultipart) {
+        if (isMultipart) {
 
             StopWatch stopWatch = new StopWatch();
             stopWatch.start("upload");
-            if(fileUploadRequestDTO.getChunk() != null && fileUploadRequestDTO.getChunks() > 0) {
+            if (fileUploadRequestDTO.getChunk() != null && fileUploadRequestDTO.getChunks() > 0) {
                 fileUploadDTO = fileService.sliceUpload(fileUploadRequestDTO);
             } else {
                 fileUploadDTO = fileService.upload(fileUploadRequestDTO);
@@ -75,11 +74,10 @@ public class BigFileController {
 
         try {
             FileUtil.downloadFile(requestDTO.getName(), requestDTO.getPath(), request, response);
-        } catch(FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             log.error("download error:" + e.getMessage(), e);
             throw new RuntimeException("文件下载失败");
         }
     }
-
 
 }

@@ -21,6 +21,7 @@ public class FlowableUtils {
 
     /**
      * 根据节点，获取入口连线
+     *
      * @param source FlowElement
      * @return list
      */
@@ -42,6 +43,7 @@ public class FlowableUtils {
 
     /**
      * 根据节点，获取出口连线
+     *
      * @param source FlowElement
      * @return list
      */
@@ -63,8 +65,9 @@ public class FlowableUtils {
 
     /**
      * 获取全部节点列表，包含子流程节点
+     *
      * @param flowElements FlowElements
-     * @param allElements allElements
+     * @param allElements  allElements
      * @return Collection
      */
     public static Collection<FlowElement> getAllElements(Collection<FlowElement> flowElements, Collection<FlowElement> allElements) {
@@ -82,9 +85,10 @@ public class FlowableUtils {
 
     /**
      * 迭代获取父级任务节点列表，向前找
-     * @param source 起始节点
+     *
+     * @param source          起始节点
      * @param hasSequenceFlow 已经经过的连线的 ID，用于判断线路是否重复
-     * @param userTaskList 已找到的用户任务节点
+     * @param userTaskList    已找到的用户任务节点
      * @return list
      */
     public static List<UserTask> iteratorFindParentUserTasks(FlowElement source, Set<String> hasSequenceFlow, List<UserTask> userTaskList) {
@@ -101,7 +105,7 @@ public class FlowableUtils {
 
         if (sequenceFlows != null) {
             // 循环找到目标元素
-            for (SequenceFlow sequenceFlow: sequenceFlows) {
+            for (SequenceFlow sequenceFlow : sequenceFlows) {
                 // 如果发现连线重复，说明循环了，跳过这个循环
                 if (hasSequenceFlow.contains(sequenceFlow.getId())) {
                     continue;
@@ -116,7 +120,10 @@ public class FlowableUtils {
                 // 类型为子流程，则添加子流程开始节点出口处相连的节点
                 if (sequenceFlow.getSourceFlowElement() instanceof SubProcess) {
                     // 获取子流程用户任务节点
-                    List<UserTask> childUserTaskList = findChildProcessUserTasks((StartEvent) ((SubProcess) sequenceFlow.getSourceFlowElement()).getFlowElements().toArray()[0], null, null);
+                    List<UserTask> childUserTaskList = findChildProcessUserTasks((StartEvent) ((SubProcess) sequenceFlow.getSourceFlowElement()).getFlowElements().toArray()[0],
+                                                                                 null,
+                                                                                 null
+                                                                                );
                     // 如果找到节点，则说明该线路找到节点，不继续向下找，反之继续
                     if (childUserTaskList != null && childUserTaskList.size() > 0) {
                         userTaskList.addAll(childUserTaskList);
@@ -132,10 +139,11 @@ public class FlowableUtils {
 
     /**
      * 根据正在运行的任务节点，迭代获取子级任务节点列表，向后找
-     * @param source 起始节点
-     * @param runTaskKeyList 正在运行的任务 Key，用于校验任务节点是否是正在运行的节点
+     *
+     * @param source          起始节点
+     * @param runTaskKeyList  正在运行的任务 Key，用于校验任务节点是否是正在运行的节点
      * @param hasSequenceFlow 已经经过的连线的 ID，用于判断线路是否重复
-     * @param userTaskList 需要撤回的用户任务列表
+     * @param userTaskList    需要撤回的用户任务列表
      * @return
      */
     public static List<UserTask> iteratorFindChildUserTasks(FlowElement source, List<String> runTaskKeyList, Set<String> hasSequenceFlow, List<UserTask> userTaskList) {
@@ -152,7 +160,7 @@ public class FlowableUtils {
 
         if (sequenceFlows != null) {
             // 循环找到目标元素
-            for (SequenceFlow sequenceFlow: sequenceFlows) {
+            for (SequenceFlow sequenceFlow : sequenceFlows) {
                 // 如果发现连线重复，说明循环了，跳过这个循环
                 if (hasSequenceFlow.contains(sequenceFlow.getId())) {
                     continue;
@@ -166,7 +174,11 @@ public class FlowableUtils {
                 }
                 // 如果节点为子流程节点情况，则从节点中的第一个节点开始获取
                 if (sequenceFlow.getTargetFlowElement() instanceof SubProcess) {
-                    List<UserTask> childUserTaskList = iteratorFindChildUserTasks((FlowElement) (((SubProcess) sequenceFlow.getTargetFlowElement()).getFlowElements().toArray()[0]), runTaskKeyList, hasSequenceFlow, null);
+                    List<UserTask> childUserTaskList = iteratorFindChildUserTasks((FlowElement) (((SubProcess) sequenceFlow.getTargetFlowElement()).getFlowElements().toArray()[0]),
+                                                                                  runTaskKeyList,
+                                                                                  hasSequenceFlow,
+                                                                                  null
+                                                                                 );
                     // 如果找到节点，则说明该线路找到节点，不继续向下找，反之继续
                     if (childUserTaskList != null && childUserTaskList.size() > 0) {
                         userTaskList.addAll(childUserTaskList);
@@ -182,9 +194,10 @@ public class FlowableUtils {
 
     /**
      * 迭代获取子流程用户任务节点
-     * @param source 起始节点
+     *
+     * @param source          起始节点
      * @param hasSequenceFlow 已经经过的连线的 ID，用于判断线路是否重复
-     * @param userTaskList 需要撤回的用户任务列表
+     * @param userTaskList    需要撤回的用户任务列表
      * @return
      */
     public static List<UserTask> findChildProcessUserTasks(FlowElement source, Set<String> hasSequenceFlow, List<UserTask> userTaskList) {
@@ -196,7 +209,7 @@ public class FlowableUtils {
 
         if (sequenceFlows != null) {
             // 循环找到目标元素
-            for (SequenceFlow sequenceFlow: sequenceFlows) {
+            for (SequenceFlow sequenceFlow : sequenceFlows) {
                 // 如果发现连线重复，说明循环了，跳过这个循环
                 if (hasSequenceFlow.contains(sequenceFlow.getId())) {
                     continue;
@@ -210,7 +223,10 @@ public class FlowableUtils {
                 }
                 // 如果节点为子流程节点情况，则从节点中的第一个节点开始获取
                 if (sequenceFlow.getTargetFlowElement() instanceof SubProcess) {
-                    List<UserTask> childUserTaskList = findChildProcessUserTasks((FlowElement) (((SubProcess) sequenceFlow.getTargetFlowElement()).getFlowElements().toArray()[0]), hasSequenceFlow, null);
+                    List<UserTask> childUserTaskList = findChildProcessUserTasks((FlowElement) (((SubProcess) sequenceFlow.getTargetFlowElement()).getFlowElements().toArray()[0]),
+                                                                                 hasSequenceFlow,
+                                                                                 null
+                                                                                );
                     // 如果找到节点，则说明该线路找到节点，不继续向下找，反之继续
                     if (childUserTaskList != null && childUserTaskList.size() > 0) {
                         userTaskList.addAll(childUserTaskList);
@@ -226,11 +242,12 @@ public class FlowableUtils {
 
     /**
      * 从后向前寻路，获取所有脏线路上的点
-     * @param source 起始节点
-     * @param passRoads 已经经过的点集合
+     *
+     * @param source          起始节点
+     * @param passRoads       已经经过的点集合
      * @param hasSequenceFlow 已经经过的连线的 ID，用于判断线路是否重复
-     * @param targets 目标脏线路终点
-     * @param dirtyRoads 确定为脏数据的点，因为不需要重复，因此使用 set 存储
+     * @param targets         目标脏线路终点
+     * @param dirtyRoads      确定为脏数据的点，因为不需要重复，因此使用 set 存储
      * @return
      */
     public static Set<String> iteratorFindDirtyRoads(FlowElement source, List<String> passRoads, Set<String> hasSequenceFlow, List<String> targets, Set<String> dirtyRoads) {
@@ -248,7 +265,7 @@ public class FlowableUtils {
 
         if (sequenceFlows != null) {
             // 循环找到目标元素
-            for (SequenceFlow sequenceFlow: sequenceFlows) {
+            for (SequenceFlow sequenceFlow : sequenceFlows) {
                 // 如果发现连线重复，说明循环了，跳过这个循环
                 if (hasSequenceFlow.contains(sequenceFlow.getId())) {
                     continue;
@@ -266,7 +283,11 @@ public class FlowableUtils {
                 if (sequenceFlow.getSourceFlowElement() instanceof SubProcess) {
                     dirtyRoads = findChildProcessAllDirtyRoad((StartEvent) ((SubProcess) sequenceFlow.getSourceFlowElement()).getFlowElements().toArray()[0], null, dirtyRoads);
                     // 是否存在子流程上，true 是，false 否
-                    Boolean isInChildProcess = dirtyTargetInChildProcess((StartEvent) ((SubProcess) sequenceFlow.getSourceFlowElement()).getFlowElements().toArray()[0], null, targets, null);
+                    Boolean isInChildProcess = dirtyTargetInChildProcess((StartEvent) ((SubProcess) sequenceFlow.getSourceFlowElement()).getFlowElements().toArray()[0],
+                                                                         null,
+                                                                         targets,
+                                                                         null
+                                                                        );
                     if (isInChildProcess) {
                         // 已在子流程上找到，该路线结束
                         continue;
@@ -282,9 +303,10 @@ public class FlowableUtils {
     /**
      * 迭代获取子流程脏路线
      * 说明，假如回退的点就是子流程，那么也肯定会回退到子流程最初的用户任务节点，因此子流程中的节点全是脏路线
-     * @param source 起始节点
+     *
+     * @param source          起始节点
      * @param hasSequenceFlow 已经经过的连线的 ID，用于判断线路是否重复
-     * @param dirtyRoads 确定为脏数据的点，因为不需要重复，因此使用 set 存储
+     * @param dirtyRoads      确定为脏数据的点，因为不需要重复，因此使用 set 存储
      * @return
      */
     public static Set<String> findChildProcessAllDirtyRoad(FlowElement source, Set<String> hasSequenceFlow, Set<String> dirtyRoads) {
@@ -296,7 +318,7 @@ public class FlowableUtils {
 
         if (sequenceFlows != null) {
             // 循环找到目标元素
-            for (SequenceFlow sequenceFlow: sequenceFlows) {
+            for (SequenceFlow sequenceFlow : sequenceFlows) {
                 // 如果发现连线重复，说明循环了，跳过这个循环
                 if (hasSequenceFlow.contains(sequenceFlow.getId())) {
                     continue;
@@ -307,7 +329,10 @@ public class FlowableUtils {
                 dirtyRoads.add(sequenceFlow.getTargetFlowElement().getId());
                 // 如果节点为子流程节点情况，则从节点中的第一个节点开始获取
                 if (sequenceFlow.getTargetFlowElement() instanceof SubProcess) {
-                    dirtyRoads = findChildProcessAllDirtyRoad((FlowElement) (((SubProcess) sequenceFlow.getTargetFlowElement()).getFlowElements().toArray()[0]), hasSequenceFlow, dirtyRoads);
+                    dirtyRoads = findChildProcessAllDirtyRoad((FlowElement) (((SubProcess) sequenceFlow.getTargetFlowElement()).getFlowElements().toArray()[0]),
+                                                              hasSequenceFlow,
+                                                              dirtyRoads
+                                                             );
                 }
                 // 继续迭代
                 dirtyRoads = findChildProcessAllDirtyRoad(sequenceFlow.getTargetFlowElement(), hasSequenceFlow, dirtyRoads);
@@ -318,10 +343,11 @@ public class FlowableUtils {
 
     /**
      * 判断脏路线结束节点是否在子流程上
-     * @param source 起始节点
+     *
+     * @param source          起始节点
      * @param hasSequenceFlow 已经经过的连线的 ID，用于判断线路是否重复
-     * @param targets 判断脏路线节点是否存在子流程上，只要存在一个，说明脏路线只到子流程为止
-     * @param inChildProcess 是否存在子流程上，true 是，false 否
+     * @param targets         判断脏路线节点是否存在子流程上，只要存在一个，说明脏路线只到子流程为止
+     * @param inChildProcess  是否存在子流程上，true 是，false 否
      * @return
      */
     public static Boolean dirtyTargetInChildProcess(FlowElement source, Set<String> hasSequenceFlow, List<String> targets, Boolean inChildProcess) {
@@ -333,7 +359,7 @@ public class FlowableUtils {
 
         if (sequenceFlows != null && !inChildProcess) {
             // 循环找到目标元素
-            for (SequenceFlow sequenceFlow: sequenceFlows) {
+            for (SequenceFlow sequenceFlow : sequenceFlows) {
                 // 如果发现连线重复，说明循环了，跳过这个循环
                 if (hasSequenceFlow.contains(sequenceFlow.getId())) {
                     continue;
@@ -347,7 +373,11 @@ public class FlowableUtils {
                 }
                 // 如果节点为子流程节点情况，则从节点中的第一个节点开始获取
                 if (sequenceFlow.getTargetFlowElement() instanceof SubProcess) {
-                    inChildProcess = dirtyTargetInChildProcess((FlowElement) (((SubProcess) sequenceFlow.getTargetFlowElement()).getFlowElements().toArray()[0]), hasSequenceFlow, targets, inChildProcess);
+                    inChildProcess = dirtyTargetInChildProcess((FlowElement) (((SubProcess) sequenceFlow.getTargetFlowElement()).getFlowElements().toArray()[0]),
+                                                               hasSequenceFlow,
+                                                               targets,
+                                                               inChildProcess
+                                                              );
                 }
                 // 继续迭代
                 inChildProcess = dirtyTargetInChildProcess(sequenceFlow.getTargetFlowElement(), hasSequenceFlow, targets, inChildProcess);
@@ -359,10 +389,11 @@ public class FlowableUtils {
     /**
      * 迭代从后向前扫描，判断目标节点相对于当前节点是否是串行
      * 不存在直接回退到子流程中的情况，但存在从子流程出去到父流程情况
-     * @param source 起始节点
-     * @param isSequential 是否串行
+     *
+     * @param source          起始节点
+     * @param isSequential    是否串行
      * @param hasSequenceFlow 已经经过的连线的 ID，用于判断线路是否重复
-     * @param targetKsy 目标节点
+     * @param targetKsy       目标节点
      * @return
      */
     public static Boolean iteratorCheckSequentialReferTarget(FlowElement source, String targetKsy, Set<String> hasSequenceFlow, Boolean isSequential) {
@@ -379,7 +410,7 @@ public class FlowableUtils {
 
         if (sequenceFlows != null) {
             // 循环找到目标元素
-            for (SequenceFlow sequenceFlow: sequenceFlows) {
+            for (SequenceFlow sequenceFlow : sequenceFlows) {
                 // 如果发现连线重复，说明循环了，跳过这个循环
                 if (hasSequenceFlow.contains(sequenceFlow.getId())) {
                     continue;
@@ -408,9 +439,10 @@ public class FlowableUtils {
     /**
      * 从后向前寻路，获取到达节点的所有路线
      * 不存在直接回退到子流程，但是存在回退到父级流程的情况
-     * @param source 起始节点
+     *
+     * @param source    起始节点
      * @param passRoads 已经经过的点集合
-     * @param roads 路线
+     * @param roads     路线
      * @return
      */
     public static List<List<UserTask>> findRoad(FlowElement source, List<UserTask> passRoads, Set<String> hasSequenceFlow, List<List<UserTask>> roads) {
@@ -427,7 +459,7 @@ public class FlowableUtils {
         List<SequenceFlow> sequenceFlows = getElementIncomingFlows(source);
 
         if (sequenceFlows != null && sequenceFlows.size() != 0) {
-            for (SequenceFlow sequenceFlow: sequenceFlows) {
+            for (SequenceFlow sequenceFlow : sequenceFlows) {
                 // 如果发现连线重复，说明循环了，跳过这个循环
                 if (hasSequenceFlow.contains(sequenceFlow.getId())) {
                     continue;
@@ -450,7 +482,8 @@ public class FlowableUtils {
 
     /**
      * 历史节点数据清洗，清洗掉又回滚导致的脏数据
-     * @param allElements 全部节点信息
+     *
+     * @param allElements              全部节点信息
      * @param historicTaskInstanceList 历史任务实例信息，数据采用开始时间升序
      * @return
      */
@@ -460,7 +493,8 @@ public class FlowableUtils {
         allElements.forEach(flowElement -> {
             if (flowElement instanceof UserTask) {
                 // 如果该节点的行为为会签行为，说明该节点为会签节点
-                if (((UserTask) flowElement).getBehavior() instanceof ParallelMultiInstanceBehavior || ((UserTask) flowElement).getBehavior() instanceof SequentialMultiInstanceBehavior) {
+                if (((UserTask) flowElement).getBehavior() instanceof ParallelMultiInstanceBehavior ||
+                    ((UserTask) flowElement).getBehavior() instanceof SequentialMultiInstanceBehavior) {
                     multiTask.add(flowElement.getId());
                 }
             }
@@ -544,17 +578,16 @@ public class FlowableUtils {
                 lastHistoricTaskInstanceList.add(stack.peek().getTaskDefinitionKey());
             }
             // 校验脏线路是否结束
-            for (int i = 0; i < deleteKeyList.size(); i ++) {
+            for (int i = 0; i < deleteKeyList.size(); i++) {
                 // 如果发现脏数据属于会签，记录下下标与对应 Key，以备后续比对，会签脏数据范畴开始
-                if (multiKey == null && multiTask.contains(stack.peek().getTaskDefinitionKey())
-                        && deleteKeyList.get(i).contains(stack.peek().getTaskDefinitionKey())) {
+                if (multiKey == null && multiTask.contains(stack.peek().getTaskDefinitionKey()) && deleteKeyList.get(i).contains(stack.peek().getTaskDefinitionKey())) {
                     multiIndex = i;
                     multiKey = new StringBuilder(stack.peek().getTaskDefinitionKey());
                 }
                 // 会签脏数据处理，节点退回会签清空
                 // 如果在会签脏数据范畴中发现 Key改变，说明会签脏数据在上个节点就结束了，可以把会签脏数据删掉
                 if (multiKey != null && !multiKey.toString().equals(stack.peek().getTaskDefinitionKey())) {
-                    deleteKeyList.set(multiIndex , deleteKeyList.get(multiIndex).replace(stack.peek().getTaskDefinitionKey() + ",", ""));
+                    deleteKeyList.set(multiIndex, deleteKeyList.get(multiIndex).replace(stack.peek().getTaskDefinitionKey() + ",", ""));
                     multiKey = null;
                     // 结束进行下校验删除
                     multiOpera = true;
@@ -564,7 +597,7 @@ public class FlowableUtils {
                 // 脏数据产生的新实例中是否包含这条数据
                 if (multiKey == null && deleteKeyList.get(i).contains(stack.peek().getTaskDefinitionKey())) {
                     // 删除匹配到的部分
-                    deleteKeyList.set(i , deleteKeyList.get(i).replace(stack.peek().getTaskDefinitionKey() + ",", ""));
+                    deleteKeyList.set(i, deleteKeyList.get(i).replace(stack.peek().getTaskDefinitionKey() + ",", ""));
                 }
                 // 如果每组中的元素都以匹配过，说明脏数据结束
                 if ("".equals(deleteKeyList.get(i))) {

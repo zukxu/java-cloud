@@ -94,25 +94,6 @@ public class R<T> implements Serializable {
         return genResult(status, data);
     }
 
-    //chain calls methods
-    //R.ok().code(200).message("成功").data(null);
-    //R.fail().code(500).message("失败").data(null);
-    public R<T> data(T data) {
-        this.setData(data);
-        return this;
-    }
-
-    public R<T> message(String message) {
-        this.setMsg(message);
-        return this;
-    }
-
-    public R<T> code(Integer code) {
-        this.setCode(code);
-        return this;
-    }
-
-
     /**
      * @param status RStatus
      * @param data   data
@@ -142,5 +123,23 @@ public class R<T> implements Serializable {
         r.setData(data);
         r.setMsg(msg);
         return r;
+    }
+
+    //chain calls methods
+    //R.ok().code(200).message("成功").data(null);
+    //R.fail().code(500).message("失败").data(null);
+    public R<T> data(T data) {
+        this.setData(data);
+        return this;
+    }
+
+    public R<T> message(String message) {
+        this.setMsg(message);
+        return this;
+    }
+
+    public R<T> code(Integer code) {
+        this.setCode(code);
+        return this;
     }
 }

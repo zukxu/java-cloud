@@ -8,6 +8,7 @@ import java.io.Serializable;
 
 /**
  * 用户实体
+ *
  * @author yhq
  * @date 2021年9月6日 13点33分
  **/
@@ -72,7 +73,7 @@ public class UserEntity implements Serializable {
     /**
      * 手机--长度
      */
-    @SensitiveInfo(strategy = com.yhq.sensitive.strategy.SensitiveMobile.class,begin = 3,end = 4)
+    @SensitiveInfo(strategy = com.yhq.sensitive.strategy.SensitiveMobile.class, begin = 3, end = 4)
     private String mobileLength;
 
     /**
@@ -108,7 +109,7 @@ public class UserEntity implements Serializable {
     /**
      * 银行卡号--自定义正则
      */
-    @SensitiveInfo(pattern = "(?<=\\w{6})\\w(?=\\w{4})",replaceChar = "*")
+    @SensitiveInfo(pattern = "(?<=\\w{6})\\w(?=\\w{4})", replaceChar = "*")
     private String bankCardCustomizePattern;
 
     /**

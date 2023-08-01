@@ -15,7 +15,6 @@ public interface ExcelConst {
      */
     String UPLOAD_PATH = PROFILE_PATH + "/upload";
 
-
     /**
      * 下载路径
      */

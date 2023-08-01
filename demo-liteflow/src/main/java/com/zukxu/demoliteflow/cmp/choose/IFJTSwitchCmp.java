@@ -18,7 +18,6 @@ import java.util.Random;
 @LiteflowComponent(id = "IfJT", name = "是否外派单子")
 public class IFJTSwitchCmp extends NodeSwitchComponent {
 
-
     @Override
     public String processSwitch() throws Exception {
         WorkFlowContext context = this.getFirstContextBean();

@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
  * @since 2022-04-08 16:32
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.TYPE,ElementType.METHOD})
+@Target({ElementType.TYPE, ElementType.METHOD})
 public @interface Perms {
     String value() default "";
 }

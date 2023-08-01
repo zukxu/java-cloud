@@ -9,5 +9,5 @@ package com.zukxu.thread.service;
  * CreateTime: 2021/1/29 0029 14:56
  */
 public interface IAsyncService {
-	void sentMsg(String msg);
+    void sentMsg(String msg);
 }

@@ -2,7 +2,7 @@ package com.zukxu.common.exception;
 
 /**
  * <p>
- *  幂等性异常
+ * 幂等性异常
  * </p>
  *
  * @author xupu

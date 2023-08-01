@@ -447,59 +447,59 @@ public class User {   ....
 
 # 常用注解
 
-| 注解                                                         | 属性                                                         |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
-| `@Null`                                                      | 被注释的元素必须为 null                                      |
-| `@NotNull`                                                   | 被注释的元素必须不为 null                                    |
-| `@AssertTrue`                                                | 被注释的元素必须为 true                                      |
-| `@AssertFalse`                                               | 被注释的元素必须为 false                                     |
-| `@Min(value=)`                                               | 被注释的元素必须是一个数字，其值必须大于等于指定的最小值     |
-| `@Max(value=)`                                               | 被注释的元素必须是一个数字，其值必须小于等于指定的最大值     |
-| `@DecimalMin(value=, inclusive=)`                            | 被注释的元素必须是一个数字，其值必须大于等于指定的最小值     |
-| `@DecimalMax(value=, inclusive=)`                            | 被注释的元素必须是一个数字，其值必须小于等于指定的最大值     |
-| `@Future`                                                    | 检查被注释的日期是否是将来的日期                             |
-| `@FutureOrPresent`                                           | 检查被注释的日期是现在还是将来                               |
-| `@NotEmpty`                                                  | 检查被注释的元素是否不为null或为空                           |
-| `@Negative`                                                  | 检查被注释的元素是否严格为负。零值被视为无效。               |
-| `@NegativeOrZero`                                            | 检查被注释的元素是负数还是零。                               |
-| `@Past`                                                      | 检查被注释的日期是否是过去的日期                             |
-| `@PastOrPresent`                                             | 检查被注释的日期是过去还是现在                               |
-| `@Pattern(regex=, flags=)`                                   | 检查被注释的字符串是否与正则表达式匹配`match`                |
-| `@Positive`                                                  | 检查被注释元素是否严格为正。零值被视为无效。                 |
-| `@PositiveOrZero`                                            | 检查被注释元素是正数还是零。                                 |
-| `@Size(min=, max=)`                                          | 检查被注释的元素的大小是否介于`min`                          |
-| 和之间`max`                                                  |                                                              |
-| （包括）                                                     |                                                              |
-| `@Email`                                                     | 检查被注释的元素是否为有效的电子邮件地址。                   |
-| `@Digits(integer=, fraction=)`                               | 被注释的元素必须是一个数字，其值必须在可接受的范围内         |
-| `@Currency(value=)`                                          | 检查带注释的货币单位`javax.money.MonetaryAmount`             |
-| 是否为指定货币单位的一部分。                                 |                                                              |
-| `@ISBN`                                                      | 检查带注释的字符序列是有效的[ISBN](https://en.wikipedia.org/wiki/International_Standard_Book_Number) |
-| 。`type`                                                     |                                                              |
-| 确定ISBN的类型。默认值为ISBN-13。                            |                                                              |
-| `@Length(min=, max=)`                                        | 被注释的字符串的大小必须在指定的范围内                       |
-| `@Range(min=, max=)`                                         | 被注释的元素必须在合适的范围内                               |
-| `@SafeHtml(whitelistType= , additionalTags=, additionalTagsWithAttributes=, baseURI=)` | 检查带注释的值是否包含潜在的恶意片段，例如`<script/>`        |
-| 。为了使用此约束，[jsoup](http://jsoup.org/)                 |                                                              |
-| 库必须是类路径的一部分。通过该`whitelistType`                |                                                              |
-| 属性，可以选择预定义的白名单类型，可以通过`additionalTags`   |                                                              |
-| 或进行细化`additionalTagsWithAttributes`                     |                                                              |
-| 。前者允许添加没有任何属性的标签，而后者则允许使用注释指定标签和可选的允许属性以及该属性的可接受协议`@SafeHtml.Tag` |                                                              |
-| 。另外，`baseURI`                                            |                                                              |
-| 允许指定用于解析相对URI的基本URI。                           |                                                              |
-| `@UniqueElements`                                            | 检查被注释的集合仅包含唯一元素                               |
-| `@URL(protocol=, host=, port=, regexp=, flags=)`             | 根据RFC2396检查带注释的字符序列是否为有效URL。如果任何可选参数`protocol` |
-| ，`host`                                                     |                                                              |
-| 或`port`                                                     |                                                              |
-| 指定时，相应的URL片段必须在指定的值相匹配。可选参数，`regexp` |                                                              |
-| 并`flags`                                                    |                                                              |
-| 允许指定URL必须匹配的其他正则表达式（包括正则表达式标志）。默认情况下，此约束使用`java.net.URL` |                                                              |
-| 构造函数来验证给定的字符串是否表示有效的URL。也提供基于正则表达式的版本`RegexpURLValidator` |                                                              |
-| -可以通过XML（请参见[第8.2节“通过映射约束](https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/#section-mapping-xml-constraints) |                                                              |
-| `[constraint-mappings](https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/#section-mapping-xml-constraints)` |                                                              |
-| [”](https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/#section-mapping-xml-constraints) |                                                              |
-| ）或编程API（请参见[第12.14.2节“以编程方式添加约束定义”](https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/#section-programmatic-constraint-definition) |                                                              |
-| ）进行配置。                                                 |                                                              |
+| 注解                                                                                                                                                             | 属性                                                                                     |
+|----------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------|
+| `@Null`                                                                                                                                                        | 被注释的元素必须为 null                                                                         |
+| `@NotNull`                                                                                                                                                     | 被注释的元素必须不为 null                                                                        |
+| `@AssertTrue`                                                                                                                                                  | 被注释的元素必须为 true                                                                         |
+| `@AssertFalse`                                                                                                                                                 | 被注释的元素必须为 false                                                                        |
+| `@Min(value=)`                                                                                                                                                 | 被注释的元素必须是一个数字，其值必须大于等于指定的最小值                                                           |
+| `@Max(value=)`                                                                                                                                                 | 被注释的元素必须是一个数字，其值必须小于等于指定的最大值                                                           |
+| `@DecimalMin(value=, inclusive=)`                                                                                                                              | 被注释的元素必须是一个数字，其值必须大于等于指定的最小值                                                           |
+| `@DecimalMax(value=, inclusive=)`                                                                                                                              | 被注释的元素必须是一个数字，其值必须小于等于指定的最大值                                                           |
+| `@Future`                                                                                                                                                      | 检查被注释的日期是否是将来的日期                                                                       |
+| `@FutureOrPresent`                                                                                                                                             | 检查被注释的日期是现在还是将来                                                                        |
+| `@NotEmpty`                                                                                                                                                    | 检查被注释的元素是否不为null或为空                                                                    |
+| `@Negative`                                                                                                                                                    | 检查被注释的元素是否严格为负。零值被视为无效。                                                                |
+| `@NegativeOrZero`                                                                                                                                              | 检查被注释的元素是负数还是零。                                                                        |
+| `@Past`                                                                                                                                                        | 检查被注释的日期是否是过去的日期                                                                       |
+| `@PastOrPresent`                                                                                                                                               | 检查被注释的日期是过去还是现在                                                                        |
+| `@Pattern(regex=, flags=)`                                                                                                                                     | 检查被注释的字符串是否与正则表达式匹配`match`                                                             |
+| `@Positive`                                                                                                                                                    | 检查被注释元素是否严格为正。零值被视为无效。                                                                 |
+| `@PositiveOrZero`                                                                                                                                              | 检查被注释元素是正数还是零。                                                                         |
+| `@Size(min=, max=)`                                                                                                                                            | 检查被注释的元素的大小是否介于`min`                                                                   |
+| 和之间`max`                                                                                                                                                       |                                                                                        |
+| （包括）                                                                                                                                                           |                                                                                        |
+| `@Email`                                                                                                                                                       | 检查被注释的元素是否为有效的电子邮件地址。                                                                  |
+| `@Digits(integer=, fraction=)`                                                                                                                                 | 被注释的元素必须是一个数字，其值必须在可接受的范围内                                                             |
+| `@Currency(value=)`                                                                                                                                            | 检查带注释的货币单位`javax.money.MonetaryAmount`                                                 |
+| 是否为指定货币单位的一部分。                                                                                                                                                 |                                                                                        |
+| `@ISBN`                                                                                                                                                        | 检查带注释的字符序列是有效的[ISBN](https://en.wikipedia.org/wiki/International_Standard_Book_Number) |
+| 。`type`                                                                                                                                                        |                                                                                        |
+| 确定ISBN的类型。默认值为ISBN-13。                                                                                                                                         |                                                                                        |
+| `@Length(min=, max=)`                                                                                                                                          | 被注释的字符串的大小必须在指定的范围内                                                                    |
+| `@Range(min=, max=)`                                                                                                                                           | 被注释的元素必须在合适的范围内                                                                        |
+| `@SafeHtml(whitelistType= , additionalTags=, additionalTagsWithAttributes=, baseURI=)`                                                                         | 检查带注释的值是否包含潜在的恶意片段，例如`<script/>`                                                       |
+| 。为了使用此约束，[jsoup](http://jsoup.org/)                                                                                                                            |                                                                                        |
+| 库必须是类路径的一部分。通过该`whitelistType`                                                                                                                                 |                                                                                        |
+| 属性，可以选择预定义的白名单类型，可以通过`additionalTags`                                                                                                                          |                                                                                        |
+| 或进行细化`additionalTagsWithAttributes`                                                                                                                            |                                                                                        |
+| 。前者允许添加没有任何属性的标签，而后者则允许使用注释指定标签和可选的允许属性以及该属性的可接受协议`@SafeHtml.Tag`                                                                                              |                                                                                        |
+| 。另外，`baseURI`                                                                                                                                                  |                                                                                        |
+| 允许指定用于解析相对URI的基本URI。                                                                                                                                           |                                                                                        |
+| `@UniqueElements`                                                                                                                                              | 检查被注释的集合仅包含唯一元素                                                                        |
+| `@URL(protocol=, host=, port=, regexp=, flags=)`                                                                                                               | 根据RFC2396检查带注释的字符序列是否为有效URL。如果任何可选参数`protocol`                                         |
+| ，`host`                                                                                                                                                        |                                                                                        |
+| 或`port`                                                                                                                                                        |                                                                                        |
+| 指定时，相应的URL片段必须在指定的值相匹配。可选参数，`regexp`                                                                                                                           |                                                                                        |
+| 并`flags`                                                                                                                                                       |                                                                                        |
+| 允许指定URL必须匹配的其他正则表达式（包括正则表达式标志）。默认情况下，此约束使用`java.net.URL`                                                                                                       |                                                                                        |
+| 构造函数来验证给定的字符串是否表示有效的URL。也提供基于正则表达式的版本`RegexpURLValidator`                                                                                                      |                                                                                        |
+| -可以通过XML（请参见[第8.2节“通过映射约束](https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/#section-mapping-xml-constraints)                     |                                                                                        |
+| `[constraint-mappings](https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/#section-mapping-xml-constraints)`                        |                                                                                        |
+| [”](https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/#section-mapping-xml-constraints)                                            |                                                                                        |
+| ）或编程API（请参见[第12.14.2节“以编程方式添加约束定义”](https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/#section-programmatic-constraint-definition) |                                                                                        |
+| ）进行配置。                                                                                                                                                         |                                                                                        |
 
 ---
 

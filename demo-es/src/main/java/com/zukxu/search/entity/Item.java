@@ -32,16 +32,16 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Item {
-	private String itemId;
-	private String urlId;
-	private String sellAddress;
-	private String courierFee;
-	private String promotions;
-	private String originalPrice;
-	private String startTime;
-	private String endTime;
-	private String title;
-	private String serviceGuarantee;
-	private String venue;
-	private String currentPrice;
+    private String itemId;
+    private String urlId;
+    private String sellAddress;
+    private String courierFee;
+    private String promotions;
+    private String originalPrice;
+    private String startTime;
+    private String endTime;
+    private String title;
+    private String serviceGuarantee;
+    private String venue;
+    private String currentPrice;
 }

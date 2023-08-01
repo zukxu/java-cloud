@@ -32,7 +32,7 @@ public class FileController {
     @Resource
     private FileConfigProperties fileConfigProperties;
 
-    @PostMapping({ "/upload" })
+    @PostMapping({"/upload"})
     @ResponseBody
     public R<?> uploadFiles(MultipartFile file) {
         //上传至指定文件夹
@@ -45,7 +45,7 @@ public class FileController {
         String filePath = fileConfigProperties.getUploadPath() + File.separator + newFileName;
         File newFile = new File(filePath);
         //判断目标文件所在目录是否存在
-        if(!newFile.getParentFile().exists()) {
+        if (!newFile.getParentFile().exists()) {
             //如果目标文件所在的目录不存在，则创建父目录
             boolean mkdirs = newFile.getParentFile().mkdirs();
         }
@@ -55,14 +55,13 @@ public class FileController {
             //使用此方法保存必须要绝对路径且文件夹必须已存在,否则报错
             file.transferTo(newFile);
             log.info("文件上传完毕===>{}", newFile.getAbsolutePath());
-        } catch(IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
             log.info("文件上传失败");
         }
 
         DKAttachment dkAttachment = new DKAttachment();
-        dkAttachment.setOriginName(originalFilename)
-                    .setUrl(fileConfigProperties.getReturnPath() + "/" + newFileName);
+        dkAttachment.setOriginName(originalFilename).setUrl(fileConfigProperties.getReturnPath() + "/" + newFileName);
         return R.ok(dkAttachment);
     }
 
@@ -89,7 +88,7 @@ public class FileController {
     /**
      * 断点上传
      */
-    @PostMapping({ "/breakPoint/upload" })
+    @PostMapping({"/breakPoint/upload"})
     @ResponseBody
     public R<?> breakPointUploadFiles(MultipartFile file) {
         //上传至指定文件夹
@@ -102,7 +101,7 @@ public class FileController {
         String filePath = fileConfigProperties.getUploadPath() + File.separator + newFileName;
         File newFile = new File(filePath);
         //判断目标文件所在目录是否存在
-        if(!newFile.getParentFile().exists()) {
+        if (!newFile.getParentFile().exists()) {
             //如果目标文件所在的目录不存在，则创建父目录
             boolean mkdirs = newFile.getParentFile().mkdirs();
         }
@@ -112,14 +111,13 @@ public class FileController {
             //使用此方法保存必须要绝对路径且文件夹必须已存在,否则报错
             file.transferTo(newFile);
             log.info("文件上传完毕===>{}", newFile.getAbsolutePath());
-        } catch(IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
             log.info("文件上传失败");
         }
 
         DKAttachment dkAttachment = new DKAttachment();
-        dkAttachment.setOriginName(originalFilename)
-                    .setUrl(fileConfigProperties.getReturnPath() + "/" + newFileName);
+        dkAttachment.setOriginName(originalFilename).setUrl(fileConfigProperties.getReturnPath() + "/" + newFileName);
         return R.ok(dkAttachment);
     }
 

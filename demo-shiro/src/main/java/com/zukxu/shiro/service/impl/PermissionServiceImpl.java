@@ -19,11 +19,11 @@ import java.util.Set;
 @Service
 public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permission> implements PermissionService {
 
-	@Autowired
-	private PermissionMapper permissionMapper;
+    @Autowired
+    private PermissionMapper permissionMapper;
 
-	@Override
-	public Set<String> findByRoleIds(List<Integer> roleIds) {
-		return permissionMapper.findByRoleIds(roleIds);
-	}
+    @Override
+    public Set<String> findByRoleIds(List<Integer> roleIds) {
+        return permissionMapper.findByRoleIds(roleIds);
+    }
 }

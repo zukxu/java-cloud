@@ -21,7 +21,7 @@ public class DemoOutputStream1 {
         try {
             //outputToFile1();
             outputToFile2();
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
@@ -46,7 +46,7 @@ public class DemoOutputStream1 {
         //续写追加
         //声明时开启追加 默认false
         FileOutputStream fos = new FileOutputStream("D:\\temp\\workFile\\io\\outputStream2.txt", true);
-        String str = LocalDateTime.now().toString()+"Hello";
+        String str = LocalDateTime.now().toString() + "Hello";
         fos.write(str.getBytes());
         fos.write(" \r\n".getBytes());
         fos.close();

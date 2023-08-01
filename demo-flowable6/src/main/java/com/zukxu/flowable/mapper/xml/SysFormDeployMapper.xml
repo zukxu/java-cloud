@@ -17,8 +17,8 @@
     <select id="selectByDeployId" resultType="com.zukxu.flowable.model.entity.SysForm">
         select t1.form_content as formContent, t1.form_name as formName, t1.form_id as formId
         from sys_form t1
-                     left join sys_form_deploy t2
-                on t1.form_id = t2.form_id
+        left join sys_form_deploy t2
+        on t1.form_id = t2.form_id
         where t2.deploy_id = #{deployId}
     </select>
     <delete id="deleteByDeployId">

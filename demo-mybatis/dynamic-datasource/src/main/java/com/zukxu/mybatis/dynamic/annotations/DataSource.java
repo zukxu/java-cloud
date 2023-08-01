@@ -12,7 +12,7 @@ import java.lang.annotation.*;
  * @since 2022/7/5 17:42:43
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.METHOD, ElementType.TYPE, ElementType.PARAMETER })
+@Target({ElementType.METHOD, ElementType.TYPE, ElementType.PARAMETER})
 @Documented
 public @interface DataSource {
 

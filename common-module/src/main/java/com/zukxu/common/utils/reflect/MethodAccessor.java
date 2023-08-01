@@ -103,7 +103,8 @@ public abstract class MethodAccessor {
                              java.lang.reflect.Type[][] genericParameterTypes,
                              java.lang.reflect.Type[] genericReturnTypes,
                              Map<String, Integer> methodNameIndexMap,
-                             String[] fieldNames) {
+                             String[] fieldNames
+                            ) {
         this.className = className;
         this.methodNames = methodNames;
         this.parameterTypes = parameterTypes;
@@ -115,17 +116,6 @@ public abstract class MethodAccessor {
     }
 
     /**
-     * 执行对象相应的方法获取返回值.
-     *
-     * @param obj         对象
-     * @param methodIndex 方法索引
-     * @param args        方法参数列表
-     *
-     * @return Object 具体返回类型因具体被执行的方法而异
-     */
-    public abstract Object invoke(Object obj, int methodIndex, Object... args);
-
-    /**
      * 创建指定类的MethodAccessor.
      *
      * <pre>
@@ -135,25 +125,23 @@ public abstract class MethodAccessor {
      * </pre>
      *
      * @param type 不能是Object.class、基本数据类型及void.class
-     *
      * @return type对应的MethodAccessor子类
      */
     public static MethodAccessor get(Class<?> type) {
 
-        if(type == null) {
+        if (type == null) {
             throw new IllegalArgumentException("The type must not null");
         }
 
         boolean isInterface = type.isInterface();
-        if(!isInterface && type.getSuperclass() == null) {
-            throw new IllegalArgumentException("The type must not be the Object class, " +
-                                               "an interface, a primitive type, or void.");
+        if (!isInterface && type.getSuperclass() == null) {
+            throw new IllegalArgumentException("The type must not be the Object class, " + "an interface, a primitive type, or void.");
         }
 
         List<Method> methods = new ArrayList<>();
-        if(!isInterface) {
+        if (!isInterface) {
             Class<?> nextClass = type;
-            while(nextClass != Object.class) {
+            while (nextClass != Object.class) {
                 addNonPrivateMethodsToList(nextClass, methods);
                 nextClass = nextClass.getSuperclass();
             }
@@ -172,8 +160,7 @@ public abstract class MethodAccessor {
         Map<String, Integer> methodNameIndexMap = new HashMap<>(ParameterUtils.calcMapCapacity(size + halfPlusOne));
         List<String> fieldNameList = new ArrayList<>(halfPlusOne);
 
-        assignValues(methods, className, methodNames, parameterTypes, returnTypes, genericParameterTypes,
-                     genericReturnTypes, methodNameIndexMap, fieldNameList);
+        assignValues(methods, className, methodNames, parameterTypes, returnTypes, genericParameterTypes, genericReturnTypes, methodNameIndexMap, fieldNameList);
 
         //转成构造函数需要的字符串数组
         String[] fieldNames = fieldNameList.toArray(new String[0]);
@@ -184,18 +171,18 @@ public abstract class MethodAccessor {
         String accessorClassName = className + superSimpleName;
 
         String jdkPackagePrefix = "java.";
-        if(accessorClassName.startsWith(jdkPackagePrefix)) {
+        if (accessorClassName.startsWith(jdkPackagePrefix)) {
             accessorClassName = "reflectasm." + accessorClassName;
         }
 
         Class<?> accessorClass;
         AccessorClassLoader loader = AccessorClassLoader.get(type);
-        synchronized(loader) {
+        synchronized (loader) {
 
             //如果从类路径上加载成功，则直接构造新实例返回
             //如果从类路径上加载不到，则动态生成字节码加载再构造新实现返回
             accessorClass = loader.loadAccessorClass(accessorClassName);
-            if(accessorClass == null) {
+            if (accessorClass == null) {
 
                 String accessorClassNameInternal = accessorClassName.replace('.', '/');
                 String classNameInternal = className.replace('.', '/');
@@ -210,8 +197,7 @@ public abstract class MethodAccessor {
 
                 //==============================================================================================
 
-                overrideInvokeMethod(isInterface, methods, methodNames, parameterTypes, returnTypes,
-                                     classNameInternal, cw);
+                overrideInvokeMethod(isInterface, methods, methodNames, parameterTypes, returnTypes, classNameInternal, cw);
 
                 //==============================================================================================
 
@@ -237,323 +223,7 @@ public abstract class MethodAccessor {
             }
         }
 
-        return newInstance(accessorClass, className, methodNames, parameterTypes, returnTypes,
-                           genericParameterTypes, genericReturnTypes, methodNameIndexMap, fieldNames);
-    }
-
-    /**
-     * 执行指定方法名、指定参数类型及参数值列表对应的方法.
-     *
-     * @param obj        方法的源对象
-     * @param methodName 方法名
-     * @param paramTypes 参数类型数组
-     * @param args       参数值列表
-     *
-     * @return Object 方法被执行所得的返回对象
-     */
-    public Object invoke(Object obj, String methodName, Class[] paramTypes, Object... args) {
-        return invoke(obj, getIndex(methodName, paramTypes), args);
-    }
-
-    /**
-     * 执行指定方法名及参数值列表对应的第一个方法.
-     *
-     * @param obj        方法的源对象
-     * @param methodName 方法名
-     * @param args       参数值列表
-     *
-     * @return Object 方法被执行所得的返回对象
-     */
-    public Object invoke(Object obj, String methodName, Object... args) {
-        return invoke(obj, getIndex(methodName, args == null ? 0 : args.length), args);
-    }
-
-    /**
-     * 获取指定方法名的第一个方法的索引.
-     *
-     * @param methodName 方法名
-     *
-     * @return int {@link #fieldNames}中的方法所对应的索引
-     */
-    public int getIndex(String methodName) {
-        for(int i = 0; i < methodNames.length; i++) {
-            if(methodNames[i].equals(methodName)) {
-                return i;
-            }
-        }
-        throw new IllegalArgumentException("Unable to find non-private method: " + methodName);
-    }
-
-    /**
-     * 获取指定方法名、指定参数类型及参数值列表对应的第一个方法的索引.
-     *
-     * @param methodName 方法名
-     * @param paramTypes 参数类型列表
-     *
-     * @return int {@link #fieldNames}中的方法所对应的索引
-     */
-    public int getIndex(String methodName, Class... paramTypes) {
-        for(int i = 0; i < methodNames.length; i++) {
-            if(methodNames[i].equals(methodName) && Arrays.equals(paramTypes, parameterTypes[i])) {
-                return i;
-            }
-        }
-        throw new IllegalArgumentException("Unable to find non-private method: "
-                                           + methodName + " " + Arrays.toString(paramTypes));
-    }
-
-    /**
-     * 获取指定方法名、指定参数个数的第一个方法的索引.
-     *
-     * @param methodName  方法名
-     * @param paramsCount 参数个数
-     *
-     * @return int {@link #fieldNames}中的方法所对应的索引
-     */
-    public int getIndex(String methodName, int paramsCount) {
-        for(int i = 0; i < methodNames.length; i++) {
-            if(methodNames[i].equals(methodName) && parameterTypes[i].length == paramsCount) {
-                return i;
-            }
-        }
-        throw new IllegalArgumentException("Unable to find non-private method: "
-                                           + methodName + " with " + paramsCount + " params.");
-    }
-
-    /**
-     * 获取方法名
-     *
-     * @param index 索引
-     *
-     * @return 方法名
-     */
-    public String getMethodName(int index) {
-        return methodNames[index];
-    }
-
-    /**
-     * 获取方法参数类型
-     *
-     * @param pIndex 一维索引
-     * @param sIndex 二维索引
-     *
-     * @return 方法参数类型
-     */
-    public Class<?> getParameterType(int pIndex, int sIndex) {
-        return parameterTypes[pIndex][sIndex];
-    }
-
-    /**
-     * 获取方法参数类型数组
-     *
-     * @param pIndex 一维索引
-     *
-     * @return 方法参数类型数组
-     */
-    public Class[] getParameterTypes(int pIndex) {
-        return parameterTypes[pIndex].clone();
-    }
-
-    /**
-     * 获取方法返回值类型
-     *
-     * @param index 索引
-     *
-     * @return 方法返回值类型
-     */
-    public Class<?> getReturnTypes(int index) {
-        return returnTypes[index];
-    }
-
-    /**
-     * 获取方法泛型参数类型
-     *
-     * @param pIndex 一维索引
-     * @param sIndex 二维索引
-     *
-     * @return 方法泛型参数类型
-     */
-    public java.lang.reflect.Type getGenericParameterType(int pIndex, int sIndex) {
-        return genericParameterTypes[pIndex][sIndex];
-    }
-
-    /**
-     * 获取方法泛型参数类型数组
-     *
-     * @param pIndex 一维索引
-     *
-     * @return 方法泛型参数类型数组
-     */
-    public java.lang.reflect.Type[] getGenericParameterTypes(int pIndex) {
-        return genericParameterTypes[pIndex].clone();
-    }
-
-    /**
-     * 获取方法泛型返回值类型
-     *
-     * @param index 索引
-     *
-     * @return 方法泛型返回值类型
-     */
-    public java.lang.reflect.Type getGenericReturnType(int index) {
-        return genericReturnTypes[index];
-    }
-
-    public String[] getMethodNames() {
-        return methodNames.clone();
-        //String[] dest = new String[methodNames.length];
-        //System.arraycopy(methodNames, 0, dest, 0, methodNames.length);
-        //return dest;
-        //return methodNames;
-        //return Arrays.copyOf(methodNames, methodNames.length);
-    }
-
-    public Class[][] getParameterTypes() {
-        return parameterTypes.clone();
-    }
-
-    public Class[] getReturnTypes() {
-        return returnTypes.clone();
-    }
-
-    public java.lang.reflect.Type[][] getGenericParameterTypes() {
-        return genericParameterTypes.clone();
-    }
-
-    public java.lang.reflect.Type[] getGenericReturnTypes() {
-        return genericReturnTypes.clone();
-    }
-
-    public Map<String, Integer> getMethodNameIndexMap() {
-        return methodNameIndexMap;
-    }
-
-    public int getFieldNamesLength() {
-        return fieldNames.length;
-    }
-
-    public String[] getFieldNames() {
-        return fieldNames.clone();
-    }
-
-    /**
-     * 从对象obj的变量fieldName取值
-     *
-     * @param obj       变量的源对象
-     * @param fieldName 变量名
-     *
-     * @return 变量值
-     */
-    public Object getFieldValue(Object obj, String fieldName) {
-        Integer getterIndex = getterIndex(fieldName);
-        if(getterIndex == null) {
-            return null;
-        }
-        try {
-            return invoke(obj, getterIndex);
-        } catch(Exception e) {
-            throw new IllegalArgumentException(
-                    String.format("通过方法(%s.%s())获取值失败",
-                                  obj.getClass().getName(),
-                                  methodNames[getterIndex]),
-                    e);
-        }
-    }
-
-    /**
-     * 给对象obj的变量fieldName赋值.
-     *
-     * @param obj       变量的目标对象
-     * @param fieldName 变量名
-     * @param arg       变量setter方法的入参
-     */
-    public void setFieldValue(Object obj, String fieldName, Object arg) {
-        Integer setterIndex = setterIndex(fieldName);
-        if(setterIndex == null) {
-            return;
-        }
-        try {
-            invoke(obj, setterIndex, arg);
-        } catch(Exception e) {
-            throw new IllegalArgumentException(
-                    String.format("方法(%s.%s(%s))的入参(%s)不匹配",
-                                  obj.getClass().getName(),
-                                  methodNames[setterIndex],
-                                  StringUtils.arrayToDelimitedString(parameterTypes[setterIndex], ","),
-                                  arg.getClass().getName()),
-                    e);
-        }
-    }
-
-    /**
-     * 获取对象obj的getter方法的索引.
-     * <p>
-     * 返回null表示fieldName无匹配的getter方法
-     * </p>
-     *
-     * @param fieldName getter方法对应的变量名（这里视所有getter方法都对应一个变量）
-     *
-     * @return getter方法的索引
-     */
-    public Integer getterIndex(String fieldName) {
-        return getPojoMethodIndex(fieldName, true);
-    }
-
-    /**
-     * 获取对象obj的setter方法的索引.
-     * <p>
-     * 返回null表示fieldName无匹配的setter方法
-     * </p>
-     *
-     * @param fieldName setter方法对应的变量名（这里视所有setter方法都对应一个变量）
-     *
-     * @return setter方法的索引
-     */
-    public Integer setterIndex(String fieldName) {
-        return getPojoMethodIndex(fieldName, false);
-    }
-
-    /**
-     * 通过method.toString字符串去掉类名前面一段得到的部分获取方法索引.
-     *
-     * <pre>
-     * 如public void com.company.project.business.model.po.Contact.setContactId(java.lang.String)
-     * 去掉 "public void " 得到com.company.project.business.model.po.Contact.setContactId(java.lang.String)
-     * </pre>
-     *
-     * @param methodStr method.toString().subString(method.toString().indexOf(clazz.getName()))对应的字符串
-     *
-     * @return 方法对应的索引，null表示无匹配的方法
-     */
-    public Integer getMethodIndex(String methodStr) {
-        return methodNameIndexMap.get(methodStr);
-    }
-
-    /**
-     * 通过方法名和入参列表获取方法对应的索引.
-     *
-     * @param methodName 方法名
-     * @param args       方法参数列表
-     *
-     * @return 方法对应的索引，null表示无匹配的方法
-     */
-    public Integer getMethodIndex(String methodName, Object... args) {
-        c:
-        for(int i = 0; i < methodNames.length; i++) {
-            if(methodNames[i].equals(methodName)) {
-                Class[] paramTypes = parameterTypes[i];
-                if(paramTypes.length != args.length) {
-                    continue;
-                }
-                for(int j = 0; j < paramTypes.length; j++) {
-                    if(!Reflector.isInstance(paramTypes[j], args[j])) {
-                        continue c;//不匹配，则跳到下一个外层循环
-                    }
-                }
-                return i;
-            }
-        }
-        return null;
+        return newInstance(accessorClass, className, methodNames, parameterTypes, returnTypes, genericParameterTypes, genericReturnTypes, methodNameIndexMap, fieldNames);
     }
 
     /**
@@ -561,10 +231,10 @@ public abstract class MethodAccessor {
      */
     private static void addNonPrivateMethodsToList(Class<?> type, List<Method> methods) {
         Method[] declaredMethods = type.getDeclaredMethods();
-        for(int i = 0, n = declaredMethods.length; i < n; i++) {
+        for (int i = 0, n = declaredMethods.length; i < n; i++) {
             Method method = declaredMethods[i];
             int modifiers = method.getModifiers();
-            if(Modifier.isPrivate(modifiers)) {
+            if (Modifier.isPrivate(modifiers)) {
                 continue;
             }
             methods.add(method);
@@ -576,7 +246,7 @@ public abstract class MethodAccessor {
      */
     private static void recursiveAddInterfaceMethodsToList(Class<?> interfaceType, List<Method> methods) {
         addNonPrivateMethodsToList(interfaceType, methods);
-        for(Class<?> nextInterface : interfaceType.getInterfaces()) {
+        for (Class<?> nextInterface : interfaceType.getInterfaces()) {
             recursiveAddInterfaceMethodsToList(nextInterface, methods);
         }
     }
@@ -594,14 +264,18 @@ public abstract class MethodAccessor {
      * @param methodNameIndexMap    待赋值的方法名索引Map
      * @param fieldNameList         待赋值的成员变量名List
      */
-    private static void assignValues(List<Method> methods, String className, String[] methodNames,
-                                     Class[][] parameterTypes, Class[] returnTypes,
+    private static void assignValues(List<Method> methods,
+                                     String className,
+                                     String[] methodNames,
+                                     Class[][] parameterTypes,
+                                     Class[] returnTypes,
                                      java.lang.reflect.Type[][] genericParameterTypes,
                                      java.lang.reflect.Type[] genericReturnTypes,
                                      Map<String, Integer> methodNameIndexMap,
-                                     List<String> fieldNameList) {
+                                     List<String> fieldNameList
+                                    ) {
 
-        for(int i = 0; i < methods.size(); i++) {
+        for (int i = 0; i < methods.size(); i++) {
             Method method = methods.get(i);
             methodNames[i] = method.getName();
             parameterTypes[i] = method.getParameterTypes();
@@ -615,13 +289,11 @@ public abstract class MethodAccessor {
             //特殊处理getter和setter方法的key，然后存入methodNameIndexMap中
             //-----------------------------------------------------------------
             //methodNames中没有Object.class中的final方法(如getClass)，所以这里get开头的不会有getClass
-            if(methodName.length() > 3) {
-                if(methodName.startsWith(Reflector.GETTER_PREFIX)
-                   && method.getParameterCount() == 0) {
+            if (methodName.length() > 3) {
+                if (methodName.startsWith(Reflector.GETTER_PREFIX) && method.getParameterCount() == 0) {
                     fieldNameList.add(StringUtils.uncapitalize(methodName.substring(3)));
                     methodNameIndexMap.put(className + Reflector.SEPARATOR + methodName, i);
-                } else if(methodName.startsWith(Reflector.SETTER_PREFIX)
-                          && method.getParameterCount() == 1) {
+                } else if (methodName.startsWith(Reflector.SETTER_PREFIX) && method.getParameterCount() == 1) {
                     //如public void com.company.project.business.model.po.Contact.setContactId(java.lang.String)
                     //去掉(String contactId)存入com.company.project.business.model.po.Contact.setContactId为key
                     //且如果有多个匹配com.company.project.business.model.po.Contact.setContactId时只存第一个
@@ -638,26 +310,6 @@ public abstract class MethodAccessor {
             methodNameIndexMap.put(method.toString().replaceFirst(".+ ", ""), i);
         }
     }
-
-    ///**
-    // * 写无参的构造函数.
-    // *
-    // * @param superName 字节码父类名
-    // * @param cw        类编辑器
-    // */
-    //private static void insertNoArgsConstructor(String superName, ClassWriter cw) {
-    //
-    //    //写无参的构造函数
-    //    MethodVisitor mv = cw.visitMethod(ACC_PUBLIC, "<init>", "()V", null, null);
-    //    mv.visitCode();
-    //    mv.visitVarInsn(ALOAD, 0);
-    //    //执行父类的init初始化
-    //    mv.visitMethodInsn(INVOKESPECIAL, superName, "<init>", "()V", false);
-    //    //从当前方法返回void
-    //    mv.visitInsn(RETURN);
-    //    mv.visitMaxs(0, 0);
-    //    mv.visitEnd();
-    //}
 
     /**
      * 写有参构造函数.
@@ -708,17 +360,20 @@ public abstract class MethodAccessor {
      * @param classNameInternal 字节码类名
      * @param cw                类编辑器
      */
-    private static void overrideInvokeMethod(boolean isInterface, List<Method> methods,
-                                             String[] methodNames, Class[][] parameterTypes,
-                                             Class[] returnTypes, String classNameInternal,
-                                             ClassWriter cw) {
+    private static void overrideInvokeMethod(boolean isInterface,
+                                             List<Method> methods,
+                                             String[] methodNames,
+                                             Class[][] parameterTypes,
+                                             Class[] returnTypes,
+                                             String classNameInternal,
+                                             ClassWriter cw
+                                            ) {
 
-        MethodVisitor invokeMV = cw.visitMethod(ACC_PUBLIC + ACC_VARARGS, "invoke",
-                                                "(Ljava/lang/Object;I[Ljava/lang/Object;)Ljava/lang/Object;", null, null);
+        MethodVisitor invokeMV = cw.visitMethod(ACC_PUBLIC + ACC_VARARGS, "invoke", "(Ljava/lang/Object;I[Ljava/lang/Object;)Ljava/lang/Object;", null, null);
         invokeMV.visitCode();
 
         //写被传入参数type的其他方法
-        if(!methods.isEmpty()) {
+        if (!methods.isEmpty()) {
 
             invokeMV.visitVarInsn(ALOAD, 1);
             invokeMV.visitTypeInsn(CHECKCAST, classNameInternal);
@@ -729,7 +384,7 @@ public abstract class MethodAccessor {
 
             //写字节码tableswitch部分
             Label[] labels = new Label[size];
-            for(int i = 0; i < size; i++) {
+            for (int i = 0; i < size; i++) {
                 labels[i] = new Label();
             }
             Label defaultLabel = new Label();
@@ -747,11 +402,11 @@ public abstract class MethodAccessor {
             StringBuilder buffer = new StringBuilder(128);
 
             //写case部分
-            for(int i = 0; i < size; i++) {
+            for (int i = 0; i < size; i++) {
                 Method method = methods.get(i);
                 invokeMV.visitLabel(labels[i]);
-                if(i == 0) {
-                    invokeMV.visitFrame(F_APPEND, 1, new Object[]{ classNameInternal }, 0, null);
+                if (i == 0) {
+                    invokeMV.visitFrame(F_APPEND, 1, new Object[]{classNameInternal}, 0, null);
                 } else {
                     invokeMV.visitFrame(F_SAME, 0, null, 0, null);
                 }
@@ -762,12 +417,12 @@ public abstract class MethodAccessor {
 
                 buffer.setLength(0);
                 buffer.append('(');
-                for(int paramIndex = 0; paramIndex < paramTypes.length; paramIndex++) {
+                for (int paramIndex = 0; paramIndex < paramTypes.length; paramIndex++) {
                     invokeMV.visitVarInsn(ALOAD, 3);
                     invokeMV.visitIntInsn(BIPUSH, paramIndex);
                     invokeMV.visitInsn(AALOAD);
                     Type paramType = Type.getType(paramTypes[paramIndex]);
-                    switch(paramType.getSort()) {
+                    switch (paramType.getSort()) {
                         case Type.BOOLEAN:
                             invokeMV.visitTypeInsn(CHECKCAST, booleanType);
                             invokeMV.visitMethodInsn(INVOKEVIRTUAL, booleanType, "booleanValue", "()Z", false);
@@ -816,10 +471,10 @@ public abstract class MethodAccessor {
                 buffer.append(Type.getDescriptor(returnType));
 
                 int invoke;
-                if(isInterface) {
+                if (isInterface) {
                     invoke = INVOKEINTERFACE;
                 } else {
-                    if(Modifier.isStatic(method.getModifiers())) {
+                    if (Modifier.isStatic(method.getModifiers())) {
                         invoke = INVOKESTATIC;
                     } else {
                         invoke = INVOKEVIRTUAL;
@@ -827,7 +482,7 @@ public abstract class MethodAccessor {
                 }
                 invokeMV.visitMethodInsn(invoke, classNameInternal, methodNames[i], buffer.toString(), false);
 
-                switch(Type.getType(returnType).getSort()) {
+                switch (Type.getType(returnType).getSort()) {
                     case Type.VOID:
                         invokeMV.visitInsn(ACONST_NULL);
                         break;
@@ -897,7 +552,6 @@ public abstract class MethodAccessor {
      * @param genericReturnTypes    已赋值的方法对象的参数化返回值类型数组
      * @param methodNameIndexMap    已赋值的方法名索引Map
      * @param fieldNames            已赋值的成员变量名数组
-     *
      * @return MethodAccessor子类实例
      */
     private static MethodAccessor newInstance(Class<?> accessorClass,
@@ -908,33 +562,355 @@ public abstract class MethodAccessor {
                                               java.lang.reflect.Type[][] genericParameterTypes,
                                               java.lang.reflect.Type[] genericReturnTypes,
                                               Map<String, Integer> methodNameIndexMap,
-                                              String[] fieldNames) {
+                                              String[] fieldNames
+                                             ) {
         try {
 
             //获取有参构造
-            Constructor<?> parametricConstructor = accessorClass.getConstructor(
-                    String.class,
-                    String[].class,
-                    Class[][].class,
-                    Class[].class,
-                    java.lang.reflect.Type[][].class,
-                    java.lang.reflect.Type[].class,
-                    Map.class,
-                    String[].class);
+            Constructor<?> parametricConstructor = accessorClass.getConstructor(String.class,
+                                                                                String[].class,
+                                                                                Class[][].class,
+                                                                                Class[].class,
+                                                                                java.lang.reflect.Type[][].class,
+                                                                                java.lang.reflect.Type[].class,
+                                                                                Map.class,
+                                                                                String[].class
+                                                                               );
 
             //执行有参构造得到MethodAccessor子类，然后使用MethodAccessor接收
-            return (MethodAccessor) parametricConstructor.newInstance(
-                    className,
-                    methodNames,
-                    parameterTypes,
-                    returnTypes,
-                    genericParameterTypes,
-                    genericReturnTypes,
-                    methodNameIndexMap,
-                    fieldNames);
-        } catch(Throwable t) {
+            return (MethodAccessor) parametricConstructor.newInstance(className,
+                                                                      methodNames,
+                                                                      parameterTypes,
+                                                                      returnTypes,
+                                                                      genericParameterTypes,
+                                                                      genericReturnTypes,
+                                                                      methodNameIndexMap,
+                                                                      fieldNames
+                                                                     );
+        } catch (Throwable t) {
             throw new RuntimeException("Error constructing method accessor class: " + accessorClass.getName(), t);
         }
+    }
+
+    /**
+     * 执行对象相应的方法获取返回值.
+     *
+     * @param obj         对象
+     * @param methodIndex 方法索引
+     * @param args        方法参数列表
+     * @return Object 具体返回类型因具体被执行的方法而异
+     */
+    public abstract Object invoke(Object obj, int methodIndex, Object... args);
+
+    /**
+     * 执行指定方法名、指定参数类型及参数值列表对应的方法.
+     *
+     * @param obj        方法的源对象
+     * @param methodName 方法名
+     * @param paramTypes 参数类型数组
+     * @param args       参数值列表
+     * @return Object 方法被执行所得的返回对象
+     */
+    public Object invoke(Object obj, String methodName, Class[] paramTypes, Object... args) {
+        return invoke(obj, getIndex(methodName, paramTypes), args);
+    }
+
+    /**
+     * 执行指定方法名及参数值列表对应的第一个方法.
+     *
+     * @param obj        方法的源对象
+     * @param methodName 方法名
+     * @param args       参数值列表
+     * @return Object 方法被执行所得的返回对象
+     */
+    public Object invoke(Object obj, String methodName, Object... args) {
+        return invoke(obj, getIndex(methodName, args == null ? 0 : args.length), args);
+    }
+
+    /**
+     * 获取指定方法名的第一个方法的索引.
+     *
+     * @param methodName 方法名
+     * @return int {@link #fieldNames}中的方法所对应的索引
+     */
+    public int getIndex(String methodName) {
+        for (int i = 0; i < methodNames.length; i++) {
+            if (methodNames[i].equals(methodName)) {
+                return i;
+            }
+        }
+        throw new IllegalArgumentException("Unable to find non-private method: " + methodName);
+    }
+
+    /**
+     * 获取指定方法名、指定参数类型及参数值列表对应的第一个方法的索引.
+     *
+     * @param methodName 方法名
+     * @param paramTypes 参数类型列表
+     * @return int {@link #fieldNames}中的方法所对应的索引
+     */
+    public int getIndex(String methodName, Class... paramTypes) {
+        for (int i = 0; i < methodNames.length; i++) {
+            if (methodNames[i].equals(methodName) && Arrays.equals(paramTypes, parameterTypes[i])) {
+                return i;
+            }
+        }
+        throw new IllegalArgumentException("Unable to find non-private method: " + methodName + " " + Arrays.toString(paramTypes));
+    }
+
+    /**
+     * 获取指定方法名、指定参数个数的第一个方法的索引.
+     *
+     * @param methodName  方法名
+     * @param paramsCount 参数个数
+     * @return int {@link #fieldNames}中的方法所对应的索引
+     */
+    public int getIndex(String methodName, int paramsCount) {
+        for (int i = 0; i < methodNames.length; i++) {
+            if (methodNames[i].equals(methodName) && parameterTypes[i].length == paramsCount) {
+                return i;
+            }
+        }
+        throw new IllegalArgumentException("Unable to find non-private method: " + methodName + " with " + paramsCount + " params.");
+    }
+
+    /**
+     * 获取方法名
+     *
+     * @param index 索引
+     * @return 方法名
+     */
+    public String getMethodName(int index) {
+        return methodNames[index];
+    }
+
+    /**
+     * 获取方法参数类型
+     *
+     * @param pIndex 一维索引
+     * @param sIndex 二维索引
+     * @return 方法参数类型
+     */
+    public Class<?> getParameterType(int pIndex, int sIndex) {
+        return parameterTypes[pIndex][sIndex];
+    }
+
+    /**
+     * 获取方法参数类型数组
+     *
+     * @param pIndex 一维索引
+     * @return 方法参数类型数组
+     */
+    public Class[] getParameterTypes(int pIndex) {
+        return parameterTypes[pIndex].clone();
+    }
+
+    /**
+     * 获取方法返回值类型
+     *
+     * @param index 索引
+     * @return 方法返回值类型
+     */
+    public Class<?> getReturnTypes(int index) {
+        return returnTypes[index];
+    }
+
+    /**
+     * 获取方法泛型参数类型
+     *
+     * @param pIndex 一维索引
+     * @param sIndex 二维索引
+     * @return 方法泛型参数类型
+     */
+    public java.lang.reflect.Type getGenericParameterType(int pIndex, int sIndex) {
+        return genericParameterTypes[pIndex][sIndex];
+    }
+
+    /**
+     * 获取方法泛型参数类型数组
+     *
+     * @param pIndex 一维索引
+     * @return 方法泛型参数类型数组
+     */
+    public java.lang.reflect.Type[] getGenericParameterTypes(int pIndex) {
+        return genericParameterTypes[pIndex].clone();
+    }
+
+    /**
+     * 获取方法泛型返回值类型
+     *
+     * @param index 索引
+     * @return 方法泛型返回值类型
+     */
+    public java.lang.reflect.Type getGenericReturnType(int index) {
+        return genericReturnTypes[index];
+    }
+
+    public String[] getMethodNames() {
+        return methodNames.clone();
+        //String[] dest = new String[methodNames.length];
+        //System.arraycopy(methodNames, 0, dest, 0, methodNames.length);
+        //return dest;
+        //return methodNames;
+        //return Arrays.copyOf(methodNames, methodNames.length);
+    }
+
+    public Class[][] getParameterTypes() {
+        return parameterTypes.clone();
+    }
+
+    public Class[] getReturnTypes() {
+        return returnTypes.clone();
+    }
+
+    public java.lang.reflect.Type[][] getGenericParameterTypes() {
+        return genericParameterTypes.clone();
+    }
+
+    public java.lang.reflect.Type[] getGenericReturnTypes() {
+        return genericReturnTypes.clone();
+    }
+
+    public Map<String, Integer> getMethodNameIndexMap() {
+        return methodNameIndexMap;
+    }
+
+    public int getFieldNamesLength() {
+        return fieldNames.length;
+    }
+
+    public String[] getFieldNames() {
+        return fieldNames.clone();
+    }
+
+    /**
+     * 从对象obj的变量fieldName取值
+     *
+     * @param obj       变量的源对象
+     * @param fieldName 变量名
+     * @return 变量值
+     */
+    public Object getFieldValue(Object obj, String fieldName) {
+        Integer getterIndex = getterIndex(fieldName);
+        if (getterIndex == null) {
+            return null;
+        }
+        try {
+            return invoke(obj, getterIndex);
+        } catch (Exception e) {
+            throw new IllegalArgumentException(String.format("通过方法(%s.%s())获取值失败", obj.getClass().getName(), methodNames[getterIndex]), e);
+        }
+    }
+
+    /**
+     * 给对象obj的变量fieldName赋值.
+     *
+     * @param obj       变量的目标对象
+     * @param fieldName 变量名
+     * @param arg       变量setter方法的入参
+     */
+    public void setFieldValue(Object obj, String fieldName, Object arg) {
+        Integer setterIndex = setterIndex(fieldName);
+        if (setterIndex == null) {
+            return;
+        }
+        try {
+            invoke(obj, setterIndex, arg);
+        } catch (Exception e) {
+            throw new IllegalArgumentException(String.format("方法(%s.%s(%s))的入参(%s)不匹配",
+                                                             obj.getClass().getName(),
+                                                             methodNames[setterIndex],
+                                                             StringUtils.arrayToDelimitedString(parameterTypes[setterIndex], ","),
+                                                             arg.getClass().getName()
+                                                            ), e);
+        }
+    }
+
+    /**
+     * 获取对象obj的getter方法的索引.
+     * <p>
+     * 返回null表示fieldName无匹配的getter方法
+     * </p>
+     *
+     * @param fieldName getter方法对应的变量名（这里视所有getter方法都对应一个变量）
+     * @return getter方法的索引
+     */
+    public Integer getterIndex(String fieldName) {
+        return getPojoMethodIndex(fieldName, true);
+    }
+
+    ///**
+    // * 写无参的构造函数.
+    // *
+    // * @param superName 字节码父类名
+    // * @param cw        类编辑器
+    // */
+    //private static void insertNoArgsConstructor(String superName, ClassWriter cw) {
+    //
+    //    //写无参的构造函数
+    //    MethodVisitor mv = cw.visitMethod(ACC_PUBLIC, "<init>", "()V", null, null);
+    //    mv.visitCode();
+    //    mv.visitVarInsn(ALOAD, 0);
+    //    //执行父类的init初始化
+    //    mv.visitMethodInsn(INVOKESPECIAL, superName, "<init>", "()V", false);
+    //    //从当前方法返回void
+    //    mv.visitInsn(RETURN);
+    //    mv.visitMaxs(0, 0);
+    //    mv.visitEnd();
+    //}
+
+    /**
+     * 获取对象obj的setter方法的索引.
+     * <p>
+     * 返回null表示fieldName无匹配的setter方法
+     * </p>
+     *
+     * @param fieldName setter方法对应的变量名（这里视所有setter方法都对应一个变量）
+     * @return setter方法的索引
+     */
+    public Integer setterIndex(String fieldName) {
+        return getPojoMethodIndex(fieldName, false);
+    }
+
+    /**
+     * 通过method.toString字符串去掉类名前面一段得到的部分获取方法索引.
+     *
+     * <pre>
+     * 如public void com.company.project.business.model.po.Contact.setContactId(java.lang.String)
+     * 去掉 "public void " 得到com.company.project.business.model.po.Contact.setContactId(java.lang.String)
+     * </pre>
+     *
+     * @param methodStr method.toString().subString(method.toString().indexOf(clazz.getName()))对应的字符串
+     * @return 方法对应的索引，null表示无匹配的方法
+     */
+    public Integer getMethodIndex(String methodStr) {
+        return methodNameIndexMap.get(methodStr);
+    }
+
+    /**
+     * 通过方法名和入参列表获取方法对应的索引.
+     *
+     * @param methodName 方法名
+     * @param args       方法参数列表
+     * @return 方法对应的索引，null表示无匹配的方法
+     */
+    public Integer getMethodIndex(String methodName, Object... args) {
+        c:
+        for (int i = 0; i < methodNames.length; i++) {
+            if (methodNames[i].equals(methodName)) {
+                Class[] paramTypes = parameterTypes[i];
+                if (paramTypes.length != args.length) {
+                    continue;
+                }
+                for (int j = 0; j < paramTypes.length; j++) {
+                    if (!Reflector.isInstance(paramTypes[j], args[j])) {
+                        continue c;//不匹配，则跳到下一个外层循环
+                    }
+                }
+                return i;
+            }
+        }
+        return null;
     }
 
     /**
@@ -942,18 +918,16 @@ public abstract class MethodAccessor {
      *
      * @param fieldName 变量名
      * @param isGetter  是否Getter方法
-     *
      * @return getter或setter方法的索引
      */
     private Integer getPojoMethodIndex(String fieldName, boolean isGetter) {
-        if(ParameterUtils.isEmpty(fieldName)) {
+        if (ParameterUtils.isEmpty(fieldName)) {
             return null;
         }
-        String prefix = className + Reflector.SEPARATOR
-                        + (isGetter ? Reflector.GETTER_PREFIX : Reflector.SETTER_PREFIX);
+        String prefix = className + Reflector.SEPARATOR + (isGetter ? Reflector.GETTER_PREFIX : Reflector.SETTER_PREFIX);
         Integer index = methodNameIndexMap.get(prefix + StringUtils.capitalize(fieldName));
         //首字母小写，第二字母大写的成员变量（奇行种）
-        if(index == null && Reflector.isAlienName(fieldName)) {
+        if (index == null && Reflector.isAlienName(fieldName)) {
             return methodNameIndexMap.get(prefix + fieldName);
         }
         return index;
