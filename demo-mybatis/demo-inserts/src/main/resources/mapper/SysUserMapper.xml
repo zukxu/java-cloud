@@ -112,7 +112,7 @@
 
     </select>
 
-    <select id="streamByExample" resultMap="BaseResultMap">
+    <select id="streamByExample" fetchSize="-2147483648" resultMap="BaseResultMap">
         select id,
                dept_id,
                login_name,

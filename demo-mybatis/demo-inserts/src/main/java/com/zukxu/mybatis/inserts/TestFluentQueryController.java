@@ -39,12 +39,18 @@ public class TestFluentQueryController {
         insertsSysUserService.export(new SysUser());
     }
 
-    @GetMapping("streamDownload")
+    /**
+     * 流式下载
+     */
+    @GetMapping("/streamDownload")
     public void streamDownload(HttpServletResponse response) throws IOException {
         insertsSysUserService.streamDownload(response);
     }
 
-    @GetMapping("traditionDownload")
+    /**
+     * 传统下载
+     */
+    @GetMapping("/traditionDownload")
     public void traditionDownload(HttpServletResponse response) throws IOException {
         insertsSysUserService.traditionDownload(response);
     }
