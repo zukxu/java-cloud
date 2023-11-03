@@ -1,8 +1,0 @@
-server:
-  port: 8090
-  servlet:
-    session:
-      timeout: 1800
-spring:
-  thymeleaf:
-    cache: false

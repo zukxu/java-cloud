@@ -1,7 +1,0 @@
-server:
-  port: 29898
-thread-pool:
-  corePoolSize: 10
-  maxPoolSize: 20
-  queueCapacity: 10
-  keepAliveSeconds: 10
