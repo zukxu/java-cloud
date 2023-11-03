@@ -1,0 +1,5 @@
+server:
+  port: 8081
+#  mybatis-flex配置
+mybatis-flex:
+  mapper-locations: classpath:mapper/**/*.xml
