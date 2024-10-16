@@ -1,0 +1,7 @@
+CpuInfo{CPU核心数=12, CPU总的使用率=12016.0, CPU系统使用率=0.91, CPU用户使用率=0.78, CPU当前等待率=0.0, CPU当前空闲率=98.18, CPU利用率=1.82, CPU型号信息='Intel(R) Core(TM) i5-10400F CPU @ 2.90GHz
+ 1 physical CPU package(s)
+ 6 physical CPU core(s)
+ 12 logical CPU(s)
+Identifier: Intel64 Family 6 Model 165 Stepping 3
+ProcessorID: BFEBFBFF000A0653
+Microarchitecture: Comet Lake'}
