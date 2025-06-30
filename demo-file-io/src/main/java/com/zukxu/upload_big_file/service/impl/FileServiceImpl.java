@@ -11,6 +11,7 @@ import com.zukxu.upload_big_file.util.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -122,6 +123,13 @@ public class FileServiceImpl implements FileService {
             }
             return FileUpload.builder().code(FileCheckMd5Status.FILE_UPLOAD_SOME.getValue()).missChunks(missChunkList).build();
         }
+    }
+
+    @Scheduled(fixedRate = 24 * 60 * 60 * 1000) // 每日清理
+    public void cleanTempFiles(){
+        File tempDir = new File("CHUNK_DIR");
+        // 删除超过24小时的临时目录
+        FileUtils.deleteDirectory(tempDir);
     }
 
 }
