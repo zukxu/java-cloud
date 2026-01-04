@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.4.4</version>
+        <relativePath/>
+    </parent>
+
+    <artifactId>demo-pdf</artifactId>
+
+    <properties>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    <dependencies>
+        <dependency><!--word-->
+            <groupId>com.aspose</groupId>
+            <artifactId>aspose-words</artifactId>
+            <version>25.3</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/aspose-words-25.3-jdk17.jar</systemPath>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.luhuiguo/aspose-words -->
+        <!--<dependency>-->
+        <!--    <groupId>com.luhuiguo</groupId>-->
+        <!--    <artifactId>aspose-words</artifactId>-->
+        <!--    <version>23.1</version>-->
+        <!--</dependency>-->
+        <!-- https://mvnrepository.com/artifact/com.luhuiguo/aspose-cells -->
+        <dependency>
+            <groupId>com.luhuiguo</groupId>
+            <artifactId>aspose-cells</artifactId>
+            <version>23.1</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.luhuiguo/aspose-pdf -->
+        <dependency>
+            <groupId>com.luhuiguo</groupId>
+            <artifactId>aspose-pdf</artifactId>
+            <version>23.1</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.luhuiguo/aspose-slides -->
+        <dependency>
+            <groupId>com.luhuiguo</groupId>
+            <artifactId>aspose-slides</artifactId>
+            <version>23.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>7.5.1</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.16.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <version>4.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>5.0.0</version>
+        </dependency>
+    </dependencies>
+</project>
